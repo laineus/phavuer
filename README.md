@@ -17,7 +17,7 @@ It makes building components of Phaser 3's GameObjects easier.
 ```vue
 <template>
   <Container ref="root">
-    <Text @pointerdown="onLick">Add a Rectangle</Text>
+    <Text @pointerdown="onClick">Add a Rectangle</Text>
     <Container v-for="(n, i) in count" :key="i" :x="i * 130" :y="30">
       <Rectangle :width="120" :height="30" :origin="0" :fillColor="0x333333" />
       <Text :x="60" :y="15" :origin="0.5">Rectangle-{{ n }}</Text>
@@ -33,8 +33,8 @@ export default {
   setup () {
     const root = ref(null)
     const count = ref(1)
-    const onLick = () => count.value++
-    return { root, count, onLick }
+    const onClick = () => count.value++
+    return { root, count, onClick }
   }
 }
 </script>
