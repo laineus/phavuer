@@ -16,7 +16,8 @@ export default {
   props: [
     'visible',
     'x', 'y',
-    'depth'
+    'depth',
+    'alpha'
   ]
 }
 </script>

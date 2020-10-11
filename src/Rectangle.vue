@@ -17,8 +17,11 @@ export default {
     'x', 'y',
     'width', 'height',
     'origin', 'originX', 'originY',
+    'scale', 'scaleX', 'scaleY',
     'depth',
-    'fill'
+    'alpha',
+    'fillColor', 'fillAlpha',
+    'lineWidth', 'strokeColor', 'strokeAlpha'
   ]
 }
 </script>

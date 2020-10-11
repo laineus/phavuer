@@ -19,7 +19,9 @@ export default {
     'visible',
     'x', 'y',
     'origin', 'originX', 'originY',
+    'scale', 'scaleX', 'scaleY',
     'depth',
+    'alpha',
     'style'
   ]
 }
