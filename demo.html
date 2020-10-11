@@ -58,7 +58,7 @@
       const myComponent = Phavuer.createComponent(scene, {
         components: { Container, Rectangle, Text },
         template: `
-          <Container ref="el" :x="20" :y="220">
+          <Container ref="el" :x="20" :y="240">
             <Text :style="fontStyle({ fontSize: 21 })">2. Phavuer</Text>
             <Text :y="35" :style="fontStyle()">Count: {{ count }}</Text>
             <Text :x="100" :y="35" :style="fontStyle({ color: '#5AF' })" @pointerdown="count--" v-if="count > 0">[DELETE]</Text>
