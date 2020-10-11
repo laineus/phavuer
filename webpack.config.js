@@ -15,7 +15,7 @@ module.exports = {
     globalObject: 'this'
   },
   externals: {
-    vue: 'vue'
+    vue: 'Vue'
   },
   module: {
     rules: [
