@@ -5,7 +5,10 @@
 [![npm](https://img.shields.io/npm/v/phavuer.svg)](https://www.npmjs.com/package/phavuer)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/laineus/phavuer/blob/master/LICENSE)
 
-Phavuer makes building components of Phaser 3's GameObjects easier with Vue 3 template engine.
+Phavuer is reactive template engine based on Vue 3 for Phaser 3.
+It makes building components of Phaser 3's GameObjects easier.
+
+[Phavuer vs Phaser's plane API](TODO)
 
 # Usage example
 
@@ -36,6 +39,11 @@ export default {
 }
 </script>
 ```
+
+The template syntax follows Vue 3 as it is. ([doc](https://v3.vuejs.org/guide/template-syntax.html))
+There are no orignal syntax.
+
+How setting up a component is also same. ([doc](https://composition-api.vuejs.org/api.html#setup))
 
 MainScene.js
 
@@ -172,9 +180,19 @@ You just need to relay props to default components like this:
 </template>
 ```
 
-**Default Components**
+**Base Components**
 
-Currently Phavuer has following default components for each Phaser 3's GameObjects.
+Base Components are basic components for each Phaser 3's GameObjects such as `Sprite` or `Rectangle`.
+
+You can use them like this: `<Rectangle :x="0" :y="0" :width="10" :height="10" />`
+
+- Basic components return instance of its GameObject in key name `object`
+  - So you can get it with a ref like this: `<Rectangle ref="el" />` + `el.value.object` (from outside: `el.object`)
+- An event for `preUpdate` can be defined with `@update`
+- Almost all props names are following the property names of its GameObject
+  - Text of `Text` component is should be written inside of the tag like this: `<Text>Hi</Text>`
+
+Currently Phavuer has following base components:
 
 - Container
 - Sprite
@@ -182,4 +200,4 @@ Currently Phavuer has following default components for each Phaser 3's GameObjec
 - Rectangle
 
 If you want to use another GameObjects, plase make an issue or MR.
-Also you can make default components just in your project. ([refer](https://github.com/laineus/phavuer/tree/master/src/components))
+Also you can make base components just in your project. ([refer](https://github.com/laineus/phavuer/tree/master/src/components))
