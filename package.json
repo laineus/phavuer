@@ -1,0 +1,19 @@
+{
+  "name": "phavuer",
+  "version": "0.1.0",
+  "description": "Reactive template for Phaser3",
+  "main": "index.js",
+  "author": "Laineus",
+  "license": "MIT",
+  "scripts": {
+    "dev": "webpack --mode development --watch",
+    "build": "webpack --mode production"
+  },
+  "dependencies": {
+    "vue": "3"
+  },
+  "devDependencies": {
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12"
+  }
+}
