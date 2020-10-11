@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phavuer</title>
+  <script src="https://cdn.jsdelivr.net/npm/phaser@3.24.1/dist/phaser.min.js"></script>
+  <script src="https://unpkg.com/vue@next"></script>
+  <script src="./dist/phavuer.min.js"></script>
+</head>
+<body>
+  <script>
+    const fontStyle = style => Object.assign({ color: '#FFF', fontStyle: 'bold', fontSize: 15, fontFamily: 'san-serif' }, style)
+
+    // --- 1. -----------------------------------------------------
+    // --- This is the logic that written with plane Phaser api ---
+    const logicInPlane = scene => {
+      let count = 1
+      const parentContainer = scene.add.container(20, 20)
+      const title = scene.add.text(0, 0, '1. Plane Phaser api', fontStyle({ fontSize: 21 }))
+      const counter = scene.add.text(0, 35, '', fontStyle())
+      const del = scene.add.text(90, 35, '[DELETE]', fontStyle({ color: '#0AF' })).setInteractive()
+      parentContainer.add([title, counter, del])
+      const getNewBox = (i) => {
+        const appendButton = i === count && count < 7
+        const container = scene.add.container(i * 110, 60)
+        const rectangle = scene.add.rectangle(0, 0, 100, 100, appendButton ? 0x333333 : 0x888888).setOrigin(0)
+        container.add([rectangle])
+        if (appendButton) {
+          const plus = scene.add.text(50, 50, '[＋]', fontStyle({ color: '#0AF', fontSize: 18 })).setOrigin(0.5)
+          rectangle.setInteractive().on('pointerdown', () => {
+            count++
+            init()
+          })
+          container.add([plus])
+        }
+        return container
+      }
+      del.on('pointerdown', () => {
+        count--
+        init()
+      })
+      const init = () => {
+        del.setVisible(count > 0)
+        parentContainer.list.filter(v => v.type === 'Container').forEach(v => v.destroy())
+        counter.setText(`Count: ${count}`)
+        const rectCount = count < 7 ? count + 1 : count
+        const boxes = [...Array(rectCount)].map((_, i) => i).map(getNewBox)
+        parentContainer.add(boxes)
+      }
+      init()
+    }
+
+    // --- 2. ----------------------------------------------------
+    // --- This is the logic that written with Phavuer (Vue 3) ---
+    const logicWithPhavuer = scene => {
+      const { Container, Rectangle, Text } = Phavuer
+      const myComponent = Phavuer.createComponent(scene, {
+        components: { Container, Rectangle, Text },
+        template: `
+          <Container ref="el" :x="20" :y="220">
+            <Text :style="fontStyle({ fontSize: 21 })">2. Phavuer</Text>
+            <Text :y="35" :style="fontStyle()">Count: {{ count }}</Text>
+            <Text :x="100" :y="35" :style="fontStyle({ color: '#5AF' })" @pointerdown="count--" v-if="count > 0">[DELETE]</Text>
+            <Container :x="i * 110" :y="60" v-for="(_, i) in rectCount" :key="i">
+              <Rectangle :width="100" :height="100" :origin="0" :fillColor="isLast(i) ? 0x333333 : 0x888888" @pointerdown="onClickBox(i)" />
+              <Text :x="50" :y="50" :origin="0.5" :style="fontStyle({ color: '#5AF', fontSize: 18 })" v-if="isLast(i)">[＋]</Text>
+            </Container>
+          </Container>`,
+        setup () {
+          const count = Vue.ref(0)
+          const rectCount = Vue.computed(() => count.value < 7 ? count.value + 1 : count.value)
+          const isLast = i => i === count.value
+          const onClickBox = i => {
+            if (isLast(i)) count.value++
+          }
+          return { el: Vue.ref(null), count, rectCount, fontStyle, isLast, onClickBox }
+        }
+      })
+      scene.add.existing(myComponent.el.object)
+    }
+
+    // --- Game initialization ---
+    new Phaser.Game({
+      type: Phaser.AUTO,
+      width: 800,
+      height: 600,
+      scene: {
+        create () {
+          logicInPlane(this)
+          logicWithPhavuer(this)
+        }
+      }
+    })
+  </script>
+</body>
+</html>
