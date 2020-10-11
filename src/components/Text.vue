@@ -10,7 +10,6 @@ export default {
     const scene = inject('scene')
     const getInnerText = () => context.slots.default()[0].children
     const object = new Phaser.GameObjects.Text(scene, props.x, props.y, getInnerText())
-    console.log(object)
     watch(getInnerText, v => object.setText(v))
     initGameObject(object, props, context)
     return { object }
