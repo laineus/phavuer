@@ -4,7 +4,7 @@
 
 <script>
 import { provide, inject } from 'vue'
-import { initGameObject } from './index.js'
+import { initGameObject } from '../index.js'
 export default {
   setup (props, context) {
     const scene = inject('scene')

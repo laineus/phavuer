@@ -1,17 +1,15 @@
 import { createApp, inject, watch, onUnmounted } from 'vue'
-import Container from './Container'
-import Sprite from './Sprite'
-import Text from './Text'
-import Rectangle from './Rectangle'
+import components from './components'
+
+export const Container = components.Container
+export const Sprite = components.Sprite
+export const Text = components.Text
+export const Rectangle = components.Rectangle
 
 export const createComponent = (scene, component) => {
   const app = createApp(component)
   app.provide('scene', scene)
   app.provide('container', null)
-  app.component('Container', Container)
-  app.component('Text', Text)
-  app.component('Sprite', Sprite)
-  app.component('Rectangle', Rectangle)
   const dummyElement = window.document.createElement('div')
   return app.mount(dummyElement)
 }
