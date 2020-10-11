@@ -5,14 +5,14 @@
 [![npm](https://img.shields.io/npm/v/phavuer.svg)](https://www.npmjs.com/package/phavuer)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/laineus/phavuer/blob/master/LICENSE)
 
-Phavuer is reactive template engine based on Vue 3 for Phaser 3.
+Phavuer is reactive template engine based on Vue 3 for Phaser 3.  
 It makes building components of Phaser 3's GameObjects easier.
 
 [Phavuer vs Phaser's plane API](TODO)
 
 # Usage example
 
-SimpleCounter.vue
+**SimpleCounter.vue:**
 
 ```vue
 <template>
@@ -40,12 +40,12 @@ export default {
 </script>
 ```
 
-The template syntax follows Vue 3 as it is. ([doc](https://v3.vuejs.org/guide/template-syntax.html))
+The template syntax follows Vue 3 as it is. ([doc](https://v3.vuejs.org/guide/template-syntax.html))  
 There are no orignal syntax.
 
 How setting up a component is also same. ([doc](https://composition-api.vuejs.org/api.html#setup))
 
-MainScene.js
+**MainScene.js:**
 
 ```js
 import { createComponent } from 'phavuer'
@@ -61,7 +61,7 @@ export default {
 
 ## CDN
 
-In addition to Phaser 3, Vue 3 is needed.
+In addition to Phaser 3, Vue 3 is needed.  
 Phavuer must be placed below them.
 
 ```html
@@ -132,7 +132,7 @@ module.exports = () => ({
 
 # API
 
-**createComponent(scene, component)**
+### `createComponent(scene, component)`
 
 Parameters:
 
@@ -143,7 +143,7 @@ Return value:
 
 `Object` Instance of Vue component
 
-**initGameObject(gameObject, props, context)**
+### `initGameObject(gameObject, props, context)`
 
 This method gives following features to the given gameObject:
 
@@ -180,7 +180,7 @@ You just need to relay props to default components like this:
 </template>
 ```
 
-**Base Components**
+### Base Components
 
 Base Components are basic components for each Phaser 3's GameObjects such as `Sprite` or `Rectangle`.
 
@@ -199,5 +199,5 @@ Currently Phavuer has following base components:
 - Text
 - Rectangle
 
-If you want to use another GameObjects, plase make an issue or MR.
+If you want to use another GameObjects, plase make an issue or MR.  
 Also you can make base components just in your project. ([refer](https://github.com/laineus/phavuer/tree/master/src/components))
