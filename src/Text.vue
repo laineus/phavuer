@@ -1,3 +1,8 @@
+<template>
+  <div />
+</template>
+
+<script>
 import { inject, watch } from 'vue'
 import { initGameObject } from './index.js'
 export default {
@@ -10,7 +15,6 @@ export default {
     initGameObject(object, props, context)
     return { object }
   },
-  template: '<div />',
   props: [
     'visible',
     'x', 'y',
@@ -19,3 +23,4 @@ export default {
     'style'
   ]
 }
+</script>

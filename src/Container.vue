@@ -1,3 +1,8 @@
+<template>
+  <div><slot /></div>
+</template>
+
+<script>
 import { provide, inject } from 'vue'
 import { initGameObject } from './index.js'
 export default {
@@ -8,10 +13,10 @@ export default {
     provide('container', object)
     return { object }
   },
-  template: '<div><slot /></div>',
   props: [
     'visible',
     'x', 'y',
     'depth'
   ]
 }
+</script>

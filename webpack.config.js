@@ -1,4 +1,5 @@
 const path = require('path')
+const { VueLoaderPlugin } = require('vue-loader')
 
 const resolve = dir => path.resolve(__dirname, dir)
 
@@ -16,10 +17,19 @@ module.exports = {
   externals: {
     vue: 'vue'
   },
+  module: {
+    rules: [
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader'
+      }
+    ]
+  },
+  plugins: [
+    new VueLoaderPlugin()
+  ],
   resolve: {
-    alias: {
-      'vue': 'vue/dist/vue.esm-bundler.js'
-    }
+    extensions: ['.vue']
   },
   performance: { hints: false }
 }
