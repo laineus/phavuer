@@ -1,7 +1,7 @@
 export default {
   visible: object => v => object.setVisible(v),
-  x: object => v => object.x = v,
-  y: object => v => object.y = v,
+  x: object => v => object.setPosition(v, object.y),
+  y: object => v => object.setPosition(object.x, v),
   origin: object => v => object.setOrigin(v, v),
   originX: object => v => object.setOrigin(v, object.originY),
   originY: object => v => object.setOrigin(object.originX, v),
