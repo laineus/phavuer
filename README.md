@@ -55,7 +55,7 @@ new Phaser.Game({
   ..
   scene: {
     create () {
-      createPhavuerApp(this.game, { MainScene })
+      createPhavuerApp(this.game, MainScene)
     }
   }
 })
@@ -86,7 +86,7 @@ new Phaser.Game({
   ..
   scene: {
     create () {
-      createPhavuerApp(this.game, { MainScene })
+      createPhavuerApp(this.game, MainScene)
     }
   }
 })
@@ -138,12 +138,12 @@ module.exports = () => ({
 
 # API
 
-### `createPhavuerApp(gameInstance, sceneComponents)`
+### `createPhavuerApp(gameInstance, rootComponent)`
 
 Parameters:
 
 `gameInstance`: Game instance of Phaser
-`components`: Object of Vue components for each scene
+`rootComponent`: Root Vue component
 
 Return value:
 
@@ -193,7 +193,7 @@ You just need to relay props to default components like this:
 
 Props:
 
-- `name`: (String) Scene name. It must be same as the Object's key name given to second argument of the `createPhavuerApp`.
+- `name`: (String) Scene name
 - `autoStart`: (Boolean) Scene is started immediately if `true`
 
 The name can be received from props, so you can use it as is: `<Scene :name="props.name">`
@@ -204,6 +204,23 @@ Events:
 - `create (scene, data)`
 - `update (scene, time, delta)`
 - `preload (scene)`
+
+If you want to handle multi scenes, root component supposed to be like this:
+
+```vue
+<template>
+  <GameScene />
+  <UIScene />
+</template>
+
+<script>
+import GameScene from './GameScene'
+import UIScene from './UIScene'
+export default {
+  components: { GameScene, UIScene }
+}
+</script>
+```
 
 ### Base Components
 
