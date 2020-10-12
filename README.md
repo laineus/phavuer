@@ -12,29 +12,30 @@ It makes building components of Phaser 3's GameObjects easier.
 
 # Usage example
 
-**SimpleCounter.vue:**
+**MainScene.vue:**
 
 ```vue
 <template>
-  <Container ref="root">
+  <Scene name="MainScene">
     <Text @pointerdown="onClick">Add a Rectangle</Text>
     <Container v-for="(n, i) in count" :key="i" :x="i * 130" :y="30">
       <Rectangle :width="120" :height="30" :origin="0" :fillColor="0x333333" />
       <Text :x="60" :y="15" :origin="0.5">Rectangle-{{ n }}</Text>
+      <MyCustomComponent />
     </Container>
   </Container>
 </template>
 
 <script>
-import { Container, Rectangle, Text } from 'phavuer'
+import { Scene, Container, Rectangle, Text } from 'phavuer'
 import { ref } from 'vue'
+import MyCustomComponent from './MyCustomComponent'
 export default {
-  components: { Container, Rectangle, Text },
+  components: { Scene, Container, Rectangle, Text, MyCustomComponent },
   setup () {
-    const root = ref(null)
     const count = ref(1)
     const onClick = () => count.value++
-    return { root, count, onClick }
+    return { count, onClick }
   }
 }
 </script>
@@ -45,17 +46,19 @@ There are no orignal syntax.
 
 How setting up a component is also same. ([doc](https://composition-api.vuejs.org/api.html#setup))
 
-**MainScene.js:**
+**index.js:**
 
 ```js
-import { createComponent } from 'phavuer'
-import SimpleCounter from './SimpleCounter'
-export default {
-  create () {
-    const simpleCounter = createdComponent(this, SimpleCounter)
-    this.add.existing(simpleCounter.root.object)
+import { createPhavuerApp } from 'phavuer'
+import MainScene from './MainScene'
+new Phaser.Game({
+  ..
+  scene: {
+    create () {
+      createPhavuerApp(this.game, { MainScene })
+    }
   }
-}
+})
 ```
 # Setup
 
@@ -71,19 +74,22 @@ Phavuer must be placed below them.
 ```
 
 ```js
-const scene = {
-  create () {
-    const { Container } = Phavuer
-    const myComponent = Phavuer.createComponent(this, {
-      components: { Container },
-      template: '<Container ref="root">...</Container>',
-      setup () {
-        return { root: Vue.ref(null) }
-      }
-    })
-    this.add.existing(myComponent.root.object)
+const { Container } = Phavuer
+const MainScene = {
+  components: { Container },
+  template: '<Container>...</Container>',
+  setup () {
+    return {}
   }
 }
+new Phaser.Game({
+  ..
+  scene: {
+    create () {
+      createPhavuerApp(this.game, { MainScene })
+    }
+  }
+})
 ```
 
 ## Webpack
@@ -132,12 +138,12 @@ module.exports = () => ({
 
 # API
 
-### `createComponent(scene, component)`
+### `createPhavuerApp(gameInstance, sceneComponents)`
 
 Parameters:
 
-`scene`: Phaser 3 scene instance
-`component`: Vue 3 component Object
+`gameInstance`: Game instance of Phaser
+`components`: Object of Vue components for each scene
 
 Return value:
 
@@ -148,37 +154,56 @@ Return value:
 This method gives following features to the given gameObject:
 
 - Has reactivity for given props such as `x`, `y` or `depth` ([see all](https://github.com/laineus/phavuer/tree/master/src/setters.js))
-- Appended automatically if parent container exists
+- Appended to the parent Container automatically if it exists
+- Appended to the Scene automatically if parent Container not exists
 - Destroyedautomatically when the component is unmounted
 - Able to set interactive events such as `@pointerup`
 - Able to set an event for its preUpdate with `@update`
 
 Parameters:
 
-`gameObject`: Phaser 3 GameObject instance
-`props`: Vue 3 props
-`context`: Vue 3 context
+- `gameObject`: Phaser 3 GameObject instance
+- `props`: Vue 3 props
+- `context`: Vue 3 context
 
-It is used for define default objects. ([like this](https://github.com/laineus/phavuer/tree/master/src/components/Sprite.js))
+It is used for define Base Components. ([like this](https://github.com/laineus/phavuer/tree/master/src/components/Sprite.js))
 
 You don't need this method in most cases.
 
-Even when you want to use your custom component in your another component,
+Even when you use your component in your another component,
 You just need to relay props to default components like this:
 
 ```
 <!-- YourParentComponent: -->
 <template>
-  <YourCostomContainer :x="n * 100" :y="10" v-for="n in count">
+  <YourCustomContainer :x="n * 100" :y="10" v-for="n in count">
 </template>
 ```
 
 ```
-<!-- YourCostomContainer: -->
+<!-- YourCustomContainer: -->
 <template>
   <Container ref="root" :x="props.x" :y="props.y">
 </template>
 ```
+
+### `Scene` component
+
+`Scene` component is used for make your scene component.
+
+Props:
+
+- `name`: (String) Scene name. It must be same as the Object's key name given to second argument of the `createPhavuerApp`.
+- `autoStart`: (Boolean) Scene is started immediately if `true`
+
+The name can be received from props, so you can use it as is: `<Scene :name="props.name">`
+
+Events:
+
+- `init (scene, data)`
+- `create (scene, data)`
+- `update (scene, time, delta)`
+- `preload (scene)`
 
 ### Base Components
 
@@ -188,7 +213,10 @@ You can use them like this: `<Rectangle :x="0" :y="0" :width="10" :height="10" /
 
 - Basic components return instance of its GameObject in key name `object`
   - So you can get it with a ref like this: `<Rectangle ref="el" />` + `el.value.object` (from outside: `el.object`)
+- An event for object created can be defined with `@create`
+  - The argument is `(GameObject)`
 - An event for `preUpdate` can be defined with `@update`
+  - The arguments are `(GameObject, time, delta)`
 - Almost all props names are following the property names of its GameObject
   - Text of `Text` component is should be written inside of the tag like this: `<Text>Hi</Text>`
 
