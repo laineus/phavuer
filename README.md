@@ -103,7 +103,7 @@ $ yarn add vue@^3 phavuer
 These packages are also necessary to compile:
 
 ```bash
-$ yarn add -D @vue/compiler-sfc babel-loader
+$ yarn add -D @vue/compiler-sfc vue-loader@^16
 ```
 
 These option should be added into `webpack.config.js`:
