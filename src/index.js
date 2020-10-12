@@ -2,6 +2,7 @@ import { createApp, inject, watch, onUnmounted } from 'vue'
 import components from './components'
 import setters from './setters'
 
+export const Scene = components.Scene
 export const Container = components.Container
 export const Sprite = components.Sprite
 export const Text = components.Text
