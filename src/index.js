@@ -31,7 +31,8 @@ export const initGameObject = (object, props, context) => {
     scene.add.existing(object)
   }
   // Set update event
-  if (context.attrs.onUpdate) object.preUpdate = (...arg) => context.emit('update', ...arg)
+  if (context.attrs.onCreate) context.emit('create', object)
+  if (context.attrs.onUpdate) object.preUpdate = (...arg) => context.emit('update', object, ...arg)
   // Set interactive events
   if (context.attrs.onPointerdown || context.attrs.onPointerup) {
     object.setInteractive()
