@@ -3,21 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Phavuer vs Phaser's plane API</title>
+  <title>Phaser (Plane API) vs Phavuer</title>
   <script src="https://unpkg.com/phaser@3.24.1/dist/phaser.min.js"></script>
   <script src="https://unpkg.com/vue@3.0.0/dist/vue.global.prod.js"></script>
   <script src="./dist/phavuer.min.js"></script>
 </head>
 <body>
+  <h1>Phaser (Plane API) vs Phavuer</h1>
+  <p>These are simple counter UI written in each way. Please take a look the source code.</p>
   <script>
     const fontStyle = style => Object.assign({ color: '#FFF', fontStyle: 'bold', fontSize: 15, fontFamily: 'san-serif' }, style)
 
-    // --- 1. -----------------------------------------------------
-    // --- This is the logic that written with plane Phaser api ---
+    // ----- 1. Phaser (Plane API)
     const logicInPlane = scene => {
       let count = 1
       const parentContainer = scene.add.container(20, 20)
-      const title = scene.add.text(0, 0, '1. Plane Phaser api', fontStyle({ fontSize: 21 }))
+      const title = scene.add.text(0, 0, '1. Phaser (Plane API)', fontStyle({ fontSize: 21 }))
       const counter = scene.add.text(0, 35, '', fontStyle())
       const del = scene.add.text(90, 35, '[DELETE]', fontStyle({ color: '#0AF' })).setInteractive()
       parentContainer.add([title, counter, del])
@@ -50,45 +51,58 @@
       }
       init()
     }
-
-    // --- 2. ----------------------------------------------------
-    // --- This is the logic that written with Phavuer (Vue 3) ---
-    const logicWithPhavuer = scene => {
-      const { Container, Rectangle, Text } = Phavuer
-      const myComponent = Phavuer.createComponent(scene, {
-        components: { Container, Rectangle, Text },
-        template: `
-          <Container ref="root" :x="20" :y="240">
-            <Text :style="fontStyle({ fontSize: 21 })">2. Phavuer</Text>
-            <Text :y="35" :style="fontStyle()">Count: {{ count }}</Text>
-            <Text :x="100" :y="35" :style="fontStyle({ color: '#5AF' })" @pointerdown="count--" v-if="count > 0">[DELETE]</Text>
-            <Container :x="i * 110" :y="60" v-for="(_, i) in rectCount" :key="i">
-              <Rectangle :width="100" :height="100" :origin="0" :fillColor="isLast(i) ? 0x333333 : 0x888888" @pointerdown="onClickBox(i)" />
-              <Text :x="50" :y="50" :origin="0.5" :style="fontStyle({ color: '#5AF', fontSize: 18 })" v-if="isLast(i)">[＋]</Text>
-            </Container>
-          </Container>`,
-        setup () {
-          const count = Vue.ref(0)
-          const rectCount = Vue.computed(() => count.value < 7 ? count.value + 1 : count.value)
-          const isLast = i => i === count.value
-          const onClickBox = i => {
-            if (isLast(i)) count.value++
-          }
-          return { root: Vue.ref(null), count, rectCount, fontStyle, isLast, onClickBox }
-        }
-      })
-      scene.add.existing(myComponent.root.object)
-    }
-
-    // --- Game initialization ---
     new Phaser.Game({
       type: Phaser.AUTO,
       width: 800,
-      height: 600,
+      height: 200,
       scene: {
         create () {
           logicInPlane(this)
-          logicWithPhavuer(this)
+        }
+      }
+    })
+
+    // ----- 2. Phavuer (Vue 3)
+    const { Scene, Container, Rectangle, Text } = Phavuer
+    const Box = {
+      components: { Container, Rectangle, Text },
+      template: `
+        <Container :x="props.x" :y="props.y">
+          <Rectangle :width="100" :height="100" :origin="0" :fillColor="props.addable ? 0x333333 : 0x888888" @pointerdown="onClickBox" />
+          <Text :x="50" :y="50" :origin="0.5" :style="fontStyle({ color: '#5AF', fontSize: 18 })" v-if="props.addable">[＋]</Text>
+        </Container>`,
+      props: ['x', 'y', 'addable'],
+      setup (props, context) {
+        const onClickBox = () => {
+          if (props.addable) context.emit('add')
+        }
+        return { props, fontStyle, onClickBox }
+      }
+    }
+    const MainScene = {
+      components: { Scene, Container, Text, Box },
+      template: `
+        <Scene name="MainScene" :autoStart="true">
+          <Container :x="20" :y="20">
+            <Text :style="fontStyle({ fontSize: 21 })">2. Phavuer</Text>
+            <Text :y="35" :style="fontStyle()">Count: {{ count }}</Text>
+            <Text :x="100" :y="35" :style="fontStyle({ color: '#5AF' })" @pointerdown="count--" v-if="count > 0">[DELETE]</Text>
+            <Box :x="i * 110" :y="60" :addable="i === count" @add="count++" v-for="(_, i) in rectCount" :key="i" />
+          </Container>
+        </Scene>`,
+      setup () {
+        const count = Vue.ref(0)
+        const rectCount = Vue.computed(() => count.value < 7 ? count.value + 1 : count.value)
+        return { count, rectCount, fontStyle }
+      }
+    }
+    new Phaser.Game({
+      type: Phaser.AUTO,
+      width: 800,
+      height: 200,
+      scene: {
+        create () {
+          Phavuer.createPhavuerApp(this.game, { MainScene })
         }
       }
     })
