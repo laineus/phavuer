@@ -8,7 +8,10 @@ import { initGameObject } from '../index.js'
 export default {
   setup (props, context) {
     const scene = inject('scene')
-    const object = new Phaser.GameObjects.Sprite(scene, props.x, props.y, props.texture)
+    class Sprite extends Phaser.GameObjects.Sprite {
+      preUpdate () {}
+    }
+    const object = new Sprite(scene, props.x, props.y, props.texture)
     initGameObject(object, props, context)
     return { object }
   },

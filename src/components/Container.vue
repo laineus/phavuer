@@ -8,7 +8,10 @@ import { initGameObject } from '../index.js'
 export default {
   setup (props, context) {
     const scene = inject('scene')
-    const object = new Phaser.GameObjects.Container(scene)
+    class Container extends Phaser.GameObjects.Container {
+      preUpdate () {}
+    }
+    const object = new Container(scene)
     initGameObject(object, props, context)
     provide('container', object)
     return { object }
