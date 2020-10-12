@@ -7,18 +7,28 @@ export const Sprite = components.Sprite
 export const Text = components.Text
 export const Rectangle = components.Rectangle
 
-export const createComponent = (scene, component) => {
-  const app = createApp(component)
-  app.provide('scene', scene)
+export const createPhavuerApp = (game, sceneComponents) => {
+  const app = createApp(components.App)
+  Object.keys(sceneComponents).map(key => app.component(key, sceneComponents[key]))
+  app.provide('game', game)
+  app.provide('componentNames', Object.keys(sceneComponents))
+  app.provide('scene', null)
   app.provide('container', null)
+  // mount Vue 3 app
   const dummyElement = window.document.createElement('div')
+  document.body.appendChild(dummyElement)
   return app.mount(dummyElement)
 }
 
 export const initGameObject = (object, props, context) => {
   // Append to parent container
   const container = inject('container')
-  if (container) container.add([object])
+  if (container) {
+    container.add([object])
+  } else {
+    const scene = inject('scene')
+    scene.add.existing(object)
+  }
   // Set update event
   if (context.attrs.onUpdate) object.preUpdate = (...arg) => context.emit('update', ...arg)
   // Set interactive events
