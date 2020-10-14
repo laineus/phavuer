@@ -28,6 +28,13 @@ export const initGameObject = (object, props, context) => {
     const scene = inject('scene')
     scene.add.existing(object)
   }
+  // Make it reactive
+  Object.keys(props).forEach(key => {
+    if (!setters[key]) return
+    const setter = setters[key](object)
+    setter(props[key])
+    watch(() => props[key], setter)
+  })
   // Set update event
   if (context.attrs.onCreate) context.emit('create', object)
   if (context.attrs.onUpdate) object.preUpdate = (...arg) => context.emit('update', object, ...arg)
@@ -37,13 +44,6 @@ export const initGameObject = (object, props, context) => {
     if (context.attrs.onPointerdown) object.on('pointerdown', (...arg) => context.emit('pointerdown', ...arg))
     if (context.attrs.onPointerup) object.on('pointerup', (...arg) => context.emit('pointerup', ...arg))
   }
-  // Make it reactive
-  Object.keys(props).forEach(key => {
-    if (!setters[key]) return
-    const setter = setters[key](object)
-    setter(props[key])
-    watch(() => props[key], setter)
-  })
   // Destroy when unmounted
   onBeforeUnmount(() => object.destroy())
   return object
