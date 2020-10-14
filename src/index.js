@@ -1,4 +1,4 @@
-import { createApp, inject, watch, onUnmounted } from 'vue'
+import { createApp, inject, watch, onBeforeUnmount } from 'vue'
 import components from './components'
 import setters from './setters'
 
@@ -45,6 +45,6 @@ export const initGameObject = (object, props, context) => {
     watch(() => props[key], setter)
   })
   // Destroy when unmounted
-  onUnmounted(() => object.destroy())
+  onBeforeUnmount(() => object.destroy())
   return object
 }

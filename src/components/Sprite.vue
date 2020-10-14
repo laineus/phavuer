@@ -21,8 +21,9 @@ export default {
     'origin', 'originX', 'originY',
     'scale', 'scaleX', 'scaleY',
     'depth',
-    'alpha',
-    'texture'
+    'alpha', 'blendMode',
+    'texture', 'frame',
+    'flipX', 'flipY'
   ]
 }
 </script>

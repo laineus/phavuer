@@ -1,9 +1,9 @@
 <template>
-  <div><slot /></div>
+  <div><slot v-if="show" /></div>
 </template>
 
 <script>
-import { provide, inject } from 'vue'
+import { provide, inject, ref } from 'vue'
 import { initGameObject } from '../index.js'
 export default {
   props: {
@@ -11,8 +11,10 @@ export default {
     autoStart: { type: Boolean, default: true }
   },
   setup (props, context) {
+    const show = ref(true)
     const Scene = class extends Phaser.Scene {
       init (data) {
+        show.value = true
         context.emit('init', this, data)
       }
       create (data) {
@@ -27,8 +29,9 @@ export default {
     }
     const game = inject('game')
     const scene = game.scene.add(props.name, Scene, props.autoStart)
+    scene.events.on('shutdown', () => show.value = false)
     provide('scene', scene)
-    return { scene }
+    return { scene, show }
   }
 }
 </script>
