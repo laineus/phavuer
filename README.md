@@ -60,7 +60,7 @@ new Phaser.Game({
   }
 })
 ```
-# Setup
+# Installation
 
 ## CDN
 
@@ -70,14 +70,14 @@ Phavuer must be placed below them.
 ```html
 <script src="https://unpkg.com/phaser@3.24.1/dist/phaser.min.js"></script>
 <script src="https://unpkg.com/vue@3.0.0/dist/vue.global.prod.js"></script>
-<script src="TODO"></script>
+<script src="https://unpkg.com/phavuer/dist/phavuer.min.js"></script>
 ```
 
 ```js
-const { Container } = Phavuer
+const { Scene } = Phavuer
 const MainScene = {
-  components: { Container },
-  template: '<Container>...</Container>',
+  components: { Scene },
+  template: '<Scene>...</Scene>',
   setup () {
     return {}
   }
@@ -106,16 +106,11 @@ These packages are also necessary to compile:
 $ yarn add -D @vue/compiler-sfc vue-loader@^16
 ```
 
-These option should be added into `webpack.config.js`:
+Following option should be merged into your `webpack.config.js`:
 
 ```js
 const { VueLoaderPlugin } = require('vue-loader')
 module.exports = () => ({
-  // Compile 'phaser' and 'vue' into vendor file
-  entry: {
-    app: './src/index.js',
-    vendor: ['phaser', 'vue']
-  },
   // Make webpack able to compile '.vue' files with 'vue-loader'
   module: {
     rules: [
@@ -147,17 +142,18 @@ Parameters:
 
 Return value:
 
-`Object` Instance of Vue component
+`Object` App instance of Vue
 
 ### `initGameObject(gameObject, props, context)`
 
 This method gives following features to the given gameObject:
 
-- Has reactivity for given props such as `x`, `y` or `depth` ([see all](https://github.com/laineus/phavuer/tree/master/src/setters.js))
+- Having reactivity for given props such as `x` or `y` ([see all](https://github.com/laineus/phavuer/tree/master/src/setters.js))
 - Appended to the parent Container automatically if it exists
 - Appended to the Scene automatically if parent Container not exists
 - Destroyedautomatically when the component is unmounted
 - Able to set interactive events such as `@pointerup`
+- Able to set an event for on create `@create`
 - Able to set an event for its preUpdate with `@update`
 
 Parameters:
