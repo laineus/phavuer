@@ -6,10 +6,20 @@
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/laineus/phavuer/blob/master/LICENSE)
 
 Phavuer is reactive template engine based on Vue 3 for Phaser 3.  
-It makes building components of Phaser 3's GameObjects easier.
+It makes building components easier.
 
 - [Phavuer vs Phaser's plane API](https://codepen.io/laineus/pen/pobgxdE?editors=0010) - Source code of an example UI that written in both of them.
 - [Phavuer Example Game](https://github.com/laineus/phavuer-example) - Source code of simple shooter that written in Phavuer
+
+\*\*\* **Attention** \*\*\*
+
+- This is still WIP.
+- I am not sure if this affect to the performance.
+- If you use Phavuer, the source code is supposed to be quite different from plain Phaser.  
+So please keep in mind that you can not switch the way easily.
+
+However, I am keep going to use this for make my game.  
+Feel free to contribute.
 
 # Usage example
 
@@ -134,7 +144,7 @@ module.exports = () => ({
 
 # API
 
-### `createPhavuerApp(gameInstance, rootComponent)`
+## `createPhavuerApp(gameInstance, rootComponent)`
 
 Parameters:
 
@@ -145,7 +155,7 @@ Return value:
 
 `Object` App instance of Vue
 
-### `initGameObject(gameObject, props, context)`
+## `initGameObject(gameObject, props, context)`
 
 This method gives following features to the given gameObject:
 
@@ -184,7 +194,7 @@ You just need to relay props to default components like this:
 </template>
 ```
 
-### `Scene` component
+## `Scene` component
 
 `Scene` component is used for make your scene component.
 
@@ -219,7 +229,7 @@ export default {
 </script>
 ```
 
-### Base Components
+## Base Components
 
 Base Components are basic components for each Phaser 3's GameObjects such as `Sprite` or `Rectangle`.
 
