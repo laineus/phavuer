@@ -144,7 +144,9 @@ module.exports = () => ({
 
 # API
 
-## `createPhavuerApp(gameInstance, rootComponent)`
+## Methods
+
+### `createPhavuerApp(gameInstance, rootComponent)`
 
 Parameters:
 
@@ -155,7 +157,9 @@ Return value:
 
 `Object` App instance of Vue
 
-## `Scene` component
+## Components
+
+### `Scene`
 
 `Scene` component is used for make your scene component.
 
@@ -190,7 +194,7 @@ export default {
 </script>
 ```
 
-## Base Components
+### Base Components
 
 Base Components are basic components for each Phaser 3's GameObjects such as `Sprite` or `Rectangle`.
 
@@ -216,9 +220,9 @@ Currently Phavuer has following base components:
 If you want to use another GameObjects, plase make an issue or MR.  
 Also you can make base components just in your project. ([refer](https://github.com/laineus/phavuer/tree/master/src/components))
 
-# API (for contributers)
+## Methods (for contributers)
 
-## `initGameObject(gameObject, props, context)`
+### `initGameObject(gameObject, props, context)`
 
 This method gives following features to the given gameObject:
 
