@@ -236,6 +236,7 @@ You can use them like this: `<Rectangle :x="0" :y="0" :width="10" :height="10" /
 Currently Phavuer has following base components:
 
 - Container
+- Image
 - Sprite
 - Text
 - Rectangle
