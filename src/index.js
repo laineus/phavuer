@@ -4,6 +4,7 @@ import setters from './setters'
 
 export const Scene = components.Scene
 export const Container = components.Container
+export const Image = components.Image
 export const Sprite = components.Sprite
 export const Text = components.Text
 export const Rectangle = components.Rectangle
