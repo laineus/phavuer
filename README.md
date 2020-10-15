@@ -5,7 +5,7 @@
 [![npm](https://img.shields.io/npm/v/phavuer.svg)](https://www.npmjs.com/package/phavuer)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/laineus/phavuer/blob/master/LICENSE)
 
-Phavuer is reactive template engine based on Vue 3 for Phaser 3.  
+Phavuer is reactive template engine based on [Vue 3](https://github.com/vuejs/vue-next) for [Phaser 3](https://github.com/photonstorm/phaser).  
 It makes building components easier.
 
 - [Phavuer vs Phaser's plane API](https://codepen.io/laineus/pen/pobgxdE?editors=0010) - Source code of an example UI that written in both of them.
@@ -155,45 +155,6 @@ Return value:
 
 `Object` App instance of Vue
 
-## `initGameObject(gameObject, props, context)`
-
-This method gives following features to the given gameObject:
-
-- Having reactivity for given props such as `x` or `y` ([see all](https://github.com/laineus/phavuer/tree/master/src/setters.js))
-- Appended to the parent Container automatically if it exists
-- Appended to the Scene automatically if parent Container not exists
-- Destroyedautomatically when the component is unmounted
-- Able to set interactive events such as `@pointerup`
-- Able to set an event for on create `@create`
-- Able to set an event for its preUpdate with `@update`
-
-Parameters:
-
-- `gameObject`: Phaser 3 GameObject instance
-- `props`: Vue 3 props
-- `context`: Vue 3 context
-
-It is used for define Base Components. ([like this](https://github.com/laineus/phavuer/tree/master/src/components/Sprite.js))
-
-You don't need this method in most cases.
-
-Even when you use your component in your another component,
-You just need to relay props to default components like this:
-
-```
-<!-- YourParentComponent: -->
-<template>
-  <YourCustomContainer :x="n * 100" :y="10" v-for="n in count">
-</template>
-```
-
-```
-<!-- YourCustomContainer: -->
-<template>
-  <Container ref="root" :x="props.x" :y="props.y">
-</template>
-```
-
 ## `Scene` component
 
 `Scene` component is used for make your scene component.
@@ -254,3 +215,28 @@ Currently Phavuer has following base components:
 
 If you want to use another GameObjects, plase make an issue or MR.  
 Also you can make base components just in your project. ([refer](https://github.com/laineus/phavuer/tree/master/src/components))
+
+# API (for contributers)
+
+## `initGameObject(gameObject, props, context)`
+
+This method gives following features to the given gameObject:
+
+- Having reactivity for given props such as `x` or `y` ([see all](https://github.com/laineus/phavuer/tree/master/src/setters.js))
+- Appended to the parent Container automatically if it exists
+- Appended to the Scene automatically if parent Container not exists
+- Destroyedautomatically when the component is unmounted
+- Able to set interactive events such as `@pointerup`
+- Able to set an event for on create `@create`
+- Able to set an event for its preUpdate with `@update`
+
+Parameters:
+
+- `gameObject`: Phaser 3 GameObject instance
+- `props`: Vue 3 props
+- `context`: Vue 3 context
+
+It is used to define Base Components. ([like this](https://github.com/laineus/phavuer/tree/master/src/components/Sprite.js))
+
+If you just want to use your component in your another component, you don't need this method.  
+For such a case, you just need to relay props to default components.
