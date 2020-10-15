@@ -8,7 +8,8 @@
 Phavuer is reactive template engine based on Vue 3 for Phaser 3.  
 It makes building components of Phaser 3's GameObjects easier.
 
-[Phavuer vs Phaser's plane API](https://codepen.io/laineus/pen/pobgxdE?editors=0010)
+- [Phavuer vs Phaser's plane API](https://codepen.io/laineus/pen/pobgxdE?editors=0010) - Source code of an example UI that written in both of them.
+- [Phavuer Example Game](https://github.com/laineus/phavuer-example) - Source code of simple shooter that written in Phavuer
 
 # Usage example
 
