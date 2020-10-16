@@ -5,6 +5,8 @@
 [![npm](https://img.shields.io/npm/v/phavuer.svg)](https://www.npmjs.com/package/phavuer)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/laineus/phavuer/blob/master/LICENSE)
 
+![ScreenShot](ss.png)
+
 Phavuer is reactive template engine based on [Vue 3](https://github.com/vuejs/vue-next) for [Phaser 3](https://github.com/photonstorm/phaser).  
 It makes building components easier.
 
