@@ -58,7 +58,7 @@ export const refTo = (value, key) => {
         return value
       },
       set (newValue) {
-        value = newValue[key]
+        value = newValue ? newValue[key] : null
         trigger()
       }
     }
