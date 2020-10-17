@@ -1,4 +1,4 @@
-import { createApp, inject, watch, onBeforeUnmount } from 'vue'
+import { createApp, inject, watch, onBeforeUnmount, customRef } from 'vue'
 import components from './components'
 import setters from './setters'
 
@@ -49,3 +49,20 @@ export const initGameObject = (object, props, context) => {
   onBeforeUnmount(() => object.destroy())
   return object
 }
+
+export const refTo = (value, key) => {
+  return customRef((track, trigger) => {
+    return {
+      get () {
+        track()
+        return value
+      },
+      set (newValue) {
+        value = newValue[key]
+        trigger()
+      }
+    }
+  })
+}
+export const refObj = value => refTo(value, 'object')
+export const refScene = value => refTo(value, 'scene')

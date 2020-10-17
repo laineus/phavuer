@@ -157,7 +157,38 @@ Parameters:
 
 Return value:
 
-`Object` App instance of Vue
+App instance of Vue
+
+### `refTo(value, key)`
+
+Parameters:
+
+`value`: Initial value
+`key`: Key string of what property of given new value should be set
+
+Return value:
+
+Instance of `CustomRefImpl`
+
+Usage:
+
+Can be used to get such as a GameObject easily.
+
+```js
+const rectangle = refTo(null, 'object')
+```
+
+```vue
+<Rectangle ref="rectangle">
+```
+
+### `refObj(value)`
+
+A sugar function for `refTo(value, 'object')`
+
+### `refScene(value)`
+
+A sugar function for `refTo(value, 'scene')`
 
 ## Components
 
