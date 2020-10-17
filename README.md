@@ -210,6 +210,10 @@ Events:
 - `update (scene, time, delta)`
 - `preload (scene)`
 
+Properties:
+
+- `scene` Scene object
+
 If you want to handle multi scenes, root component supposed to be like this:
 
 ```vue
