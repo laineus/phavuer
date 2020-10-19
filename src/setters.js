@@ -10,6 +10,7 @@ export default {
   scaleY: object => v => object.setScale(object.scaleX, v),
   width: object => v => object.setSize(v, object.height),
   height: object => v => object.setSize(object.width, v),
+  radius: object => v => object.setRadius(v),
   displayWidth: object => v => object.setDisplaySize(v, object.displayHeight),
   displayHeight: object => v => object.setDisplaySize(object.displayWidth, v),
   displayOriginX: object => v => object.setDisplayOrigin(v, object.displayOriginY),
