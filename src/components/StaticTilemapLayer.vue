@@ -4,7 +4,7 @@
 
 <script>
 import { inject } from 'vue'
-import { initGameObject } from 'phavuer'
+import { initGameObject } from '../index.js'
 export default {
   props: [
     'visible',
