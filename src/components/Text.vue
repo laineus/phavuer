@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { inject, watch } from 'vue'
+import { inject, onUpdated } from 'vue'
 import { initGameObject } from '../index.js'
 export default {
   setup (props, context) {
@@ -13,7 +13,9 @@ export default {
       preUpdate () {}
     }
     const object = new Text(scene, props.x, props.y, getInnerText())
-    watch(getInnerText, v => object.setText(v))
+    onUpdated(() => {
+      object.setText(getInnerText())
+    })
     initGameObject(object, props, context)
     return { object }
   },
