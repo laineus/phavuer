@@ -27,5 +27,6 @@ export default {
   lineWidth: object => v => object.setStrokeStyle(...(!v ? [] : [v, object.strokeColor, object.strokeAlpha])),
   strokeColor: object => v => object.setStrokeStyle(object.lineWidth, v, object.strokeAlpha),
   strokeAlpha: object => v => object.setStrokeStyle(object.lineWidth, object.strokeColor, v),
-  style: object => v => object.setStyle(v)
+  style: object => v => object.setStyle(v),
+  collision: object => v => object.setCollision(v)
 }
