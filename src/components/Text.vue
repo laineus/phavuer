@@ -3,24 +3,20 @@
 </template>
 
 <script>
-import { inject, onUpdated } from 'vue'
+import { inject } from 'vue'
 import { initGameObject } from '../index.js'
 export default {
   setup (props, context) {
     const scene = inject('scene')
-    const getInnerText = () => context.slots.default()[0].children
-    class Text extends Phaser.GameObjects.Text {
-      preUpdate () {}
-    }
-    const object = new Text(scene, props.x, props.y, getInnerText())
-    onUpdated(() => {
-      object.setText(getInnerText())
-    })
+    class Text extends Phaser.GameObjects.Text {}
+    if (context.attrs.onUpdate) Text.prototype.preUpdate = (...arg) => context.emit('update', object, ...arg)
+    const object = new Text(scene, props.x, props.y, props.text)
     initGameObject(object, props, context)
     return { object }
   },
   props: [
     'visible',
+    'text',
     'x', 'y',
     'origin', 'originX', 'originY',
     'scale', 'scaleX', 'scaleY',

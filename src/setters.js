@@ -21,6 +21,7 @@ export default {
   alpha: object => v => object.setAlpha(v),
   blendMode: object => v => object.setBlendMode(v),
   tint: object => v => object.setTint(v),
+  text: object => v => object.setText(v),
   texture: object => v => object.setTexture(v),
   frame: object => v => object.setFrame(v),
   fillColor: object => v => object.setFillStyle(v, object.fillAlpha),
