@@ -20,6 +20,7 @@ export default {
     'x', 'y',
     'radius',
     'origin', 'originX', 'originY',
+    'displayOriginX', 'displayOriginY',
     'scale', 'scaleX', 'scaleY',
     'depth',
     'alpha',
