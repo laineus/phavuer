@@ -8,8 +8,9 @@ import { initGameObject } from '../index.js'
 export default {
   setup (props, context) {
     const scene = inject('scene')
-    class Text extends Phaser.GameObjects.Text {}
-    if (context.attrs.onUpdate) Text.prototype.preUpdate = (...arg) => context.emit('update', object, ...arg)
+    class Text extends Phaser.GameObjects.Text {
+      preUpdate () {}
+    }
     const object = new Text(scene, props.x, props.y, props.text)
     initGameObject(object, props, context)
     return { object }

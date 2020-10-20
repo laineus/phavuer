@@ -38,9 +38,9 @@ export const initGameObject = (object, props, context) => {
     setter(props[key])
     watch(() => props[key], setter)
   })
-  // Set update event
+  // Set events
   if (context.attrs.onCreate) context.emit('create', object)
-  // if (context.attrs.onUpdate) object.preUpdate = (...arg) => context.emit('update', object, ...arg)
+  if (context.attrs.onPreUpdate) object.preUpdate = (...arg) => context.emit('preUpdate', object, ...arg)
   // Set interactive events
   if (context.attrs.onPointerdown || context.attrs.onPointerup) {
     object.setInteractive()
