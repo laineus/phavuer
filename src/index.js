@@ -60,6 +60,7 @@ export const refTo = (value, key) => {
         return value
       },
       set (newValue) {
+        if (value && newValue) return
         value = newValue ? newValue[key] : null
         trigger()
       }
