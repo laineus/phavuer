@@ -8,8 +8,16 @@ export default {
   scale: object => v => object.setScale(v, v),
   scaleX: object => v => object.setScale(v, object.scaleY),
   scaleY: object => v => object.setScale(object.scaleX, v),
-  width: object => v => object.setSize(v, object.height),
-  height: object => v => object.setSize(object.width, v),
+  width: object => v => {
+    object.setSize(v, object.height)
+    if (object.input) object.input.hitArea.setSize(v, object.height)
+    if (object.body) object.body.setSize(v, object.height)
+  },
+  height: object => v => {
+    object.setSize(object.width, v)
+    if (object.input) object.input.hitArea.setSize(object.width, v)
+    if (object.body) object.body.setSize(object.width, v)
+  },
   radius: object => v => object.setRadius(v),
   displayWidth: object => v => object.setDisplaySize(v, object.displayHeight),
   displayHeight: object => v => object.setDisplaySize(object.displayWidth, v),
