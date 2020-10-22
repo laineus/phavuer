@@ -7,6 +7,7 @@ import Sprite from './components/Sprite'
 import Text from './components/Text'
 import DynamicTilemapLayer from './components/DynamicTilemapLayer'
 import StaticTilemapLayer from './components/StaticTilemapLayer'
+import Zone from './components/Zone'
 export default {
   Scene,
   Container,
@@ -16,5 +17,6 @@ export default {
   Sprite,
   Text,
   DynamicTilemapLayer,
-  StaticTilemapLayer
+  StaticTilemapLayer,
+  Zone
 }

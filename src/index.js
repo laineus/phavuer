@@ -11,6 +11,7 @@ export const Rectangle = components.Rectangle
 export const Circle = components.Circle
 export const DynamicTilemapLayer = components.DynamicTilemapLayer
 export const StaticTilemapLayer = components.StaticTilemapLayer
+export const Zone = components.Zone
 
 export const createPhavuerApp = (game, component) => {
   const app = createApp(component)

@@ -1,4 +1,5 @@
 export default {
+  active: object => v => object.setActive(v),
   visible: object => v => object.setVisible(v),
   x: object => v => object.setPosition(v, object.y),
   y: object => v => object.setPosition(object.x, v),
