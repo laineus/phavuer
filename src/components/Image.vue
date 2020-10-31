@@ -18,6 +18,7 @@ export default {
   props: [
     'visible',
     'x', 'y',
+    'rotation',
     'origin', 'originX', 'originY',
     'scale', 'scaleX', 'scaleY',
     'depth',

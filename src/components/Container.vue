@@ -19,6 +19,7 @@ export default {
   props: [
     'visible',
     'width', 'height',
+    'rotation',
     'x', 'y',
     'depth',
     'alpha'
