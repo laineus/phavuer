@@ -16,10 +16,10 @@ export default {
         this._width = width || 0
         this._height = height || 0
         this._radius = radius || 0
-        this._fillColor = 0x000000
+        this._fillColor = null
         this._fillAlpha = 1
         this._lineWidth = 0
-        this._strokeColor = 0x000000
+        this._strokeColor = null
         this._strokeAlpha = 1
         this.setRenderFlag(true)
       }
@@ -35,9 +35,11 @@ export default {
         const x = this.originX * -this.width
         const y = this.originY * -this.height
         this.clear()
-        this.fillStyle(this.fillColor, this.fillAlpha)
-        this.fillRoundedRect(x, y, this.width, this.height, this.radius)
-        if (this.lineWidth) {
+        if (this.fillColor !== null) {
+          this.fillStyle(this.fillColor, this.fillAlpha)
+          this.fillRoundedRect(x, y, this.width, this.height, this.radius)
+        }
+        if (this.lineWidth && this.strokeColor !== null) {
           this.lineStyle(this.lineWidth, this.strokeColor, this.strokeAlpha)
           this.strokeRoundedRect(x, y, this.width, this.height, this.radius)
         }
@@ -98,8 +100,8 @@ export default {
         this.setRenderFlag(true)
       }
       setSize (width, height) {
-        if (width !== undefined) this._width = width
-        if (height !== undefined) this._height = height
+        if (width !== undefined) this.width = width
+        if (height !== undefined) this.height = height
         return this
       }
       fixSize () {
