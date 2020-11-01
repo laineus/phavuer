@@ -30,10 +30,10 @@ Feel free to contribute.
 ```vue
 <template>
   <Scene name="MainScene">
-    <Text @pointerdown="onClick">Add a Rectangle</Text>
+    <Text @pointerdown="onClick" text="Add a Rectangle" />
     <Container v-for="(n, i) in count" :key="i" :x="i * 130" :y="30">
       <Rectangle :width="120" :height="30" :origin="0" :fillColor="0x333333" />
-      <Text :x="60" :y="15" :origin="0.5">Rectangle-{{ n }}</Text>
+      <Text :x="60" :y="15" :origin="0.5" :text="`Rectangle-${n}`" />
       <MyCustomComponent />
     </Container>
   </Container>
@@ -244,7 +244,6 @@ You can use them like this: `<Rectangle :x="0" :y="0" :width="10" :height="10" /
 - An event for `preUpdate` can be defined with `@update`
   - The arguments are `(GameObject, time, delta)`
 - Almost all props names are following the property names of its GameObject
-  - Text of `Text` component is should be written inside of the tag like this: `<Text>Hi</Text>`
 
 Currently Phavuer has following base components:
 
