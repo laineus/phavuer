@@ -1,6 +1,7 @@
 import Scene from './components/Scene'
 import Container from './components/Container'
 import Rectangle from './components/Rectangle'
+import RoundRectangle from './components/RoundRectangle'
 import Circle from './components/Circle'
 import Image from './components/Image'
 import Sprite from './components/Sprite'
@@ -12,6 +13,7 @@ export default {
   Scene,
   Container,
   Rectangle,
+  RoundRectangle,
   Circle,
   Image,
   Sprite,

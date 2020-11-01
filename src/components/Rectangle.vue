@@ -9,7 +9,9 @@ export default {
   setup (props, context) {
     const scene = inject('scene')
     class Rectangle extends Phaser.GameObjects.Rectangle {
-      preUpdate () {}
+      preUpdate (...arg) {
+        if (context.attrs.onPreUpdate) context.emit('preUpdate', this, ...arg)
+      }
     }
     const object = new Rectangle(scene, props.x, props.y, props.width, props.height)
     initGameObject(object, props, context)

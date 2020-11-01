@@ -9,7 +9,9 @@ export default {
   setup (props, context) {
     const scene = inject('scene')
     class Zone extends Phaser.GameObjects.Zone {
-      preUpdate () {}
+      preUpdate (...arg) {
+        if (context.attrs.onPreUpdate) context.emit('preUpdate', this, ...arg)
+      }
     }
     const object = new Zone(scene, props.x, props.y, props.width, props.height)
     initGameObject(object, props, context)

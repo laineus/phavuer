@@ -12,6 +12,7 @@ export const Circle = components.Circle
 export const DynamicTilemapLayer = components.DynamicTilemapLayer
 export const StaticTilemapLayer = components.StaticTilemapLayer
 export const Zone = components.Zone
+export const RoundRectangle = components.RoundRectangle
 
 export const createPhavuerApp = (game, component) => {
   const app = createApp(component)
@@ -39,9 +40,8 @@ export const initGameObject = (object, props, context) => {
     setter(props[key])
     watch(() => props[key], setter)
   })
-  // Set events
+  // Set event
   if (context.attrs.onCreate) context.emit('create', object)
-  if (context.attrs.onPreUpdate) object.preUpdate = (...arg) => context.emit('preUpdate', object, ...arg)
   // Set interactive events
   if (context.attrs.onPointerdown || context.attrs.onPointerup) {
     object.setInteractive()

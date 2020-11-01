@@ -16,7 +16,9 @@ export default {
   setup (props, context) {
     const scene = inject('scene')
     class StaticTilemapLayer extends Phaser.Tilemaps.StaticTilemapLayer {
-      preUpdate () {}
+      preUpdate (...arg) {
+        if (context.attrs.onPreUpdate) context.emit('preUpdate', this, ...arg)
+      }
     }
     const object = new StaticTilemapLayer(scene, props.tilemap, props.layerIndex, props.tileset, props.x, props.y)
     initGameObject(object, props, context)

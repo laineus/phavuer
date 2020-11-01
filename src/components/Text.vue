@@ -9,7 +9,9 @@ export default {
   setup (props, context) {
     const scene = inject('scene')
     class Text extends Phaser.GameObjects.Text {
-      preUpdate () {}
+      preUpdate (...arg) {
+        if (context.attrs.onPreUpdate) context.emit('preUpdate', this, ...arg)
+      }
     }
     const object = new Text(scene, props.x, props.y, props.text)
     initGameObject(object, props, context)

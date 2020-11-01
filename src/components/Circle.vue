@@ -9,7 +9,9 @@ export default {
   setup (props, context) {
     const scene = inject('scene')
     class Circle extends Phaser.GameObjects.Arc {
-      preUpdate () {}
+      preUpdate (...arg) {
+        if (context.attrs.onPreUpdate) context.emit('preUpdate', this, ...arg)
+      }
     }
     const object = new Circle(scene, props.x, props.y, props.radius)
     initGameObject(object, props, context)
