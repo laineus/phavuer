@@ -26,7 +26,8 @@ export default {
     'scale', 'scaleX', 'scaleY',
     'depth',
     'alpha',
-    'style'
+    'style', 'lineSpacing',
+    'padding',
   ]
 }
 </script>

@@ -40,5 +40,7 @@ export default {
   strokeColor: object => v => object.setStrokeStyle(object.lineWidth, v, object.strokeAlpha),
   strokeAlpha: object => v => object.setStrokeStyle(object.lineWidth, object.strokeColor, v),
   style: object => v => object.setStyle(v),
+  lineSpacing: object => v => object.setLineSpacing(v),
+  padding: object => v => object.setPadding(v),
   collision: object => v => object.setCollision(v)
 }
