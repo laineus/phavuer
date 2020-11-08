@@ -252,6 +252,7 @@ Currently Phavuer has following base components:
 - Sprite
 - Text
 - Rectangle
+- RoundRectangle
 - Circle
 - Zone
 - StaticTilemapLayer
