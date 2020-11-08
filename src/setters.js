@@ -1,3 +1,11 @@
+const fixSize = object => {
+  if (object.input) {
+    object.input.hitArea.setSize(object.width, object.height)
+  } else if (object._events.pointerdown || object._events.pointerup) {
+    object.setInteractive()
+  }
+  if (object.body) object.body.setSize(object.width, object.height)
+}
 export default {
   active: object => v => object.setActive(v),
   visible: object => v => object.setVisible(v),
@@ -12,13 +20,11 @@ export default {
   scaleY: object => v => object.setScale(object.scaleX, v),
   width: object => v => {
     object.setSize(v, object.height)
-    if (object.input) object.input.hitArea.setSize(v, object.height)
-    if (object.body) object.body.setSize(v, object.height)
+    fixSize(object)
   },
   height: object => v => {
     object.setSize(object.width, v)
-    if (object.input) object.input.hitArea.setSize(object.width, v)
-    if (object.body) object.body.setSize(object.width, v)
+    fixSize(object)
   },
   radius: object => v => object.setRadius(v),
   displayWidth: object => v => object.setDisplaySize(v, object.displayHeight),
