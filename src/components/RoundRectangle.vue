@@ -34,14 +34,15 @@ export default {
         this.setRenderFlag(false)
         const x = this.originX * -this.width
         const y = this.originY * -this.height
+        const radius = Math.min(this.radius, this.width.half, this.height.half)
         this.clear()
         if (this.fillColor !== null) {
           this.fillStyle(this.fillColor, this.fillAlpha)
-          this.fillRoundedRect(x, y, this.width, this.height, this.radius)
+          this.fillRoundedRect(x, y, this.width, this.height, radius)
         }
         if (this.lineWidth && this.strokeColor !== null) {
           this.lineStyle(this.lineWidth, this.strokeColor, this.strokeAlpha)
-          this.strokeRoundedRect(x, y, this.width, this.height, this.radius)
+          this.strokeRoundedRect(x, y, this.width, this.height, radius)
         }
       }
       // Origin
@@ -76,17 +77,12 @@ export default {
         this.radius = radius
         return this
       }
-      fixRadius () {
-        if (typeof this.radius !== 'number') return
-        this.radius = Math.min(this.radius, this.width.half, this.height.half)
-      }
       // Size
       get width () {
         return this._width
       }
       set width (v) {
         this._width = v
-        this.fixRadius()
         this.fixSize()
         this.setRenderFlag(true)
       }
@@ -95,7 +91,6 @@ export default {
       }
       set height (v) {
         this._height = v
-        this.fixRadius()
         this.fixSize()
         this.setRenderFlag(true)
       }
