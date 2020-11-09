@@ -254,6 +254,7 @@ Currently Phavuer has following base components:
 - Rectangle
 - RoundRectangle
 - Circle
+- Line
 - Zone
 - StaticTilemapLayer
 - DynamicTilemapLayer

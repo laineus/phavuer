@@ -11,6 +11,10 @@ export default {
   visible: object => v => object.setVisible(v),
   x: object => v => object.setPosition(v, object.y),
   y: object => v => object.setPosition(object.x, v),
+  x1: object => v => object.x1 = v,
+  y1: object => v => object.y1 = v,
+  x2: object => v => object.x2 = v,
+  y2: object => v => object.y2 = v,
   rotation: object => v => object.setRotation(v),
   origin: object => v => object.setOrigin(v, v),
   originX: object => v => object.setOrigin(v, object.originY),
@@ -42,7 +46,13 @@ export default {
   frame: object => v => object.setFrame(v),
   fillColor: object => v => object.setFillStyle(v, object.fillAlpha),
   fillAlpha: object => v => object.setFillStyle(object.fillColor, v),
-  lineWidth: object => v => object.setStrokeStyle(...(!v ? [] : [v, object.strokeColor, object.strokeAlpha])),
+  lineWidth: object => (start, end) => {
+    if (object.setLineWidth) {
+      object.setLineWidth(start, end)
+    } else {
+      object.setStrokeStyle(...(!start ? [] : [start, object.strokeColor, object.strokeAlpha]))
+    }
+  },
   strokeColor: object => v => object.setStrokeStyle(object.lineWidth, v, object.strokeAlpha),
   strokeAlpha: object => v => object.setStrokeStyle(object.lineWidth, object.strokeColor, v),
   style: object => v => object.setStyle(v),

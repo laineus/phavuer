@@ -3,6 +3,7 @@ import Container from './components/Container'
 import Rectangle from './components/Rectangle'
 import RoundRectangle from './components/RoundRectangle'
 import Circle from './components/Circle'
+import Line from './components/Line'
 import Image from './components/Image'
 import Sprite from './components/Sprite'
 import Text from './components/Text'
@@ -15,6 +16,7 @@ export default {
   Rectangle,
   RoundRectangle,
   Circle,
+  Line,
   Image,
   Sprite,
   Text,
