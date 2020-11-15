@@ -152,7 +152,7 @@ export default {
         return this
       }
     }
-    const object = new RoundRectangle(scene, props.x, props.y, props.width, props.height, props.radius)
+    const object = new RoundRectangle(scene, props.x || 0, props.y || 0, props.width, props.height, props.radius)
     initGameObject(object, props, context)
     return { object }
   },

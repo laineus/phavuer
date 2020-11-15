@@ -13,7 +13,7 @@ export default {
         if (context.attrs.onPreUpdate) context.emit('preUpdate', this, ...arg)
       }
     }
-    const object = new Line(scene, props.x, props.y, props.x1, props.y1, props.x2, props.y2)
+    const object = new Line(scene, props.x || 0, props.y || 0, props.x1, props.y1, props.x2, props.y2)
     initGameObject(object, props, context)
     return { object }
   },

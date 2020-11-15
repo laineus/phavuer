@@ -13,7 +13,7 @@ export default {
         if (context.attrs.onPreUpdate) context.emit('preUpdate', this, ...arg)
       }
     }
-    const object = new Zone(scene, props.x, props.y, props.width, props.height)
+    const object = new Zone(scene, props.x || 0, props.y || 0, props.width, props.height)
     initGameObject(object, props, context)
     return { object }
   },

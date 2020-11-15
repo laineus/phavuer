@@ -20,7 +20,7 @@ export default {
         if (context.attrs.onPreUpdate) context.emit('preUpdate', this, ...arg)
       }
     }
-    const object = new StaticTilemapLayer(scene, props.tilemap, props.layerIndex, props.tileset, props.x, props.y)
+    const object = new StaticTilemapLayer(scene, props.tilemap, props.layerIndex, props.tileset, props.x || 0, props.y || 0)
     initGameObject(object, props, context)
     return { object }
   }

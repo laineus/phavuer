@@ -13,7 +13,7 @@ export default {
         if (context.attrs.onPreUpdate) context.emit('preUpdate', this, ...arg)
       }
     }
-    const object = new Container(scene)
+    const object = new Container(scene, props.x || 0, props.y || 0)
     initGameObject(object, props, context)
     provide('container', object)
     return { object }

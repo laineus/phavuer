@@ -13,7 +13,7 @@ export default {
         if (context.attrs.onPreUpdate) context.emit('preUpdate', this, ...arg)
       }
     }
-    const object = new Image(scene, props.x, props.y, props.texture)
+    const object = new Image(scene, props.x || 0, props.y || 0, props.texture)
     initGameObject(object, props, context)
     return { object }
   },
@@ -26,6 +26,7 @@ export default {
     'depth',
     'alpha', 'blendMode',
     'texture', 'frame',
+    'tint',
     'flipX', 'flipY'
   ]
 }

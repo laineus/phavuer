@@ -13,7 +13,7 @@ export default {
         if (context.attrs.onPreUpdate) context.emit('preUpdate', this, ...arg)
       }
     }
-    const object = new Text(scene, props.x, props.y, props.text)
+    const object = new Text(scene, props.x || 0, props.y || 0, props.text)
     initGameObject(object, props, context)
     return { object }
   },
