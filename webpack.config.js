@@ -11,7 +11,6 @@ module.exports = {
     filename: 'phavuer.min.js',
     library: 'Phavuer',
     libraryTarget: 'umd',
-    libraryExport: '',
     globalObject: 'this'
   },
   externals: {
