@@ -11,7 +11,8 @@ Phavuer is reactive template engine based on [Vue 3](https://github.com/vuejs/vu
 It makes building components easier.
 
 - [Phavuer vs Phaser's plane API](https://codepen.io/laineus/pen/pobgxdE?editors=0010) - Source code of an example UI that written in both of them.
-- [Phavuer Example Game](https://github.com/laineus/phavuer-example) - Source code of simple shooter that written in Phavuer
+- [Phavuer Example Shooter](https://github.com/laineus/phavuer-example) - Source code of simple shooter that written in Phavuer (You can play it.)
+- [Phavuer RPG Example](https://github.com/laineus/phavuer-rpg-example) - RPG example (This is just a usage example. not a Game.)
 
 \*\*\* **Attention** \*\*\*
 
