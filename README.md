@@ -257,8 +257,7 @@ Currently Phavuer has following base components:
 - Circle
 - Line
 - Zone
-- StaticTilemapLayer
-- DynamicTilemapLayer
+- TilemapLayer
 
 If you want to use another GameObjects, plase make an issue or MR.  
 Also you can make base components just in your project. ([refer](https://github.com/laineus/phavuer/tree/master/src/components))

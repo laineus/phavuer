@@ -10,8 +10,7 @@ export const Text = components.Text
 export const Rectangle = components.Rectangle
 export const Circle = components.Circle
 export const Line = components.Line
-export const DynamicTilemapLayer = components.DynamicTilemapLayer
-export const StaticTilemapLayer = components.StaticTilemapLayer
+export const TilemapLayer = components.TilemapLayer
 export const Zone = components.Zone
 export const RoundRectangle = components.RoundRectangle
 

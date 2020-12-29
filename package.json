@@ -14,7 +14,8 @@
     "build": "webpack --mode production"
   },
   "peerDependencies": {
-    "vue": "^3.0.4"
+    "vue": "^3.0.4",
+    "phaser": "^3.50.1"
   },
   "devDependencies": {
     "@vue/compiler-sfc": "^3.0.4",
