@@ -82,8 +82,8 @@ In addition to Phaser 3, Vue 3 is needed.
 Phavuer must be placed below them.
 
 ```html
-<script src="https://unpkg.com/phaser@3.24.1/dist/phaser.min.js"></script>
-<script src="https://unpkg.com/vue@3.0.0/dist/vue.global.prod.js"></script>
+<script src="https://unpkg.com/phaser@3.50.1/dist/phaser.min.js"></script>
+<script src="https://unpkg.com/vue@3.0.4/dist/vue.global.prod.js"></script>
 <script src="https://unpkg.com/phavuer/dist/phavuer.min.js"></script>
 ```
 
