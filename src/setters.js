@@ -40,6 +40,7 @@ export default {
   depth: object => v => object.setDepth(v),
   alpha: object => v => object.setAlpha(v),
   blendMode: object => v => object.setBlendMode(v),
+  pipeline: object => v => object.setPipeline(v),
   tint: object => v => object.setTint(v),
   text: object => v => object.setText(v),
   texture: object => v => object.setTexture(v),
