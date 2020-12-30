@@ -41,10 +41,12 @@ export default {
   alpha: object => v => object.setAlpha(v),
   blendMode: object => v => object.setBlendMode(v),
   pipeline: object => v => object.setPipeline(v),
+  intensity: object => v => object.setIntensity(v),
   tint: object => v => object.setTint(v),
   text: object => v => object.setText(v),
   texture: object => v => object.setTexture(v),
   frame: object => v => object.setFrame(v),
+  color: object => v => object.setColor(v),
   fillColor: object => v => object.setFillStyle(v, object.fillAlpha),
   fillAlpha: object => v => object.setFillStyle(object.fillColor, v),
   lineWidth: object => (start, end) => {

@@ -11,6 +11,7 @@ export default {
     'x', 'y',
     'width', 'height',
     'depth',
+    'pipeline',
     'tilemap', 'layerIndex', 'tileset', 'collision'
   ],
   setup (props, context) {

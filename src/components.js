@@ -9,6 +9,7 @@ import Sprite from './components/Sprite'
 import Text from './components/Text'
 import TilemapLayer from './components/TilemapLayer'
 import Zone from './components/Zone'
+import Light from './components/Light'
 export default {
   Scene,
   Container,
@@ -20,5 +21,6 @@ export default {
   Sprite,
   Text,
   TilemapLayer,
-  Zone
+  Zone,
+  Light
 }

@@ -13,6 +13,7 @@ export const Line = components.Line
 export const TilemapLayer = components.TilemapLayer
 export const Zone = components.Zone
 export const RoundRectangle = components.RoundRectangle
+export const Light = components.Light
 
 export const createPhavuerApp = (game, component) => {
   const app = createApp(component)
@@ -26,12 +27,18 @@ export const createPhavuerApp = (game, component) => {
 }
 
 export const initGameObject = (object, props, context) => {
+  const isLight = object.constructor === Phaser.GameObjects.Light
   const scene = inject('scene')
-  scene.add.existing(object)
-  // Append to parent container
-  const container = inject('container')
-  if (container) {
-    container.add([object])
+  if (isLight) {
+    if (!scene.lights.active) scene.lights.enable()
+    scene.lights.lights.push(object)
+  } else {
+    scene.add.existing(object)
+    // Append to parent container
+    const container = inject('container')
+    if (container) {
+      container.add([object])
+    }
   }
   // Make it reactive
   Object.keys(props).forEach(key => {
@@ -49,7 +56,11 @@ export const initGameObject = (object, props, context) => {
     if (context.attrs.onPointerup) object.on('pointerup', (...arg) => context.emit('pointerup', ...arg))
   }
   // Destroy when unmounted
-  onBeforeUnmount(() => object.destroy())
+  if (isLight) {
+    onBeforeUnmount(() => scene.lights.removeLight(object))
+  } else {
+    onBeforeUnmount(() => object.destroy())
+  }
   return object
 }
 
