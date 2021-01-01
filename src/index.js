@@ -1,21 +1,19 @@
 import { createApp, inject, watch, onBeforeUnmount, customRef } from 'vue'
-import components from './components'
 import setters from './setters'
+import Scene from './components/Scene'
+import Container from './components/Container'
+import Rectangle from './components/Rectangle'
+import RoundRectangle from './components/RoundRectangle'
+import Circle from './components/Circle'
+import Line from './components/Line'
+import Image from './components/Image'
+import Sprite from './components/Sprite'
+import Text from './components/Text'
+import TilemapLayer from './components/TilemapLayer'
+import Zone from './components/Zone'
+import Light from './components/Light'
 
-export const Scene = components.Scene
-export const Container = components.Container
-export const Image = components.Image
-export const Sprite = components.Sprite
-export const Text = components.Text
-export const Rectangle = components.Rectangle
-export const Circle = components.Circle
-export const Line = components.Line
-export const TilemapLayer = components.TilemapLayer
-export const Zone = components.Zone
-export const RoundRectangle = components.RoundRectangle
-export const Light = components.Light
-
-export const createPhavuerApp = (game, component) => {
+const createPhavuerApp = (game, component) => {
   const app = createApp(component)
   app.provide('game', game)
   app.provide('scene', null)
@@ -26,7 +24,7 @@ export const createPhavuerApp = (game, component) => {
   return app.mount(dummyElement)
 }
 
-export const initGameObject = (object, props, context) => {
+const initGameObject = (object, props, context) => {
   const isLight = object.constructor === Phaser.GameObjects.Light
   const scene = inject('scene')
   if (isLight) {
@@ -64,7 +62,7 @@ export const initGameObject = (object, props, context) => {
   return object
 }
 
-export const refTo = (value, key) => {
+const refTo = (value, key) => {
   return customRef((track, trigger) => {
     return {
       get () {
@@ -79,5 +77,25 @@ export const refTo = (value, key) => {
     }
   })
 }
-export const refObj = value => refTo(value, 'object')
-export const refScene = value => refTo(value, 'scene')
+const refObj = value => refTo(value, 'object')
+const refScene = value => refTo(value, 'scene')
+
+export {
+  createPhavuerApp,
+  initGameObject,
+  refTo,
+  refObj,
+  refScene,
+  Scene,
+  Container,
+  Rectangle,
+  RoundRectangle,
+  Circle,
+  Line,
+  Image,
+  Sprite,
+  Text,
+  TilemapLayer,
+  Zone,
+  Light
+}
