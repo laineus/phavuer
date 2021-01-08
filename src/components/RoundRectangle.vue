@@ -157,6 +157,7 @@ export default {
     return { object }
   },
   props: [
+    'tween',
     'visible',
     'x', 'y',
     'rotation',

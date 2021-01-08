@@ -245,6 +245,9 @@ You can use them like this: `<Rectangle :x="0" :y="0" :width="10" :height="10" /
 - An event for `preUpdate` can be defined with `@update`
   - The arguments are `(GameObject, time, delta)`
 - Almost all props names are following the property names of its GameObject
+- A Tween for the object can be defined with `:tween`
+  - `targets` of the options will be set automatically
+  - The Tween will be removed automatically before the object destroyed
 
 Currently Phavuer has following base components:
 

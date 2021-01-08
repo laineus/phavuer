@@ -61,5 +61,10 @@ export default {
   style: object => v => object.setStyle(v),
   lineSpacing: object => v => object.setLineSpacing(v),
   padding: object => v => object.setPadding(v),
-  collision: object => v => object.setCollision(v)
+  collision: object => v => object.setCollision(v),
+  tween: object => data => {
+    if (object.tween) object.tween.seek(0).stop()
+    if (!data) return
+    object.tween = object.scene.add.tween(Object.assign({}, data, { targets: object }))
+  }
 }

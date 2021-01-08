@@ -18,6 +18,7 @@ export default {
     return { object }
   },
   props: [
+    'tween',
     'visible',
     'x', 'y',
     'x1', 'y1', 'x2', 'y2',

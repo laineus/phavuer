@@ -43,7 +43,7 @@ const initGameObject = (object, props, context) => {
     if (!setters[key]) return
     const setter = setters[key](object)
     setter(props[key])
-    watch(() => props[key], setter)
+    watch(() => props[key], setter, { deep: true })
   })
   // Set event
   if (context.attrs.onCreate) context.emit('create', object)
@@ -54,6 +54,9 @@ const initGameObject = (object, props, context) => {
     if (context.attrs.onPointerup) object.on('pointerup', (...arg) => context.emit('pointerup', ...arg))
   }
   // Destroy when unmounted
+  onBeforeUnmount(() => {
+    if (object.tween) object.tween.stop()
+  })
   if (isLight) {
     onBeforeUnmount(() => scene.lights.removeLight(object))
   } else {

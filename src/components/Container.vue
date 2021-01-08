@@ -19,6 +19,7 @@ export default {
     return { object }
   },
   props: [
+    'tween',
     'visible',
     'width', 'height',
     'rotation',
