@@ -63,7 +63,7 @@ export default {
   padding: object => v => object.setPadding(v),
   collision: object => v => object.setCollision(v),
   tween: object => data => {
-    if (object.tween) object.tween.seek(0).stop()
+    if (object.tween) object.tween.stop()
     if (!data) return
     object.tween = object.scene.add.tween(Object.assign({}, data, { targets: object }))
   }
