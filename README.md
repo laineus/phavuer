@@ -191,6 +191,14 @@ A sugar function for `refTo(value, 'object')`
 
 A sugar function for `refTo(value, 'scene')`
 
+### `onPreUpdate(event)`
+
+A method to register an event on pre update of the scene.
+
+### `onPostUpdate(event)`
+
+A method to register an event on post update of the scene.
+
 ## Components
 
 ### `Scene`
@@ -242,8 +250,6 @@ You can use them like this: `<Rectangle :x="0" :y="0" :width="10" :height="10" /
   - So you can get it with a ref like this: `<Rectangle ref="el" />` + `el.value.object` (from outside: `el.object`)
 - An event for object created can be defined with `@create`
   - The argument is `(GameObject)`
-- An event for `preUpdate` can be defined with `@update`
-  - The arguments are `(GameObject, time, delta)`
 - Almost all props names are following the property names of its GameObject
 - A Tween for the object can be defined with `:tween`
   - `targets` of the options will be set automatically
@@ -278,7 +284,6 @@ This method gives following features to the given gameObject:
 - Destroyedautomatically when the component is unmounted
 - Able to set interactive events such as `@pointerup`
 - Able to set an event for on create `@create`
-- Able to set an event for its preUpdate with `@update`
 
 Parameters:
 
