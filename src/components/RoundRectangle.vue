@@ -102,6 +102,18 @@ export default {
         if (this.input) this.input.hitArea.setSize(this.width, this.height)
         if (this.body) this.body.setSize(this.width, this.height)
       }
+      get displayWidth () {
+        return Math.abs(this.scaleX * this.width)
+      }
+      set displayWidth (value) {
+        this.scaleX = value / this.width
+      }
+      get displayHeight () {
+        return Math.abs(this.scaleY * this.height)
+      }
+      set displayHeight (value) {
+        this.scaleY = value / this.height
+      }
       // Fill
       get fillColor () {
         return this._fillColor
@@ -164,6 +176,7 @@ export default {
     'origin', 'originX', 'originY',
     'displayOriginX', 'displayOriginY',
     'scale', 'scaleX', 'scaleY',
+    'displayWidth', 'displayHeight',
     'depth',
     'alpha',
     'fillColor', 'fillAlpha',

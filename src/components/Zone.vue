@@ -18,6 +18,7 @@ export default {
     'x', 'y',
     'width', 'height',
     'origin', 'originX', 'originY',
+    'displayOriginX', 'displayOriginY'
   ]
 }
 </script>

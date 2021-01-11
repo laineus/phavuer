@@ -22,6 +22,7 @@ export default {
     'origin', 'originX', 'originY',
     'displayOriginX', 'displayOriginY',
     'scale', 'scaleX', 'scaleY',
+    'displayWidth', 'displayHeight',
     'depth',
     'alpha',
     'lineWidth', 'strokeColor', 'strokeAlpha'
