@@ -25,7 +25,6 @@ export default {
       }
       preUpdate (...arg) {
         if (this.renderFlag) this.render()
-        if (context.attrs.onPreUpdate) context.emit('preUpdate', this, ...arg)
       }
       setRenderFlag (bool) {
         this.renderFlag = bool

@@ -8,12 +8,7 @@ import { initGameObject } from '../index.js'
 export default {
   setup (props, context) {
     const scene = inject('scene')
-    class Circle extends Phaser.GameObjects.Arc {
-      preUpdate (...arg) {
-        if (context.attrs.onPreUpdate) context.emit('preUpdate', this, ...arg)
-      }
-    }
-    const object = new Circle(scene, props.x || 0, props.y || 0, props.radius)
+    const object = new Phaser.GameObjects.Arc(scene, props.x || 0, props.y || 0, props.radius)
     initGameObject(object, props, context)
     return { object }
   },
