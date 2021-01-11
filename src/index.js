@@ -83,12 +83,25 @@ const refTo = (value, key) => {
 const refObj = value => refTo(value, 'object')
 const refScene = value => refTo(value, 'scene')
 
+const getRegisterUpdateEvent = listName => e => {
+  const eventList = inject(listName)
+  eventList.push(e)
+  onBeforeUnmount(() => {
+    const i = eventList.findIndex(v => v === e)
+    eventList.splice(i, 1)
+  })
+}
+const onPreUpdate = getRegisterUpdateEvent('preUpdateEvents')
+const onPostUpdate = getRegisterUpdateEvent('postUpdateEvents')
+
 export {
   createPhavuerApp,
   initGameObject,
   refTo,
   refObj,
   refScene,
+  onPreUpdate,
+  onPostUpdate,
   Scene,
   Container,
   Rectangle,

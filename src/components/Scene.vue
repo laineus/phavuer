@@ -12,6 +12,8 @@ export default {
   },
   setup (props, context) {
     const show = ref(true)
+    const preUpdateEvents = []
+    const postUpdateEvents = []
     const Scene = class extends Phaser.Scene {
       init (data) {
         show.value = true
@@ -21,7 +23,9 @@ export default {
         context.emit('create', this, data)
       }
       update (time, delta) {
+        preUpdateEvents.forEach(e => e(time, delta))
         context.emit('update', this, time, delta)
+        postUpdateEvents.forEach(e => e(time, delta))
       }
       preload () {
         context.emit('preload', this)
@@ -31,6 +35,8 @@ export default {
     const scene = game.scene.add(props.name, Scene, props.autoStart)
     scene.events.on('shutdown', () => show.value = false)
     provide('scene', scene)
+    provide('preUpdateEvents', preUpdateEvents)
+    provide('postUpdateEvents', postUpdateEvents)
     return { scene, show }
   }
 }
