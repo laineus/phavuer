@@ -62,6 +62,7 @@ export default {
   lineSpacing: object => v => object.setLineSpacing(v),
   padding: object => v => object.setPadding(v),
   collision: object => v => object.setCollision(v),
+  collisionByProperty: object => v => object.setCollisionByProperty(v),
   tween: object => data => {
     if (object.tween) object.tween.stop()
     if (!data) return

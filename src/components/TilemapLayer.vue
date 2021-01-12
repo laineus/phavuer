@@ -13,7 +13,7 @@ export default {
     'width', 'height',
     'depth',
     'pipeline',
-    'tilemap', 'layerIndex', 'tileset', 'collision'
+    'tilemap', 'layerIndex', 'tileset', 'collision', 'collisionByProperty'
   ],
   setup (props, context) {
     const scene = inject('scene')
