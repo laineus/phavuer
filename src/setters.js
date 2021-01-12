@@ -1,7 +1,7 @@
 const fixSize = object => {
   if (object.input) {
     object.input.hitArea.setSize(object.width, object.height)
-  } else if (object._events.pointerdown || object._events.pointerup) {
+  } else if (object._events && (object._events.pointerdown || object._events.pointerup)) {
     object.setInteractive()
   }
   if (object.body) object.body.setSize(object.width, object.height)
@@ -63,6 +63,11 @@ export default {
   padding: object => v => object.setPadding(v),
   collision: object => v => object.setCollision(v),
   collisionByProperty: object => v => object.setCollisionByProperty(v),
+  // Body
+  immovable: body => v => body.setImmovable(v),
+  drag: body => v => body.setDrag(v),
+  offsetX: body => v => body.setOffset(v, body.offset.y),
+  offsetY: body => v => body.setOffset(body.offset.x, v),
   tween: object => data => {
     if (object.tween) object.tween.stop()
     if (!data) return

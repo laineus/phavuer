@@ -12,6 +12,8 @@ import Text from './components/Text'
 import TilemapLayer from './components/TilemapLayer'
 import Zone from './components/Zone'
 import Light from './components/Light'
+import StaticBody from './components/StaticBody'
+import Body from './components/Body'
 
 const createPhavuerApp = (game, component) => {
   const app = createApp(component)
@@ -25,11 +27,14 @@ const createPhavuerApp = (game, component) => {
 }
 
 const initGameObject = (object, props, context) => {
+  const isBody = 'bounce' in object
   const isLight = object.constructor === Phaser.GameObjects.Light
   const scene = inject('scene')
   if (isLight) {
     if (!scene.lights.active) scene.lights.enable()
     scene.lights.lights.push(object)
+  } else if (isBody) {
+    // _
   } else {
     scene.add.existing(object)
     // Append to parent container
@@ -113,5 +118,7 @@ export {
   Text,
   TilemapLayer,
   Zone,
-  Light
+  Light,
+  StaticBody,
+  Body
 }
