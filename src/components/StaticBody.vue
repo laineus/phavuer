@@ -15,7 +15,7 @@ export default {
   props: [
     'width', 'height',
     'offsetX', 'offsetY',
-    'drag'
+    'enable'
   ]
 }
 </script>

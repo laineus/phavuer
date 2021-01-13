@@ -4,7 +4,6 @@ const fixSize = object => {
   } else if (object._events && (object._events.pointerdown || object._events.pointerup)) {
     object.setInteractive()
   }
-  if (object.body) object.body.setSize(object.width, object.height)
 }
 export default {
   active: object => v => object.setActive(v),
@@ -64,8 +63,24 @@ export default {
   collision: object => v => object.setCollision(v),
   collisionByProperty: object => v => object.setCollisionByProperty(v),
   // Body
+  enable: body => v => body.enable = v,
   immovable: body => v => body.setImmovable(v),
+  moves: body => v => body.moves = v,
+  bounceX: body => v => body.setBounceX(v),
+  bounceY: body => v => body.setBounceY(v),
   drag: body => v => body.setDrag(v),
+  dragX: body => v => body.setDragX(v),
+  dragY: body => v => body.setDragY(v),
+  gravityX: body => v => body.setGravityX(v),
+  gravityY: body => v => body.setGravityY(v),
+  frictionX: body => v => body.setFrictionX(v),
+  frictionY: body => v => body.setFrictionY(v),
+  velocityX: body => v => body.setVelocityX(v),
+  velocityY: body => v => body.setVelocityY(v),
+  maxVelocityX: body => v => body.setMaxVelocityX(v),
+  maxVelocityY: body => v => body.setMaxVelocityY(v),
+  accelerationX: body => v => body.setAccelerationX(v),
+  accelerationY: body => v => body.setAccelerationY(v),
   offsetX: body => v => body.setOffset(v, body.offset.y),
   offsetY: body => v => body.setOffset(body.offset.x, v),
   tween: object => data => {

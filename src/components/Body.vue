@@ -15,8 +15,15 @@ export default {
   props: [
     'width', 'height',
     'offsetX', 'offsetY',
-    'immovable',
-    'drag'
+    'enable',
+    'immovable', 'moves',
+    'bounceX', 'bounceY',
+    'drag', 'dragX', 'dragY',
+    'gravityX', 'gravityY',
+    'frictionX', 'frictionY',
+    'velocityX', 'velocityY',
+    'maxVelocityX', 'maxVelocityY',
+    'accelerationX', 'accelerationY'
   ]
 }
 </script>

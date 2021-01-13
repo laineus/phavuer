@@ -11,6 +11,7 @@ export default {
     const object = new Phaser.GameObjects.Container(scene, props.x || 0, props.y || 0)
     initGameObject(object, props, context)
     provide('container', object)
+    provide('gameObject', object)
     return { object }
   },
   props: [
