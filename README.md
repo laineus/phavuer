@@ -11,9 +11,9 @@
 Phavuer is wrapper library for [Phaser 3](https://github.com/photonstorm/phaser) with [Vue 3](https://github.com/vuejs/vue-next).  
 It makes able to develop games in declarative programming.
 
-- [Phavuer vs Phaser's plane API](https://codepen.io/laineus/pen/pobgxdE?editors=0010) - Source code of an example UI that written in both of them.
-- [Phavuer Example Shooter](https://github.com/laineus/phavuer-example) - Source code of simple shooter that written in Phavuer (You can play it.)
-- [Phavuer RPG Example](https://github.com/laineus/phavuer-rpg-example) - RPG example (This is just a usage example. not a Game.)
+- [Phavuer vs Phaser's plane API](https://codepen.io/laineus/pen/pobgxdE?editors=0010) - Compilation by example UI.
+- [Phavuer Example Shooter](https://github.com/laineus/phavuer-example) - A simple shooter that written in Phavuer.
+- [Phavuer RPG Example](https://github.com/laineus/phavuer-rpg-example) - An RPG example (This is just a usage example. Not a completed Game.)
 
 \*\*\* **Attention** \*\*\*
 
