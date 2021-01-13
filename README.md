@@ -8,8 +8,8 @@
 ![Phavuer](logo.png)  
 ![ScreenShot](ss.png)
 
-Phavuer is reactive template engine based on [Vue 3](https://github.com/vuejs/vue-next) for [Phaser 3](https://github.com/photonstorm/phaser).  
-It makes building components easier.
+Phavuer is wrapper library for [Phaser 3](https://github.com/photonstorm/phaser) with [Vue 3](https://github.com/vuejs/vue-next).  
+It makes able to develop games in declarative programming.
 
 - [Phavuer vs Phaser's plane API](https://codepen.io/laineus/pen/pobgxdE?editors=0010) - Source code of an example UI that written in both of them.
 - [Phavuer Example Shooter](https://github.com/laineus/phavuer-example) - Source code of simple shooter that written in Phavuer (You can play it.)
@@ -18,7 +18,7 @@ It makes building components easier.
 \*\*\* **Attention** \*\*\*
 
 - This is still WIP.
-- I am not sure if this affect to the performance.
+- I am not sure the performance, but it is never be faster than plain Phaser.
 - If you use Phavuer, the source code is supposed to be quite different from plain Phaser.  
 So please keep in mind that you can not switch the way easily.
 
@@ -269,6 +269,8 @@ Currently Phavuer has following base components:
 - Zone
 - TilemapLayer
 - Light
+- StaticBody
+- Body
 
 If you want to use another GameObjects, plase make an issue or MR.  
 Also you can make base components just in your project. ([refer](https://github.com/laineus/phavuer/tree/master/src/components))
