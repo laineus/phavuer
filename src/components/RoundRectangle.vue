@@ -1,9 +1,9 @@
 <template>
-  <div />
+  <div><slot /></div>
 </template>
 
 <script>
-import { inject } from 'vue'
+import { provide, inject } from 'vue'
 import { initGameObject } from '../index.js'
 export default {
   setup (props, context) {
@@ -165,6 +165,7 @@ export default {
     }
     const object = new RoundRectangle(scene, props.x || 0, props.y || 0, props.width, props.height, props.radius)
     initGameObject(object, props, context)
+    provide('gameObject', object)
     return { object }
   },
   props: [
