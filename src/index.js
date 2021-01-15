@@ -44,11 +44,11 @@ const initGameObject = (object, props, context) => {
     }
   }
   // Make it reactive
-  Object.keys(props).forEach(key => {
+  const watchStoppers = Object.keys(props).map(key => {
     if (!setters[key]) return
     const setter = setters[key](object)
     setter(props[key])
-    watch(() => props[key], setter, { deep: deepProps.includes(key) })
+    return watch(() => props[key], setter, { deep: deepProps.includes(key) })
   })
   // Set event
   if (context.attrs.onCreate) context.emit('create', object)
@@ -61,6 +61,7 @@ const initGameObject = (object, props, context) => {
   // Destroy when unmounted
   onBeforeUnmount(() => {
     if (object.tween) object.tween.stop()
+    watchStoppers.forEach(stop => stop())
   })
   if (isLight) {
     onBeforeUnmount(() => scene.lights.removeLight(object))
