@@ -5,6 +5,8 @@ const fixSize = object => {
     object.setInteractive()
   }
 }
+
+export const deepProps = ['tween', 'style']
 export default {
   active: object => v => object.setActive(v),
   visible: object => v => object.setVisible(v),

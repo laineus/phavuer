@@ -1,5 +1,5 @@
 import { createApp, inject, watch, onBeforeUnmount, customRef } from 'vue'
-import setters from './setters'
+import { default as setters, deepProps } from './setters'
 import Scene from './components/Scene'
 import Container from './components/Container'
 import Rectangle from './components/Rectangle'
@@ -48,7 +48,7 @@ const initGameObject = (object, props, context) => {
     if (!setters[key]) return
     const setter = setters[key](object)
     setter(props[key])
-    watch(() => props[key], setter, { deep: true })
+    watch(() => props[key], setter, { deep: deepProps.includes(key) })
   })
   // Set event
   if (context.attrs.onCreate) context.emit('create', object)
