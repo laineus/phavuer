@@ -61,7 +61,7 @@ const initGameObject = (object, props, context) => {
   // Destroy when unmounted
   onBeforeUnmount(() => {
     if (object.tween) object.tween.stop()
-    watchStoppers.forEach(stop => stop())
+    watchStoppers.forEach(stop => stop && stop())
   })
   if (isLight) {
     onBeforeUnmount(() => scene.lights.removeLight(object))
