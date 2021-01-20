@@ -45,7 +45,7 @@ export default {
   intensity: object => v => object.setIntensity(v),
   tint: object => v => object.setTint(v),
   text: object => v => object.setText(v),
-  texture: object => v => object.setTexture(v),
+  texture: object => v => object.setTexture(v, object.frame && object.frame.name),
   frame: object => v => object.setFrame(v),
   color: object => v => object.setColor(v),
   fillColor: object => v => object.setFillStyle(v, object.fillAlpha),
