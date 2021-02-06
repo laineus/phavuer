@@ -53,10 +53,17 @@ const initGameObject = (object, props, context) => {
   // Set event
   if (context.attrs.onCreate) context.emit('create', object)
   // Set interactive events
-  if (context.attrs.onPointerdown || context.attrs.onPointerup) {
+  const emits = [
+    { attr: 'onPointerdown', emit: 'pointerdown' },
+    { attr: 'onPointermove', emit: 'pointermove' },
+    { attr: 'onPointerup', emit: 'pointerup' },
+    { attr: 'onWheel', emit: 'wheel' },
+  ].filter(v => v.attr in context.attrs).map(v => v.emit)
+  if (emits.length) {
     object.setInteractive()
-    if (context.attrs.onPointerdown) object.on('pointerdown', (...arg) => context.emit('pointerdown', ...arg))
-    if (context.attrs.onPointerup) object.on('pointerup', (...arg) => context.emit('pointerup', ...arg))
+    emits.forEach(emit => {
+      object.on(emit, (...arg) => context.emit(emit, ...arg))
+    })
   }
   // Destroy when unmounted
   onBeforeUnmount(() => {

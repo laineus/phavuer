@@ -1,7 +1,8 @@
+const eventNames = ['pointerdown', 'pointermove', 'pointerup', 'wheel']
 const fixSize = object => {
   if (object.input) {
     object.input.hitArea.setSize(object.width, object.height)
-  } else if (object._events && (object._events.pointerdown || object._events.pointerup)) {
+  } else if (object._events && eventNames.some(name => name in object._events)) {
     object.setInteractive()
   }
 }
