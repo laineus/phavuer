@@ -7,7 +7,7 @@ const fixSize = object => {
   }
 }
 
-export const deepProps = ['tween', 'style']
+export const deepProps = ['tween', 'tweens', 'timeline', 'style']
 export default {
   active: object => v => object.setActive(v),
   visible: object => v => object.setVisible(v),
@@ -89,6 +89,16 @@ export default {
   tween: object => data => {
     if (object.tween) object.tween.stop()
     if (!data) return
-    object.tween = object.scene.add.tween(Object.assign({}, data, { targets: object }))
+    object.tween = object.scene.add.tween(Object.assign({ targets: object }, data))
+  },
+  tweens: object => data => {
+    if (object.tween) object.tween.stop()
+    if (!data) return
+    object.tween = object.scene.tweens.timeline({ targets: object, tweens: data })
+  },
+  timeline: object => data => {
+    if (object.tween) object.tween.stop()
+    if (!data) return
+    object.tween = object.scene.tweens.timeline(Object.assign({ targets: object }, data))
   }
 }

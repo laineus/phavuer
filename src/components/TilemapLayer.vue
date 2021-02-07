@@ -7,7 +7,7 @@ import { inject } from 'vue'
 import { initGameObject } from '../index.js'
 export default {
   props: [
-    'tween',
+    'tween', 'tweens', 'timeline',
     'visible',
     'x', 'y',
     'width', 'height',

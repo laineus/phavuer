@@ -169,7 +169,7 @@ export default {
     return { object }
   },
   props: [
-    'tween',
+    'tween', 'tweens', 'timeline',
     'visible',
     'x', 'y',
     'rotation',
