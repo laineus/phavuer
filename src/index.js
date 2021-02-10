@@ -63,9 +63,9 @@ const initGameObject = (object, props, context) => {
   if (events.length) {
     object.setInteractive()
     events.forEach(v => {
-      object.on(v.emit, (...arg) => {
-        arg[0].stopPropagation = () => arg[v.eventIndex]
-        context.emit(v.emit, ...arg)
+      object.on(v.emit, (...args) => {
+        args[0].stopPropagation = args[v.eventIndex].stopPropagation
+        context.emit(v.emit, ...args)
       })
     })
   }
