@@ -53,16 +53,20 @@ const initGameObject = (object, props, context) => {
   // Set event
   if (context.attrs.onCreate) context.emit('create', object)
   // Set interactive events
-  const emits = [
-    { attr: 'onPointerdown', emit: 'pointerdown' },
-    { attr: 'onPointermove', emit: 'pointermove' },
-    { attr: 'onPointerup', emit: 'pointerup' },
-    { attr: 'onWheel', emit: 'wheel' },
-  ].filter(v => v.attr in context.attrs).map(v => v.emit)
-  if (emits.length) {
+  const events = [
+    { attr: 'onPointerdown', emit: 'pointerdown', eventIndex: 3 },
+    { attr: 'onPointermove', emit: 'pointermove', eventIndex: 3 },
+    { attr: 'onPointerup', emit: 'pointerup', eventIndex: 3 },
+    { attr: 'onPointerout', emit: 'pointerout', eventIndex: 1 },
+    { attr: 'onWheel', emit: 'wheel', eventIndex: 4 },
+  ].filter(v => v.attr in context.attrs)
+  if (events.length) {
     object.setInteractive()
-    emits.forEach(emit => {
-      object.on(emit, (...arg) => context.emit(emit, ...arg))
+    events.forEach(v => {
+      object.on(v.emit, (...arg) => {
+        arg[0].stopPropagation = () => arg[v.eventIndex]
+        context.emit(v.emit, ...arg)
+      })
     })
   }
   // Destroy when unmounted

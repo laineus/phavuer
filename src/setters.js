@@ -1,4 +1,4 @@
-const eventNames = ['pointerdown', 'pointermove', 'pointerup', 'wheel']
+const eventNames = ['pointerdown', 'pointermove', 'pointerup', 'pointerout', 'wheel']
 const fixSize = object => {
   if (object.input) {
     object.input.hitArea.setSize(object.width, object.height)
