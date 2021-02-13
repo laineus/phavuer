@@ -50,6 +50,7 @@ export default {
       }
       set originX (v) {
         this._originX = v
+        this.displayOriginX = this.width * v
         this.setRenderFlag(true)
       }
       get originY () {
@@ -57,6 +58,7 @@ export default {
       }
       set originY (v) {
         this._originY = v
+        this.displayOriginY = this.height * v
         this.setRenderFlag(true)
       }
       setOrigin (x, y) {
