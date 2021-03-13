@@ -8,10 +8,10 @@
 ![Phavuer](logo.png)  
 ![ScreenShot](ss.png)
 
-Phavuer is wrapper library for [Phaser 3](https://github.com/photonstorm/phaser) with [Vue 3](https://github.com/vuejs/vue-next).  
-It makes able to develop games in declarative programming.
+Phavuer is a wrapper library for [Phaser 3](https://github.com/photonstorm/phaser) with [Vue 3](https://github.com/vuejs/vue-next).  
+It makes able to develop games with declarative rendering.
 
-- [Phavuer vs Phaser's plane API](https://codepen.io/laineus/pen/pobgxdE?editors=0010) - Compilation by example UI.
+- [Phavuer vs Phaser's plane API](https://codepen.io/laineus/pen/pobgxdE?editors=0010) - A Compilation by example UI.
 - [Phavuer Example Shooter](https://github.com/laineus/phavuer-example) - A simple shooter that written in Phavuer.
 - [Phavuer RPG Example](https://github.com/laineus/phavuer-rpg-example) - An RPG example (This is just a usage example. Not a completed Game.)
 
@@ -19,10 +19,10 @@ It makes able to develop games in declarative programming.
 
 - This is still WIP.
 - I am not sure the performance, but it is never be faster than plain Phaser.
-- If you use Phavuer, the source code is supposed to be quite different from plain Phaser.  
+- If you use Phavuer, the source code is will be quite different from plain Phaser.  
 So please keep in mind that you can not switch the way easily.
 
-However, I am keep going to use this for make my game.  
+However, I am keep going to use it for make my game.  
 Feel free to contribute.
 
 # Usage example
