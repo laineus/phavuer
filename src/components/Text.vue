@@ -23,9 +23,9 @@ export default {
     'scale', 'scaleX', 'scaleY',
     'displayWidth', 'displayHeight',
     'depth',
-    'alpha',
+    'alpha', 'blendMode', 'pipeline',
     'style', 'lineSpacing',
-    'padding',
+    'padding'
   ]
 }
 </script>

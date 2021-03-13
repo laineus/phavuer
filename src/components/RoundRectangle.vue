@@ -181,7 +181,7 @@ export default {
     'scale', 'scaleX', 'scaleY',
     'displayWidth', 'displayHeight',
     'depth',
-    'alpha',
+    'alpha', 'blendMode', 'pipeline',
     'fillColor', 'fillAlpha',
     'lineWidth', 'strokeColor', 'strokeAlpha',
     'radius'

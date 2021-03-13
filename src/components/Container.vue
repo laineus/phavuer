@@ -21,7 +21,7 @@ export default {
     'rotation',
     'x', 'y',
     'depth',
-    'alpha'
+    'alpha', 'blendMode', 'pipeline'
   ]
 }
 </script>
