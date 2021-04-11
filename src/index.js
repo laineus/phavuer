@@ -1,4 +1,4 @@
-import { createApp, inject, watch, onBeforeUnmount, customRef } from 'vue'
+import { inject, watch, onBeforeUnmount, customRef } from 'vue'
 import { default as setters, deepProps } from './setters'
 import Scene from './components/Scene'
 import Container from './components/Container'
@@ -15,8 +15,7 @@ import Light from './components/Light'
 import StaticBody from './components/StaticBody'
 import Body from './components/Body'
 
-const createPhavuerApp = (game, component) => {
-  const app = createApp(component)
+const createPhavuerApp = (game, app) => {
   app.provide('game', game)
   app.provide('scene', null)
   app.provide('container', null)

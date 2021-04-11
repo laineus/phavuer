@@ -64,13 +64,15 @@ How setting up a component is also same. ([doc](https://composition-api.vuejs.or
 **index.js:**
 
 ```js
+import { createApp } from 'vue'
 import { createPhavuerApp } from 'phavuer'
 import MainScene from './MainScene'
+const vueApp = createApp(MainScene)
 new Phaser.Game({
   ..
   scene: {
     create () {
-      createPhavuerApp(this.game, MainScene)
+      createPhavuerApp(this.game, vueApp)
     }
   }
 })
@@ -97,11 +99,12 @@ const MainScene = {
     return {}
   }
 }
+const vueApp = Vue.createApp(MainScene)
 new Phaser.Game({
   ..
   scene: {
     create () {
-      createPhavuerApp(this.game, MainScene)
+      createPhavuerApp(this.game, vueApp)
     }
   }
 })
@@ -150,12 +153,12 @@ module.exports = () => ({
 
 ## Methods
 
-### `createPhavuerApp(gameInstance, rootComponent)`
+### `createPhavuerApp(gameInstance, vueApp)`
 
 Parameters:
 
 `gameInstance`: Game instance of Phaser
-`rootComponent`: Root Vue component
+`vueApp`: Vue application that generated from `createApp` of vue
 
 Return value:
 
