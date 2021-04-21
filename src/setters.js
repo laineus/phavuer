@@ -1,6 +1,8 @@
 const eventNames = ['pointerdown', 'pointermove', 'pointerup', 'pointerout', 'wheel']
 const fixSize = object => {
-  object.updateDisplayOrigin?.()
+  if (object.updateDisplayOrigin) {
+    object.updateDisplayOrigin()
+  }
   if (object.input) {
     object.input.hitArea.setSize(object.width, object.height)
   } else if (object._events && eventNames.some(name => name in object._events)) {
