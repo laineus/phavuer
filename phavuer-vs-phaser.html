@@ -66,16 +66,16 @@
     const Box = {
       components: { Container, Rectangle, Text },
       template: `
-        <Container :x="props.x" :y="props.y">
-          <Rectangle :width="100" :height="100" :origin="0" :fillColor="props.addable ? 0x333333 : 0x888888" @pointerdown="onClickBox" />
-          <Text :x="50" :y="50" :origin="0.5" :style="fontStyle({ color: '#5AF', fontSize: 18 })" v-if="props.addable" text="[＋]" />
+        <Container :x="x" :y="y">
+          <Rectangle :width="100" :height="100" :origin="0" :fillColor="addable ? 0x333333 : 0x888888" @pointerdown="onClickBox" />
+          <Text :x="50" :y="50" :origin="0.5" :style="fontStyle({ color: '#5AF', fontSize: 18 })" v-if="addable" text="[＋]" />
         </Container>`,
       props: ['x', 'y', 'addable'],
       setup (props, context) {
         const onClickBox = () => {
           if (props.addable) context.emit('add')
         }
-        return { props, fontStyle, onClickBox }
+        return { fontStyle, onClickBox }
       }
     }
     const MainScene = {
