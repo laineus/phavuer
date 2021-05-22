@@ -22,12 +22,11 @@
       const counter = scene.add.text(0, 35, '', fontStyle())
       const del = scene.add.text(90, 35, '[DELETE]', fontStyle({ color: '#0AF' })).setInteractive()
       parentContainer.add([title, counter, del])
-      const getNewBox = (i) => {
-        const appendButton = i === count && count < 7
-        const container = scene.add.container(i * 110, 60)
-        const rectangle = scene.add.rectangle(0, 0, 100, 100, appendButton ? 0x333333 : 0x888888).setOrigin(0)
+      const getNewBox = (x, y, addable) => {
+        const container = scene.add.container(x, y)
+        const rectangle = scene.add.rectangle(0, 0, 100, 100, addable ? 0x333333 : 0x888888).setOrigin(0)
         container.add([rectangle])
-        if (appendButton) {
+        if (addable) {
           const plus = scene.add.text(50, 50, '[＋]', fontStyle({ color: '#0AF', fontSize: 18 })).setOrigin(0.5)
           rectangle.setInteractive().on('pointerdown', () => {
             count++
@@ -46,7 +45,7 @@
         parentContainer.list.filter(v => v.type === 'Container').forEach(v => v.destroy())
         counter.setText(`Count: ${count}`)
         const rectCount = count < 7 ? count + 1 : count
-        const boxes = [...Array(rectCount)].map((_, i) => i).map(getNewBox)
+        const boxes = [...Array(rectCount)].map((_, i) => getNewBox(i * 110, 60, i === count && count < 7))
         parentContainer.add(boxes)
       }
       init()
