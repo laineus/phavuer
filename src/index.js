@@ -43,10 +43,11 @@ const initGameObject = (object, props, context) => {
     }
   }
   // Make it reactive
-  const watchStoppers = Object.keys(props).map(key => {
+  const watchStoppers = Object.entries(props).map(([key, value]) => {
+    if (value === undefined) return
     if (!setters[key]) return
     const setter = setters[key](object)
-    setter(props[key])
+    setter(value)
     return watch(() => props[key], setter, { deep: deepProps.includes(key) })
   })
   // Set event
