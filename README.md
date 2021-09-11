@@ -61,22 +61,6 @@ There are no orignal syntax.
 
 How setting up a component is also same. ([doc](https://composition-api.vuejs.org/api.html#setup))
 
-**index.js:**
-
-```js
-import { createApp } from 'vue'
-import { createPhavuerApp } from 'phavuer'
-import MainScene from './MainScene.vue'
-const vueApp = createApp(MainScene)
-new Phaser.Game({
-  ..
-  scene: {
-    create () {
-      createPhavuerApp(this.game, vueApp)
-    }
-  }
-})
-```
 # Installation
 
 ## CDN
@@ -110,45 +94,9 @@ new Phaser.Game({
 })
 ```
 
-## Webpack
+## Vite
 
-Install Packages:
-
-```bash
-$ yarn add vue@next phavuer
-```
-
-```bash
-$ yarn add -D @vue/compiler-sfc vue-loader@^16
-```
-
-Config:
-
-```js
-// webpack.config.js
-const { VueLoaderPlugin } = require('vue-loader')
-module.exports = () => ({
-  // Make webpack able to compile '.vue' files with 'vue-loader'
-  module: {
-    rules: [
-      {
-        test: /\.vue$/,
-        loader: 'vue-loader'
-      }
-    ]
-  },
-  plugins: [
-    new VueLoaderPlugin()
-  ],
-  // Make webpack able to import '.vue' files without extension
-  resolve: {
-    extensions: ['.js', '.vue']
-  },
-  ...
-})
-```
-
-## Vite (Recommended)
+([Vite](https://github.com/vitejs/vite))
 
 Install Packages:
 
@@ -160,10 +108,9 @@ $ yarn add phavuer phaser vue@next
 $ yarn add -D vite @vitejs/plugin-vue @vue/compiler-sfc @rollup/plugin-replace
 ```
 
-Config:
+`/vite.config.js`:
 
-```
-// vite.config.js
+```js
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import replace from '@rollup/plugin-replace'
@@ -176,6 +123,32 @@ export default defineConfig({
       'typeof WEBGL_RENDERER': JSON.stringify(true)
     })
   ]
+})
+```
+
+`index.html`:
+
+```
+..
+<!-- Don't forget type="module" -->
+<script type="module" src="./src/index.js"></script>
+..
+```
+
+`/src/index.js`:
+
+```js
+import { createApp } from 'vue'
+import { createPhavuerApp } from 'phavuer'
+import MainScene from './MainScene.vue'
+const vueApp = createApp(MainScene)
+new Phaser.Game({
+  ..
+  scene: {
+    create () {
+      createPhavuerApp(this.game, vueApp)
+    }
+  }
 })
 ```
 
