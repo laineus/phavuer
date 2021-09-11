@@ -3,9 +3,9 @@
 </template>
 
 <script>
-import { inject } from 'vue'
+import { defineComponent, inject } from 'vue'
 import { initGameObject } from '../index.js'
-export default {
+export default defineComponent({
   setup (props, context) {
     const scene = inject('scene')
     const object = new Phaser.GameObjects.Text(scene, props.x || 0, props.y || 0, props.text)
@@ -27,5 +27,5 @@ export default {
     'style', 'lineSpacing',
     'padding'
   ]
-}
+})
 </script>

@@ -3,8 +3,8 @@
 </template>
 
 <script>
-import { provide, inject, ref } from 'vue'
-export default {
+import { defineComponent, provide, inject, ref } from 'vue'
+export default defineComponent({
   props: {
     name: { type: String, require: true },
     autoStart: { type: Boolean, default: true }
@@ -38,5 +38,5 @@ export default {
     provide('postUpdateEvents', postUpdateEvents)
     return { scene, show }
   }
-}
+})
 </script>

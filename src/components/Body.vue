@@ -3,9 +3,9 @@
 </template>
 
 <script>
-import { provide, inject } from 'vue'
+import { defineComponent, inject } from 'vue'
 import { initGameObject } from '../index.js'
-export default {
+export default defineComponent({
   setup (props, context) {
     const scene = inject('scene')
     const gameObject = inject('gameObject')
@@ -25,5 +25,5 @@ export default {
     'maxVelocityX', 'maxVelocityY',
     'accelerationX', 'accelerationY'
   ]
-}
+})
 </script>

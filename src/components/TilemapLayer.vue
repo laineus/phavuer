@@ -3,9 +3,9 @@
 </template>
 
 <script>
-import { inject } from 'vue'
+import { defineComponent, inject } from 'vue'
 import { initGameObject } from '../index.js'
-export default {
+export default defineComponent({
   props: [
     'tween', 'tweens', 'timeline',
     'visible',
@@ -21,5 +21,5 @@ export default {
     initGameObject(object, props, context)
     return { object }
   }
-}
+})
 </script>

@@ -3,9 +3,9 @@
 </template>
 
 <script>
-import { provide, inject } from 'vue'
+import { defineComponent, inject } from 'vue'
 import { initGameObject } from '../index.js'
-export default {
+export default defineComponent({
   setup (props, context) {
     const scene = inject('scene')
     const object = new Phaser.GameObjects.Light(props.x || 0, props.y || 0)
@@ -20,5 +20,5 @@ export default {
     'color',
     'intensity'
   ]
-}
+})
 </script>

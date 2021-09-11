@@ -3,9 +3,9 @@
 </template>
 
 <script>
-import { provide, inject } from 'vue'
+import { defineComponent, provide, inject } from 'vue'
 import { initGameObject } from '../index.js'
-export default {
+export default defineComponent({
   setup (props, context) {
     const scene = inject('scene')
     class RoundRectangle extends Phaser.GameObjects.Graphics {
@@ -71,7 +71,7 @@ export default {
         return this._radius
       }
       set radius (v) {
-        return this._radius = v
+        this._radius = v
         this.setRenderFlag(true)
       }
       setRadius (radius) {
@@ -186,5 +186,5 @@ export default {
     'lineWidth', 'strokeColor', 'strokeAlpha',
     'radius'
   ]
-}
+})
 </script>

@@ -3,9 +3,9 @@
 </template>
 
 <script>
-import { inject } from 'vue'
+import { defineComponent, inject } from 'vue'
 import { initGameObject } from '../index.js'
-export default {
+export default defineComponent({
   setup (props, context) {
     const scene = inject('scene')
     const object = new Phaser.GameObjects.Zone(scene, props.x || 0, props.y || 0, props.width, props.height)
@@ -20,5 +20,5 @@ export default {
     'origin', 'originX', 'originY',
     'displayOriginX', 'displayOriginY'
   ]
-}
+})
 </script>
