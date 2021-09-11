@@ -20,10 +20,9 @@ It makes able to develop games with declarative rendering.
 
 - This is still WIP.
 - I am not sure the performance, but it is never be faster than plain Phaser.
-- If you use Phavuer, the source code is will be quite different from plain Phaser.  
-So please keep in mind that you can not switch the way easily.
+- If you use Phavuer, the source code will be quite different from plain Phaser. keep in mind that you can not switch the way easily.
 
-However, I am keep going to use it for make my game.  
+However, I am keep going to use it for make own game.  
 Feel free to contribute.
 
 # Usage example
@@ -45,7 +44,7 @@ Feel free to contribute.
 <script>
 import { Scene, Container, Rectangle, Text } from 'phavuer'
 import { ref } from 'vue'
-import MyCustomComponent from './MyCustomComponent'
+import MyCustomComponent from './MyCustomComponent.vue'
 export default {
   components: { Scene, Container, Rectangle, Text, MyCustomComponent },
   setup () {
@@ -67,7 +66,7 @@ How setting up a component is also same. ([doc](https://composition-api.vuejs.or
 ```js
 import { createApp } from 'vue'
 import { createPhavuerApp } from 'phavuer'
-import MainScene from './MainScene'
+import MainScene from './MainScene.vue'
 const vueApp = createApp(MainScene)
 new Phaser.Game({
   ..
@@ -113,21 +112,20 @@ new Phaser.Game({
 
 ## Webpack
 
-Install Vue 3 and Phavuer:
+Install Packages:
 
 ```bash
-$ yarn add vue@^3 phavuer
+$ yarn add vue@next phavuer
 ```
-
-These packages are also necessary to compile:
 
 ```bash
 $ yarn add -D @vue/compiler-sfc vue-loader@^16
 ```
 
-Following option should be merged into your `webpack.config.js`:
+Config:
 
 ```js
+// webpack.config.js
 const { VueLoaderPlugin } = require('vue-loader')
 module.exports = () => ({
   // Make webpack able to compile '.vue' files with 'vue-loader'
@@ -147,6 +145,37 @@ module.exports = () => ({
     extensions: ['.js', '.vue']
   },
   ...
+})
+```
+
+## Vite (Recommended)
+
+Install Packages:
+
+```bash
+$ yarn add phavuer phaser vue@next
+```
+
+```bash
+$ yarn add -D vite @vitejs/plugin-vue @vue/compiler-sfc @rollup/plugin-replace
+```
+
+Config:
+
+```
+// vite.config.js
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import replace from '@rollup/plugin-replace'
+
+export default defineConfig({
+  plugins: [
+    vue(),
+    replace({
+      'typeof CANVAS_RENDERER': JSON.stringify(true),
+      'typeof WEBGL_RENDERER': JSON.stringify(true)
+    })
+  ]
 })
 ```
 
