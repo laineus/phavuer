@@ -59,7 +59,8 @@ export default {
 The template syntax follows Vue 3 as it is. ([doc](https://v3.vuejs.org/guide/template-syntax.html))  
 There are no orignal syntax.
 
-How setting up a component is also same. ([doc](https://composition-api.vuejs.org/api.html#setup))
+Phaser3's GameObjects and its properties can be used as components and its props.
+They are following the original names, [Phaser3's document](https://photonstorm.github.io/phaser3-docs/) can be used as is.
 
 # Installation
 
@@ -98,8 +99,6 @@ new Phaser.Game({
 
 ([Vite](https://github.com/vitejs/vite))
 
-Install Packages:
-
 ```bash
 $ yarn add phavuer phaser vue@next
 ```
@@ -108,7 +107,7 @@ $ yarn add phavuer phaser vue@next
 $ yarn add -D vite @vitejs/plugin-vue @vue/compiler-sfc @rollup/plugin-replace
 ```
 
-`/vite.config.js`:
+`vite.config.js`
 
 ```js
 import { defineConfig } from 'vite'
@@ -126,16 +125,16 @@ export default defineConfig({
 })
 ```
 
-`index.html`:
+`index.html`
 
 ```
 ..
 <!-- Don't forget type="module" -->
-<script type="module" src="./src/index.js"></script>
+<script type="module" src="./index.js"></script>
 ..
 ```
 
-`/src/index.js`:
+`index.js`
 
 ```js
 import { createApp } from 'vue'
