@@ -4,7 +4,6 @@
 
 <script>
 import { provide, inject, ref } from 'vue'
-import { initGameObject } from '../index.js'
 export default {
   props: {
     name: { type: String, require: true },

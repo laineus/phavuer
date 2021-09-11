@@ -14,13 +14,13 @@
     "build": "webpack --mode production"
   },
   "peerDependencies": {
-    "vue": "^3.0.4",
-    "phaser": "^3.50.1"
+    "phaser": "^3.50.1",
+    "vue": "^3.0.4"
   },
   "devDependencies": {
-    "@vue/compiler-sfc": "^3.0.4",
-    "vue-loader": "^16.1.2",
-    "webpack": "^5.11.1",
-    "webpack-cli": "^4.3.0"
+    "@vue/compiler-sfc": "^3.2.11",
+    "vue-loader": "^16.5.0",
+    "webpack": "^5.52.1",
+    "webpack-cli": "^4.8.0"
   }
 }
