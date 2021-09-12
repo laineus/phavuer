@@ -5,28 +5,22 @@
 <script>
 import { defineComponent, provide, inject } from 'vue'
 import { initGameObject } from '../index.js'
+import { gameObjectProps, mapProps } from '../props.js'
 export default defineComponent({
+  props: {
+    ...gameObjectProps,
+    ...mapProps(
+      'radius',
+      'fillColor', 'fillAlpha',
+      'lineWidth', 'strokeColor', 'strokeAlpha'
+    )
+  },
   setup (props, context) {
     const scene = inject('scene')
     const object = new Phaser.GameObjects.Arc(scene, props.x || 0, props.y || 0, props.radius)
     initGameObject(object, props, context)
     provide('gameObject', object)
     return { object }
-  },
-  props: [
-    'tween', 'tweens', 'timeline',
-    'visible',
-    'x', 'y',
-    'rotation',
-    'radius',
-    'origin', 'originX', 'originY',
-    'displayOriginX', 'displayOriginY',
-    'scale', 'scaleX', 'scaleY',
-    'displayWidth', 'displayHeight',
-    'depth',
-    'alpha', 'blendMode', 'pipeline',
-    'fillColor', 'fillAlpha',
-    'lineWidth', 'strokeColor', 'strokeAlpha'
-  ]
+  }
 })
 </script>

@@ -1,6 +1,6 @@
 const props = {
-  active: { type: Boolean },
-  visible: { type: Boolean },
+  active: { type: Boolean, default: undefined },
+  visible: { type: Boolean, default: undefined },
   x: { type: Number },
   y: { type: Number },
   x1: { type: Number },
@@ -21,8 +21,8 @@ const props = {
   displayHeight: { type: Number },
   displayOriginX: { type: Number },
   displayOriginY: { type: Number },
-  flipX: { type: Boolean },
-  flipY: { type: Boolean },
+  flipX: { type: Boolean, default: undefined },
+  flipY: { type: Boolean, default: undefined },
   depth: { type: Number },
   alpha: { type: Number },
   blendMode: { type: [Number, String] },
@@ -44,9 +44,9 @@ const props = {
   collision: { type: [Number, Array] },
   collisionByProperty: { type: Object },
   // Body
-  enable: { type: Boolean },
-  immovable: { type: Boolean },
-  moves: { type: Boolean },
+  enable: { type: Boolean, default: undefined },
+  immovable: { type: Boolean, default: undefined },
+  moves: { type: Boolean, default: undefined },
   bounceX: { type: Number },
   bounceY: { type: Number },
   drag: { type: Number },
@@ -76,3 +76,15 @@ export const mapProps = (...names) => {
     propsEntries.filter(([name]) => nameSet.has(name))
   )
 }
+export const gameObjectProps = mapProps(
+  'tween', 'tweens', 'timeline',
+  'visible',
+  'x', 'y',
+  'rotation',
+  'origin', 'originX', 'originY',
+  'displayOriginX', 'displayOriginY',
+  'scale', 'scaleX', 'scaleY',
+  'displayWidth', 'displayHeight',
+  'depth',
+  'alpha', 'blendMode', 'pipeline'
+)

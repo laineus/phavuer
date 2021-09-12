@@ -6,7 +6,7 @@
 import { defineComponent, provide, inject, ref } from 'vue'
 export default defineComponent({
   props: {
-    name: { type: String, require: true },
+    name: { type: String, required: true },
     autoStart: { type: Boolean, default: true }
   },
   setup (props, context) {
