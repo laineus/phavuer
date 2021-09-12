@@ -34,7 +34,7 @@ const defineVModelProperty = (gameObject, key, emitter) => {
       return this[privateKey]
     },
     set (v) {
-      emitter(emitName, v)
+      if (this[privateKey] !== v) emitter(emitName, v)
     }
   })
 }
