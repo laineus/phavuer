@@ -31,7 +31,7 @@ const props = {
   tint: { type: Number },
   text: { type: String },
   texture: { type: String },
-  frame: { type: Number },
+  frame: { type: [Number, String] },
   color: { type: String },
   fillColor: { type: Number },
   fillAlpha: { type: Number },

@@ -15,8 +15,11 @@ export default defineComponent({
       'width', 'height',
       'depth',
       'pipeline',
-      'tilemap', 'layerIndex', 'tileset', 'collision', 'collisionByProperty'
-    )
+      'collision', 'collisionByProperty'
+    ),
+    tilemap: { type: Object },
+    layerIndex: { type: Number },
+    tileset: { type: [Array, String] } 
   },
   setup (props, context) {
     const scene = inject('scene')
