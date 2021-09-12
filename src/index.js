@@ -25,6 +25,20 @@ const createPhavuerApp = (game, app) => {
   return app.mount(dummyElement)
 }
 
+const defineVModelProperty = (gameObject, key, emitter) => {
+  const privateKey = `_${key}`
+  const emitName = `update:${key}`
+  gameObject[privateKey] = gameObject[key]
+  Object.defineProperty(gameObject, key, {
+    get () {
+      return this[privateKey]
+    },
+    set (v) {
+      emitter(emitName, v)
+    }
+  })
+}
+
 const initGameObject = (object, props, context) => {
   const currentInstance = getCurrentInstance()
   const isBody = 'bounce' in object
@@ -44,12 +58,16 @@ const initGameObject = (object, props, context) => {
     }
   }
   // Make it reactive
-  const dynamicProps = new Set(currentInstance.vnode.dynamicProps)
-  const watchStoppers = Object.entries(currentInstance.vnode.props).map(([key, value]) => {
-    if (!setters[key]) return
-    const setter = setters[key](object)
+  const definedProps = currentInstance.vnode.props || []
+  const vModelKeys = Object.keys(definedProps).filter(key => key.startsWith('onUpdate:')).map(key => key.split(':')[1]).filter(key => setters[`_${key}`])
+  vModelKeys.forEach(key => defineVModelProperty(object, key, context.emit))
+  const normalProps = Object.entries(definedProps).filter(([key]) => setters[key])
+  const dynamicKeys = new Set(currentInstance.vnode.dynamicProps)
+  const watchStoppers = normalProps.map(([key, value]) => {
+    const setterKey = vModelKeys.includes(key) ? `_${key}` : key
+    const setter = setters[setterKey](object)
     setter(value)
-    if (dynamicProps.has(key)) {
+    if (dynamicKeys.has(key)) {
       return watch(() => props[key], setter, { deep: deepProps.includes(key) })
     }
   }).filter(Boolean)

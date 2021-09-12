@@ -14,8 +14,10 @@ export const deepProps = ['tween', 'tweens', 'timeline', 'style']
 export default {
   active: object => v => object.setActive(v),
   visible: object => v => object.setVisible(v),
-  x: object => v => object.setPosition(v, object.y),
-  y: object => v => object.setPosition(object.x, v),
+  x: object => v => object.x = v,
+  _x: object => v => object._x = v,
+  y: object => v => object.y = v,
+  _y: object => v => object._y = v,
   x1: object => v => object.x1 = v,
   y1: object => v => object.y1 = v,
   x2: object => v => object.x2 = v,
