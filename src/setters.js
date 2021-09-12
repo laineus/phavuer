@@ -89,6 +89,7 @@ export default {
   accelerationY: body => v => body.setAccelerationY(v),
   offsetX: body => v => body.setOffset(v, body.offset.y),
   offsetY: body => v => body.setOffset(body.offset.x, v),
+  // Tween
   tween: object => data => {
     if (object.tween) object.tween.stop()
     if (!data) return
