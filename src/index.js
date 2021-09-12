@@ -45,13 +45,14 @@ const initGameObject = (object, props, context) => {
   }
   // Make it reactive
   const dynamicProps = new Set(currentInstance.vnode.dynamicProps)
-  const watchStoppers = Object.entries(props).map(([key, value]) => {
-    if (value === undefined && !dynamicProps.has(key)) return
+  const watchStoppers = Object.entries(currentInstance.vnode.props).map(([key, value]) => {
     if (!setters[key]) return
     const setter = setters[key](object)
     setter(value)
-    return watch(() => props[key], setter, { deep: deepProps.includes(key) })
-  })
+    if (dynamicProps.has(key)) {
+      return watch(() => props[key], setter, { deep: deepProps.includes(key) })
+    }
+  }).filter(Boolean)
   // Set event
   if (context.attrs.onCreate) context.emit('create', object)
   // Set interactive events
@@ -74,7 +75,7 @@ const initGameObject = (object, props, context) => {
   // Destroy when unmounted
   onBeforeUnmount(() => {
     if (object.tween) object.tween.stop()
-    watchStoppers.forEach(stop => stop && stop())
+    watchStoppers.forEach(stop => stop())
   })
   if (isLight) {
     onBeforeUnmount(() => scene.lights.removeLight(object))
