@@ -29,7 +29,7 @@ const props = {
   pipeline: { type: [String, Object] },
   intensity: { type: Number },
   tint: { type: Number },
-  text: { type: String },
+  text: { type: [String, Number] },
   texture: { type: String },
   frame: { type: [Number, String] },
   color: { type: String },
