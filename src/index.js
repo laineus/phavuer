@@ -1,4 +1,4 @@
-import { inject, watch, onBeforeUnmount, customRef } from 'vue'
+import { inject, watch, onBeforeUnmount, customRef, getCurrentInstance } from 'vue'
 import { default as setters, deepProps } from './setters.js'
 import Scene from './components/Scene.vue'
 import Container from './components/Container.vue'
@@ -26,6 +26,7 @@ const createPhavuerApp = (game, app) => {
 }
 
 const initGameObject = (object, props, context) => {
+  const currentInstance = getCurrentInstance()
   const isBody = 'bounce' in object
   const isLight = object.constructor === Phaser.GameObjects.Light
   const scene = inject('scene')
@@ -43,8 +44,9 @@ const initGameObject = (object, props, context) => {
     }
   }
   // Make it reactive
+  const dynamicProps = new Set(currentInstance.vnode.dynamicProps)
   const watchStoppers = Object.entries(props).map(([key, value]) => {
-    if (value === undefined) return
+    if (value === undefined && !dynamicProps.has(key)) return
     if (!setters[key]) return
     const setter = setters[key](object)
     setter(value)
