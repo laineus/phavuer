@@ -100,11 +100,23 @@ new Phaser.Game({
 ([Vite](https://github.com/vitejs/vite))
 
 ```bash
+$ yarn init
 $ yarn add phavuer phaser vue@next
+$ yarn add -D vite @vitejs/plugin-vue @vue/compiler-sfc @rollup/plugin-replace
 ```
 
-```bash
-$ yarn add -D vite @vitejs/plugin-vue @vue/compiler-sfc @rollup/plugin-replace
+`package.json`
+
+```json
+{
+  ..
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  ..
+}
 ```
 
 `vite.config.js`
@@ -137,6 +149,7 @@ export default defineConfig({
 `index.js`
 
 ```js
+import 'phaser'
 import { createApp } from 'vue'
 import { createPhavuerApp } from 'phavuer'
 import MainScene from './MainScene.vue'
