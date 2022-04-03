@@ -10,15 +10,15 @@ export default defineComponent({
     autoStart: { type: Boolean, default: true }
   },
   setup (props, context) {
-    const show = ref(true)
+    const show = ref(false)
     const preUpdateEvents = []
     const postUpdateEvents = []
     const Scene = class extends Phaser.Scene {
       init (data) {
-        show.value = true
         context.emit('init', this, data)
       }
       create (data) {
+        show.value = true
         context.emit('create', this, data)
       }
       update (time, delta) {
