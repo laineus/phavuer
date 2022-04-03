@@ -19,10 +19,19 @@ const createPhavuerApp = (game, app) => {
   app.provide('game', game)
   app.provide('scene', null)
   app.provide('container', null)
-  // mount Vue 3 app
-  const dummyElement = window.document.createElement('div')
-  document.body.appendChild(dummyElement)
-  return app.mount(dummyElement)
+  const mount = () => {
+    const dummyElement = window.document.createElement('div')
+    document.body.appendChild(dummyElement)
+    return app.mount(dummyElement)
+  }
+  return new Promise((resolve) => {
+    if (game.isRunning) {
+      return resolve(mount())
+    }
+    game.events.addListener('ready', () => {
+      resolve(mount())
+    })
+  })
 }
 
 const defineVModelProperty = (gameObject, key, emitter) => {
