@@ -3,6 +3,7 @@
   "version": "0.9.1",
   "description": "Reactive template engine based on Vue 3 for Phaser 3",
   "main": "src/index.js",
+  "types": "types/phavuer.d.ts",
   "author": "Laineus",
   "license": "MIT",
   "repository": {
@@ -14,8 +15,8 @@
     "build": "webpack --mode production"
   },
   "peerDependencies": {
-    "phaser": "^3.50.1",
-    "vue": "^3.0.4"
+    "phaser": "^3.55.2",
+    "vue": "^3.2.31"
   },
   "devDependencies": {
     "@vue/compiler-sfc": "^3.2.11",
