@@ -120,7 +120,7 @@ const initGameObject = (object, props, context) => {
 
 const useInject = key => () => {
   const obj = inject(key)
-  if (!obj) throw new Error(`${key} is not provided`)
+  if (!obj) throw new Error(`${key.description} is not provided`)
   return obj
 }
 
