@@ -95,16 +95,12 @@
         return { count, rectCount, fontStyle }
       }
     }
-    new Phaser.Game({
+    const game = new Phaser.Game({
       type: Phaser.AUTO,
       width: 800,
-      height: 200,
-      scene: {
-        create () {
-          Phavuer.createPhavuerApp(this.game, Vue.createApp(MainScene))
-        }
-      }
+      height: 200
     })
+    Phavuer.createPhavuerApp(game, Vue.createApp(MainScene))
   </script>
 
   <style>

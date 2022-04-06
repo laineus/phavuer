@@ -85,14 +85,8 @@ const MainScene = {
   }
 }
 const vueApp = Vue.createApp(MainScene)
-new Phaser.Game({
-  ..
-  scene: {
-    create () {
-      createPhavuerApp(this.game, vueApp)
-    }
-  }
-})
+const game = new Phaser.Game({ .. })
+createPhavuerApp(game, vueApp)
 ```
 
 ## Vite
@@ -154,14 +148,8 @@ import { createApp } from 'vue'
 import { createPhavuerApp } from 'phavuer'
 import MainScene from './MainScene.vue'
 const vueApp = createApp(MainScene)
-new Phaser.Game({
-  ..
-  scene: {
-    create () {
-      createPhavuerApp(this.game, vueApp)
-    }
-  }
-})
+const game = new Phaser.Game({ .. })
+createPhavuerApp(game, vueApp)
 ```
 
 # API
@@ -178,6 +166,18 @@ Parameters:
 Return value:
 
 App instance of Vue
+
+### `useGame()`
+
+Return value:
+
+Phaser.Game
+
+### `useScene()`
+
+Return value:
+
+Phaser.Scene
 
 ### `refTo(value, key)`
 
