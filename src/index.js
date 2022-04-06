@@ -15,10 +15,19 @@ import Light from './components/Light.vue'
 import StaticBody from './components/StaticBody.vue'
 import Body from './components/Body.vue'
 
+export const InjectionSymbols = {
+  Game: Symbol('game'),
+  Scene: Symbol('scene'),
+  GameObject: Symbol('gameObject'),
+  Container: Symbol('container'),
+  PreUpdateEvents: Symbol('preUpdateEvents'),
+  PostUpdateEvents: Symbol('postUpdateEvents')
+}
+
 const createPhavuerApp = (game, app) => {
-  app.provide('game', game)
-  app.provide('scene', null)
-  app.provide('container', null)
+  app.provide(InjectionSymbols.Game, game)
+  app.provide(InjectionSymbols.Scene, null)
+  app.provide(InjectionSymbols.Container, null)
   const mount = () => {
     const dummyElement = window.document.createElement('div')
     document.body.appendChild(dummyElement)
@@ -52,7 +61,7 @@ const initGameObject = (object, props, context) => {
   const currentInstance = getCurrentInstance()
   const isBody = 'bounce' in object
   const isLight = object.constructor === Phaser.GameObjects.Light
-  const scene = inject('scene')
+  const scene = inject(InjectionSymbols.Scene)
   if (isLight) {
     if (!scene.lights.active) scene.lights.enable()
     scene.lights.lights.push(object)
@@ -61,7 +70,7 @@ const initGameObject = (object, props, context) => {
   } else {
     scene.add.existing(object)
     // Append to parent container
-    const container = inject('container')
+    const container = inject(InjectionSymbols.Container)
     if (container) {
       container.add([object])
     }
@@ -127,16 +136,16 @@ const refTo = (value, key) => {
 const refObj = value => refTo(value, 'object')
 const refScene = value => refTo(value, 'scene')
 
-const getRegisterUpdateEvent = listName => e => {
-  const eventList = inject(listName)
+const getRegisterUpdateEvent = symbol => e => {
+  const eventList = inject(symbol)
   eventList.push(e)
   onBeforeUnmount(() => {
     const i = eventList.findIndex(v => v === e)
     eventList.splice(i, 1)
   })
 }
-const onPreUpdate = getRegisterUpdateEvent('preUpdateEvents')
-const onPostUpdate = getRegisterUpdateEvent('postUpdateEvents')
+const onPreUpdate = getRegisterUpdateEvent(InjectionSymbols.PreUpdateEvents)
+const onPostUpdate = getRegisterUpdateEvent(InjectionSymbols.PostUpdateEvents)
 
 export {
   createPhavuerApp,

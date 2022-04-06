@@ -4,7 +4,7 @@
 
 <script>
 import { defineComponent, provide, inject } from 'vue'
-import { initGameObject } from '../index.js'
+import { initGameObject, InjectionSymbols } from '../index.js'
 import { gameObjectProps, mapProps } from '../props.js'
 export default defineComponent({
   props: {
@@ -17,7 +17,7 @@ export default defineComponent({
     )
   },
   setup (props, context) {
-    const scene = inject('scene')
+    const scene = inject(InjectionSymbols.Scene)
     class RoundRectangle extends Phaser.GameObjects.Graphics {
       constructor (scene, x, y, width, height, radius) {
         super(scene, x, y, width, height)
@@ -177,7 +177,7 @@ export default defineComponent({
     }
     const object = new RoundRectangle(scene, props.x || 0, props.y || 0, props.width, props.height, props.radius)
     initGameObject(object, props, context)
-    provide('gameObject', object)
+    provide(InjectionSymbols.GameObject, object)
     return { object }
   }
 })

@@ -4,6 +4,7 @@
 
 <script>
 import { defineComponent, provide, inject, ref } from 'vue'
+import { InjectionSymbols } from '../index'
 export default defineComponent({
   props: {
     name: { type: String, required: true },
@@ -30,12 +31,12 @@ export default defineComponent({
         context.emit('preload', this)
       }
     }
-    const game = inject('game')
+    const game = inject(InjectionSymbols.Game)
     const scene = game.scene.add(props.name, Scene, props.autoStart)
     scene.events.on('shutdown', () => show.value = false)
-    provide('scene', scene)
-    provide('preUpdateEvents', preUpdateEvents)
-    provide('postUpdateEvents', postUpdateEvents)
+    provide(InjectionSymbols.Scene, scene)
+    provide(InjectionSymbols.PreUpdateEvents, preUpdateEvents)
+    provide(InjectionSymbols.PostUpdateEvents, postUpdateEvents)
     return { scene, show }
   }
 })
