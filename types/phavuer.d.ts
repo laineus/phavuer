@@ -5,6 +5,8 @@ export function createPhavuerApp (phaserGameInstance: Phaser.Game, vueAppInstanc
 export function refTo<T> (value: T, key: string): Ref<T>
 export function refObj<T> (value: T): Ref<T>
 export function refScene<T> (value: T): Ref<T>
+export function useGame (): Phaser.Game
+export function useScene (): Phaser.Scene
 export function onPreUpdate (callback: (time: number, delta: number) => any): void
 export function onPostUpdate (callback: (time: number, delta: number) => any): void
 export function initGameObject (object: Phaser.GameObjects.GameObject, props: Readonly, context: SetupContext): void

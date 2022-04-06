@@ -118,6 +118,15 @@ const initGameObject = (object, props, context) => {
   return object
 }
 
+const useInject = key => () => {
+  const obj = inject(key)
+  if (!obj) throw new Error(`${key} is not provided`)
+  return obj
+}
+
+const useGame = useInject(InjectionSymbols.Game)
+const useScene = useInject(InjectionSymbols.Scene)
+
 const refTo = (value, key) => {
   return customRef((track, trigger) => {
     return {
@@ -153,6 +162,8 @@ export {
   refTo,
   refObj,
   refScene,
+  useGame,
+  useScene,
   onPreUpdate,
   onPostUpdate,
   Scene,
