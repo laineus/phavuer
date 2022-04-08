@@ -15,19 +15,10 @@ import Light from './components/Light.vue'
 import StaticBody from './components/StaticBody.vue'
 import Body from './components/Body.vue'
 
-export const InjectionSymbols = {
-  Game: Symbol('game'),
-  Scene: Symbol('scene'),
-  GameObject: Symbol('gameObject'),
-  Container: Symbol('container'),
-  PreUpdateEvents: Symbol('preUpdateEvents'),
-  PostUpdateEvents: Symbol('postUpdateEvents')
-}
-
 const createPhavuerApp = (game, app) => {
-  app.provide(InjectionSymbols.Game, game)
-  app.provide(InjectionSymbols.Scene, null)
-  app.provide(InjectionSymbols.Container, null)
+  app.provide(InjectionKeys.Game, game)
+  app.provide(InjectionKeys.Scene, null)
+  app.provide(InjectionKeys.Container, null)
   const mount = () => {
     const dummyElement = window.document.createElement('div')
     document.body.appendChild(dummyElement)
@@ -61,7 +52,7 @@ const initGameObject = (object, props, context) => {
   const currentInstance = getCurrentInstance()
   const isBody = 'bounce' in object
   const isLight = object.constructor === Phaser.GameObjects.Light
-  const scene = inject(InjectionSymbols.Scene)
+  const scene = inject(InjectionKeys.Scene)
   if (isLight) {
     if (!scene.lights.active) scene.lights.enable()
     scene.lights.lights.push(object)
@@ -70,7 +61,7 @@ const initGameObject = (object, props, context) => {
   } else {
     scene.add.existing(object)
     // Append to parent container
-    const container = inject(InjectionSymbols.Container)
+    const container = inject(InjectionKeys.Container)
     if (container) {
       container.add([object])
     }
@@ -118,14 +109,24 @@ const initGameObject = (object, props, context) => {
   return object
 }
 
+// TODO: should be Symbol
+const InjectionKeys = {
+  Game: 'phavuer_game',
+  Scene: 'phavuer_scene',
+  GameObject: 'phavuer_gameObject',
+  Container: 'phavuer_container',
+  PreUpdateEvents: 'phavuer_preUpdateEvents',
+  PostUpdateEvents: 'phavuer_postUpdateEvents'
+}
+
 const useInject = key => () => {
   const obj = inject(key)
   if (!obj) throw new Error(`${key.description} is not provided`)
   return obj
 }
 
-const useGame = useInject(InjectionSymbols.Game)
-const useScene = useInject(InjectionSymbols.Scene)
+const useGame = useInject(InjectionKeys.Game)
+const useScene = useInject(InjectionKeys.Scene)
 
 const refTo = (value, key) => {
   return customRef((track, trigger) => {
@@ -153,8 +154,8 @@ const getRegisterUpdateEvent = symbol => e => {
     eventList.splice(i, 1)
   })
 }
-const onPreUpdate = getRegisterUpdateEvent(InjectionSymbols.PreUpdateEvents)
-const onPostUpdate = getRegisterUpdateEvent(InjectionSymbols.PostUpdateEvents)
+const onPreUpdate = getRegisterUpdateEvent(InjectionKeys.PreUpdateEvents)
+const onPostUpdate = getRegisterUpdateEvent(InjectionKeys.PostUpdateEvents)
 
 export {
   createPhavuerApp,
@@ -162,6 +163,7 @@ export {
   refTo,
   refObj,
   refScene,
+  InjectionKeys,
   useGame,
   useScene,
   onPreUpdate,

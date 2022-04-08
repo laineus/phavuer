@@ -4,7 +4,7 @@
 
 <script>
 import { defineComponent, inject } from 'vue'
-import { initGameObject, InjectionSymbols } from '../index.js'
+import { initGameObject, InjectionKeys } from '../index.js'
 import { gameObjectProps, mapProps } from '../props.js'
 export default defineComponent({
   props: {
@@ -16,7 +16,7 @@ export default defineComponent({
     )
   },
   setup (props, context) {
-    const scene = inject(InjectionSymbols.Scene)
+    const scene = inject(InjectionKeys.Scene)
     const object = new Phaser.GameObjects.Text(scene, props.x || 0, props.y || 0, props.text)
     initGameObject(object, props, context)
     return { object }

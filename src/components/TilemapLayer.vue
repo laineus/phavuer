@@ -4,7 +4,7 @@
 
 <script>
 import { defineComponent, inject } from 'vue'
-import { initGameObject, InjectionSymbols } from '../index.js'
+import { initGameObject, InjectionKeys } from '../index.js'
 import { mapProps } from '../props.js'
 export default defineComponent({
   props: {
@@ -22,7 +22,7 @@ export default defineComponent({
     tileset: { type: [Array, String] } 
   },
   setup (props, context) {
-    const scene = inject(InjectionSymbols.Scene)
+    const scene = inject(InjectionKeys.Scene)
     const object = new Phaser.Tilemaps.TilemapLayer(scene, props.tilemap, props.layerIndex, props.tileset, props.x || 0, props.y || 0)
     initGameObject(object, props, context)
     return { object }

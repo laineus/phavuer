@@ -4,7 +4,7 @@
 
 <script>
 import { defineComponent, inject } from 'vue'
-import { initGameObject, InjectionSymbols } from '../index.js'
+import { initGameObject, InjectionKeys } from '../index.js'
 import { mapProps } from '../props.js'
 export default defineComponent({
   props: {
@@ -15,8 +15,8 @@ export default defineComponent({
     )
   },
   setup (props, context) {
-    const scene = inject(InjectionSymbols.Scene)
-    const gameObject = inject(InjectionSymbols.GameObject)
+    const scene = inject(InjectionKeys.Scene)
+    const gameObject = inject(InjectionKeys.GameObject)
     const body = scene.physics.add.existing(gameObject, Phaser.Physics.Arcade.STATIC_BODY).body
     initGameObject(body, props, context)
   }
