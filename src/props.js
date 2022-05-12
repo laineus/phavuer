@@ -40,7 +40,7 @@ const props = {
   strokeAlpha: { type: Number },
   style: { type: Object },
   lineSpacing: { type: Number },
-  padding: { type: Number },
+  padding: { type: [Number, Object] },
   collision: { type: [Number, Array] },
   collisionByProperty: { type: Object },
   // Body
