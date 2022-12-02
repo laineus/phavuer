@@ -1,11 +1,18 @@
-const eventNames = ['pointerdown', 'pointermove', 'pointerup', 'pointerout', 'wheel']
+export const GAME_OBJECT_EVENTS = [
+  { attr: 'onPointerdown', emit: 'pointerdown', eventIndex: 3 },
+  { attr: 'onPointermove', emit: 'pointermove', eventIndex: 3 },
+  { attr: 'onPointerup', emit: 'pointerup', eventIndex: 3 },
+  { attr: 'onPointerout', emit: 'pointerout', eventIndex: 1 },
+  { attr: 'onPointerover', emit: 'pointerover', eventIndex: 3 },
+  { attr: 'onWheel', emit: 'wheel', eventIndex: 4 }
+]
 const fixSize = object => {
   if (object.updateDisplayOrigin) {
     object.updateDisplayOrigin()
   }
   if (object.input) {
     object.input.hitArea.setSize(object.width, object.height)
-  } else if (object._events && eventNames.some(name => name in object._events)) {
+  } else if (object._events && GAME_OBJECT_EVENTS.some(v => v.emit in object._events)) {
     object.setInteractive()
   }
 }

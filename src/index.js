@@ -1,5 +1,5 @@
 import { inject, watch, onBeforeUnmount, customRef, getCurrentInstance } from 'vue'
-import { default as setters, deepProps } from './setters.js'
+import { default as setters, deepProps, GAME_OBJECT_EVENTS } from './setters.js'
 import Scene from './components/Scene.vue'
 import Container from './components/Container.vue'
 import Rectangle from './components/Rectangle.vue'
@@ -80,13 +80,7 @@ const initGameObject = (object, props, context) => {
   // Set event
   if (context.attrs.onCreate) context.emit('create', object)
   // Set interactive events
-  const events = [
-    { attr: 'onPointerdown', emit: 'pointerdown', eventIndex: 3 },
-    { attr: 'onPointermove', emit: 'pointermove', eventIndex: 3 },
-    { attr: 'onPointerup', emit: 'pointerup', eventIndex: 3 },
-    { attr: 'onPointerout', emit: 'pointerout', eventIndex: 1 },
-    { attr: 'onWheel', emit: 'wheel', eventIndex: 4 },
-  ].filter(v => v.attr in context.attrs)
+  const events = GAME_OBJECT_EVENTS.filter(v => v.attr in context.attrs)
   if (events.length) {
     object.setInteractive()
     events.forEach(v => {
