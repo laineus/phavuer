@@ -4,7 +4,14 @@ export const GAME_OBJECT_EVENTS = [
   { attr: 'onPointerup', emit: 'pointerup', eventIndex: 3 },
   { attr: 'onPointerout', emit: 'pointerout', eventIndex: 1 },
   { attr: 'onPointerover', emit: 'pointerover', eventIndex: 3 },
-  { attr: 'onWheel', emit: 'wheel', eventIndex: 4 }
+  { attr: 'onWheel', emit: 'wheel', eventIndex: 4 },
+  { attr: 'onDragstart', emit: 'dragstart', drag: true },
+  { attr: 'onDrag', emit: 'drag', drag: true },
+  { attr: 'onDragend', emit: 'dragend', drag: true },
+  { attr: 'onDragenter', emit: 'dragenter', drag: true },
+  { attr: 'onDragover', emit: 'dragover', drag: true },
+  { attr: 'onDragleave', emit: 'dragleave', drag: true },
+  { attr: 'onDrop', emit: 'drop', drag: true }
 ]
 const fixSize = object => {
   if (object.updateDisplayOrigin) {
