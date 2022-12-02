@@ -21,6 +21,9 @@ export default defineComponent({
     const scene = inject(InjectionKeys.Scene)
     const object = new Phaser.GameObjects.Zone(scene, props.x || 0, props.y || 0, props.width, props.height)
     initGameObject(object, props, context)
+    if (!object.input) {
+      object.setInteractive()
+    }
     return { object }
   }
 })
