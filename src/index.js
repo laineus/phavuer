@@ -68,6 +68,7 @@ const initGameObject = (object, props, context) => {
   }
   // Make it reactive
   const definedProps = currentInstance.vnode.props || []
+  const dynamicProps = currentInstance.vnode.dynamicProps || []
   const vModelKeys = Object.keys(definedProps).filter(key => key.startsWith('onUpdate:')).map(key => key.split(':')[1]).filter(key => setters[`_${key}`])
   vModelKeys.forEach(key => defineVModelProperty(object, key, context.emit))
   const normalProps = Object.entries(definedProps).filter(([key]) => setters[key])
@@ -75,7 +76,9 @@ const initGameObject = (object, props, context) => {
     const setterKey = vModelKeys.includes(key) ? `_${key}` : key
     const setter = setters[setterKey](object)
     setter(value)
-    return watch(() => props[key], setter, { deep: deepProps.includes(key) })
+    if (dynamicProps.includes(key)) {
+      return watch(() => props[key], setter, { deep: deepProps.includes(key) })
+    }
   }).filter(Boolean)
   // Set event
   if (context.attrs.onCreate) context.emit('create', object)
