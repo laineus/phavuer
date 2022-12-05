@@ -24,6 +24,7 @@ declare namespace Phavuer {
     visible?: boolean
     x?: number
     y?: number
+    dropZone?: boolean
     tween?: Phavuer.TweenConfig
     tweens?: PropType<Phavuer.TweenConfig[]>
     timeline?: Phaser.Types.Tweens.TimelineBuilderConfig
