@@ -80,7 +80,7 @@ const initGameObject = (object, props, context) => {
   // Set event
   if (context.attrs.onCreate) context.emit('create', object)
   // Set interactive events
-  const events = GAME_OBJECT_EVENTS.filter(v => v.attr in context.attrs)
+  const events = GAME_OBJECT_EVENTS.filter(v => v.attr in currentInstance.vnode.props)
   if (events.length) {
     if (!object.input) {
       object.setInteractive()
