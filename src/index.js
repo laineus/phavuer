@@ -76,14 +76,13 @@ const initGameObject = (object, props, context) => {
     const setterKey = vModelKeys.includes(key) ? `_${key}` : key
     const setter = setters[setterKey](object)
     setter(value)
-    if (dynamicProps.includes(key)) {
-      return watch(() => props[key], setter, { deep: deepProps.includes(key) })
-    }
+    // TODO: Don't watch non dynamicProps
+    return watch(() => props[key], setter, { deep: deepProps.includes(key) })
   }).filter(Boolean)
   // Set event
   if (context.attrs.onCreate) context.emit('create', object)
   // Set interactive events
-  const events = GAME_OBJECT_EVENTS.filter(v => v.attr in currentInstance.vnode.props)
+  const events = GAME_OBJECT_EVENTS.filter(v => v.attr in definedProps)
   if (events.length) {
     if (!object.input) {
       object.setInteractive()
@@ -93,7 +92,7 @@ const initGameObject = (object, props, context) => {
     }
     events.forEach(v => {
       object.on(v.emit, (...args) => {
-        if ('eventIndex' in args) {
+        if ('eventIndex' in v) {
           args[0].stopPropagation = args[v.eventIndex].stopPropagation
         }
         context.emit(v.emit, ...args)
