@@ -82,7 +82,9 @@ const initGameObject = (object, props, context) => {
   // Set interactive events
   const events = GAME_OBJECT_EVENTS.filter(v => v.attr in context.attrs)
   if (events.length) {
-    object.setInteractive()
+    if (!object.input) {
+      object.setInteractive()
+    }
     if (events.some(v => v.drag)) {
       scene.input.setDraggable(object)
     }

@@ -26,6 +26,11 @@ const fixSize = object => {
 
 export const deepProps = ['tween', 'tweens', 'timeline', 'style']
 export default {
+  dropZone: object => v => {
+    if (!v) return // TODO: should remove input
+    if (!object.input) object.setInteractive()
+    object.input.dropZone = true
+  },
   active: object => v => object.setActive(v),
   visible: object => v => object.setVisible(v),
   x: object => v => object.x = v,
