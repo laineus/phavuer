@@ -26,11 +26,6 @@ const fixSize = object => {
 
 export const deepProps = ['tween', 'tweens', 'timeline', 'style']
 export default {
-  dropZone: object => v => {
-    if (!v) return // TODO: should remove input
-    if (!object.input) object.setInteractive()
-    object.input.dropZone = true
-  },
   active: object => v => object.setActive(v),
   visible: object => v => object.setVisible(v),
   x: object => v => object.x = v,
@@ -61,6 +56,11 @@ export default {
   displayHeight: object => v => object.setDisplaySize(object.displayWidth, v),
   displayOriginX: object => v => object.setDisplayOrigin(v, object.displayOriginY),
   displayOriginY: object => v => object.setDisplayOrigin(object.displayOriginX, v),
+  dropZone: object => v => {
+    if (!v) return
+    if (!object.input) object.setInteractive()
+    object.input.dropZone = true
+  },
   flipX: object => v => object.setFlipX(v),
   flipY: object => v => object.setFlipY(v),
   depth: object => v => object.setDepth(v),

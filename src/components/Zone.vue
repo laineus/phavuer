@@ -11,6 +11,7 @@ export default defineComponent({
     ...mapProps(
       'tween', 'tweens', 'timeline',
       'active',
+      'dropArea',
       'x', 'y',
       'width', 'height',
       'origin', 'originX', 'originY',

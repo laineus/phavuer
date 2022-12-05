@@ -21,6 +21,7 @@ const props = {
   displayHeight: { type: Number },
   displayOriginX: { type: Number },
   displayOriginY: { type: Number },
+  dropZone: { type: Boolean },
   flipX: { type: Boolean },
   flipY: { type: Boolean },
   depth: { type: Number },
@@ -85,6 +86,7 @@ export const gameObjectProps = mapProps(
   'displayOriginX', 'displayOriginY',
   'scale', 'scaleX', 'scaleY',
   'displayWidth', 'displayHeight',
+  'dropZone',
   'depth',
   'alpha', 'blendMode', 'pipeline'
 )
