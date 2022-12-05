@@ -7,6 +7,7 @@ import { defineComponent } from 'vue'
 import { initGameObject } from '../index.js'
 import { mapProps } from '../props.js'
 export default defineComponent({
+  emits: ['create'],
   props: {
     ...mapProps(
       'tween', 'tweens', 'timeline',

@@ -7,6 +7,7 @@ import { defineComponent, inject } from 'vue'
 import { initGameObject, InjectionKeys } from '../index.js'
 import { mapProps } from '../props.js'
 export default defineComponent({
+  emits: ['create'],
   props: {
     ...mapProps(
       'width', 'height',

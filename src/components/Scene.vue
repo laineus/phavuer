@@ -6,6 +6,7 @@
 import { defineComponent, provide, inject, ref } from 'vue'
 import { InjectionKeys } from '../index'
 export default defineComponent({
+  emits: ['init', 'create', 'update', 'preload'],
   props: {
     name: { type: String, required: true },
     autoStart: { type: Boolean, default: true }

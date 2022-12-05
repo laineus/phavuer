@@ -6,7 +6,9 @@
 import { defineComponent, provide, inject } from 'vue'
 import { initGameObject, InjectionKeys } from '../index.js'
 import { gameObjectProps } from '../props.js'
+import { gameObjectEmits } from '../emits.js'
 export default defineComponent({
+  emits: [...gameObjectEmits],
   props: {
     ...gameObjectProps
   },
