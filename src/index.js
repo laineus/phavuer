@@ -80,7 +80,7 @@ const initGameObject = (object, props, context) => {
     return watch(() => props[key], setter, { deep: deepProps.includes(key) })
   }).filter(Boolean)
   // Set event
-  if (context.attrs.onCreate) context.emit('create', object)
+  if (definedProps.onCreate) context.emit('create', object)
   // Set interactive events
   const events = GAME_OBJECT_EVENTS.filter(v => v.attr in definedProps)
   if (events.length) {
