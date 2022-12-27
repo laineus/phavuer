@@ -110,14 +110,14 @@ export const Line: DefineComponent<Phavuer.GameObjectProps & {
 }, {}, {}, {}, {}, {}, {}, GameObjectEmits>
 export const Image: DefineComponent<Phavuer.GameObjectProps & {
   texture?: string | Phaser.Textures.Texture
-  frame?: Phaser.Textures.Frame
+  frame?: number | string
   tint?: number
   flipX?: boolean
   flipY?: boolean
 }, {}, {}, {}, {}, {}, {}, GameObjectEmits>
 export const Sprite: DefineComponent<Phavuer.GameObjectProps & {
   texture?: string | Phaser.Textures.Texture
-  frame?: Phaser.Textures.Frame
+  frame?: number | string
   tint?: number
   flipX?: boolean
   flipY?: boolean
