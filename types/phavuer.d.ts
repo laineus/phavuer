@@ -140,7 +140,7 @@ export const TilemapLayer: DefineComponent<Phavuer.AnimationProps & {
   collisionByProperty?: any
   tilemap?: Phaser.Tilemaps.Tilemap
   layerIndex?: number
-  tileset?: string | string[]
+  tileset?: string | string[] | Phaser.Tilemaps.Tileset | Phaser.Tilemaps.Tileset[]
 }>
 export const Zone: DefineComponent<Phavuer.AnimationProps & {
   active?: boolean
