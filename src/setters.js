@@ -89,6 +89,7 @@ export default {
   padding: object => v => object.setPadding(v),
   collision: object => v => object.setCollision(v),
   collisionByProperty: object => v => object.setCollisionByProperty(v),
+  play: object => v => v ? object.play(v) : object.stop(),
   // Body
   enable: body => v => body.enable = v,
   immovable: body => v => body.setImmovable(v),

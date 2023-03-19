@@ -121,7 +121,14 @@ export const Sprite: DefineComponent<Phavuer.GameObjectProps & {
   tint?: number
   flipX?: boolean
   flipY?: boolean
-}, {}, {}, {}, {}, {}, {}, GameObjectEmits>
+  play?: string
+}, {}, {}, {}, {}, {}, {}, GameObjectEmits & {
+  animationcomplete: (animation: Phaser.Animations.Animation, frame: Phaser.Animations.AnimationFrame, gameObject: Phaser.GameObjects.Sprite, frameKey: string) => void
+  animationrepeat: (animation: Phaser.Animations.Animation, frame: Phaser.Animations.AnimationFrame, gameObject: Phaser.GameObjects.Sprite, frameKey: string) => void
+  animationrestart: (animation: Phaser.Animations.Animation, frame: Phaser.Animations.AnimationFrame, gameObject: Phaser.GameObjects.Sprite, frameKey: string) => void
+  animationstop: (animation: Phaser.Animations.Animation, frame: Phaser.Animations.AnimationFrame, gameObject: Phaser.GameObjects.Sprite, frameKey: string) => void
+  animationcomplete: (animation: Phaser.Animations.Animation, frame: Phaser.Animations.AnimationFrame, gameObject: Phaser.GameObjects.Sprite, frameKey: string) => void
+}>
 export const Text: DefineComponent<Phavuer.GameObjectProps & {
   text?: string
   style?: Phaser.Types.GameObjects.Text.TextStyle
