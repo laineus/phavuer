@@ -3,8 +3,10 @@ import { DefineComponent, PropType, App, ComponentPublicInstance, Ref, SetupCont
 
 export function createPhavuerApp (phaserGameInstance: Phaser.Game, vueAppInstance: App): Promise<ComponentPublicInstance>
 export function refTo<T> (value: T, key: string): Ref<T>
-export function refObj<T extends Phaser.GameObjects.GameObject> (value: T | null): Ref<T | null>
-export function refScene (value: Phaser.Scene | null): Ref<Phaser.Scene | null>
+export function refObj<T extends Phaser.GameObjects.GameObject> (value: T): Ref<T>
+export function refObj<T extends Phaser.GameObjects.GameObject> (): Ref<T | undefined>
+export function refScene (value: Phaser.Scene): Ref<Phaser.Scene>
+export function refScene (): Ref<Phaser.Scene | undefined>
 export function useGame (): Phaser.Game
 export function useScene (): Phaser.Scene
 export function onPreUpdate (callback: (time: number, delta: number) => any): void
