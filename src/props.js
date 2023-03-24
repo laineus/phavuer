@@ -86,6 +86,7 @@ export const gameObjectProps = mapProps(
   'displayOriginX', 'displayOriginY',
   'scale', 'scaleX', 'scaleY',
   'displayWidth', 'displayHeight',
+  'scrollFactor', 'scrollFactorX', 'scrollFactorY',
   'dropZone',
   'depth',
   'alpha', 'blendMode', 'pipeline'

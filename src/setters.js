@@ -90,6 +90,9 @@ export default {
   collision: object => v => object.setCollision(v),
   collisionByProperty: object => v => object.setCollisionByProperty(v),
   play: object => v => v ? object.play(v) : object.stop(),
+  scrollFactor: object => v => object.setScrollFactor(v),
+  scrollFactorX: object => v => object.setScrollFactor(v, object.scrollFactorY),
+  scrollFactorY: object => v => object.setScrollFactor(object.scrollFactorX, v),
   // Body
   enable: body => v => body.enable = v,
   immovable: body => v => body.setImmovable(v),
