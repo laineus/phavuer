@@ -63,7 +63,8 @@ const initGameObject = (object, props, context) => {
     // Append to parent container
     const container = inject(InjectionKeys.Container)
     if (container) {
-      container.add([object])
+      const i = container.list.findIndex(v => v.depth > (props.depth ?? 0))
+      i === -1 ? container.add(object) : container.addAt(object, i)
     }
   }
   // Make it reactive

@@ -63,7 +63,13 @@ export default {
   },
   flipX: object => v => object.setFlipX(v),
   flipY: object => v => object.setFlipY(v),
-  depth: object => v => object.setDepth(v),
+  depth: object => v => {
+    object.setDepth(v)
+    if (object.parentContainer) {
+      const i = object.parentContainer.list.findIndex(v => v.depth > (object.depth ?? 0))
+      i === -1 ? object.parentContainer.bringToTop(object) : object.parentContainer.moveTo(object, Math.max(i - 1, 0))
+    }
+  },
   alpha: object => v => object.setAlpha(v),
   blendMode: object => v => object.setBlendMode(v),
   pipeline: object => v => object.setPipeline(v),
