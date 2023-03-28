@@ -1,5 +1,5 @@
 import * as Phaser from 'phaser'
-import { DefineComponent, PropType, App, ComponentPublicInstance, Ref, SetupContext } from 'vue'
+import { DefineComponent, App, ComponentPublicInstance, Ref, SetupContext } from 'vue'
 
 export function createPhavuerApp (phaserGameInstance: Phaser.Game, vueAppInstance: App): Promise<ComponentPublicInstance>
 export function refTo<T> (value: T, key: string): Ref<T>
@@ -19,7 +19,7 @@ declare namespace Phavuer {
   }
   interface AnimationProps {
     tween?: Phavuer.TweenConfig
-    tweens?: PropType<Phavuer.TweenConfig[]>
+    tweens?: Phavuer.TweenConfig[]
     timeline?: Phaser.Types.Tweens.TimelineBuilderConfig
   }
   interface GameObjectProps {
@@ -28,7 +28,7 @@ declare namespace Phavuer {
     y?: number
     dropZone?: boolean
     tween?: Phavuer.TweenConfig
-    tweens?: PropType<Phavuer.TweenConfig[]>
+    tweens?: Phavuer.TweenConfig[]
     timeline?: Phaser.Types.Tweens.TimelineBuilderConfig
     rotation?: number
     origin?: number
