@@ -96,6 +96,19 @@ export const RoundRectangle: DefineComponent<Phavuer.GameObjectProps & {
   strokeColor?: number
   strokeAlpha?: number
 }, {}, {}, {}, {}, {}, {}, GameObjectEmits>
+export const Triangle: DefineComponent<Phavuer.GameObjectProps & {
+  x1?: number
+  y1?: number
+  x2?: number
+  y2?: number
+  x3?: number
+  y3?: number
+  fillColor?: number
+  fillAlpha?: number
+  lineWidth?: number
+  strokeColor?: number
+  strokeAlpha?: number
+}, {}, {}, {}, {}, {}, {}, GameObjectEmits>
 export const Circle: DefineComponent<Phavuer.GameObjectProps & {
   radius?: number
   fillColor?: number

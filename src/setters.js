@@ -36,6 +36,8 @@ export default {
   y1: object => v => object.geom.y1 = v,
   x2: object => v => object.geom.x2 = v,
   y2: object => v => object.geom.y2 = v,
+  x3: object => v => object.geom.x3 = v,
+  y3: object => v => object.geom.y3 = v,
   rotation: object => v => object.setRotation(v),
   origin: object => v => object.setOrigin(v, v),
   originX: object => v => object.setOrigin(v, object.originY),

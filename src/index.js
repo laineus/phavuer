@@ -4,6 +4,7 @@ import Scene from './components/Scene.vue'
 import Container from './components/Container.vue'
 import Rectangle from './components/Rectangle.vue'
 import RoundRectangle from './components/RoundRectangle.vue'
+import Triangle from './components/Triangle.vue'
 import Circle from './components/Circle.vue'
 import Line from './components/Line.vue'
 import Image from './components/Image.vue'
@@ -176,6 +177,7 @@ export {
   Container,
   Rectangle,
   RoundRectangle,
+  Triangle,
   Circle,
   Line,
   Image,
