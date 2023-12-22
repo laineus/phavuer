@@ -53,6 +53,10 @@ export default {
     object.setSize(object.width, v)
     fixSize(object)
   },
+  leftWidth: object => v => object.setSlices(object.width, object.height, v, object.rightWidth, object.topHeight, object.bottomHeight),
+  rightWidth: object => v => object.setSlices(object.width, object.height, object.leftWidth, v, object.topHeight, object.bottomHeight),
+  topHeight: object => v => object.setSlices(object.width, object.height, object.leftWidth, object.rightWidth, v, object.bottomHeight),
+  bottomHeight: object => v => object.setSlices(object.width, object.height, object.leftWidth, object.rightWidth, object.topHeight, v),
   radius: object => v => object.setRadius(v),
   displayWidth: object => v => object.setDisplaySize(v, object.displayHeight),
   displayHeight: object => v => object.setDisplaySize(object.displayWidth, v),

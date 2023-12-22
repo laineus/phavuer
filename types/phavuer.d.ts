@@ -133,6 +133,15 @@ export const Image: DefineComponent<Phavuer.GameObjectProps & {
   flipX?: boolean
   flipY?: boolean
 }, {}, {}, {}, {}, {}, {}, GameObjectEmits>
+export const NineSlice: DefineComponent<Phavuer.GameObjectProps & {
+  texture?: string | Phaser.Textures.Texture
+  frame?: number | string
+  tint?: number
+  leftWidth?: number
+  rightWidth?: number
+  topHeight?: number
+  bottomHeight?: number
+}, {}, {}, {}, {}, {}, {}, GameObjectEmits>
 export const Sprite: DefineComponent<Phavuer.GameObjectProps & {
   texture?: string | Phaser.Textures.Texture
   frame?: number | string

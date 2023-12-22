@@ -8,6 +8,7 @@ import Triangle from './components/Triangle.vue'
 import Circle from './components/Circle.vue'
 import Line from './components/Line.vue'
 import Image from './components/Image.vue'
+import NineSlice from './components/NineSlice.vue'
 import Sprite from './components/Sprite.vue'
 import Text from './components/Text.vue'
 import TilemapLayer from './components/TilemapLayer.vue'
@@ -181,6 +182,7 @@ export {
   Circle,
   Line,
   Image,
+  NineSlice,
   Sprite,
   Text,
   TilemapLayer,
