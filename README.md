@@ -261,7 +261,7 @@ export default {
 
 ### Base Components
 
-Base Components are basic components for each Phaser 3's GameObjects such as `Sprite` or `Rectangle`.
+Base Components are basic components for each Phaser 3 GameObjects such as `Sprite` or `Rectangle`.
 
 You can use them like this: `<Rectangle :x="0" :y="0" :width="10" :height="10" />`
 
@@ -279,9 +279,11 @@ Currently Phavuer has following base components:
 - Container
 - Image
 - Sprite
+- NineSlice
 - Text
 - Rectangle
 - RoundRectangle
+- Triangle
 - Circle
 - Line
 - Zone
