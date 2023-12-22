@@ -23,7 +23,7 @@ const createPhavuerApp = (game, app) => {
   app.provide(InjectionKeys.Container, null)
   const mount = () => {
     const dummyElement = window.document.createElement('div')
-    game.parentElement.appendChild(dummyElement)
+    game.canvas.parentElement.appendChild(dummyElement)
     return app.mount(dummyElement)
   }
   return new Promise((resolve) => {
