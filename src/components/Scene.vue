@@ -1,5 +1,5 @@
 <template>
-  <div><slot v-if="show" /></div>
+  <slot v-if="show" />
 </template>
 
 <script>

@@ -22,7 +22,7 @@ const createPhavuerApp = (game, app) => {
   app.provide(InjectionKeys.Scene, null)
   app.provide(InjectionKeys.Container, null)
   const mount = () => {
-    const dummyElement = window.document.createElement('div')
+    const dummyElement = window.document.createElement('phavuer-app')
     game.canvas.parentElement.appendChild(dummyElement)
     return app.mount(dummyElement)
   }
