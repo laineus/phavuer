@@ -70,8 +70,8 @@ In addition to Phaser 3, Vue 3 is needed.
 Phavuer must be placed below them.
 
 ```html
-<script src="https://unpkg.com/phaser@3.50.1/dist/phaser.min.js"></script>
-<script src="https://unpkg.com/vue@3.0.4/dist/vue.global.prod.js"></script>
+<script src="https://unpkg.com/phaser@3.70.0/dist/phaser.min.js"></script>
+<script src="https://unpkg.com/vue@3.3.13/dist/vue.global.prod.js"></script>
 <script src="https://unpkg.com/phavuer/dist/phavuer.min.js"></script>
 ```
 
@@ -96,7 +96,7 @@ createPhavuerApp(game, vueApp)
 ```bash
 $ yarn init
 $ yarn add phavuer phaser vue@next
-$ yarn add -D vite @vitejs/plugin-vue @vue/compiler-sfc @rollup/plugin-replace
+$ yarn add -D vite @vitejs/plugin-vue @rollup/plugin-replace
 ```
 
 `package.json`
@@ -151,6 +151,10 @@ const vueApp = createApp(MainScene)
 const game = new Phaser.Game({ .. })
 createPhavuerApp(game, vueApp)
 ```
+
+## Vite with TypeScript (Recommended)
+
+See: [Phavuer Example Shooter](https://github.com/laineus/phavuer-example)
 
 # API
 
