@@ -8,8 +8,8 @@
 ![Phavuer](logo.png)  
 ![ScreenShot](ss.png)
 
-Phavuer is a wrapper library for [Phaser 3](https://github.com/photonstorm/phaser) with [Vue 3](https://github.com/vuejs/vue-next).  
-It makes able to develop games with declarative rendering.
+Phavuer is a wrapper library that integrates [Phaser 3](https://github.com/photonstorm/phaser) with [Vue 3](https://github.com/vuejs/vue-next).  
+It enables game development through declarative rendering.
 
 - [Phavuer vs Phaser's plane API](https://codepen.io/laineus/pen/pobgxdE?editors=0010) - A Compilation by example UI.
 - [Phavuer Example Shooter](https://github.com/laineus/phavuer-example) - A simple shooter that written in Phavuer.
@@ -18,12 +18,12 @@ It makes able to develop games with declarative rendering.
 
 \*\*\* **Attention** \*\*\*
 
-- This is still WIP.
-- I am not sure the performance, but it is never be faster than plain Phaser.
-- If you use Phavuer, the source code will be quite different from plain Phaser. keep in mind that you can not switch the way easily.
+- Currently, it supports basic Phaser functionalities and major GameObjects, but not all.
+- While performance is not guaranteed, it will not be faster than using Phaser alone.
+- Using Phavuer significantly alters the source code from standard Phaser. Please note that switching between the two is not straightforward.
 
-However, I am keep going to use it for make own game.  
-Feel free to contribute.
+Nevertheless, I am committed to using it for my own game development.  
+Contributions are welcome.
 
 # Usage example
 
@@ -56,18 +56,18 @@ export default {
 </script>
 ```
 
-The template syntax follows Vue 3 as it is. ([doc](https://v3.vuejs.org/guide/template-syntax.html))  
-There are no orignal syntax.
+The template syntax is consistent with Vue 3 ([documentation](https://v3.vuejs.org/guide/template-syntax.html)).
+No original syntax is introduced.
 
-Phaser3's GameObjects and its properties can be used as components and its props.
-They are following the original names, [Phaser3's document](https://photonstorm.github.io/phaser3-docs/) can be used as is.
+Phaser3's GameObjects and their properties are used as components and props, respectively.
+The naming conventions are in line with the original names, making Phaser3's documentation directly applicable.
 
 # Installation
 
 ## CDN
 
-In addition to Phaser 3, Vue 3 is needed.  
-Phavuer must be placed below them.
+Phavuer requires Phaser 3 and Vue 3.
+Ensure Phavuer is loaded after these libraries.
 
 ```html
 <script src="https://unpkg.com/phaser@3.70.0/dist/phaser.min.js"></script>
@@ -265,20 +265,20 @@ export default {
 
 ### Base Components
 
-Base Components are basic components for each Phaser 3 GameObjects such as `Sprite` or `Rectangle`.
+Base Components are fundamental elements corresponding to each Phaser 3 GameObject, like `Sprite` or `Rectangle`.
 
-You can use them like this: `<Rectangle :x="0" :y="0" :width="10" :height="10" />`
+Usage example: `<Rectangle :x="0" :y="0" :width="10" :height="10" />`
 
-- Basic components return instance of its GameObject in key name `object`
-  - So you can get it with a ref like this: `<Rectangle ref="el" />` + `el.value.object` (from outside: `el.object`)
-- An event for object created can be defined with `@create`
-  - The argument is `(GameObject)`
-- Almost all props names are following the property names of its GameObject
-- A Tween for the object can be defined with `:tween`
-  - `targets` of the options will be set automatically
-  - The Tween will be removed automatically before the object destroyed
+- Basic components return an instance of their GameObject, accessible via the key name `object`.
+  - You can obtain it using a ref, like so: `<Rectangle ref="el" />` + `el.value.object` (externally accessed as `el.object`).
+- An event for object creation can be specified with `@create`.
+  - The parameter is `(GameObject)`.
+- The majority of prop names are consistent with the property names of their respective GameObject.
+- You can define a Tween for the object using `:tween`.
+  - The `targets` in the options are automatically set.
+  - The Tween is automatically removed prior to the object's destruction.
 
-Currently Phavuer has following base components:
+Currently, Phavuer supports the following base components:
 
 - Container
 - Image
@@ -296,21 +296,21 @@ Currently Phavuer has following base components:
 - StaticBody
 - Body
 
-If you want to use another GameObjects, plase make an issue or MR.  
-Also you can make base components just in your project. ([refer](https://github.com/laineus/phavuer/tree/master/src/components))
+Phavuer currently supports major GameObjects, but not all. If you wish to use other GameObjects, please raise an issue or a Pull Request.  
+You also have the option to create base components within your project. ([See here for reference](https://github.com/laineus/phavuer/tree/master/src/components))
 
 ## Methods (for contributers)
 
 ### `initGameObject(gameObject, props, context)`
 
-This method gives following features to the given gameObject:
+This method endows the specified gameObject with the following features:
 
-- Having reactivity for given props such as `x` or `y` ([see all](https://github.com/laineus/phavuer/tree/master/src/setters.js))
-- Appended to the parent Container automatically if it exists
-- Appended to the Scene automatically if parent Container not exists
-- Destroyedautomatically when the component is unmounted
-- Able to set interactive events such as `@pointerup`
-- Able to set an event for on create `@create`
+- Reactivity to specified props, such as `x` or `y` ([full list here](https://github.com/laineus/phavuer/tree/master/src/setters.js)).
+- Automatic appending to the parent Container, if it exists.
+- If a parent Container does not exist, it is automatically appended to the Scene.
+- Automatic destruction when the component is unmounted.
+- Ability to set interactive events like `@pointerup`.
+- Ability to set an event for object creation using `@create`.
 
 Parameters:
 
@@ -318,7 +318,8 @@ Parameters:
 - `props`: Vue 3 props
 - `context`: Vue 3 context
 
-It is used to define Base Components. ([like this](https://github.com/laineus/phavuer/tree/master/src/components/Sprite.js))
+This method is utilized to define Base Components. ([Example here](https://github.com/laineus/phavuer/tree/master/src/components/Sprite.js))
 
-If you just want to use your component in your another component, you don't need this method.  
-For such a case, you just need to relay props to default components.
+If you simply wish to use your component within another component, this method is not necessary.  
+In such cases, you only need to relay props to the default components.
+
