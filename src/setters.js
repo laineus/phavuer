@@ -24,14 +24,38 @@ const fixSize = object => {
   }
 }
 
+const defineVModelProperty = (gameObject, key, emit) => {
+  let rawValue = gameObject[key]
+  Object.defineProperty(gameObject, key, {
+    get () {
+      return rawValue
+    },
+    set (v) {
+      if (rawValue !== v) emit(`update:${key}`, v)
+    }
+  })
+  return v => rawValue = v
+}
+
 export const deepProps = ['tween', 'tweens', 'timeline', 'style']
+export const vModelProps = ['x', 'y', 'tweens', 'tween', 'timeline']
 export default {
   active: object => v => object.setActive(v),
   visible: object => v => object.setVisible(v),
-  x: object => v => object.x = v,
-  _x: object => v => object._x = v,
-  y: object => v => object.y = v,
-  _y: object => v => object._y = v,
+  x: (object, emit) => {
+    if (emit) {
+      return defineVModelProperty(object, 'x', emit)
+    } else {
+      return v => object.x = v
+    }
+  },
+  y: (object, emit) => {
+    if (emit) {
+      return defineVModelProperty(object, 'y', emit)
+    } else {
+      return v => object.x = v
+    }
+  },
   x1: object => v => object.geom.x1 = v,
   y1: object => v => object.geom.y1 = v,
   x2: object => v => object.geom.x2 = v,
@@ -127,19 +151,49 @@ export default {
   offsetX: body => v => body.setOffset(v, body.offset.y),
   offsetY: body => v => body.setOffset(body.offset.x, v),
   // Tween
-  tween: object => data => {
-    if (object.tween) object.tween.stop()
-    if (!data) return
-    object.tween = object.scene.add.tween(Object.assign({ targets: object }, data))
+  tween: (object, emit) => {
+    return makeTweenRepository(tweenConfig => {
+      const tween = object.scene.add.tween(Object.assign({ targets: object }, tweenConfig))
+      if (emit, emit) tween.on('complete', () => emit('update:tween', undefined))
+      return tween
+    })
   },
-  tweens: object => data => {
-    if (object.tween) object.tween.stop()
-    if (!data) return
-    object.tween = object.scene.tweens.timeline({ targets: object, tweens: data })
+  tweens: (object, emit) => {
+    return makeTweenRepository(tweenConfigs => {
+      const timeline = object.scene.add.timeline(tweenConfigs.map((tweenConfig, i) => {
+        const at = tweenConfigs.slice(0, i).reduce((sum, config) => {
+          const duration = config.duration ?? 1000
+          const yoyo = config.yoyo ?? false
+          const count = (config.loop ?? 0) + 1
+          return sum + duration * (yoyo ? 2 : 1) * count
+        }, 0)
+        return {
+          at,
+          tween: Object.assign({ targets: object }, tweenConfig)
+        }
+      })).play()
+      if (emit) timeline.on('complete', () => emit('update:tweens', undefined))
+      return timeline
+    })
   },
-  timeline: object => data => {
-    if (object.tween) object.tween.stop()
-    if (!data) return
-    object.tween = object.scene.tweens.timeline(Object.assign({ targets: object }, data))
+  timeline: (object, emit) => {
+    return makeTweenRepository(timelineConfigs => {
+      const timeline = object.scene.add.timeline(timelineConfigs.map(timelineConfig => {
+        const copiedTimelineConfig = Object.assign({}, timelineConfig)
+        if (copiedTimelineConfig.tween) {
+          copiedTimelineConfig.tween = Object.assign({ targets: object }, copiedTimelineConfig.tween)
+        }
+        return copiedTimelineConfig
+      })).play()
+      if (emit) timeline.on('complete', () => emit('update:timeline', undefined))
+      return timeline
+    })
+  }
+}
+const makeTweenRepository = (callback) => {
+  let prevTween = undefined
+  return (data) => {
+    if (prevTween) prevTween.stop()
+    prevTween = data ? callback(data) : undefined
   }
 }

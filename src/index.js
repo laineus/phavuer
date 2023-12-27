@@ -1,5 +1,5 @@
 import { inject, watch, onBeforeUnmount, customRef, getCurrentInstance } from 'vue'
-import { default as setters, deepProps, GAME_OBJECT_EVENTS } from './setters.js'
+import { default as setters, deepProps, vModelProps, GAME_OBJECT_EVENTS } from './setters.js'
 import Scene from './components/Scene.vue'
 import Container from './components/Container.vue'
 import Rectangle from './components/Rectangle.vue'
@@ -72,12 +72,10 @@ const initGameObject = (object, props, context) => {
   // Make it reactive
   const definedProps = currentInstance.vnode.props || []
   const dynamicProps = currentInstance.vnode.dynamicProps || []
-  const vModelKeys = Object.keys(definedProps).filter(key => key.startsWith('onUpdate:')).map(key => key.split(':')[1]).filter(key => setters[`_${key}`])
-  vModelKeys.forEach(key => defineVModelProperty(object, key, context.emit))
+  const vModelKeys = Object.keys(definedProps).filter(key => key.startsWith('onUpdate:')).map(key => key.split(':')[1]).filter(key => vModelProps.includes(key))
   const normalProps = Object.entries(definedProps).filter(([key]) => setters[key])
   const watchStoppers = normalProps.map(([key, value]) => {
-    const setterKey = vModelKeys.includes(key) ? `_${key}` : key
-    const setter = setters[setterKey](object)
+    const setter = setters[key](object, vModelKeys.includes(key) ? context.emit : undefined)
     setter(value)
     // TODO: Don't watch non dynamicProps
     return watch(() => props[key], setter, { deep: deepProps.includes(key) })

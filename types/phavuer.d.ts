@@ -1,5 +1,5 @@
 import * as Phaser from 'phaser'
-import { DefineComponent, App, ComponentPublicInstance, Ref, SetupContext } from 'vue'
+import { DefineComponent, App, ComponentPublicInstance, Ref, SetupContext, ComponentObjectPropsOptions } from 'vue'
 
 export function createPhavuerApp (phaserGameInstance: Phaser.Game, vueAppInstance: App): Promise<ComponentPublicInstance>
 export function refTo<T> (value: T, key: string): Ref<T>
@@ -11,16 +11,19 @@ export function useGame (): Phaser.Game
 export function useScene (): Phaser.Scene
 export function onPreUpdate (callback: (time: number, delta: number) => any): void
 export function onPostUpdate (callback: (time: number, delta: number) => any): void
-export function initGameObject (object: Phaser.GameObjects.GameObject, props: Readonly, context: SetupContext): void
+export function initGameObject (object: Phaser.GameObjects.GameObject, props: Readonly<ComponentObjectPropsOptions>, context: SetupContext): void
 
 declare namespace Phavuer {
-  interface TweenConfig extends Partial<Phaser.Types.Tweens.TweenBuilderConfig> {
+  interface TweenConfig extends Omit<Phaser.Types.Tweens.TweenBuilderConfig, 'targets'> {
     targets?: any
+  }
+  interface TimelineConfig extends Omit<Phaser.Types.Time.TimelineEventConfig, 'tween'> {
+    tween?: Phavuer.TweenConfig | Phaser.Types.Tweens.TweenChainBuilderConfig | Phaser.Tweens.Tween | Phaser.Tweens.TweenChain
   }
   interface AnimationProps {
     tween?: Phavuer.TweenConfig
     tweens?: Phavuer.TweenConfig[]
-    timeline?: Phaser.Types.Tweens.TimelineBuilderConfig
+    timeline?: Phavuer.TimelineConfig[]
   }
   interface GameObjectProps {
     visible?: boolean
@@ -29,7 +32,7 @@ declare namespace Phavuer {
     dropZone?: boolean
     tween?: Phavuer.TweenConfig
     tweens?: Phavuer.TweenConfig[]
-    timeline?: Phaser.Types.Tweens.TimelineBuilderConfig
+    timeline?: Phavuer.TimelineConfig[]
     rotation?: number
     origin?: number
     originX?: number
@@ -51,7 +54,7 @@ declare namespace Phavuer {
   }
 }
 
-interface GameObjectEmits {
+type GameObjectEmits = string[] | {
   pointerdown: (pointer: Phaser.Input.Pointer, localX: number, localY: number, event: Phaser.Types.Input.EventData) => void
   pointermove: (pointer: Phaser.Input.Pointer, localX: number, localY: number, event: Phaser.Types.Input.EventData) => void
   pointerup: (pointer: Phaser.Input.Pointer, localX: number, localY: number, event: Phaser.Types.Input.EventData) => void
@@ -150,7 +153,6 @@ export const Sprite: DefineComponent<Phavuer.GameObjectProps & {
   flipY?: boolean
   play?: string
 }, {}, {}, {}, {}, {}, {}, GameObjectEmits & {
-  animationcomplete: (animation: Phaser.Animations.Animation, frame: Phaser.Animations.AnimationFrame, gameObject: Phaser.GameObjects.Sprite, frameKey: string) => void
   animationrepeat: (animation: Phaser.Animations.Animation, frame: Phaser.Animations.AnimationFrame, gameObject: Phaser.GameObjects.Sprite, frameKey: string) => void
   animationrestart: (animation: Phaser.Animations.Animation, frame: Phaser.Animations.AnimationFrame, gameObject: Phaser.GameObjects.Sprite, frameKey: string) => void
   animationstop: (animation: Phaser.Animations.Animation, frame: Phaser.Animations.AnimationFrame, gameObject: Phaser.GameObjects.Sprite, frameKey: string) => void
