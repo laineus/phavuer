@@ -50,6 +50,8 @@ const defineVModelProperty = (gameObject, key, emitter) => {
   })
 }
 
+const camelize = s => s.replace(/-./g, x => x[1].toUpperCase())
+
 const initGameObject = (object, props, context) => {
   const currentInstance = getCurrentInstance()
   const isBody = 'bounce' in object
@@ -70,8 +72,9 @@ const initGameObject = (object, props, context) => {
     }
   }
   // Make it reactive
-  const definedProps = currentInstance.vnode.props || []
-  const dynamicProps = currentInstance.vnode.dynamicProps || []
+  const definedProps = Object.fromEntries(
+    Object.entries(currentInstance.vnode.props ?? {}).map(([key, value]) => [camelize(key), value])
+  )
   const vModelKeys = Object.keys(definedProps).filter(key => key.startsWith('onUpdate:')).map(key => key.split(':')[1]).filter(key => vModelProps.includes(key))
   const normalProps = Object.entries(definedProps).filter(([key]) => setters[key])
   const watchStoppers = normalProps.map(([key, value]) => {
