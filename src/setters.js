@@ -53,7 +53,7 @@ export default {
     if (emit) {
       return defineVModelProperty(object, 'y', emit)
     } else {
-      return v => object.x = v
+      return v => object.y = v
     }
   },
   x1: object => v => object.geom.x1 = v,
