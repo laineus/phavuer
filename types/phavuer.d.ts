@@ -1,7 +1,6 @@
 import * as Phaser from 'phaser'
 import { DefineComponent, App, ComponentPublicInstance, Ref, SetupContext, ComponentObjectPropsOptions } from 'vue'
 
-export function createPhavuerApp (phaserGameInstance: Phaser.Game, vueAppInstance: App): Promise<ComponentPublicInstance>
 export function refTo<T> (value: T, key: string): Ref<T>
 export function refObj<T extends Phaser.GameObjects.GameObject> (value: T): Ref<T>
 export function refObj<T extends Phaser.GameObjects.GameObject> (): Ref<T | undefined>
@@ -70,6 +69,13 @@ type GameObjectEmits = string[] | {
   drop: (pointer: Phaser.Input.Pointer, target: Phaser.GameObjects.GameObject) => void
 }
 
+export const Game: DefineComponent<{
+  config?: Phaser.Types.Core.GameConfig
+}, {}, {}, {}, {}, {}, {}, {
+  create: (game: Phaser.Game) => void
+  boot: (game: Phaser.Game) => void
+  ready: (game: Phaser.Game) => void
+}>
 export const Scene: DefineComponent<{
   name?: string
   autoStart?: boolean

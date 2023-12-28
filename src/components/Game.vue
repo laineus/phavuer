@@ -1,0 +1,37 @@
+<template>
+  <div data-phavuer-game>
+    <div data-phavuer-canvas ref="canvasRoot" />
+    <slot v-if="show" />
+  </div>
+</template>
+
+<script>
+import { defineComponent, provide, ref, onMounted } from 'vue'
+import { InjectionKeys } from '../index'
+export default defineComponent({
+  emits: ['create', 'boot', 'ready'],
+  props: {
+    config: { type: Object }
+  },
+  setup (props, context) {
+    const canvasRoot = ref(false)
+    const show = ref(false)
+    onMounted(() => {
+      const game = new Phaser.Game(Object.assign({ parent: canvasRoot.value }, props.config))
+      game.events.addListener('boot', () => {
+        context.emit('boot', game)
+      })
+      game.events.addListener('ready', () => {
+        show.value = true
+        context.emit('ready', game)
+      })
+      context.emit('create', game)
+      provide(InjectionKeys.Game, game)
+    })
+    provide(InjectionKeys.Game, undefined)
+    provide(InjectionKeys.Scene, undefined)
+    provide(InjectionKeys.Container, undefined)
+    return { canvasRoot, show }
+  }
+})
+</script>

@@ -76,17 +76,16 @@ Ensure Phavuer is loaded after these libraries.
 ```
 
 ```js
-const { Scene } = Phavuer
+const { Game, Scene } = Phavuer
 const MainScene = {
-  components: { Scene },
-  template: '<Scene>...</Scene>',
+  components: { Game, Scene },
+  template: '<Game><Scene>...</Scene></Game>',
   setup () {
     return {}
   }
 }
-const vueApp = Vue.createApp(MainScene)
-const game = new Phaser.Game({ .. })
-createPhavuerApp(game, vueApp)
+const app = Vue.createApp(MainScene)
+app.mount()
 ```
 
 ## Vite
@@ -143,13 +142,27 @@ export default defineConfig({
 `index.js`
 
 ```js
-import 'phaser'
 import { createApp } from 'vue'
-import { createPhavuerApp } from 'phavuer'
-import MainScene from './MainScene.vue'
-const vueApp = createApp(MainScene)
-const game = new Phaser.Game({ .. })
-createPhavuerApp(game, vueApp)
+import App from './App.vue'
+const app = createApp(MainScene)
+app.mount()
+```
+
+`App.vue`
+
+```html
+<template>
+  <Game :config="gameConfig">
+    <Scene name="MainScene">
+      <Rectangle :x="100" :y="100" :width="100" :height="100" :fillColor="0xAAAAAA" />
+    </Scene>
+  </Game>
+</template>
+
+<script setup>
+import { Game, Scene, Rectangle } from 'phavuer'
+const gameConfig = { .. }
+</script>
 ```
 
 ## Vite with TypeScript (Recommended)
@@ -159,17 +172,6 @@ See: [Phavuer Example Shooter](https://github.com/laineus/phavuer-example)
 # API
 
 ## Methods
-
-### `createPhavuerApp(gameInstance, vueApp)`
-
-Parameters:
-
-`gameInstance`: Game instance of Phaser
-`vueApp`: Vue application that generated from `createApp` of vue
-
-Return value:
-
-App instance of Vue
 
 ### `useGame()`
 

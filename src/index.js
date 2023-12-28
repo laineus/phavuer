@@ -1,5 +1,6 @@
 import { inject, watch, onBeforeUnmount, customRef, getCurrentInstance } from 'vue'
 import { default as setters, deepProps, vModelProps, GAME_OBJECT_EVENTS } from './setters.js'
+import Game from './components/Game.vue'
 import Scene from './components/Scene.vue'
 import Container from './components/Container.vue'
 import Rectangle from './components/Rectangle.vue'
@@ -17,37 +18,8 @@ import Light from './components/Light.vue'
 import StaticBody from './components/StaticBody.vue'
 import Body from './components/Body.vue'
 
-const createPhavuerApp = (game, app) => {
-  app.provide(InjectionKeys.Game, game)
-  app.provide(InjectionKeys.Scene, null)
-  app.provide(InjectionKeys.Container, null)
-  const mount = () => {
-    const dummyElement = window.document.createElement('phavuer-app')
-    game.canvas.parentElement.appendChild(dummyElement)
-    return app.mount(dummyElement)
-  }
-  return new Promise((resolve) => {
-    if (game.isRunning) {
-      return resolve(mount())
-    }
-    game.events.addListener('ready', () => {
-      resolve(mount())
-    })
-  })
-}
-
-const defineVModelProperty = (gameObject, key, emitter) => {
-  const privateKey = `_${key}`
-  const emitName = `update:${key}`
-  gameObject[privateKey] = gameObject[key]
-  Object.defineProperty(gameObject, key, {
-    get () {
-      return this[privateKey]
-    },
-    set (v) {
-      if (this[privateKey] !== v) emitter(emitName, v)
-    }
-  })
+const createPhavuerApp = () => {
+  console.alert('Phavuer::createPhavuerApp(): This method has been removed. Please use `<Game :config="{ .. }" />` instead.')
 }
 
 const camelize = s => s.replace(/-./g, x => x[1].toUpperCase())
@@ -175,6 +147,7 @@ export {
   useScene,
   onPreUpdate,
   onPostUpdate,
+  Game,
   Scene,
   Container,
   Rectangle,
