@@ -90,65 +90,28 @@ app.mount()
 
 ## Vite
 
-([Vite](https://github.com/vitejs/vite))
-
-```bash
-$ yarn init
-$ yarn add phavuer phaser vue@next
-$ yarn add -D vite @vitejs/plugin-vue @rollup/plugin-replace
-```
-
-`package.json`
-
-```json
-{
-  ..
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "serve": "vite preview"
-  },
-  ..
-}
-```
-
-`vite.config.js`
-
-```js
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import replace from '@rollup/plugin-replace'
-
-export default defineConfig({
-  plugins: [
-    vue(),
-    replace({
-      'typeof CANVAS_RENDERER': JSON.stringify(true),
-      'typeof WEBGL_RENDERER': JSON.stringify(true)
-    })
-  ]
-})
-```
-
-`index.html`
+### 1. Setup ([Vite](https://github.com/vitejs/vite))
 
 ```
-..
-<!-- Don't forget type="module" -->
-<script type="module" src="./index.js"></script>
-..
+$ yarn create vite
 ```
 
-`index.js`
+Choose Vue in the 'Select a framework' section.
+Choose TypeScript (recommended) or JavaScript in the 'Select a variant' section.
 
-```js
-import { createApp } from 'vue'
-import App from './App.vue'
-const app = createApp(MainScene)
-app.mount()
+### 2. Add Phaser and Phavuer
+
+```
+$ yarn add phavuer phaser
 ```
 
-`App.vue`
+Add the following import statement at the beginning of `index.ts` or `index.js`.
+
+```
+import 'phaser'
+```
+
+### 3. Develop App.vue
 
 ```html
 <template>
@@ -159,83 +122,44 @@ app.mount()
   </Game>
 </template>
 
-<script setup>
+<script setup lang="ts"> or <script setup>
 import { Game, Scene, Rectangle } from 'phavuer'
-const gameConfig = { .. }
+const gameConfig = { width: 960, height: 540 }
 </script>
 ```
 
-## Vite with TypeScript (Recommended)
+### 4. Run
 
-See: [Phavuer Example Shooter](https://github.com/laineus/phavuer-example)
+```
+$ yarn run dev
+```
 
 # API
 
-## Methods
-
-### `useGame()`
-
-Return value:
-
-Phaser.Game
-
-### `useScene()`
-
-Return value:
-
-Phaser.Scene
-
-### `refTo(value, key)`
-
-Parameters:
-
-`value`: Initial value
-`key`: Key string of what property of given new value should be set
-
-Return value:
-
-Instance of `CustomRefImpl`
-
-Usage:
-
-Can be used to get such as a GameObject easily.
-
-```js
-const rectangle = refTo(null, 'object')
-```
-
-```vue
-<Rectangle ref="rectangle">
-```
-
-### `refObj(value)`
-
-A sugar function for `refTo(value, 'object')`
-
-### `refScene(value)`
-
-A sugar function for `refTo(value, 'scene')`
-
-### `onPreUpdate(event)`
-
-A method to register an event on pre update of the scene.
-
-### `onPostUpdate(event)`
-
-A method to register an event on post update of the scene.
-
 ## Components
+
+### `Game`
+
+The `Game` component is used to create a [Game](https://newdocs.phaser.io/docs/3.70.0/Phaser.Game) instance.
+
+Props:
+
+- `config`: ([GameConfig](https://newdocs.phaser.io/docs/3.70.0/Phaser.Types.Core.GameConfig)) Configuration settings for the Phaser game
+
+Events:
+
+- `create (game)`
+- `boot (game)`
+- `ready (game)`
 
 ### `Scene`
 
-`Scene` component is used for make your scene component.
+The `Scene` component is used to create a [Scene](https://newdocs.phaser.io/docs/3.70.0/Phaser.Scene).
 
 Props:
 
 - `name`: (String) Scene name
 - `autoStart`: (Boolean) Scene is started immediately if `true`
-
-The name can be received from props, so you can use it as is: `<Scene :name="props.name">`
 
 Events:
 
@@ -248,26 +172,9 @@ Properties:
 
 - `scene` Scene object
 
-If you want to handle multi scenes, root component supposed to be like this:
+### GameObject Components
 
-```vue
-<template>
-  <GameScene />
-  <UIScene />
-</template>
-
-<script>
-import GameScene from './GameScene'
-import UIScene from './UIScene'
-export default {
-  components: { GameScene, UIScene }
-}
-</script>
-```
-
-### Base Components
-
-Base Components are fundamental elements corresponding to each Phaser 3 GameObject, like `Sprite` or `Rectangle`.
+GameObject Components are fundamental elements corresponding to each [Phaser 3 GameObject](https://newdocs.phaser.io/docs/3.70.0/gameobjects), like `Sprite` or `Rectangle`.
 
 Usage example: `<Rectangle :x="0" :y="0" :width="10" :height="10" />`
 
@@ -301,6 +208,59 @@ Currently, Phavuer supports the following base components:
 Phavuer currently supports major GameObjects, but not all. If you wish to use other GameObjects, please raise an issue or a Pull Request.  
 You also have the option to create base components within your project. ([See here for reference](https://github.com/laineus/phavuer/tree/master/src/components))
 
+## Methods
+
+### `useGame()`
+
+Return value:
+
+Instance of [Phaser.Game](https://newdocs.phaser.io/docs/3.70.0/Phaser.Game)
+
+### `useScene()`
+
+Return value:
+
+Instance of [Phaser.Scene](https://newdocs.phaser.io/docs/3.70.0/Phaser.Scene)
+
+### `onPreUpdate(event)`
+
+A method to register an event on pre update of the scene.
+
+### `onPostUpdate(event)`
+
+A method to register an event on post update of the scene.
+
+### `refTo(value, key)`
+
+Parameters:
+
+`value`: Initial value
+`key`: Key string of what property of given new value should be set
+
+Return value:
+
+Instance of `CustomRefImpl`
+
+Usage:
+
+Can be used to get such as a GameObject easily.
+
+```js
+const rectangle = refTo(null, 'object')
+```
+
+```html
+<Rectangle ref="rectangle">
+```
+
+### `refObj(value)`
+
+A sugar function for `refTo(value, 'object')`
+
+### `refScene(value)`
+
+A sugar function for `refTo(value, 'scene')`
+
 ## Methods (for contributers)
 
 ### `initGameObject(gameObject, props, context)`
@@ -320,7 +280,7 @@ Parameters:
 - `props`: Vue 3 props
 - `context`: Vue 3 context
 
-This method is utilized to define Base Components. ([Example here](https://github.com/laineus/phavuer/tree/master/src/components/Sprite.js))
+This method is utilized to define GameObject Components. ([Example here](https://github.com/laineus/phavuer/tree/master/src/components/Sprite.js))
 
 If you simply wish to use your component within another component, this method is not necessary.  
 In such cases, you only need to relay props to the default components.
