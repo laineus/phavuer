@@ -8,12 +8,19 @@
 <script>
 import { defineComponent, provide, ref, onMounted } from 'vue'
 import { InjectionKeys } from '../index'
+import packageJson from '../../package.json'
 export default defineComponent({
   emits: ['create', 'boot', 'ready'],
   props: {
     config: { type: Object }
   },
   setup (props, context) {
+    console.log(
+      `%c %cPhavuer v${packageJson.version}%c https://github.com/laineus/phavuer`,
+      'background-color: #42b883; padding: 2px 0;',
+      'background-color: #213547; padding: 2px 8px; color: white; font-weight: bold;',
+      ''
+    )
     const canvasRoot = ref(false)
     const show = ref(false)
     onMounted(() => {
