@@ -56,17 +56,17 @@ export default {
 </script>
 ```
 
-The template syntax is consistent with Vue 3 ([documentation](https://v3.vuejs.org/guide/template-syntax.html)).
+The template syntax is consistent with Vue 3 ([documentation](https://v3.vuejs.org/guide/template-syntax.html)).  
 No original syntax is introduced.
 
-Phaser3's GameObjects and their properties are used as components and props, respectively.
+Phaser3's GameObjects and their properties are used as components and props, respectively.  
 The naming conventions are in line with the original names, making Phaser3's documentation directly applicable.
 
 # Installation
 
 ## CDN
 
-Phavuer requires Phaser 3 and Vue 3.
+Phavuer requires Phaser 3 and Vue 3.  
 Ensure Phavuer is loaded after these libraries.
 
 ```html
@@ -90,28 +90,28 @@ app.mount()
 
 ## Vite
 
-### 1. Setup ([Vite](https://github.com/vitejs/vite))
+### 1. Setup [Vite](https://github.com/vitejs/vite)
 
-```
+```bash
 $ yarn create vite
 ```
 
-Choose Vue in the 'Select a framework' section.
+Choose Vue in the 'Select a framework' section.  
 Choose TypeScript (recommended) or JavaScript in the 'Select a variant' section.
 
 ### 2. Add Phaser and Phavuer
 
-```
+```bash
 $ yarn add phavuer phaser
 ```
 
 Add the following import statement at the beginning of `index.ts` or `index.js`.
 
-```
+```js
 import 'phaser'
 ```
 
-### 3. Develop App.vue
+### 3. App.vue
 
 ```html
 <template>
@@ -130,7 +130,7 @@ const gameConfig = { width: 960, height: 540 }
 
 ### 4. Run
 
-```
+```bash
 $ yarn run dev
 ```
 
