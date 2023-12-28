@@ -19,7 +19,7 @@ import StaticBody from './components/StaticBody.vue'
 import Body from './components/Body.vue'
 
 const createPhavuerApp = () => {
-  console.alert('Phavuer::createPhavuerApp(): This method has been removed. Please use `<Game :config="{ .. }" />` instead.')
+  console.error('Phavuer::createPhavuerApp() has been removed. Please use `<Game>` component instead. See: https://github.com/laineus/phavuer')
 }
 
 const camelize = s => s.replace(/-./g, x => x[1].toUpperCase())
