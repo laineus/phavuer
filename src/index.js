@@ -7,6 +7,7 @@ import Rectangle from './components/Rectangle.vue'
 import RoundRectangle from './components/RoundRectangle.vue'
 import Triangle from './components/Triangle.vue'
 import Circle from './components/Circle.vue'
+import Polygon from './components/Polygon.vue'
 import Line from './components/Line.vue'
 import Image from './components/Image.vue'
 import NineSlice from './components/NineSlice.vue'
@@ -154,6 +155,7 @@ export {
   RoundRectangle,
   Triangle,
   Circle,
+  Polygon,
   Line,
   Image,
   NineSlice,

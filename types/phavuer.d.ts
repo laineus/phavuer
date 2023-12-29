@@ -126,6 +126,14 @@ export const Circle: DefineComponent<Phavuer.GameObjectProps & {
   strokeColor?: number
   strokeAlpha?: number
 }, {}, {}, {}, {}, {}, {}, GameObjectEmits>
+export const Polygon: DefineComponent<Phavuer.GameObjectProps & {
+  points?: number[] | number[][] | Phaser.Math.Vector2[] | Phaser.Types.Math.Vector2Like[]
+  fillColor?: number
+  fillAlpha?: number
+  lineWidth?: number
+  strokeColor?: number
+  strokeAlpha?: number
+}, {}, {}, {}, {}, {}, {}, GameObjectEmits>
 export const Line: DefineComponent<Phavuer.GameObjectProps & {
   x1?: number
   y1?: number

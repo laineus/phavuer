@@ -62,6 +62,7 @@ export default {
   y2: object => v => object.geom.y2 = v,
   x3: object => v => object.geom.x3 = v,
   y3: object => v => object.geom.y3 = v,
+  points: object => v => object.setTo(v),
   rotation: object => v => object.setRotation(v),
   origin: object => v => object.setOrigin(v, v),
   originX: object => v => object.setOrigin(v, object.originY),
@@ -89,7 +90,7 @@ export default {
   dropZone: object => v => {
     if (!v) return
     if (!object.input) object.setInteractive()
-    object.input.dropZone = true
+    object.input.dropZone = v
   },
   flipX: object => v => object.setFlipX(v),
   flipY: object => v => object.setFlipY(v),

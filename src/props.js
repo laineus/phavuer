@@ -9,6 +9,7 @@ const props = {
   y2: { type: Number },
   x3: { type: Number },
   y3: { type: Number },
+  points: { type: Array },
   rotation: { type: Number },
   origin: { type: Number },
   originX: { type: Number },

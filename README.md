@@ -9,25 +9,8 @@
 ![ScreenShot](ss.png)
 
 Phavuer is a wrapper library that integrates [Phaser 3](https://github.com/photonstorm/phaser) with [Vue 3](https://github.com/vuejs/vue-next).  
-It enables game development through declarative rendering.
 
-- [Phavuer vs Phaser's plane API](https://codepen.io/laineus/pen/pobgxdE?editors=0010) - A Compilation by example UI.
-- [Phavuer Example Shooter](https://github.com/laineus/phavuer-example) - A simple shooter that written in Phavuer.
-- [Phavuer RPG Example](https://github.com/laineus/phavuer-rpg-example) - An RPG example (This is just a usage example. Not a completed Game.)
-- ["The Dream Libra had"](https://github.com/laineus/libra) - An RPG made with Phavuer (Completed project and published on Steam).
-
-\*\*\* **Attention** \*\*\*
-
-- Currently, it supports basic Phaser functionalities and major GameObjects, but not all.
-- While performance is not guaranteed, it will not be faster than using Phaser alone.
-- Using Phavuer significantly alters the source code from standard Phaser. Please note that switching between the two is not straightforward.
-
-Nevertheless, I am committed to using it for my own game development.  
-Contributions are welcome.
-
-# Usage example
-
-**MainScene.vue:**
+It allows you to control Phaser, a JavaScript game engine, through Vue, and enables game development through declarative rendering.
 
 ```vue
 <template>
@@ -45,22 +28,26 @@ Contributions are welcome.
 import { Scene, Container, Rectangle, Text } from 'phavuer'
 import { ref } from 'vue'
 import MyCustomComponent from './MyCustomComponent.vue'
-export default {
-  components: { Scene, Container, Rectangle, Text, MyCustomComponent },
-  setup () {
-    const count = ref(1)
-    const onClick = () => count.value++
-    return { count, onClick }
-  }
-}
+const count = ref(1)
+const onClick = () => count.value++
 </script>
 ```
 
-The template syntax is consistent with Vue 3 ([documentation](https://v3.vuejs.org/guide/template-syntax.html)).  
-No original syntax is introduced.
-
 Phaser3's GameObjects and their properties are used as components and props, respectively.  
 The naming conventions are in line with the original names, making Phaser3's documentation directly applicable.
+
+\*\*\* **Attention** \*\*\*
+
+- Currently, it supports basic Phaser functionalities and major GameObjects, but not all.
+- While performance is not guaranteed, it will not be faster than using Phaser alone.
+- Using Phavuer significantly alters the source code from standard Phaser. Please note that switching between the two is not straightforward.
+
+# Examples
+
+- [Phavuer vs Phaser's plane API](https://codepen.io/laineus/pen/pobgxdE?editors=0010) - A Compilation by example UI.
+- [Phavuer Example Shooter](https://github.com/laineus/phavuer-example) - A simple shooter that written in Phavuer.
+- [Phavuer RPG Example](https://github.com/laineus/phavuer-rpg-example) - An RPG example (This is just a usage example. Not a completed Game.)
+- ["The Dream Libra had"](https://github.com/laineus/libra) - An RPG made with Phavuer (Completed project and published on Steam).
 
 # Installation
 
@@ -85,7 +72,7 @@ const MainScene = {
   }
 }
 const app = Vue.createApp(MainScene)
-app.mount()
+app.mount('#app')
 ```
 
 ## Vite
@@ -96,8 +83,8 @@ app.mount()
 $ yarn create vite
 ```
 
-Choose Vue in the 'Select a framework' section.  
-Choose TypeScript (recommended) or JavaScript in the 'Select a variant' section.
+Choose `Vue` in the 'Select a framework' section.  
+Choose `TypeScript` (recommended) or `JavaScript` in the 'Select a variant' section.
 
 ### 2. Add Phaser and Phavuer
 
@@ -198,6 +185,7 @@ Currently, Phavuer supports the following base components:
 - RoundRectangle
 - Triangle
 - Circle
+- Polygon
 - Line
 - Zone
 - TilemapLayer

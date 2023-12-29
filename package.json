@@ -1,6 +1,6 @@
 {
   "name": "phavuer",
-  "version": "0.15.1",
+  "version": "0.15.2",
   "description": "Reactive template engine based on Vue 3 for Phaser 3",
   "main": "src/index.js",
   "types": "types/phavuer.d.ts",
