@@ -8,11 +8,12 @@ import { initGameObject, InjectionKeys } from '../index.js'
 import { gameObjectProps, mapProps } from '../props.js'
 import { gameObjectEmits } from '../emits.js'
 const SPRITE_EMITS = [
-  { attr: 'onAnimationcomplete', emit: 'animationcomplete' },
+  { attr: 'onAnimationstart', emit: 'animationstart' },
+  { attr: 'onAnimationupdate', emit: 'animationupdate' },
   { attr: 'onAnimationrepeat', emit: 'animationrepeat' },
-  { attr: 'onAnimationrestart', emit: 'animationrestart' },
+  { attr: 'onAnimationcomplete', emit: 'animationcomplete' },
   { attr: 'onAnimationstop', emit: 'animationstop' },
-  { attr: 'animationupdate', emit: 'animationupdate' }
+  { attr: 'onAnimationrestart', emit: 'animationrestart' }
 ]
 export default defineComponent({
   emits: [

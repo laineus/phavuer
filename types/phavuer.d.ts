@@ -1,5 +1,5 @@
 import * as Phaser from 'phaser'
-import { DefineComponent, App, ComponentPublicInstance, Ref, SetupContext, ComponentObjectPropsOptions } from 'vue'
+import { DefineComponent, Ref, SetupContext, ComponentObjectPropsOptions } from 'vue'
 
 export function refTo<T> (value: T, key: string): Ref<T>
 export function refObj<T extends Phaser.GameObjects.GameObject> (value: T): Ref<T>
@@ -25,6 +25,7 @@ declare namespace Phavuer {
     timeline?: Phavuer.TimelineConfig[]
   }
   interface GameObjectProps {
+    active?: boolean
     visible?: boolean
     x?: number
     y?: number
@@ -53,7 +54,8 @@ declare namespace Phavuer {
   }
 }
 
-type GameObjectEmits = string[] | {
+type GameObjectEmits<T> = string[] | {
+  create: (gameObject: T) => void
   pointerdown: (pointer: Phaser.Input.Pointer, localX: number, localY: number, event: Phaser.Types.Input.EventData) => void
   pointermove: (pointer: Phaser.Input.Pointer, localX: number, localY: number, event: Phaser.Types.Input.EventData) => void
   pointerup: (pointer: Phaser.Input.Pointer, localX: number, localY: number, event: Phaser.Types.Input.EventData) => void
@@ -85,7 +87,8 @@ export const Scene: DefineComponent<{
   update: (scene: Phaser.Scene, time: number, delta: number) => void
   preload: (scene: Phaser.Scene) => void
 }>
-export const Container: DefineComponent<Phavuer.GameObjectProps, {}, {}, {}, {}, {}, {}, GameObjectEmits>
+type ContainerProps = Omit<Phavuer.GameObjectProps, 'origin' | 'originX' | 'originY' | 'displayOriginX' | 'displayOriginY'>
+export const Container: DefineComponent<ContainerProps, {}, {}, {}, {}, {}, {}, GameObjectEmits<Phaser.GameObjects.Container>>
 export const Rectangle: DefineComponent<Phavuer.GameObjectProps & {
   width?: number
   height?: number
@@ -94,7 +97,7 @@ export const Rectangle: DefineComponent<Phavuer.GameObjectProps & {
   lineWidth?: number
   strokeColor?: number
   strokeAlpha?: number
-}, {}, {}, {}, {}, {}, {}, GameObjectEmits>
+}, {}, {}, {}, {}, {}, {}, GameObjectEmits<Phaser.GameObjects.Rectangle>>
 export const RoundRectangle: DefineComponent<Phavuer.GameObjectProps & {
   width?: number
   height?: number
@@ -104,7 +107,7 @@ export const RoundRectangle: DefineComponent<Phavuer.GameObjectProps & {
   lineWidth?: number
   strokeColor?: number
   strokeAlpha?: number
-}, {}, {}, {}, {}, {}, {}, GameObjectEmits>
+}, {}, {}, {}, {}, {}, {}, GameObjectEmits<Phaser.GameObjects.Graphics>>
 export const Triangle: DefineComponent<Phavuer.GameObjectProps & {
   x1?: number
   y1?: number
@@ -117,7 +120,7 @@ export const Triangle: DefineComponent<Phavuer.GameObjectProps & {
   lineWidth?: number
   strokeColor?: number
   strokeAlpha?: number
-}, {}, {}, {}, {}, {}, {}, GameObjectEmits>
+}, {}, {}, {}, {}, {}, {}, GameObjectEmits<Phaser.GameObjects.Triangle>>
 export const Circle: DefineComponent<Phavuer.GameObjectProps & {
   radius?: number
   fillColor?: number
@@ -125,7 +128,7 @@ export const Circle: DefineComponent<Phavuer.GameObjectProps & {
   lineWidth?: number
   strokeColor?: number
   strokeAlpha?: number
-}, {}, {}, {}, {}, {}, {}, GameObjectEmits>
+}, {}, {}, {}, {}, {}, {}, GameObjectEmits<Phaser.GameObjects.Circle>>
 export const Polygon: DefineComponent<Phavuer.GameObjectProps & {
   points?: number[] | number[][] | Phaser.Math.Vector2[] | Phaser.Types.Math.Vector2Like[]
   fillColor?: number
@@ -133,7 +136,7 @@ export const Polygon: DefineComponent<Phavuer.GameObjectProps & {
   lineWidth?: number
   strokeColor?: number
   strokeAlpha?: number
-}, {}, {}, {}, {}, {}, {}, GameObjectEmits>
+}, {}, {}, {}, {}, {}, {}, GameObjectEmits<Phaser.GameObjects.Polygon>>
 export const Line: DefineComponent<Phavuer.GameObjectProps & {
   x1?: number
   y1?: number
@@ -142,15 +145,17 @@ export const Line: DefineComponent<Phavuer.GameObjectProps & {
   lineWidth?: number
   strokeColor?: number
   strokeAlpha?: number
-}, {}, {}, {}, {}, {}, {}, GameObjectEmits>
+}, {}, {}, {}, {}, {}, {}, GameObjectEmits<Phaser.GameObjects.Line>>
 export const Image: DefineComponent<Phavuer.GameObjectProps & {
   texture?: string | Phaser.Textures.Texture
   frame?: number | string
   tint?: number
   flipX?: boolean
   flipY?: boolean
-}, {}, {}, {}, {}, {}, {}, GameObjectEmits>
+}, {}, {}, {}, {}, {}, {}, GameObjectEmits<Phaser.GameObjects.Image>>
 export const NineSlice: DefineComponent<Phavuer.GameObjectProps & {
+  width?: number
+  height?: number
   texture?: string | Phaser.Textures.Texture
   frame?: number | string
   tint?: number
@@ -158,7 +163,7 @@ export const NineSlice: DefineComponent<Phavuer.GameObjectProps & {
   rightWidth?: number
   topHeight?: number
   bottomHeight?: number
-}, {}, {}, {}, {}, {}, {}, GameObjectEmits>
+}, {}, {}, {}, {}, {}, {}, GameObjectEmits<Phaser.GameObjects.NineSlice>>
 export const Sprite: DefineComponent<Phavuer.GameObjectProps & {
   texture?: string | Phaser.Textures.Texture
   frame?: number | string
@@ -166,44 +171,33 @@ export const Sprite: DefineComponent<Phavuer.GameObjectProps & {
   flipX?: boolean
   flipY?: boolean
   play?: string
-}, {}, {}, {}, {}, {}, {}, GameObjectEmits & {
+}, {}, {}, {}, {}, {}, {}, GameObjectEmits<Phaser.GameObjects.Sprite> & {
+  animationstart: (animation: Phaser.Animations.Animation, frame: Phaser.Animations.AnimationFrame, gameObject: Phaser.GameObjects.Sprite, frameKey: string) => void
+  animationupdate: (animation: Phaser.Animations.Animation, frame: Phaser.Animations.AnimationFrame, gameObject: Phaser.GameObjects.Sprite, frameKey: string) => void
   animationrepeat: (animation: Phaser.Animations.Animation, frame: Phaser.Animations.AnimationFrame, gameObject: Phaser.GameObjects.Sprite, frameKey: string) => void
-  animationrestart: (animation: Phaser.Animations.Animation, frame: Phaser.Animations.AnimationFrame, gameObject: Phaser.GameObjects.Sprite, frameKey: string) => void
-  animationstop: (animation: Phaser.Animations.Animation, frame: Phaser.Animations.AnimationFrame, gameObject: Phaser.GameObjects.Sprite, frameKey: string) => void
   animationcomplete: (animation: Phaser.Animations.Animation, frame: Phaser.Animations.AnimationFrame, gameObject: Phaser.GameObjects.Sprite, frameKey: string) => void
+  animationstop: (animation: Phaser.Animations.Animation, frame: Phaser.Animations.AnimationFrame, gameObject: Phaser.GameObjects.Sprite, frameKey: string) => void
+  animationrestart: (animation: Phaser.Animations.Animation, frame: Phaser.Animations.AnimationFrame, gameObject: Phaser.GameObjects.Sprite, frameKey: string) => void
 }>
 export const Text: DefineComponent<Phavuer.GameObjectProps & {
   text?: string
   style?: Phaser.Types.GameObjects.Text.TextStyle
   lineSpacing?: number
   padding?: number | Phaser.Types.GameObjects.Text.TextPadding
-}, {}, {}, {}, {}, {}, {}, GameObjectEmits>
-export const TilemapLayer: DefineComponent<Phavuer.AnimationProps & {
-  visible?: boolean
-  x?: number
-  y?: number
+}, {}, {}, {}, {}, {}, {}, GameObjectEmits<Phaser.GameObjects.Text>>
+export const TilemapLayer: DefineComponent<Phavuer.GameObjectProps & {
   width?: number
   height?: number
-  depth?: number
-  pipeline?: Phaser.Renderer.WebGL.WebGLPipeline
   collision?: number | number[]
   collisionByProperty?: any
   tilemap?: Phaser.Tilemaps.Tilemap
   layerIndex?: number
   tileset?: string | string[] | Phaser.Tilemaps.Tileset | Phaser.Tilemaps.Tileset[]
+}, {}, {}, {}, {}, {}, {}, {
+  create: (game: Phaser.Tilemaps.TilemapLayer) => void
 }>
-export const Zone: DefineComponent<Phavuer.AnimationProps & {
-  active?: boolean
-  x?: number
-  y?: number
-  width?: number
-  height?: number
-  origin?: number
-  originX?: number
-  originY?: number
-  displayOriginX?: number
-  displayOriginY?: number
-}>
+type ZoneProps = Omit<Phavuer.GameObjectProps, 'alpha' | 'blendMode' | 'pipeline'>
+export const Zone: DefineComponent<ZoneProps, {}, {}, {}, {}, {}, {}, GameObjectEmits<Phaser.GameObjects.Text>>
 export const Light: DefineComponent<Phavuer.AnimationProps & {
   visible?: boolean
   x?: number
@@ -211,6 +205,8 @@ export const Light: DefineComponent<Phavuer.AnimationProps & {
   radius?: number
   color?: number
   intensity?: number
+}, {}, {}, {}, {}, {}, {}, {
+  create: (game: Phaser.GameObjects.Light) => void
 }>
 export const StaticBody: DefineComponent<{
   width?: number
@@ -218,6 +214,8 @@ export const StaticBody: DefineComponent<{
   offsetX?: number
   offsetY?: number
   enable?: boolean
+}, {}, {}, {}, {}, {}, {}, {
+  create: (game: Phaser.Physics.Arcade.StaticBody) => void
 }>
 export const Body: DefineComponent<{
   width?: number
@@ -242,4 +240,6 @@ export const Body: DefineComponent<{
   maxVelocityY?: number
   accelerationX?: number
   accelerationY?: number
+}, {}, {}, {}, {}, {}, {}, {
+  create: (game: Phaser.Physics.Arcade.Body) => void
 }>

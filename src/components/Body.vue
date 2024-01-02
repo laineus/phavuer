@@ -24,6 +24,7 @@ export default defineComponent({
   },
   setup (props, context) {
     const scene = inject(InjectionKeys.Scene)
+    if (!scene.physics) throw Error("Physics is not available. Add physics setting to your game config. e.g. `physics: { default: 'arcade' }`")
     const gameObject = inject(InjectionKeys.GameObject)
     const body = scene.physics.add.existing(gameObject, Phaser.Physics.Arcade.DYNAMIC_BODY).body
     initGameObject(body, props, context)

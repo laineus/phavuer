@@ -4,20 +4,13 @@
 <script>
 import { defineComponent, inject } from 'vue'
 import { initGameObject, InjectionKeys } from '../index.js'
-import { mapProps } from '../props.js'
+import { gameObjectProps } from '../props.js'
+import { gameObjectEmits } from '../emits.js'
 export default defineComponent({
-  emits: ['create'],
-  props: {
-    ...mapProps(
-      'tween', 'tweens', 'timeline',
-      'active',
-      'dropArea',
-      'x', 'y',
-      'width', 'height',
-      'origin', 'originX', 'originY',
-      'displayOriginX', 'displayOriginY'
-    )
-  },
+  emits: [...gameObjectEmits],
+  props: Object.fromEntries(
+    Object.entries(gameObjectProps).filter(([k]) => !['alpha', 'blendMode', 'pipeline'].includes(k))
+  ),
   setup (props, context) {
     const scene = inject(InjectionKeys.Scene)
     const object = new Phaser.GameObjects.Zone(scene, props.x || 0, props.y || 0, props.width, props.height)

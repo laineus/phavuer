@@ -86,7 +86,7 @@ export const mapProps = (...names) => {
 }
 export const gameObjectProps = mapProps(
   'tween', 'tweens', 'timeline',
-  'visible',
+  'active', 'visible',
   'x', 'y',
   'rotation',
   'origin', 'originX', 'originY',

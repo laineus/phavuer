@@ -1,5 +1,4 @@
 <template>
-  <slot />
 </template>
 
 <script>
