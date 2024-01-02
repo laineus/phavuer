@@ -72,6 +72,7 @@ const props = {
   accelerationY: { type: Number },
   offsetX: { type: Number },
   offsetY: { type: Number },
+  collideWorldBounds: { type: Boolean },
   // Tween
   tween: { type: Object },
   tweens: { type: Array },

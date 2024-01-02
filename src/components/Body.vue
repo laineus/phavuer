@@ -19,7 +19,8 @@ export default defineComponent({
       'frictionX', 'frictionY',
       'velocityX', 'velocityY',
       'maxVelocityX', 'maxVelocityY',
-      'accelerationX', 'accelerationY'
+      'accelerationX', 'accelerationY',
+      'collideWorldBounds'
     )
   },
   setup (props, context) {

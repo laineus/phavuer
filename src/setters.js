@@ -151,6 +151,7 @@ export default {
   accelerationY: body => v => body.setAccelerationY(v),
   offsetX: body => v => body.setOffset(v, body.offset.y),
   offsetY: body => v => body.setOffset(body.offset.x, v),
+  collideWorldBounds: body => v => body.collideWorldBounds = v,
   // Tween
   tween: (object, emit) => {
     return makeTweenRepository(tweenConfig => {

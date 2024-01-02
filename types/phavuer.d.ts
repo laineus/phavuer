@@ -240,6 +240,7 @@ export const Body: DefineComponent<{
   maxVelocityY?: number
   accelerationX?: number
   accelerationY?: number
+  collideWorldBounds?: boolean
 }, {}, {}, {}, {}, {}, {}, {
   create: (game: Phaser.Physics.Arcade.Body) => void
 }>
