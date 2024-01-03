@@ -51,6 +51,10 @@ const props = {
   padding: { type: [Number, Object] },
   collision: { type: [Number, Array] },
   collisionByProperty: { type: Object },
+  play: { type: [String, Object] },
+  scrollFactor: { type: Number },
+  scrollFactorX: { type: Number },
+  scrollFactorY: { type: Number },
   // Body
   enable: { type: Boolean },
   immovable: { type: Boolean },
