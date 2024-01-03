@@ -162,11 +162,13 @@ export default {
   },
   tweens: (object, emit) => {
     return makeTweenRepository(tweenConfigs => {
-      const timeline = object.scene.add.timeline(tweenConfigs.map((tweenConfig, i) => {
-        const at = tweenConfigs.slice(0, i).reduce((sum, config) => {
+      const infinitConfigIndex = tweenConfigs.findIndex(conf => conf.repeat === -1)
+      const configs = tweenConfigs.slice(0, infinitConfigIndex === -1 ? undefined : infinitConfigIndex + 1)
+      const timeline = object.scene.add.timeline(configs.map((tweenConfig, i) => {
+        const at = configs.slice(0, i).reduce((sum, config) => {
           const duration = config.duration ?? 1000
           const yoyo = config.yoyo ?? false
-          const count = (config.loop ?? 0) + 1
+          const count = (config.repeat ?? 0) + 1
           return sum + duration * (yoyo ? 2 : 1) * count
         }, 0)
         return {
