@@ -170,7 +170,7 @@ export const Sprite: DefineComponent<Phavuer.GameObjectProps & {
   tint?: number
   flipX?: boolean
   flipY?: boolean
-  play?: string
+  play?: string | Phaser.Animations.Animation | Phaser.Types.Animations.PlayAnimationConfig
 }, {}, {}, {}, {}, {}, {}, GameObjectEmits<Phaser.GameObjects.Sprite> & {
   animationstart: (animation: Phaser.Animations.Animation, frame: Phaser.Animations.AnimationFrame, gameObject: Phaser.GameObjects.Sprite, frameKey: string) => void
   animationupdate: (animation: Phaser.Animations.Animation, frame: Phaser.Animations.AnimationFrame, gameObject: Phaser.GameObjects.Sprite, frameKey: string) => void

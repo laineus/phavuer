@@ -27,7 +27,7 @@ export default defineComponent({
       'tint',
       'flipX', 'flipY'
     ),
-    play: { type: String }
+    play: { type: [String, Object] }
   },
   setup (props, context) {
     const scene = inject(InjectionKeys.Scene)
