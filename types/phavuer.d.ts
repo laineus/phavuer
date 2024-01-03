@@ -196,7 +196,10 @@ export const TilemapLayer: DefineComponent<Phavuer.GameObjectProps & {
 }, {}, {}, {}, {}, {}, {}, {
   create: (game: Phaser.Tilemaps.TilemapLayer) => void
 }>
-type ZoneProps = Omit<Phavuer.GameObjectProps, 'alpha' | 'blendMode' | 'pipeline'>
+type ZoneProps = Omit<Phavuer.GameObjectProps, 'alpha' | 'blendMode' | 'pipeline'> & {
+  width?: number
+  height?: number
+}
 export const Zone: DefineComponent<ZoneProps, {}, {}, {}, {}, {}, {}, GameObjectEmits<Phaser.GameObjects.Text>>
 export const Light: DefineComponent<Phavuer.AnimationProps & {
   visible?: boolean
