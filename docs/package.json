@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "storybook dev -p 6006",
-    "build": "storybook build"
+    "build": "storybook build && node site-title.js"
   },
   "dependencies": {
     "phaser": "^3.70.0",

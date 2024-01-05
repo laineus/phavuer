@@ -2,7 +2,6 @@ import 'phaser'
 import { Game, Scene, Image } from '../../'
 import type { Meta, StoryObj } from '@storybook/vue3'
 import { referPhaserVersion, take } from './utils'
-import logo from '../../logo.png'
 
 type Story = StoryObj<typeof Image>
 
@@ -113,7 +112,7 @@ export const Default: Story = {
     components: { Game, Scene, Image },
     setup() {
       const preload = (scene: Phaser.Scene) => {
-        scene.load.image('logo', logo)
+        scene.load.image('logo', '/logo.png')
       }
       return { args, preload }
     },
