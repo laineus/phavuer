@@ -7,16 +7,19 @@ import { ref, watch } from 'vue'
 type Story = StoryObj<typeof Rectangle>
 
 const description = `
-各GameObjectのtween propにTweenConfigをセットすると、tweenが再生されます。
-v-modelも有効で、再生が完了した際に値が自動的にunsetされます。
+Set TweenConfig to the tween prop of each GameObject and the tween will play.  
+The v-model is also available and its value is automatically unset when playback is complete.
 
-空の値をセットしたり、別のTweenConfigをセットすると、前回のtweenの再生は停止されます。
+Setting an empty value or another TweenConfig will stop the previous tween from playing.
 
-同じ設定でも、異なるObjectがセットされた場合、Tweenは新しく再生されます。
-そのため、template内に直接TweenConfigObjectを書くと、VueのライフサイクルによってViewが更新された際にTweenが再度再生されてしまうことに注意してください。
+If a different Object is set for the same configuration, the tween will play anew.  
+So be aware that if you write the TweenConfig Object directly in the view template, the tween will play again when the View is updated by Vue's lifecycle.
 
-Phaserの型定義の代わりに\`Phavuer.TweenConfig\`、\`Phavuer.TimelineConfig\`を使ってください。
-Phaserの設定では、Tweenを適用する対象として\`targets\`プロパティを設定しますが、\`Phavuer.TweenConfig\`では対象のコンポーネントのGameObjectが自動でセットされます。
+The values of \`v-model:x\` and \`v-model:y\` will be updated by changes made by the tween.  
+Note that if other properties that are dynamically set by props are also changed by tween, the respective values will be inconsistent.
+
+Use \`Phavuer.TweenConfig\` and \`Phavuer.TimelineConfig\` instead of Phaser's typedefs.  
+In the Phaser configuration, the \`targets\` property is set as the target to which the tween will be applied, but in the \`Phavuer.TweenConfig\` the GameObject of the target component is automatically set.
 
 tween:
 
@@ -104,7 +107,7 @@ See also: [Phaser.Types.Tweens.TweenDataConfig](https://newdocs.phaser.io/docs/$
 See also: [Phaser.Time.Timeline](https://newdocs.phaser.io/docs/3.70.0/Phaser.Time.Timeline)
 `
 
-const meta: Meta<typeof Rectangle> = {
+const meta: Meta = {
   title: 'Tween/Examples',
   parameters: {
     docs: {

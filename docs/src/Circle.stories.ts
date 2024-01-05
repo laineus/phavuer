@@ -20,8 +20,6 @@ This shape supports both fill and stroke colors.
 </Game>
 \`\`\`
 
-Physics must be enabled in gameConfig.
-
 See also: [Phaser.Geom.Circle](https://newdocs.phaser.io/docs/${referPhaserVersion}/Phaser.Geom.Circle)
 `
 

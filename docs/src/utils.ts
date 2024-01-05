@@ -26,7 +26,7 @@ export const argTypes = {
     }
   },
   x: {
-    description: 'The horizontal position of this Game Object in the world.',
+    description: 'The horizontal position of this Game Object in the world.<br>`v-mode:x` is also available.',
     table: {
       category: 'Props',
       type: { summary: 'number' },
@@ -34,7 +34,7 @@ export const argTypes = {
     }
   },
   y: {
-    description: 'The vertical position of this Game Object in the world.',
+    description: 'The vertical position of this Game Object in the world.<br>`v-mode:y` is also available.',
     table: {
       category: 'Props',
       type: { summary: 'number' },

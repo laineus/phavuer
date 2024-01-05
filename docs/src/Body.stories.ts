@@ -22,6 +22,9 @@ Physics is enabled by mounting it as a child of GameObject.
 </Game>
 \`\`\`
 
+Note that since properties such as x and y are updated by Physics, each of these values will be inconsistent if they are set by dynamic variables in the props.  
+If you use \`v-model:x\` or \`v-model:y\`, the values will be updated by the changes made by Physics.
+
 Physics must be enabled in gameConfig.
 
 See also: [Phaser.Physics.Arcade.Body](https://newdocs.phaser.io/docs/${referPhaserVersion}/Phaser.Physics.Arcade.Body)
