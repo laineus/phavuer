@@ -15,7 +15,7 @@ export default defineComponent({
     config: { type: Object }
   },
   setup (props, context) {
-    if (props.config?.banner !== false && props.config?.banner?.hideBanner !== false) {
+    if (props.config?.banner !== false) {
       console.log(
         `%c %cPhavuer v${packageJson.version}%c https://github.com/laineus/phavuer`,
         'background-color: #42b883; padding: 2px 0;',

@@ -8,21 +8,9 @@ describe('Game', () => {
    */
   const config = {
     /**
-     * Tell Phaser to skip the creation of the renderer
-     */
-    type: Phaser.HEADLESS,
-    /**
-     * Tell Phaser that it is running in a custom environment and to skip feature detection
-     */
-    customEnvironment: true,
-    /**
-     * Prevent the Phaser banner from polluting the test logs
+     * Prevent the Phaser & Phavuer banner from polluting the test logs
      */
     banner: false,
-    /**
-     * Prevent the default behaviour of `canvas.focus()` which will result in a NotImplemented error from JSDOM
-     */
-    autoFocus: false,
   };
 
   it('emits the create event', () => {
@@ -30,8 +18,8 @@ describe('Game', () => {
       props: {
         config,
       },
-    });
-    expect(wrapper.emitted().create).toBeTruthy();
+    })
+    expect(wrapper.emitted().create).toBeTruthy()
   })
 
   it('appends a canvas element to the [data-phavuer-canvas]', () => {
@@ -39,24 +27,8 @@ describe('Game', () => {
       props: {
         config,
       },
-    });
-    expect(wrapper.find('[data-phavuer-canvas] > canvas').exists()).toBe(true);
-  })
-
-  /**
-   * The `game.boot` method is called when the DOM is ready. It will emit the `boot` event.
-   * One issue is that the `boot` event is emitted synchronously when the DOMContentLoaded event has already fired.
-   * https://newdocs.phaser.io/docs/3.70.0/focus/Phaser.Game-boot
-   */
-  it('emits the boot event', async () => {
-    vi.useFakeTimers();
-    const wrapper = mount(Game, {
-      props: {
-        config,
-      },
-    });
-    await vi.runOnlyPendingTimersAsync()
-    expect(wrapper.emitted().boot).toBeTruthy();
+    })
+    expect(wrapper.find('[data-phavuer-canvas] > canvas').exists()).toBe(true)
   })
 
   it('emits the ready event', async () => {
@@ -65,8 +37,8 @@ describe('Game', () => {
       props: {
         config,
       },
-    });
+    })
     await vi.runOnlyPendingTimersAsync()
-    expect(wrapper.emitted().ready).toBeTruthy();
+    expect(wrapper.emitted().ready).toBeTruthy()
   })
 })

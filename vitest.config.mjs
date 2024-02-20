@@ -6,14 +6,17 @@ export default defineConfig({
   plugins: [vue()],
   test: {
     browser: {
+      /**
+       * `name` is required
+       */
+      name: 'chrome',
       enabled: true,
-      name: 'chrome', // browser name is required
       providerOptions: {
         logLevel: 'silent', logLevels: { webdriver: 'silent' }
       },
     },
     setupFiles: [
-      './vitest.setup.js',
+      './vitest.setup.mjs',
     ],
   },
 })
