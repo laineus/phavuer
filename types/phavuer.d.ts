@@ -75,7 +75,6 @@ export const Game: DefineComponent<{
   config?: Phaser.Types.Core.GameConfig
 }, {}, {}, {}, {}, {}, {}, {
   create: (game: Phaser.Game) => void
-  boot: (game: Phaser.Game) => void
   ready: (game: Phaser.Game) => void
 }>
 export const Scene: DefineComponent<{

@@ -72,15 +72,6 @@ const meta: Meta<typeof Game> = {
         type: { summary: 'function' }
       }
     },
-    boot: {
-      name: '@boot',
-      control: 'none',
-      description: '**Parameters:**<br>game: `Phaser.Game`',
-      table: {
-        category: 'Emits',
-        type: { summary: 'function' }
-      }
-    },
     ready: {
       name: '@ready',
       control: 'none',

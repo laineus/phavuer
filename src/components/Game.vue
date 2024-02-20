@@ -10,7 +10,7 @@ import { defineComponent, provide, ref, onMounted } from 'vue'
 import { InjectionKeys } from '../index'
 import packageJson from '../../package.json'
 export default defineComponent({
-  emits: ['create', 'boot', 'ready'],
+  emits: ['create', 'ready'],
   props: {
     config: { type: Object }
   },
@@ -25,9 +25,6 @@ export default defineComponent({
     const show = ref(false)
     onMounted(() => {
       const game = new Phaser.Game(Object.assign({ parent: canvasRoot.value }, props.config))
-      game.events.addListener('boot', () => {
-        context.emit('boot', game)
-      })
       game.events.addListener('ready', () => {
         show.value = true
         context.emit('ready', game)
