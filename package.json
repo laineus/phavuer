@@ -39,6 +39,6 @@
     "webpack-cli": "^5.1.4"
   },
   "resolutions": {
-    "string-width": "^4.2.2"
+    "jackspeak": "2.1.1"
   }
 }
