@@ -13,7 +13,10 @@ export default defineComponent({
     ...mapProps('width', 'height', 'collision', 'collisionByProperty'),
     tilemap: { type: Object },
     layerIndex: { type: Number },
-    tileset: { type: [Array, String] }
+    tileset: { type: [Array, String] },
+    cullPadding: { type: Number },
+    cullPaddingX: { type: Number },
+    cullPaddingY: { type: Number }
   },
   setup (props, context) {
     const scene = inject(InjectionKeys.Scene)

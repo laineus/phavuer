@@ -192,6 +192,9 @@ export const TilemapLayer: DefineComponent<Phavuer.GameObjectProps & {
   tilemap?: Phaser.Tilemaps.Tilemap
   layerIndex?: number
   tileset?: string | string[] | Phaser.Tilemaps.Tileset | Phaser.Tilemaps.Tileset[]
+  cullPadding?: number
+  cullPaddingX?: number
+  cullPaddingY?: number
 }, {}, {}, {}, {}, {}, {}, {
   create: (game: Phaser.Tilemaps.TilemapLayer) => void
 }>

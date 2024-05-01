@@ -130,6 +130,9 @@ export default {
   scrollFactor: object => v => object.setScrollFactor(v),
   scrollFactorX: object => v => object.setScrollFactor(v, object.scrollFactorY),
   scrollFactorY: object => v => object.setScrollFactor(object.scrollFactorX, v),
+  cullPadding: object => v => object.setCullPadding(v, v),
+  cullPaddingX: object => v => object.setCullPadding(v, object.cullPaddingY),
+  cullPaddingY: object => v => object.setCullPadding(object.cullPaddingX, v),
   // Body
   enable: body => v => body.enable = v,
   immovable: body => v => body.setImmovable(v),

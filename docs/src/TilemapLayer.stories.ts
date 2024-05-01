@@ -41,6 +41,9 @@ const meta: Meta<typeof TilemapLayer> = {
     tilemap: undefined,
     layerIndex: undefined,
     tileset: undefined,
+    cullPadding: undefined,
+    cullPaddingX: 1,
+    cullPaddingY: 1,
     collision: undefined,
     collisionByProperty: undefined,
     width: 0,
@@ -102,6 +105,31 @@ const meta: Meta<typeof TilemapLayer> = {
       table: {
         category: 'Props',
         type: { summary: 'any' }
+      }
+    },
+    cullPadding: {
+      control: 'none',
+      description: 'The amount of extra tiles to add to the cull check padding.',
+      table: {
+        category: 'Props',
+        type: { summary: 'number' },
+        defaultValue: { summary: '1' }
+      }
+    },
+    cullPaddingX: {
+      description: 'The amount of extra horizontal tiles to add to the cull check padding.',
+      table: {
+        category: 'Props',
+        type: { summary: 'number' },
+        defaultValue: { summary: '1' }
+      }
+    },
+    cullPaddingY: {
+      description: 'The amount of extra vertical tiles to add to the cull check padding.',
+      table: {
+        category: 'Props',
+        type: { summary: 'number' },
+        defaultValue: { summary: '1' }
       }
     },
     ...take(
@@ -174,6 +202,8 @@ export const Default: Story = {
             :tilemap="tilemap"
             :layerIndex="i"
             :tileset="tilesets"
+            :cullPaddingX="args.cullPaddingX"
+            :cullPaddingY="args.cullPaddingY"
             :visible="args.visible"
             :x="args.x"
             :y="args.y"
