@@ -45,7 +45,7 @@ export default defineComponent({
         this.setRenderFlag(false)
         const x = this.originX * -this.width
         const y = this.originY * -this.height
-        const radius = typeof this.radius === 'number' ? Math.min(this.radius, this.width.half, this.height.half) : this.radius
+        const radius = typeof this.radius === 'number' ? Math.min(this.radius, this.width / 2, this.height / 2) : this.radius
         this.clear()
         if (this.fillColor !== null) {
           this.fillStyle(this.fillColor, this.fillAlpha)

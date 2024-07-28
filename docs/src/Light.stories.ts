@@ -105,7 +105,7 @@ export const Default: Story = {
             :x="args.x"
             :y="args.y"
             :radius="args.radius"
-            :color="args.color"
+            :color="Number(args.color)"
             :intensity="args.intensity"
             />
         </Scene>
