@@ -101,7 +101,7 @@ const InjectionKeys = {
 
 const useInject = key => () => {
   const obj = inject(key)
-  if (!obj) throw new Error(`${key.description} is not provided`)
+  if (!obj) throw new Error(`${key} is not provided`)
   return obj
 }
 

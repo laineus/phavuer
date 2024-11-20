@@ -25,18 +25,19 @@ export default defineComponent({
     }
     const canvasRoot = ref(false)
     const show = ref(false)
-    onMounted(() => {
-      const game = new Phaser.Game(Object.assign({ parent: canvasRoot.value }, props.config))
-      game.events.addListener('ready', () => {
-        show.value = true
-        context.emit('ready', game)
-      })
-      context.emit('create', game)
-      provide(InjectionKeys.Game, game)
-    })
-    provide(InjectionKeys.Game, undefined)
+    const tmpParent = document.createElement('div')
+    const game = new Phaser.Game(Object.assign({ parent: tmpParent }, props.config))
+    provide(InjectionKeys.Game, game)
     provide(InjectionKeys.Scene, undefined)
     provide(InjectionKeys.Container, undefined)
+    game.events.addListener('ready', () => {
+      show.value = true
+      context.emit('ready', game)
+    })
+    context.emit('create', game)
+    onMounted(() => {
+      canvasRoot.value.appendChild(tmpParent.firstChild)
+    })
     return { canvasRoot, show }
   }
 })
