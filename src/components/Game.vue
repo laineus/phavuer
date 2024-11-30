@@ -36,7 +36,10 @@ export default defineComponent({
     })
     context.emit('create', game)
     onMounted(() => {
-      canvasRoot.value.appendChild(tmpParent.firstChild)
+      // May be null if parent is overwritten in props.config
+      if (tmpParent.firstChild) {
+        canvasRoot.value.appendChild(tmpParent.firstChild)
+      }
     })
     return { canvasRoot, show }
   }
