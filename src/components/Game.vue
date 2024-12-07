@@ -30,6 +30,7 @@ export default defineComponent({
     provide(InjectionKeys.Game, game)
     provide(InjectionKeys.Scene, undefined)
     provide(InjectionKeys.Container, undefined)
+    provide(InjectionKeys.RenderTextureRenderList, undefined)
     game.events.addListener('ready', () => {
       show.value = true
       context.emit('ready', game)

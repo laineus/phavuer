@@ -18,6 +18,7 @@ export default defineComponent({
     initGameObject(object, props, context)
     provide(InjectionKeys.Container, object)
     provide(InjectionKeys.GameObject, object)
+    provide(InjectionKeys.RenderTextureRenderList, undefined)
     return { object }
   }
 })

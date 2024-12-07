@@ -249,3 +249,7 @@ export const Body: DefineComponent<{
 }, {}, {}, {}, {}, {}, {}, {
   create: (game: Phaser.Physics.Arcade.Body) => void
 }>
+export const RenderTexture: DefineComponent<Phavuer.GameObjectProps & {
+  width?: number
+  height?: number
+}, {}, {}, {}, {}, {}, {}, GameObjectEmits<Phaser.GameObjects.RenderTexture>>

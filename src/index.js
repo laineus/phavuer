@@ -18,6 +18,7 @@ import Zone from './components/Zone.vue'
 import Light from './components/Light.vue'
 import StaticBody from './components/StaticBody.vue'
 import Body from './components/Body.vue'
+import RenderTexture from './components/RenderTexture.vue'
 
 const createPhavuerApp = () => {
   console.error('Phavuer::createPhavuerApp() has been removed. Please use `<Game>` component instead. See: https://github.com/laineus/phavuer')
@@ -30,11 +31,18 @@ const initGameObject = (object, props, context) => {
   const isBody = 'bounce' in object
   const isLight = object.constructor === Phaser.GameObjects.Light
   const scene = inject(InjectionKeys.Scene)
+  const renderList = inject(InjectionKeys.RenderTextureRenderList)
   if (isLight) {
     if (!scene.lights.active) scene.lights.enable()
     scene.lights.lights.push(object)
   } else if (isBody) {
     // _
+  } else if (renderList) {
+    renderList.push(object)
+    onBeforeUnmount(() => {
+      const i = renderList.findIndex(v => v === object)
+      renderList.splice(i, 1)
+    })
   } else {
     scene.add.existing(object)
     // Append to parent container
@@ -95,6 +103,7 @@ const InjectionKeys = {
   Scene: 'phavuer_scene',
   GameObject: 'phavuer_gameObject',
   Container: 'phavuer_container',
+  RenderTextureRenderList: 'phavuer_renderTextureRenderList',
   PreUpdateEvents: 'phavuer_preUpdateEvents',
   PostUpdateEvents: 'phavuer_postUpdateEvents'
 }
@@ -165,5 +174,6 @@ export {
   Zone,
   Light,
   StaticBody,
-  Body
+  Body,
+  RenderTexture
 }
