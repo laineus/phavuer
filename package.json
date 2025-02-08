@@ -1,6 +1,6 @@
 {
   "name": "phavuer",
-  "version": "0.16.4",
+  "version": "0.16.5",
   "description": "A wrapper library that integrates Phaser 3 with Vue 3.",
   "main": "src/index.js",
   "types": "types/phavuer.d.ts",
