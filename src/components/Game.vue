@@ -38,8 +38,11 @@ export default defineComponent({
     context.emit('create', game)
     onMounted(() => {
       // May be null if parent is overwritten in props.config
-      if (tmpParent.firstChild) {
-        canvasRoot.value.appendChild(tmpParent.firstChild)
+      const canvas = tmpParent.firstChild
+      if (canvas) {
+        canvasRoot.value.appendChild(canvas)
+        game.scale.getParent({ ...game.config, parent: canvasRoot.value })
+        game.scale.refresh()
       }
     })
     return { canvasRoot, show }
