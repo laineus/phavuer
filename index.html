@@ -8,190 +8,116 @@
   <script src="https://unpkg.com/vue@3.2.36/dist/vue.global.prod.js"></script>
   <script src="./dist/phavuer.umd.js" type="module"></script>
 </head>
-
 <body>
   <h1>Phaser (Plane) vs Phavuer</h1>
-  <p>Below are examples of UIs implemented in Phaser and Phavuer, respectively. Please review and compare their source
-    codes.</p>
+  <p>Below are examples of UIs implemented in Phaser and Phavuer, respectively. Please review and compare their source codes.</p>
   <div id="phaser"></div>
   <div id="phavuer"></div>
   <script>
-    // ===== UTILITIES =====
-    const createFontStyle = (overrides = {}) => ({
-      color: '#FFF',
-      fontStyle: 'bold',
-      fontSize: 15,
-      fontFamily: 'san-serif',
-      ...overrides
-    })
+    // Wait for the Phavuer module to load before executing the application code
+    const waitForPhavuer = () => {
+      if (typeof Phavuer !== 'undefined') {
+        // Module is loaded, execute the application code
+        const fontStyle = style => Object.assign({ color: '#FFF', fontStyle: 'bold', fontSize: 15, fontFamily: 'san-serif' }, style)
 
-    // ===== MODULE LOADING =====
-    const waitForModule = (moduleName, callback, pollInterval = 10) => {
-      if (typeof window[moduleName] !== 'undefined') {
-        callback()
-      } else {
-        setTimeout(() => waitForModule(moduleName, callback, pollInterval), pollInterval)
-      }
-    }
-
-    // ===== PHASER IMPLEMENTATION =====
-    const createPhaserGame = () => {
-      const createBox = (scene, x, y, addable, count, init) => {
-        const container = scene.add.container(x, y)
-        const rectangle = scene.add.rectangle(0, 0, 100, 100, addable ? 0x333333 : 0x888888).setOrigin(0)
-        container.add([rectangle])
-
-        if (addable) {
-          const plus = scene.add.text(50, 50, '[＋]', createFontStyle({ color: '#0AF', fontSize: 18 })).setOrigin(0.5)
-          rectangle.setInteractive().on('pointerdown', () => {
-            count.value++
+        // ----- 1. Phaser (Plane API)
+        const logicInPlane = scene => {
+          let count = 1
+          const parentContainer = scene.add.container(20, 20)
+          const title = scene.add.text(0, 0, '1. Phaser (Plane)', fontStyle({ fontSize: 21 }))
+          const counter = scene.add.text(0, 35, '', fontStyle())
+          const del = scene.add.text(90, 35, '[DELETE]', fontStyle({ color: '#0AF' })).setInteractive()
+          parentContainer.add([title, counter, del])
+          const getNewBox = (x, y, addable) => {
+            const container = scene.add.container(x, y)
+            const rectangle = scene.add.rectangle(0, 0, 100, 100, addable ? 0x333333 : 0x888888).setOrigin(0)
+            container.add([rectangle])
+            if (addable) {
+              const plus = scene.add.text(50, 50, '[＋]', fontStyle({ color: '#0AF', fontSize: 18 })).setOrigin(0.5)
+              rectangle.setInteractive().on('pointerdown', () => {
+                count++
+                init()
+              })
+              container.add([plus])
+            }
+            return container
+          }
+          del.on('pointerdown', () => {
+            count--
             init()
           })
-          container.add([plus])
+          const init = () => {
+            del.setVisible(count > 0)
+            parentContainer.list.filter(v => v.type === 'Container').forEach(v => v.destroy())
+            counter.setText(`Count: ${count}`)
+            const rectCount = count < 7 ? count + 1 : count
+            const boxes = [...Array(rectCount)].map((_, i) => getNewBox(i * 110, 60, i === count && count < 7))
+            parentContainer.add(boxes)
+          }
+          init()
         }
-        return container
-      }
+        new Phaser.Game({
+          type: Phaser.AUTO,
+          width: 800,
+          height: 200,
+          scene: {
+            create () {
+              logicInPlane(this)
+            }
+          },
+          parent: 'phaser'
+        })
 
-      const createPhaserScene = () => {
-        const count = { value: 1 }
-        let parentContainer, title, counter, deleteButton
-
-        const init = () => {
-          // Clear existing boxes
-          parentContainer.list.filter(v => v.type === 'Container').forEach(v => v.destroy())
-
-          // Update UI
-          deleteButton.setVisible(count.value > 0)
-          counter.setText(`Count: ${count.value}`)
-
-          // Create boxes
-          const rectCount = count.value < 7 ? count.value + 1 : count.value
-          const boxes = Array.from({ length: rectCount }, (_, i) =>
-            createBox(this, i * 110, 60, i === count.value && count.value < 7, count, init)
-          )
-          parentContainer.add(boxes)
-        }
-
-        return {
-          create() {
-            parentContainer = this.add.container(20, 20)
-            title = this.add.text(0, 0, '1. Phaser (Plane)', createFontStyle({ fontSize: 21 }))
-            counter = this.add.text(0, 35, '', createFontStyle())
-            deleteButton = this.add.text(90, 35, '[DELETE]', createFontStyle({ color: '#0AF' })).setInteractive()
-
-            parentContainer.add([title, counter, deleteButton])
-
-            deleteButton.on('pointerdown', () => {
-              count.value--
-              init()
-            })
-
-            init()
+        // ----- 2. Phavuer (Vue 3)
+        const { Game, Scene, Container, Rectangle, Text } = Phavuer
+        const Box = {
+          components: { Container, Rectangle, Text },
+          template: `
+            <Container :x="x" :y="y">
+              <Rectangle :width="100" :height="100" :origin="0" :fillColor="addable ? 0x333333 : 0x888888" @pointerdown="onClickBox" />
+              <Text :x="50" :y="50" :origin="0.5" :style="fontStyle({ color: '#5AF', fontSize: 18 })" v-if="addable" text="[＋]" />
+            </Container>`,
+          props: ['x', 'y', 'addable'],
+          setup (props, context) {
+            const onClickBox = () => {
+              if (props.addable) context.emit('add')
+            }
+            return { fontStyle, onClickBox }
           }
         }
+        const MainScene = {
+          components: { Game, Scene, Container, Text, Box },
+          template: `
+            <Game :config="{ width: 800, height: 200 }">
+              <Scene name="MainScene" :autoStart="true">
+                <Container :x="20" :y="20">
+                  <Text :style="fontStyle({ fontSize: 21 })" text="2. Phavuer" />
+                  <Text :y="35" :style="fontStyle()" :text="\`Count: \${count}\`" />
+                  <Text :x="100" :y="35" :style="fontStyle({ color: '#5AF' })" @pointerdown="count--" v-if="count > 0" text="[DELETE]" />
+                  <Box :x="i * 110" :y="60" :addable="i === count" @add="count++" v-for="(_, i) in rectCount" :key="i" />
+                </Container>
+              </Scene>
+            </Game>`,
+          setup () {
+            const count = Vue.ref(0)
+            const rectCount = Vue.computed(() => count.value < 7 ? count.value + 1 : count.value)
+            return { count, rectCount, fontStyle }
+          }
+        }
+        Vue.createApp(MainScene).mount('#phavuer')
+      } else {
+        // Module not loaded yet, check again in a short time
+        setTimeout(waitForPhavuer, 10)
       }
-
-      return new Phaser.Game({
-        type: Phaser.AUTO,
-        width: 800,
-        height: 200,
-        scene: createPhaserScene(),
-        parent: 'phaser'
-      })
     }
 
-    // ===== PHAVUER IMPLEMENTATION =====
-    const createPhavuerApp = () => {
-      const { Game, Scene, Container, Rectangle, Text } = Phavuer
-
-      const Box = {
-        components: { Container, Rectangle, Text },
-        template: `
-          <Container :x="x" :y="y">
-            <Rectangle 
-              :width="100" 
-              :height="100" 
-              :origin="0" 
-              :fillColor="addable ? 0x333333 : 0x888888" 
-              @pointerdown="onClickBox" 
-            />
-            <Text 
-              v-if="addable"
-              :x="50" 
-              :y="50" 
-              :origin="0.5" 
-              :style="fontStyle({ color: '#5AF', fontSize: 18 })" 
-              text="[＋]" 
-            />
-          </Container>`,
-        props: ['x', 'y', 'addable'],
-        setup(props, { emit }) {
-          const onClickBox = () => {
-            if (props.addable) emit('add')
-          }
-          return { fontStyle: createFontStyle, onClickBox }
-        }
-      }
-
-      const MainScene = {
-        components: { Game, Scene, Container, Text, Box },
-        template: `
-          <Game :config="{ width: 800, height: 200 }">
-            <Scene name="MainScene" :autoStart="true">
-              <Container :x="20" :y="20">
-                <Text :style="fontStyle({ fontSize: 21 })" text="2. Phavuer" />
-                <Text :y="35" :style="fontStyle()" :text="\`Count: \${count}\`" />
-                <Text 
-                  v-if="count > 0"
-                  :x="100" 
-                  :y="35" 
-                  :style="fontStyle({ color: '#5AF' })" 
-                  @pointerdown="count--" 
-                  text="[DELETE]" 
-                />
-                <Box 
-                  v-for="(_, i) in rectCount" 
-                  :key="i"
-                  :x="i * 110" 
-                  :y="60" 
-                  :addable="i === count" 
-                  @add="count++" 
-                />
-              </Container>
-            </Scene>
-          </Game>`,
-        setup() {
-          const count = Vue.ref(0)
-          const rectCount = Vue.computed(() =>
-            count.value < 7 ? count.value + 1 : count.value
-          )
-          return {
-            count,
-            rectCount,
-            fontStyle: createFontStyle
-          }
-        }
-      }
-
-      return Vue.createApp(MainScene).mount('#phavuer')
-    }
-
-    // ===== INITIALIZATION =====
-    waitForModule('Phavuer', () => {
-      createPhaserGame()
-      createPhavuerApp()
-    })
+    // Start waiting for the module to load
+    waitForPhavuer()
   </script>
 
   <style>
-    body {
-      margin: 10px;
-    }
-
-    canvas {
-      display: block;
-      margin-bottom: 10px;
-    }
+    body { margin: 10px; }
+    canvas { display: block; margin-bottom: 10px; }
   </style>
 </body>
 </html>
