@@ -11,8 +11,9 @@
     "url": "https://github.com/laineus/phavuer.git"
   },
   "scripts": {
-    "dev": "vite build --watch",
+    "dev": "vite",
     "build": "vite build",
+    "build:watch": "vite build --watch",
     "preview": "vite preview",
     "test": "vitest"
   },

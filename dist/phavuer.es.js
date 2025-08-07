@@ -1,4 +1,4 @@
-import { defineComponent as p, ref as Y, provide as u, onMounted as k, createElementBlock as D, openBlock as L, createElementVNode as H, renderSlot as y, createCommentVNode as G, inject as d, getCurrentInstance as F, onUpdated as M, onBeforeUnmount as O, watch as U, customRef as V } from "vue";
+import { defineComponent as p, ref as Y, provide as u, onMounted as k, openBlock as D, createElementBlock as L, createElementVNode as H, renderSlot as y, createCommentVNode as G, inject as d, getCurrentInstance as F, onUpdated as M, onBeforeUnmount as O, watch as U, customRef as V } from "vue";
 const X = [
   { attr: "onPointerdown", emit: "pointerdown", eventIndex: 3 },
   { attr: "onPointermove", emit: "pointermove", eventIndex: 3 },
@@ -127,9 +127,9 @@ const X = [
   }),
   tweens: (e, t) => N((n) => {
     const i = n.findIndex((s) => s.repeat === -1), r = n.slice(0, i === -1 ? void 0 : i + 1), o = e.scene.add.timeline(r.map((s, c) => ({
-      at: r.slice(0, c).reduce((v, x) => {
-        const w = x.duration ?? 1e3, S = x.yoyo ?? !1, l = (x.repeat ?? 0) + 1;
-        return v + w * (S ? 2 : 1) * l;
+      at: r.slice(0, c).reduce((x, b) => {
+        const w = b.duration ?? 1e3, S = b.yoyo ?? !1, l = (b.repeat ?? 0) + 1;
+        return x + w * (S ? 2 : 1) * l;
       }, 0),
       tween: Object.assign({ targets: e }, s)
     }))).play();
@@ -147,14 +147,52 @@ const X = [
   return (n) => {
     t && t.stop(), t = n ? e(n) : void 0;
   };
-}, Z = "0.16.5", J = {
-  version: Z
+}, Z = "phavuer", q = "0.16.5", J = "A wrapper library that integrates Phaser 3 with Vue 3.", K = "src/index.js", Q = "types/phavuer.d.ts", j = "Laineus", ee = "MIT", te = {
+  type: "git",
+  url: "https://github.com/laineus/phavuer.git"
+}, ie = {
+  dev: "vite",
+  build: "vite build",
+  "build:watch": "vite build --watch",
+  preview: "vite preview",
+  test: "vitest"
+}, ne = [
+  "dist",
+  "src",
+  "types"
+], se = {
+  phaser: "^3.70.0",
+  vue: "^3.3.13"
+}, re = {
+  "@vitejs/plugin-vue": "^5.0.4",
+  "@vitest/browser": "^1.3.0",
+  "@vue/compiler-sfc": "^3.3.13",
+  "@vue/test-utils": "^2.4.4",
+  "mock-require": "^3.0.3",
+  phaser: "^3.70.0",
+  vite: "^5.0.0",
+  vitest: "^1.3.0",
+  vue: "^3.3.13",
+  webdriverio: "^8.32.2"
+}, ae = {
+  name: Z,
+  version: q,
+  description: J,
+  main: K,
+  types: Q,
+  author: j,
+  license: ee,
+  repository: te,
+  scripts: ie,
+  files: ne,
+  peerDependencies: se,
+  devDependencies: re
 }, m = (e, t) => {
   const n = e.__vccOpts || e;
   for (const [i, r] of t)
     n[i] = r;
   return n;
-}, K = p({
+}, oe = p({
   emits: ["create", "ready"],
   props: {
     config: { type: Object }
@@ -162,7 +200,7 @@ const X = [
   setup(e, t) {
     var s;
     ((s = e.config) == null ? void 0 : s.banner) !== !1 && console.log(
-      `%c %cPhavuer v${J.version}%c https://github.com/laineus/phavuer`,
+      `%c %cPhavuer v${ae.version}%c https://github.com/laineus/phavuer`,
       "background-color: #42b883; padding: 2px 0;",
       "background-color: #213547; padding: 2px 8px; color: white; font-weight: bold;",
       ""
@@ -175,17 +213,17 @@ const X = [
       c && (n.value.appendChild(c), o.scale.getParent({ ...o.config, parent: n.value }), o.scale.refresh());
     }), { canvasRoot: n, show: i };
   }
-}), q = { "data-phavuer-game": "" }, Q = {
+}), le = { "data-phavuer-game": "" }, ce = {
   "data-phavuer-canvas": "",
   ref: "canvasRoot"
 };
-function j(e, t, n, i, r, o) {
-  return L(), D("div", q, [
-    H("div", Q, null, 512),
+function de(e, t, n, i, r, o) {
+  return D(), L("div", le, [
+    H("div", ce, null, 512),
     e.show ? y(e.$slots, "default", { key: 0 }) : G("", !0)
   ]);
 }
-const Le = /* @__PURE__ */ m(K, [["render", j]]), ee = p({
+const je = /* @__PURE__ */ m(oe, [["render", de]]), he = p({
   emits: ["init", "create", "update", "preload"],
   props: {
     name: { type: String, required: !0 },
@@ -199,8 +237,8 @@ const Le = /* @__PURE__ */ m(K, [["render", j]]), ee = p({
       create(h) {
         n.value = !0, t.emit("create", this, h);
       }
-      update(h, v) {
-        i.forEach((x) => x(h, v)), t.emit("update", this, h, v), r.forEach((x) => x(h, v));
+      update(h, x) {
+        i.forEach((b) => b(h, x)), t.emit("update", this, h, x), r.forEach((b) => b(h, x));
       }
       preload() {
         t.emit("preload", this);
@@ -209,10 +247,10 @@ const Le = /* @__PURE__ */ m(K, [["render", j]]), ee = p({
     return c.events.on("shutdown", () => n.value = !1), u(a.Scene, c), u(a.PreUpdateEvents, i), u(a.PostUpdateEvents, r), { scene: c, show: n };
   }
 });
-function te(e, t, n, i, r, o) {
+function ue(e, t, n, i, r, o) {
   return e.show ? y(e.$slots, "default", { key: 0 }) : G("", !0);
 }
-const He = /* @__PURE__ */ m(ee, [["render", te]]), ie = {
+const et = /* @__PURE__ */ m(he, [["render", ue]]), pe = {
   active: { type: Boolean },
   visible: { type: Boolean },
   x: { type: Number },
@@ -295,12 +333,12 @@ const He = /* @__PURE__ */ m(ee, [["render", te]]), ie = {
   tween: { type: Object },
   tweens: { type: Array },
   timeline: { type: Object }
-}, ne = Object.entries(ie), f = (...e) => {
+}, me = Object.entries(pe), g = (...e) => {
   const t = new Set(e);
   return Object.fromEntries(
-    ne.filter(([n]) => t.has(n))
+    me.filter(([n]) => t.has(n))
   );
-}, _ = f(
+}, _ = g(
   "tween",
   "tweens",
   "timeline",
@@ -327,24 +365,24 @@ const He = /* @__PURE__ */ m(ee, [["render", te]]), ie = {
   "alpha",
   "blendMode",
   "pipeline"
-), se = X.map((e) => e.emit), re = E.map((e) => `update:${e}`), $ = ["create", ...se, ...re], ae = p({
+), ge = X.map((e) => e.emit), fe = E.map((e) => `update:${e}`), $ = ["create", ...ge, ...fe], ye = p({
   emits: [...$],
   props: Object.fromEntries(
     Object.entries(_).filter(([e]) => !["origin", "originX", "originY", "displayOriginX", "displayOriginY"].includes(e))
   ),
   setup(e, t) {
     const n = d(a.Scene), i = new Phaser.GameObjects.Container(n, e.x || 0, e.y || 0);
-    return g(i, e, t), u(a.Container, i), u(a.GameObject, i), u(a.RenderTextureRenderList, void 0), { object: i };
+    return f(i, e, t), u(a.Container, i), u(a.GameObject, i), u(a.RenderTextureRenderList, void 0), { object: i };
   }
 });
-function oe(e, t, n, i, r, o) {
+function _e(e, t, n, i, r, o) {
   return y(e.$slots, "default");
 }
-const Me = /* @__PURE__ */ m(ae, [["render", oe]]), le = p({
+const tt = /* @__PURE__ */ m(ye, [["render", _e]]), $e = p({
   emits: [...$],
   props: {
     ..._,
-    ...f(
+    ...g(
       "width",
       "height",
       "fillColor",
@@ -356,17 +394,17 @@ const Me = /* @__PURE__ */ m(ae, [["render", oe]]), le = p({
   },
   setup(e, t) {
     const n = d(a.Scene), i = new Phaser.GameObjects.Rectangle(n, e.x || 0, e.y || 0, e.width, e.height);
-    return g(i, e, t), u(a.GameObject, i), { object: i };
+    return f(i, e, t), u(a.GameObject, i), { object: i };
   }
 });
-function ce(e, t, n, i, r, o) {
+function ve(e, t, n, i, r, o) {
   return y(e.$slots, "default");
 }
-const Ue = /* @__PURE__ */ m(le, [["render", ce]]), de = p({
+const it = /* @__PURE__ */ m($e, [["render", ve]]), be = p({
   emits: [...$],
   props: {
     ..._,
-    ...f(
+    ...g(
       "width",
       "height",
       "radius",
@@ -380,8 +418,8 @@ const Ue = /* @__PURE__ */ m(le, [["render", ce]]), de = p({
   setup(e, t) {
     const n = d(a.Scene);
     class i extends Phaser.GameObjects.Graphics {
-      constructor(s, c, h, v, x, w) {
-        super(s, c, h, v, x), this._originX = 0, this._originY = 0, this._width = v || 0, this._height = x || 0, this._radius = w || 0, this._fillColor = null, this._fillAlpha = 1, this._lineWidth = 0, this._strokeColor = null, this._strokeAlpha = 1, this.setRenderFlag(!0);
+      constructor(s, c, h, x, b, w) {
+        super(s, c, h, x, b), this._originX = 0, this._originY = 0, this._width = x || 0, this._height = b || 0, this._radius = w || 0, this._fillColor = null, this._fillAlpha = 1, this._lineWidth = 0, this._strokeColor = null, this._strokeAlpha = 1, this.setRenderFlag(!0);
       }
       preUpdate(...s) {
         this.renderFlag && this.render();
@@ -491,17 +529,17 @@ const Ue = /* @__PURE__ */ m(le, [["render", ce]]), de = p({
       }
     }
     const r = new i(n, e.x || 0, e.y || 0, e.width, e.height, e.radius);
-    return g(r, e, t), u(a.GameObject, r), { object: r };
+    return f(r, e, t), u(a.GameObject, r), { object: r };
   }
 });
-function he(e, t, n, i, r, o) {
+function xe(e, t, n, i, r, o) {
   return y(e.$slots, "default");
 }
-const Ve = /* @__PURE__ */ m(de, [["render", he]]), ue = p({
+const nt = /* @__PURE__ */ m(be, [["render", xe]]), we = p({
   emits: [...$],
   props: {
     ..._,
-    ...f(
+    ...g(
       "x1",
       "y1",
       "x2",
@@ -517,17 +555,17 @@ const Ve = /* @__PURE__ */ m(de, [["render", he]]), ue = p({
   },
   setup(e, t) {
     const n = d(a.Scene), i = new Phaser.GameObjects.Triangle(n, e.x || 0, e.y || 0, e.x1, e.y1, e.x2, e.y2, e.x3, e.y3);
-    return g(i, e, t), u(a.GameObject, i), { object: i };
+    return f(i, e, t), u(a.GameObject, i), { object: i };
   }
 });
-function pe(e, t, n, i, r, o) {
+function Se(e, t, n, i, r, o) {
   return y(e.$slots, "default");
 }
-const ze = /* @__PURE__ */ m(ue, [["render", pe]]), me = p({
+const st = /* @__PURE__ */ m(we, [["render", Se]]), Oe = p({
   emits: [...$],
   props: {
     ..._,
-    ...f(
+    ...g(
       "radius",
       "fillColor",
       "fillAlpha",
@@ -538,17 +576,17 @@ const ze = /* @__PURE__ */ m(ue, [["render", pe]]), me = p({
   },
   setup(e, t) {
     const n = d(a.Scene), i = new Phaser.GameObjects.Arc(n, e.x || 0, e.y || 0, e.radius);
-    return g(i, e, t), u(a.GameObject, i), { object: i };
+    return f(i, e, t), u(a.GameObject, i), { object: i };
   }
 });
-function fe(e, t, n, i, r, o) {
+function Pe(e, t, n, i, r, o) {
   return y(e.$slots, "default");
 }
-const Ze = /* @__PURE__ */ m(me, [["render", fe]]), ge = p({
+const rt = /* @__PURE__ */ m(Oe, [["render", Pe]]), Ne = p({
   emits: [...$],
   props: {
     ..._,
-    ...f(
+    ...g(
       "points",
       "fillColor",
       "fillAlpha",
@@ -560,17 +598,17 @@ const Ze = /* @__PURE__ */ m(me, [["render", fe]]), ge = p({
   },
   setup(e, t) {
     const n = d(a.Scene), i = new Phaser.GameObjects.Polygon(n, e.x || 0, e.y || 0, e.points);
-    return g(i, e, t), u(a.GameObject, i), { object: i };
+    return f(i, e, t), u(a.GameObject, i), { object: i };
   }
 });
-function ye(e, t, n, i, r, o) {
+function Ye(e, t, n, i, r, o) {
   return y(e.$slots, "default");
 }
-const Je = /* @__PURE__ */ m(ge, [["render", ye]]), _e = p({
+const at = /* @__PURE__ */ m(Ne, [["render", Ye]]), Xe = p({
   emits: [...$],
   props: {
     ..._,
-    ...f(
+    ...g(
       "x1",
       "y1",
       "x2",
@@ -582,17 +620,17 @@ const Je = /* @__PURE__ */ m(ge, [["render", ye]]), _e = p({
   },
   setup(e, t) {
     const n = d(a.Scene), i = new Phaser.GameObjects.Line(n, e.x || 0, e.y || 0, e.x1, e.y1, e.x2, e.y2);
-    return g(i, e, t), u(a.GameObject, i), { object: i };
+    return f(i, e, t), u(a.GameObject, i), { object: i };
   }
 });
-function $e(e, t, n, i, r, o) {
+function Ce(e, t, n, i, r, o) {
   return y(e.$slots, "default");
 }
-const Ke = /* @__PURE__ */ m(_e, [["render", $e]]), be = p({
+const ot = /* @__PURE__ */ m(Xe, [["render", Ce]]), Ae = p({
   emits: [...$],
   props: {
     ..._,
-    ...f(
+    ...g(
       "texture",
       "frame",
       "tint",
@@ -602,17 +640,17 @@ const Ke = /* @__PURE__ */ m(_e, [["render", $e]]), be = p({
   },
   setup(e, t) {
     const n = d(a.Scene), i = new Phaser.GameObjects.Image(n, e.x || 0, e.y || 0, e.texture);
-    return g(i, e, t), u(a.GameObject, i), { object: i };
+    return f(i, e, t), u(a.GameObject, i), { object: i };
   }
 });
-function xe(e, t, n, i, r, o) {
+function Re(e, t, n, i, r, o) {
   return y(e.$slots, "default");
 }
-const qe = /* @__PURE__ */ m(be, [["render", xe]]), ve = p({
+const lt = /* @__PURE__ */ m(Ae, [["render", Re]]), We = p({
   emits: [...$],
   props: {
     ..._,
-    ...f(
+    ...g(
       "width",
       "height",
       "leftWidth",
@@ -626,27 +664,27 @@ const qe = /* @__PURE__ */ m(be, [["render", xe]]), ve = p({
   },
   setup(e, t) {
     const n = d(a.Scene), i = new Phaser.GameObjects.NineSlice(n, e.x || 0, e.y || 0, e.texture, e.frame, e.width, e.height, e.leftWidth, e.rightWidth, e.topHeight, e.bottomHeight);
-    return g(i, e, t), u(a.GameObject, i), { object: i };
+    return f(i, e, t), u(a.GameObject, i), { object: i };
   }
 });
-function we(e, t, n, i, r, o) {
+function ke(e, t, n, i, r, o) {
   return y(e.$slots, "default");
 }
-const Qe = /* @__PURE__ */ m(ve, [["render", we]]), W = [
+const ct = /* @__PURE__ */ m(We, [["render", ke]]), W = [
   { attr: "onAnimationstart", emit: "animationstart" },
   { attr: "onAnimationupdate", emit: "animationupdate" },
   { attr: "onAnimationrepeat", emit: "animationrepeat" },
   { attr: "onAnimationcomplete", emit: "animationcomplete" },
   { attr: "onAnimationstop", emit: "animationstop" },
   { attr: "onAnimationrestart", emit: "animationrestart" }
-], Se = p({
+], Ge = p({
   emits: [
     ...$,
     ...W.map((e) => e.emit)
   ],
   props: {
     ..._,
-    ...f(
+    ...g(
       "texture",
       "frame",
       "tint",
@@ -661,17 +699,17 @@ const Qe = /* @__PURE__ */ m(ve, [["render", we]]), W = [
       i.on(s.emit, (...c) => {
         t.emit(s.emit, ...c);
       });
-    }), g(i, e, t), u(a.GameObject, i), { object: i };
+    }), f(i, e, t), u(a.GameObject, i), { object: i };
   }
 });
-function Oe(e, t, n, i, r, o) {
+function Fe(e, t, n, i, r, o) {
   return y(e.$slots, "default");
 }
-const je = /* @__PURE__ */ m(Se, [["render", Oe]]), Pe = p({
+const dt = /* @__PURE__ */ m(Ge, [["render", Fe]]), Ee = p({
   emits: [...$],
   props: {
     ..._,
-    ...f(
+    ...g(
       "text",
       "style",
       "lineSpacing",
@@ -680,17 +718,17 @@ const je = /* @__PURE__ */ m(Se, [["render", Oe]]), Pe = p({
   },
   setup(e, t) {
     const n = d(a.Scene), i = new Phaser.GameObjects.Text(n, e.x || 0, e.y || 0, e.text);
-    return g(i, e, t), { object: i };
+    return f(i, e, t), { object: i };
   }
 });
-function Ne(e, t, n, i, r, o) {
+function Ie(e, t, n, i, r, o) {
   return y(e.$slots, "default");
 }
-const et = /* @__PURE__ */ m(Pe, [["render", Ne]]), Ye = p({
+const ht = /* @__PURE__ */ m(Ee, [["render", Ie]]), Te = p({
   emits: ["create"],
   props: {
     ..._,
-    ...f("width", "height", "collision", "collisionByProperty"),
+    ...g("width", "height", "collision", "collisionByProperty"),
     tilemap: { type: Object },
     layerIndex: { type: Number },
     tileset: { type: [Array, String] },
@@ -700,32 +738,32 @@ const et = /* @__PURE__ */ m(Pe, [["render", Ne]]), Ye = p({
   },
   setup(e, t) {
     const n = d(a.Scene), i = new Phaser.Tilemaps.TilemapLayer(n, e.tilemap, e.layerIndex, e.tileset, e.x || 0, e.y || 0);
-    return g(i, e, t), { object: i };
+    return f(i, e, t), { object: i };
   }
 });
-function Xe(e, t, n, i, r, o) {
+function Be(e, t, n, i, r, o) {
   return y(e.$slots, "default");
 }
-const tt = /* @__PURE__ */ m(Ye, [["render", Xe]]), Ce = p({
+const ut = /* @__PURE__ */ m(Te, [["render", Be]]), De = p({
   emits: [...$],
   props: {
     ...Object.fromEntries(
       Object.entries(_).filter(([e]) => !["alpha", "blendMode", "pipeline"].includes(e))
     ),
-    ...f("width", "height")
+    ...g("width", "height")
   },
   setup(e, t) {
     const n = d(a.Scene), i = new Phaser.GameObjects.Zone(n, e.x || 0, e.y || 0, e.width, e.height);
-    return g(i, e, t), { object: i };
+    return f(i, e, t), { object: i };
   }
 });
-function Ae(e, t, n, i, r, o) {
+function Le(e, t, n, i, r, o) {
   return null;
 }
-const it = /* @__PURE__ */ m(Ce, [["render", Ae]]), Re = p({
+const pt = /* @__PURE__ */ m(De, [["render", Le]]), He = p({
   emits: ["create"],
   props: {
-    ...f(
+    ...g(
       "tween",
       "tweens",
       "timeline",
@@ -739,16 +777,16 @@ const it = /* @__PURE__ */ m(Ce, [["render", Ae]]), Re = p({
   },
   setup(e, t) {
     const n = new Phaser.GameObjects.Light(e.x || 0, e.y || 0);
-    return g(n, e, t), { object: n };
+    return f(n, e, t), { object: n };
   }
 });
-function We(e, t, n, i, r, o) {
+function Me(e, t, n, i, r, o) {
   return null;
 }
-const nt = /* @__PURE__ */ m(Re, [["render", We]]), ke = p({
+const mt = /* @__PURE__ */ m(He, [["render", Me]]), Ue = p({
   emits: ["create"],
   props: {
-    ...f(
+    ...g(
       "width",
       "height",
       "offsetX",
@@ -758,18 +796,19 @@ const nt = /* @__PURE__ */ m(Re, [["render", We]]), ke = p({
   },
   setup(e, t) {
     const n = d(a.Scene);
-    if (!n.physics) throw Error("Physics is not available. Add physics setting to your game config. e.g. `physics: { default: 'arcade' }`");
+    if (!n.physics)
+      throw Error("Physics is not available. Add physics setting to your game config. e.g. `physics: { default: 'arcade' }`");
     const i = d(a.GameObject), r = n.physics.add.existing(i, Phaser.Physics.Arcade.STATIC_BODY).body;
-    g(r, e, t);
+    f(r, e, t);
   }
 });
-function Ge(e, t, n, i, r, o) {
+function Ve(e, t, n, i, r, o) {
   return null;
 }
-const st = /* @__PURE__ */ m(ke, [["render", Ge]]), Fe = p({
+const gt = /* @__PURE__ */ m(Ue, [["render", Ve]]), ze = p({
   emits: ["create"],
   props: {
-    ...f(
+    ...g(
       "width",
       "height",
       "offsetX",
@@ -797,26 +836,27 @@ const st = /* @__PURE__ */ m(ke, [["render", Ge]]), Fe = p({
   },
   setup(e, t) {
     const n = d(a.Scene);
-    if (!n.physics) throw Error("Physics is not available. Add physics setting to your game config. e.g. `physics: { default: 'arcade' }`");
+    if (!n.physics)
+      throw Error("Physics is not available. Add physics setting to your game config. e.g. `physics: { default: 'arcade' }`");
     const i = d(a.GameObject), r = n.physics.add.existing(i, Phaser.Physics.Arcade.DYNAMIC_BODY).body;
-    g(r, e, t);
+    f(r, e, t);
   }
 });
-function Ee(e, t, n, i, r, o) {
+function Ze(e, t, n, i, r, o) {
   return null;
 }
-const rt = /* @__PURE__ */ m(Fe, [["render", Ee]]), Ie = p({
+const ft = /* @__PURE__ */ m(ze, [["render", Ze]]), qe = p({
   emits: [...$],
   props: {
     ..._,
-    ...f(
+    ...g(
       "width",
       "height"
     )
   },
   setup(e, t) {
     const n = d(a.Scene), i = new Phaser.GameObjects.RenderTexture(n, e.x || 0, e.y || 0, e.width, e.height);
-    g(i, e, t);
+    f(i, e, t);
     const r = [];
     u(a.RenderTextureRenderList, r), u(a.GameObject, i);
     const o = () => {
@@ -829,39 +869,40 @@ const rt = /* @__PURE__ */ m(Fe, [["render", Ee]]), Ie = p({
     }), { object: i };
   }
 });
-function Te(e, t, n, i, r, o) {
+function Je(e, t, n, i, r, o) {
   return y(e.$slots, "default");
 }
-const at = /* @__PURE__ */ m(Ie, [["render", Te]]), ot = () => {
+const yt = /* @__PURE__ */ m(qe, [["render", Je]]), _t = () => {
   console.error("Phavuer::createPhavuerApp() has been removed. Please use `<Game>` component instead. See: https://github.com/laineus/phavuer");
-}, Be = (e) => e.replace(/-./g, (t) => t[1].toUpperCase()), g = (e, t, n) => {
+}, Ke = (e) => e.replace(/-./g, (t) => t[1].toUpperCase()), f = (e, t, n) => {
   const i = F(), r = "bounce" in e, o = e.constructor === Phaser.GameObjects.Light, s = d(a.Scene), c = d(a.RenderTextureRenderList);
   if (o)
     s.lights.active || s.lights.enable(), s.lights.lights.push(e);
-  else if (!r) if (c)
-    c.push(e), O(() => {
-      const l = c.findIndex((b) => b === e);
-      c.splice(l, 1);
-    });
-  else {
-    s.add.existing(e);
-    const l = d(a.Container);
-    if (l) {
-      const b = l.list.findIndex((P) => P.depth > (t.depth ?? 0));
-      b === -1 ? l.add(e) : l.addAt(e, b);
+  else if (!r)
+    if (c)
+      c.push(e), O(() => {
+        const l = c.findIndex((v) => v === e);
+        c.splice(l, 1);
+      });
+    else {
+      s.add.existing(e);
+      const l = d(a.Container);
+      if (l) {
+        const v = l.list.findIndex((P) => P.depth > (t.depth ?? 0));
+        v === -1 ? l.add(e) : l.addAt(e, v);
+      }
     }
-  }
   const h = Object.fromEntries(
-    Object.entries(i.vnode.props ?? {}).map(([l, b]) => [Be(l), b])
-  ), v = Object.keys(h).filter((l) => l.startsWith("onUpdate:")).map((l) => l.split(":")[1]).filter((l) => E.includes(l)), w = Object.entries(h).filter(([l]) => R[l]).map(([l, b]) => {
-    const P = R[l](e, v.includes(l) ? n.emit : void 0);
-    return P(b), U(() => t[l], P, { deep: z.includes(l) });
+    Object.entries(i.vnode.props ?? {}).map(([l, v]) => [Ke(l), v])
+  ), x = Object.keys(h).filter((l) => l.startsWith("onUpdate:")).map((l) => l.split(":")[1]).filter((l) => E.includes(l)), w = Object.entries(h).filter(([l]) => R[l]).map(([l, v]) => {
+    const P = R[l](e, x.includes(l) ? n.emit : void 0);
+    return P(v), U(() => t[l], P, { deep: z.includes(l) });
   }).filter(Boolean);
   h.onCreate && n.emit("create", e);
   const S = X.filter((l) => l.attr in h);
   return S.length && (e.input || e.setInteractive(), S.some((l) => l.drag) && s.input.setDraggable(e), S.forEach((l) => {
-    e.on(l.emit, (...b) => {
-      "eventIndex" in l && (b[0].stopPropagation = b[l.eventIndex].stopPropagation), n.emit(l.emit, ...b);
+    e.on(l.emit, (...v) => {
+      "eventIndex" in l && (v[0].stopPropagation = v[l.eventIndex].stopPropagation), n.emit(l.emit, ...v);
     });
   })), O(() => {
     e.tween && e.tween.stop(), w.forEach((l) => l());
@@ -876,51 +917,52 @@ const at = /* @__PURE__ */ m(Ie, [["render", Te]]), ot = () => {
   PostUpdateEvents: "phavuer_postUpdateEvents"
 }, I = (e) => () => {
   const t = d(e);
-  if (!t) throw new Error(`${e} is not provided`);
+  if (!t)
+    throw new Error(`${e} is not provided`);
   return t;
-}, lt = I(a.Game), ct = I(a.Scene), T = (e, t) => V((n, i) => ({
+}, $t = I(a.Game), vt = I(a.Scene), T = (e, t) => V((n, i) => ({
   get() {
     return n(), e;
   },
   set(r) {
     e && r || (e = r ? r[t] : null, i());
   }
-})), dt = (e) => T(e, "object"), ht = (e) => T(e, "scene"), B = (e) => (t) => {
+})), bt = (e) => T(e, "object"), xt = (e) => T(e, "scene"), B = (e) => (t) => {
   const n = d(e);
   n.push(t), O(() => {
     const i = n.findIndex((r) => r === t);
     n.splice(i, 1);
   });
-}, ut = B(a.PreUpdateEvents), pt = B(a.PostUpdateEvents);
+}, wt = B(a.PreUpdateEvents), St = B(a.PostUpdateEvents);
 export {
-  rt as Body,
-  Ze as Circle,
-  Me as Container,
-  Le as Game,
-  qe as Image,
+  ft as Body,
+  rt as Circle,
+  tt as Container,
+  je as Game,
+  lt as Image,
   a as InjectionKeys,
-  nt as Light,
-  Ke as Line,
-  Qe as NineSlice,
-  Je as Polygon,
-  Ue as Rectangle,
-  at as RenderTexture,
-  Ve as RoundRectangle,
-  He as Scene,
-  je as Sprite,
-  st as StaticBody,
-  et as Text,
-  tt as TilemapLayer,
-  ze as Triangle,
-  it as Zone,
-  ot as createPhavuerApp,
-  g as initGameObject,
-  pt as onPostUpdate,
-  ut as onPreUpdate,
-  dt as refObj,
-  ht as refScene,
+  mt as Light,
+  ot as Line,
+  ct as NineSlice,
+  at as Polygon,
+  it as Rectangle,
+  yt as RenderTexture,
+  nt as RoundRectangle,
+  et as Scene,
+  dt as Sprite,
+  gt as StaticBody,
+  ht as Text,
+  ut as TilemapLayer,
+  st as Triangle,
+  pt as Zone,
+  _t as createPhavuerApp,
+  f as initGameObject,
+  St as onPostUpdate,
+  wt as onPreUpdate,
+  bt as refObj,
+  xt as refScene,
   T as refTo,
-  lt as useGame,
-  ct as useScene
+  $t as useGame,
+  vt as useScene
 };
 //# sourceMappingURL=phavuer.es.js.map
