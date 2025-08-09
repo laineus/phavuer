@@ -27,6 +27,11 @@
     "lint:fix": "eslint --fix",
     "test": "vitest"
   },
+  "files": [
+    "dist",
+    "src",
+    "types"
+  ],
   "dependencies": {
     "phaser": "^3.70.0",
     "vue": "^3.5.18"
