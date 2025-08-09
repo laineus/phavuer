@@ -1,7 +1,7 @@
-import 'phaser'
-import { Game, Scene, Line } from '../../'
 import type { Meta, StoryObj } from '@storybook/vue3'
+import { Game, Line, Scene } from '../../'
 import { referPhaserVersion, take } from './utils'
+import 'phaser'
 
 type Story = StoryObj<typeof Line>
 
@@ -35,11 +35,11 @@ const meta: Meta<typeof Line> = {
   parameters: {
     docs: {
       description: {
-        component: description
-      }
-    }
+        component: description,
+      },
+    },
   },
-  component: Line,
+  component: Line as any,
   tags: ['autodocs'],
   args: {
     active: true,
@@ -61,48 +61,47 @@ const meta: Meta<typeof Line> = {
     originY: 0,
     depth: 0,
     alpha: 1,
-    rotation: 0
+    rotation: 0,
   },
-  // @ts-ignore
   argTypes: {
     ...take(
       'default',
       'active',
       'visible',
       'x',
-      'y'
+      'y',
     ),
     x1: {
       description: 'The horizontal position of the start of the line.',
       table: {
         category: 'Props',
         type: { summary: 'number' },
-        defaultValue: { summary: 0 }
-      }
+        defaultValue: { summary: 0 },
+      },
     },
     y1: {
       description: 'The vertical position of the start of the line.',
       table: {
         category: 'Props',
         type: { summary: 'number' },
-        defaultValue: { summary: 0 }
-      }
+        defaultValue: { summary: 0 },
+      },
     },
     x2: {
       description: 'The horizontal position of the end of the line.',
       table: {
         category: 'Props',
         type: { summary: 'number' },
-        defaultValue: { summary: 128 }
-      }
+        defaultValue: { summary: 128 },
+      },
     },
     y2: {
       description: 'The vertical position of the end of the line.',
       table: {
         category: 'Props',
         type: { summary: 'number' },
-        defaultValue: { summary: 0 }
-      }
+        defaultValue: { summary: 0 },
+      },
     },
     ...take(
       'lineWidth',
@@ -143,9 +142,9 @@ const meta: Meta<typeof Line> = {
       'dragenter',
       'dragover',
       'dragleave',
-      'drop'
-    )
-  }
+      'drop',
+    ),
+  },
 }
 
 export const Default: Story = {
@@ -176,8 +175,8 @@ export const Default: Story = {
             :rotation="args.rotation"
             />
         </Scene>
-      </Game>`
-  })
+      </Game>`,
+  }),
 }
 
 export default meta

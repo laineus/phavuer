@@ -1,7 +1,7 @@
-import 'phaser'
-import { Game, Rectangle, Scene, Text } from '../../'
 import type { Meta, StoryObj } from '@storybook/vue3'
+import { Game, Rectangle, Scene, Text } from '../../'
 import { referPhaserVersion } from './utils'
+import 'phaser'
 
 type Story = StoryObj<typeof Scene>
 
@@ -31,38 +31,38 @@ const meta: Meta<typeof Scene> = {
   parameters: {
     docs: {
       description: {
-        component: description
-      }
-    }
+        component: description,
+      },
+    },
   },
-  component: Scene,
+  component: Scene as any,
   tags: ['autodocs'],
   args: {
   },
   argTypes: {
-    // @ts-ignore
+    // @ts-expect-error - default is not a prop
     default: {
       control: 'none',
       table: {
         category: 'Slots',
-        type: { summary: 'Phaser.GameObjects.GameObject' }
-      }
+        type: { summary: 'Phaser.GameObjects.GameObject' },
+      },
     },
     name: {
       control: 'none',
       description: 'The unique key of this Scene. Must be unique within the entire Game instance.',
       table: {
         category: 'Props',
-        type: { summary: 'string' }
-      }
+        type: { summary: 'string' },
+      },
     },
     autoStart: {
       control: 'none',
       description: 'Whether to start this scene automatically.',
       table: {
         category: 'Props',
-        type: { summary: 'boolean' }
-      }
+        type: { summary: 'boolean' },
+      },
     },
     init: {
       name: '@init',
@@ -70,8 +70,8 @@ const meta: Meta<typeof Scene> = {
       description: 'Event of [Phaser.Types.Scenes.SceneInitCallback](Phaser.Types.Scenes.SceneInitCallback)<br>**Parameters:**<br>data: object',
       table: {
         category: 'Emits',
-        type: { summary: 'function' }
-      }
+        type: { summary: 'function' },
+      },
     },
     preload: {
       name: '@preload',
@@ -79,8 +79,8 @@ const meta: Meta<typeof Scene> = {
       description: 'Event of [Phaser.Types.Scenes.ScenePreloadCallback](Phaser.Types.Scenes.ScenePreloadCallback)<br>**Parameters:**<br>none',
       table: {
         category: 'Emits',
-        type: { summary: 'function' }
-      }
+        type: { summary: 'function' },
+      },
     },
     create: {
       name: '@create',
@@ -88,8 +88,8 @@ const meta: Meta<typeof Scene> = {
       description: 'Event of [Phaser.Types.Scenes.SceneCreateCallback](Phaser.Types.Scenes.SceneCreateCallback)<br>**Parameters:**<br>data: object',
       table: {
         category: 'Emits',
-        type: { summary: 'function' }
-      }
+        type: { summary: 'function' },
+      },
     },
     update: {
       name: '@update',
@@ -97,10 +97,10 @@ const meta: Meta<typeof Scene> = {
       description: 'Event of [Phaser.Types.Scenes.SceneUpdateCallback](Phaser.Types.Scenes.SceneUpdateCallback)<br>**Parameters:**<br>time: Phaser.Game<br>delta: number',
       table: {
         category: 'Emits',
-        type: { summary: 'function' }
-      }
-    }
-  }
+        type: { summary: 'function' },
+      },
+    },
+  },
 }
 
 export const Default: Story = {
@@ -131,8 +131,8 @@ export const Default: Story = {
           <Rectangle :x="200" :y="110" :width="135" :height="30" :strokeColor="0x42B883" :lineWidth="1" @pointerdown="enableScene1" />
           <Text text="Change Scene" :style="style2" :x="200" :y="110" :origin="0.5" />
         </Scene>
-      </Game>`
-  })
+      </Game>`,
+  }),
 }
 
 export default meta

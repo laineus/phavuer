@@ -1,7 +1,7 @@
-import 'phaser'
-import { Game, Scene, Triangle } from '../../'
 import type { Meta, StoryObj } from '@storybook/vue3'
+import { Game, Scene, Triangle } from '../../'
 import { referPhaserVersion, take } from './utils'
+import 'phaser'
 
 type Story = StoryObj<typeof Triangle>
 
@@ -33,11 +33,11 @@ const meta: Meta<typeof Triangle> = {
   parameters: {
     docs: {
       description: {
-        component: description
-      }
-    }
+        component: description,
+      },
+    },
   },
-  component: Triangle,
+  component: Triangle as any,
   tags: ['autodocs'],
   args: {
     active: true,
@@ -63,64 +63,63 @@ const meta: Meta<typeof Triangle> = {
     originY: 0,
     depth: 0,
     alpha: 1,
-    rotation: 0
+    rotation: 0,
   },
-  // @ts-ignore
   argTypes: {
     ...take(
       'default',
       'active',
       'visible',
       'x',
-      'y'
+      'y',
     ),
     x1: {
       description: 'The horizontal position of the first point in the triangle.',
       table: {
         category: 'Props',
         type: { summary: 'number' },
-        defaultValue: { summary: 0 }
-      }
+        defaultValue: { summary: 0 },
+      },
     },
     y1: {
       description: 'The vertical position of the first point in the triangle.',
       table: {
         category: 'Props',
         type: { summary: 'number' },
-        defaultValue: { summary: 128 }
-      }
+        defaultValue: { summary: 128 },
+      },
     },
     x2: {
       description: 'The horizontal position of the second point in the triangle.',
       table: {
         category: 'Props',
         type: { summary: 'number' },
-        defaultValue: { summary: 64 }
-      }
+        defaultValue: { summary: 64 },
+      },
     },
     y2: {
       description: 'The vertical position of the second point in the triangle.',
       table: {
         category: 'Props',
         type: { summary: 'number' },
-        defaultValue: { summary: 0 }
-      }
+        defaultValue: { summary: 0 },
+      },
     },
     x3: {
       description: 'The horizontal position of the third point in the triangle.',
       table: {
         category: 'Props',
         type: { summary: 'number' },
-        defaultValue: { summary: 128 }
-      }
+        defaultValue: { summary: 128 },
+      },
     },
     y3: {
       description: 'The vertical position of the third point in the triangle.',
       table: {
         category: 'Props',
         type: { summary: 'number' },
-        defaultValue: { summary: 128 }
-      }
+        defaultValue: { summary: 128 },
+      },
     },
     ...take(
       'fillColor',
@@ -163,9 +162,9 @@ const meta: Meta<typeof Triangle> = {
       'dragenter',
       'dragover',
       'dragleave',
-      'drop'
-    )
-  }
+      'drop',
+    ),
+  },
 }
 
 export const Default: Story = {
@@ -200,8 +199,8 @@ export const Default: Story = {
             :rotation="args.rotation"
             />
         </Scene>
-      </Game>`
-  })
+      </Game>`,
+  }),
 }
 
 export default meta

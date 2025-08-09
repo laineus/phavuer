@@ -1,34 +1,34 @@
-<template>
-  <slot v-if="show" />
-</template>
-
 <script>
-import { defineComponent, provide, inject, ref } from 'vue'
+import { defineComponent, inject, provide, ref } from 'vue'
 import { InjectionKeys } from '../index'
+
 export default defineComponent({
-  emits: ['init', 'create', 'update', 'preload'],
   props: {
     name: { type: String, required: true },
-    autoStart: { type: Boolean, default: true }
+    autoStart: { type: Boolean, default: true },
   },
-  setup (props, context) {
+  emits: ['init', 'create', 'update', 'preload'],
+  setup(props, context) {
     const show = ref(false)
     const preUpdateEvents = []
     const postUpdateEvents = []
     const Scene = class extends Phaser.Scene {
-      init (data) {
+      init(data) {
         context.emit('init', this, data)
       }
-      create (data) {
+
+      create(data) {
         show.value = true
         context.emit('create', this, data)
       }
-      update (time, delta) {
+
+      update(time, delta) {
         preUpdateEvents.forEach(e => e(time, delta))
         context.emit('update', this, time, delta)
         postUpdateEvents.forEach(e => e(time, delta))
       }
-      preload () {
+
+      preload() {
         context.emit('preload', this)
       }
     }
@@ -39,6 +39,10 @@ export default defineComponent({
     provide(InjectionKeys.PreUpdateEvents, preUpdateEvents)
     provide(InjectionKeys.PostUpdateEvents, postUpdateEvents)
     return { scene, show }
-  }
+  },
 })
 </script>
+
+<template>
+  <slot v-if="show" />
+</template>

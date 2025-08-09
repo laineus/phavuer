@@ -1,26 +1,21 @@
-<template>
-  <div data-phavuer-game>
-    <div data-phavuer-canvas ref="canvasRoot" />
-    <slot v-if="show" />
-  </div>
-</template>
-
 <script>
-import { defineComponent, provide, ref, onMounted } from 'vue'
-import { InjectionKeys } from '../index'
+import { defineComponent, onMounted, provide, ref } from 'vue'
 import packageJson from '../../package.json'
+import { InjectionKeys } from '../index'
+
 export default defineComponent({
-  emits: ['create', 'ready'],
   props: {
-    config: { type: Object }
+    config: { type: Object },
   },
-  setup (props, context) {
+  emits: ['create', 'ready'],
+  setup(props, context) {
     if (props.config?.banner !== false) {
+      // eslint-disable-next-line no-console
       console.log(
         `%c %cPhavuer v${packageJson.version}%c https://github.com/laineus/phavuer`,
         'background-color: #42b883; padding: 2px 0;',
         'background-color: #213547; padding: 2px 8px; color: white; font-weight: bold;',
-        ''
+        '',
       )
     }
     const canvasRoot = ref(false)
@@ -46,6 +41,13 @@ export default defineComponent({
       }
     })
     return { canvasRoot, show }
-  }
+  },
 })
 </script>
+
+<template>
+  <div data-phavuer-game>
+    <div ref="canvasRoot" data-phavuer-canvas />
+    <slot v-if="show" />
+  </div>
+</template>

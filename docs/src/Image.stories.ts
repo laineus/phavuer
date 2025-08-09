@@ -1,7 +1,7 @@
-import 'phaser'
-import { Game, Scene, Image } from '../../'
 import type { Meta, StoryObj } from '@storybook/vue3'
+import { Game, Image, Scene } from '../../'
 import { referPhaserVersion, take } from './utils'
+import 'phaser'
 
 type Story = StoryObj<typeof Image>
 
@@ -28,11 +28,11 @@ const meta: Meta<typeof Image> = {
   parameters: {
     docs: {
       description: {
-        component: description
-      }
-    }
+        component: description,
+      },
+    },
   },
-  component: Image,
+  component: Image as any,
   tags: ['autodocs'],
   args: {
     active: true,
@@ -52,9 +52,8 @@ const meta: Meta<typeof Image> = {
     originY: 0,
     depth: 0,
     alpha: 1,
-    rotation: 0
+    rotation: 0,
   },
-  // @ts-ignore
   argTypes: {
     ...take(
       'default',
@@ -102,9 +101,9 @@ const meta: Meta<typeof Image> = {
       'dragenter',
       'dragover',
       'dragleave',
-      'drop'
-    )
-  }
+      'drop',
+    ),
+  },
 }
 
 export const Default: Story = {
@@ -135,8 +134,8 @@ export const Default: Story = {
             :rotation="args.rotation"
             />
         </Scene>
-      </Game>`
-  })
+      </Game>`,
+  }),
 }
 
 export default meta

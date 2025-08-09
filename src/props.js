@@ -80,26 +80,40 @@ const props = {
   // Tween
   tween: { type: Object },
   tweens: { type: Array },
-  timeline: { type: Object }
+  timeline: { type: Object },
 }
 const propsEntries = Object.entries(props)
-export const mapProps = (...names) => {
+export function mapProps(...names) {
   const nameSet = new Set(names)
   return Object.fromEntries(
-    propsEntries.filter(([name]) => nameSet.has(name))
+    propsEntries.filter(([name]) => nameSet.has(name)),
   )
 }
 export const gameObjectProps = mapProps(
-  'tween', 'tweens', 'timeline',
-  'active', 'visible',
-  'x', 'y',
+  'tween',
+  'tweens',
+  'timeline',
+  'active',
+  'visible',
+  'x',
+  'y',
   'rotation',
-  'origin', 'originX', 'originY',
-  'displayOriginX', 'displayOriginY',
-  'scale', 'scaleX', 'scaleY',
-  'displayWidth', 'displayHeight',
-  'scrollFactor', 'scrollFactorX', 'scrollFactorY',
+  'origin',
+  'originX',
+  'originY',
+  'displayOriginX',
+  'displayOriginY',
+  'scale',
+  'scaleX',
+  'scaleY',
+  'displayWidth',
+  'displayHeight',
+  'scrollFactor',
+  'scrollFactorX',
+  'scrollFactorY',
   'dropZone',
   'depth',
-  'alpha', 'blendMode', 'pipeline'
+  'alpha',
+  'blendMode',
+  'pipeline',
 )

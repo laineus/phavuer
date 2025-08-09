@@ -1,9 +1,9 @@
-import 'phaser'
-import { Game, Scene, Image, StaticBody } from '../../'
 import type { Meta, StoryObj } from '@storybook/vue3'
-import { referPhaserVersion } from './utils'
-import box from './assets/box.png'
 import { ref, watch } from 'vue'
+import { Game, Image, Scene, StaticBody } from '../../'
+import box from './assets/box.png'
+import { referPhaserVersion } from './utils'
+import 'phaser'
 
 type Story = StoryObj<typeof StaticBody>
 
@@ -36,68 +36,68 @@ const meta: Meta<typeof StaticBody> = {
   parameters: {
     docs: {
       description: {
-        component: description
-      }
-    }
+        component: description,
+      },
+    },
   },
-  component: StaticBody,
+  component: StaticBody as any,
   tags: ['autodocs'],
   args: {
     width: 100,
     height: 80,
     offsetX: 0,
     offsetY: 0,
-    enable: true
+    enable: true,
   },
   argTypes: {
-    // @ts-ignore
     width: {
       description: 'The width of the StaticBody.',
       table: {
         category: 'Props',
         type: { summary: 'number' },
-        defaultValue: { summary: 'Same as its Game Object\'s width' }
-      }
+        defaultValue: { summary: 'Same as its Game Object\'s width' },
+      },
     },
     height: {
       description: 'The height of the StaticBody.',
       table: {
         category: 'Props',
         type: { summary: 'number' },
-        defaultValue: { summary: 'Same as its Game Object\'s height' }
-      }
+        defaultValue: { summary: 'Same as its Game Object\'s height' },
+      },
     },
     offsetX: {
       description: 'The horizontal offset of the StaticBody\'s position from its Game Object\'s position.',
       table: {
         category: 'Props',
-        type: { summary: 'number' }
-      }
+        type: { summary: 'number' },
+      },
     },
     offsetY: {
       description: 'The vertical offset of the StaticBody\'s position from its Game Object\'s position.',
       table: {
         category: 'Props',
-        type: { summary: 'number' }
-      }
+        type: { summary: 'number' },
+      },
     },
     enable: {
       description: 'Whether this StaticBody is updated by the physics simulation.',
       table: {
         category: 'Props',
-        type: { summary: 'boolean' }
-      }
+        type: { summary: 'boolean' },
+      },
     },
+    // @ts-expect-error - create is not a prop
     create: {
       name: '@create',
       control: 'none',
       description: '**Parameters:**<br>pointer: `Phaser.Physics.Arcade.StaticBody`',
       table: {
         category: 'Emits',
-        type: { summary: 'function' }
-      }
-    }
-  }
+        type: { summary: 'function' },
+      },
+    },
+  },
 }
 
 export const Default: Story = {
@@ -132,8 +132,8 @@ export const Default: Story = {
             />
         </Image>
       </Scene>
-    </Game>`
-  })
+    </Game>`,
+  }),
 }
 
 export default meta

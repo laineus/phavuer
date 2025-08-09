@@ -1,9 +1,9 @@
-import 'phaser'
-import { Game, Scene, Image, Text, Rectangle, Zone } from '../../'
 import type { Meta, StoryObj } from '@storybook/vue3'
-import { referPhaserVersion, take } from './utils'
-import box from './assets/box.png'
 import { reactive, ref } from 'vue'
+import { Game, Image, Rectangle, Scene, Text, Zone } from '../../'
+import box from './assets/box.png'
+import { referPhaserVersion, take } from './utils'
+import 'phaser'
 
 type Story = StoryObj<typeof Zone>
 
@@ -33,9 +33,9 @@ const meta: Meta<typeof Zone> = {
   parameters: {
     docs: {
       description: {
-        component: description
-      }
-    }
+        component: description,
+      },
+    },
   },
   component: Zone,
   tags: ['autodocs'],
@@ -47,7 +47,7 @@ const meta: Meta<typeof Zone> = {
     height: 120,
     origin: 0,
     originX: 0,
-    originY: 0
+    originY: 0,
   },
   argTypes: {
     ...take(
@@ -90,9 +90,9 @@ const meta: Meta<typeof Zone> = {
       'dragenter',
       'dragover',
       'dragleave',
-      'drop'
-    )
-  }
+      'drop',
+    ),
+  },
 }
 
 export const Default: Story = {
@@ -103,6 +103,7 @@ export const Default: Story = {
         scene.load.image('box', box)
       }
       const dropped = ref(false)
+      const boxPosition = reactive({ x: 230, y: 50 })
       const drag = (_: Phaser.Input.Pointer, x: number, y: number) => {
         boxPosition.x = x
         boxPosition.y = y
@@ -111,7 +112,6 @@ export const Default: Story = {
       const drop = () => {
         dropped.value = true
       }
-      const boxPosition = reactive({ x: 230, y: 50 })
       return { args, preload, dropped, drag, drop, boxPosition }
     },
     template: `
@@ -152,8 +152,8 @@ export const Default: Story = {
           >
         </Image>
       </Scene>
-    </Game>`
-  })
+    </Game>`,
+  }),
 }
 
 export default meta

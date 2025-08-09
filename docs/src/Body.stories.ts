@@ -1,9 +1,9 @@
-import 'phaser'
-import { Game, Scene, Image, Body } from '../../'
 import type { Meta, StoryObj } from '@storybook/vue3'
-import { referPhaserVersion } from './utils'
-import box from './assets/box.png'
 import { ref, watch } from 'vue'
+import { Body, Game, Image, Scene } from '../../'
+import box from './assets/box.png'
+import { referPhaserVersion } from './utils'
+import 'phaser'
 
 type Story = StoryObj<typeof Body>
 
@@ -35,9 +35,9 @@ const meta: Meta<typeof Body> = {
   parameters: {
     docs: {
       description: {
-        component: description
-      }
-    }
+        component: description,
+      },
+    },
   },
   component: Body,
   tags: ['autodocs'],
@@ -64,184 +64,184 @@ const meta: Meta<typeof Body> = {
     maxVelocityX: 500,
     maxVelocityY: 500,
     accelerationX: 0,
-    accelerationY: 0
+    accelerationY: 0,
   },
   argTypes: {
-    // @ts-ignore
     width: {
       description: 'The width of the Body.',
       table: {
         category: 'Props',
         type: { summary: 'number' },
-        defaultValue: { summary: 'Same as its Game Object\'s width' }
-      }
+        defaultValue: { summary: 'Same as its Game Object\'s width' },
+      },
     },
     height: {
       description: 'The height of the Body.',
       table: {
         category: 'Props',
         type: { summary: 'number' },
-        defaultValue: { summary: 'Same as its Game Object\'s height' }
-      }
+        defaultValue: { summary: 'Same as its Game Object\'s height' },
+      },
     },
     offsetX: {
       description: 'The horizontal offset of the Body\'s position from its Game Object\'s position.',
       table: {
         category: 'Props',
-        type: { summary: 'number' }
-      }
+        type: { summary: 'number' },
+      },
     },
     offsetY: {
       description: 'The vertical offset of the Body\'s position from its Game Object\'s position.',
       table: {
         category: 'Props',
-        type: { summary: 'number' }
-      }
+        type: { summary: 'number' },
+      },
     },
     enable: {
       description: 'Whether this Body is updated by the physics simulation.',
       table: {
         category: 'Props',
-        type: { summary: 'boolean' }
-      }
+        type: { summary: 'boolean' },
+      },
     },
     immovable: {
       description: 'Whether this Body can be moved by collisions with another Body.',
       table: {
         category: 'Props',
-        type: { summary: 'boolean' }
-      }
+        type: { summary: 'boolean' },
+      },
     },
     moves: {
       description: 'Whether the Body\'s position and rotation are affected by its velocity, acceleration, drag, and gravity.',
       table: {
         category: 'Props',
-        type: { summary: 'boolean' }
-      }
+        type: { summary: 'boolean' },
+      },
     },
     collideWorldBounds: {
       description: 'Whether this Body interacts with the world boundary.',
       table: {
         category: 'Props',
         type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' }
-      }
+        defaultValue: { summary: 'false' },
+      },
     },
     bounceX: {
       description: 'The Body\'s horizontal bounce.',
       table: {
         category: 'Props',
-        type: { summary: 'number' }
-      }
+        type: { summary: 'number' },
+      },
     },
     bounceY: {
       description: 'The Body\'s vertical bounce.',
       table: {
         category: 'Props',
-        type: { summary: 'number' }
-      }
+        type: { summary: 'number' },
+      },
     },
     drag: {
       description: 'The Body\'s drag.',
       table: {
         category: 'Props',
-        type: { summary: 'number' }
-      }
+        type: { summary: 'number' },
+      },
     },
     dragX: {
       description: 'The Body\'s horizontal drag.',
       table: {
         category: 'Props',
-        type: { summary: 'number' }
-      }
+        type: { summary: 'number' },
+      },
     },
     dragY: {
       description: 'The Body\'s vertical drag.',
       table: {
         category: 'Props',
-        type: { summary: 'number' }
-      }
+        type: { summary: 'number' },
+      },
     },
     gravityX: {
       description: 'The Body\'s horizontal gravity.',
       table: {
         category: 'Props',
-        type: { summary: 'number' }
-      }
+        type: { summary: 'number' },
+      },
     },
     gravityY: {
       description: 'The Body\'s vertical gravity.',
       table: {
         category: 'Props',
-        type: { summary: 'number' }
-      }
+        type: { summary: 'number' },
+      },
     },
     frictionX: {
       description: 'The Body\'s horizontal friction.',
       table: {
         category: 'Props',
-        type: { summary: 'number' }
-      }
+        type: { summary: 'number' },
+      },
     },
     frictionY: {
       description: 'The Body\'s vertical friction.',
       table: {
         category: 'Props',
-        type: { summary: 'number' }
-      }
+        type: { summary: 'number' },
+      },
     },
     velocityX: {
       description: 'The Body\'s horizontal velocity.',
       table: {
         category: 'Props',
-        type: { summary: 'number' }
-      }
+        type: { summary: 'number' },
+      },
     },
     velocityY: {
       description: 'The Body\'s vertical velocity.',
       table: {
         category: 'Props',
-        type: { summary: 'number' }
-      }
+        type: { summary: 'number' },
+      },
     },
     maxVelocityX: {
       description: 'The Body\'s maximum horizontal velocity.',
       table: {
         category: 'Props',
-        type: { summary: 'number' }
-      }
+        type: { summary: 'number' },
+      },
     },
     maxVelocityY: {
       description: 'The Body\'s maximum vertical velocity.',
       table: {
         category: 'Props',
-        type: { summary: 'number' }
-      }
+        type: { summary: 'number' },
+      },
     },
     accelerationX: {
       description: 'The Body\'s horizontal acceleration.',
       table: {
         category: 'Props',
-        type: { summary: 'number' }
-      }
+        type: { summary: 'number' },
+      },
     },
     accelerationY: {
       description: 'The Body\'s vertical acceleration.',
       table: {
         category: 'Props',
-        type: { summary: 'number' }
-      }
+        type: { summary: 'number' },
+      },
     },
+    // @ts-expect-error - create is not a prop
     create: {
       name: '@create',
       control: 'none',
       description: '**Parameters:**<br>pointer: `Phaser.Physics.Arcade.Body`',
       table: {
         category: 'Emits',
-        type: { summary: 'function' }
-      }
-    }
-  }
+        type: { summary: 'function' },
+      },
+    },
+  },
 }
 
 export const Default: Story = {
@@ -293,8 +293,8 @@ export const Default: Story = {
             />
         </Image>
       </Scene>
-    </Game>`
-  })
+    </Game>`,
+  }),
 }
 
 export default meta
