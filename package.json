@@ -2,8 +2,16 @@
   "name": "phavuer",
   "version": "0.17.0",
   "description": "A wrapper library that integrates Phaser 3 with Vue 3.",
-  "main": "src/index.js",
+  "main": "dist/phavuer.umd.js",
+  "module": "dist/phavuer.es.js",
   "types": "types/phavuer.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/phavuer.es.js",
+      "require": "./dist/phavuer.umd.js",
+      "types": "./types/phavuer.d.ts"
+    }
+  },
   "author": "Laineus",
   "license": "MIT",
   "repository": {
