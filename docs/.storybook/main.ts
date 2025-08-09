@@ -8,15 +8,15 @@ const config: StorybookConfig = {
       name: '@storybook/addon-essentials',
       options: {
         actions: false,
-      }
-    }
+      },
+    },
   ],
   framework: {
     name: '@storybook/vue3-vite',
-    options: {}
+    options: {},
   },
   docs: {
-    autodocs: 'tag'
-  }
+    autodocs: 'tag',
+  },
 }
 export default config

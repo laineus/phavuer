@@ -1,8 +1,8 @@
-import 'phaser'
-import { Game, Scene, RenderTexture, NineSlice, Text } from '../../'
 import type { Meta, StoryObj } from '@storybook/vue3'
-import { take } from './utils'
+import { Game, NineSlice, RenderTexture, Scene, Text } from '../../'
 import messageWindow from './assets/window.png'
+import { take } from './utils'
+import 'phaser'
 
 type Story = StoryObj<typeof RenderTexture>
 
@@ -37,11 +37,11 @@ const meta: Meta<typeof RenderTexture> = {
   parameters: {
     docs: {
       description: {
-        component: description
-      }
-    }
+        component: description,
+      },
+    },
   },
-  component: RenderTexture,
+  component: RenderTexture as any,
   tags: ['autodocs'],
   args: {
     active: true,
@@ -58,9 +58,8 @@ const meta: Meta<typeof RenderTexture> = {
     originY: 0,
     depth: 0,
     alpha: 1,
-    rotation: 0
+    rotation: 0,
   },
-  // @ts-ignore
   argTypes: {
     ...take(
       'default',
@@ -105,9 +104,9 @@ const meta: Meta<typeof RenderTexture> = {
       'dragenter',
       'dragover',
       'dragleave',
-      'drop'
-    )
-  }
+      'drop',
+    ),
+  },
 }
 
 export const Default: Story = {
@@ -154,8 +153,8 @@ export const Default: Story = {
               />
           </RenderTexture>
         </Scene>
-      </Game>`
-  })
+      </Game>`,
+  }),
 }
 
 export default meta

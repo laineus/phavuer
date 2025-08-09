@@ -1,8 +1,8 @@
-import 'phaser'
-import { Game, Scene, Sprite } from '../../'
 import type { Meta, StoryObj } from '@storybook/vue3'
-import { referPhaserVersion, take } from './utils'
+import { Game, Scene, Sprite } from '../../'
 import player from './assets/player.png'
+import { referPhaserVersion, take } from './utils'
+import 'phaser'
 
 type Story = StoryObj<typeof Sprite>
 
@@ -34,11 +34,11 @@ const meta: Meta<typeof Sprite> = {
   parameters: {
     docs: {
       description: {
-        component: description
-      }
-    }
+        component: description,
+      },
+    },
   },
-  component: Sprite,
+  component: Sprite as any,
   tags: ['autodocs'],
   args: {
     active: true,
@@ -59,9 +59,8 @@ const meta: Meta<typeof Sprite> = {
     originY: 0,
     depth: 0,
     alpha: 1,
-    rotation: 0
+    rotation: 0,
   },
-  // @ts-ignore
   argTypes: {
     ...take(
       'default',
@@ -77,8 +76,8 @@ const meta: Meta<typeof Sprite> = {
       description: 'Start playing the given animation key on this Sprite.',
       table: {
         category: 'Props',
-        type: { summary: '	string | Phaser.Animations.Animation | Phaser.Types.Animations.PlayAnimationConfig' }
-      }
+        type: { summary: 'string | Phaser.Animations.Animation | Phaser.Types.Animations.PlayAnimationConfig' },
+      },
     },
     ...take(
       'tint',
@@ -125,9 +124,9 @@ const meta: Meta<typeof Sprite> = {
       'animationrepeat',
       'animationcomplete',
       'animationstop',
-      'animationrestart'
-    )
-  }
+      'animationrestart',
+    ),
+  },
 }
 
 export const Default: Story = {
@@ -135,7 +134,7 @@ export const Default: Story = {
     components: { Game, Scene, Sprite },
     setup() {
       const preload = (scene: Phaser.Scene) => {
-        scene.load.spritesheet('player', player,  { frameWidth: 26, frameHeight: 41, startFrame: 0, endFrame: 2 })
+        scene.load.spritesheet('player', player, { frameWidth: 26, frameHeight: 41, startFrame: 0, endFrame: 2 })
       }
       const create = (scene: Phaser.Scene) => {
         scene.anims.create({
@@ -143,7 +142,7 @@ export const Default: Story = {
           frames: scene.anims.generateFrameNames('player', { end: 2 }),
           frameRate: 3,
           repeat: -1,
-          yoyo: true
+          yoyo: true,
         })
       }
       return { args, create, preload }
@@ -167,8 +166,8 @@ export const Default: Story = {
             :rotation="args.rotation"
             />
         </Scene>
-      </Game>`
-  })
+      </Game>`,
+  }),
 }
 
 export default meta

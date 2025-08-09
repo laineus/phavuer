@@ -1,7 +1,7 @@
-import 'phaser'
-import { Game, Scene, Text } from '../../'
 import type { Meta, StoryObj } from '@storybook/vue3'
+import { Game, Scene, Text } from '../../'
 import { referPhaserVersion, take } from './utils'
+import 'phaser'
 
 type Story = StoryObj<typeof Text>
 
@@ -39,11 +39,11 @@ const meta: Meta<typeof Text> = {
   parameters: {
     docs: {
       description: {
-        component: description
-      }
-    }
+        component: description,
+      },
+    },
   },
-  component: Text,
+  component: Text as any,
   tags: ['autodocs'],
   args: {
     active: true,
@@ -53,7 +53,7 @@ const meta: Meta<typeof Text> = {
     text: 'Hello Phavuer\nHello Phaser\nHello Vue',
     style: { fontFamily: 'Helvetica, Arial', color: '#42B883', fontSize: '26px', fontStyle: 'bold', strokeThickness: 8, stroke: '#213547' },
     lineSpacing: 0,
-    padding: { x: 0, y: 0, left: 0, right:0, top: 0, bottom: 0 },
+    padding: { x: 0, y: 0, left: 0, right: 0, top: 0, bottom: 0 },
     scale: 1,
     scaleX: 1,
     scaleY: 1,
@@ -62,49 +62,48 @@ const meta: Meta<typeof Text> = {
     originY: 0,
     depth: 0,
     alpha: 1,
-    rotation: 0
+    rotation: 0,
   },
-  // @ts-ignore
   argTypes: {
     ...take(
       'default',
       'active',
       'visible',
       'x',
-      'y'
+      'y',
     ),
     text: {
       description: 'The text this Text object will display.',
       table: {
         category: 'Props',
-        type: { summary: 'string | string[]' }
-      }
+        type: { summary: 'string | string[]' },
+      },
     },
     style: {
       description: 'The text style configuration object.',
       table: {
         category: 'Props',
-        type: { summary: 'Phaser.Types.GameObjects.Text.TextStyle' }
-      }
+        type: { summary: 'Phaser.Types.GameObjects.Text.TextStyle' },
+      },
     },
     lineSpacing: {
       description: 'The line spacing value.',
       table: {
         category: 'Props',
-        type: { summary: 'number' }
-      }
+        type: { summary: 'number' },
+      },
     },
     padding: {
       description: 'Specify a padding value which is added to the line width and height when calculating the Text size.',
       table: {
         category: 'Props',
-        type: { summary: 'Phaser.Types.GameObjects.Text.TextPadding' }
-      }
+        type: { summary: 'Phaser.Types.GameObjects.Text.TextPadding' },
+      },
     },
     ...take(
       'scale',
       'scaleX',
-      'scaleY'
+      'scaleY',
     ),
     origin: {
       control: 'none',
@@ -112,8 +111,8 @@ const meta: Meta<typeof Text> = {
       table: {
         category: 'Props',
         type: { summary: 'number' },
-        defaultValue: { summary: '0' }
-      }
+        defaultValue: { summary: '0' },
+      },
     },
     originX: {
       control: { step: 0.1, max: 1, min: 0 },
@@ -121,8 +120,8 @@ const meta: Meta<typeof Text> = {
       table: {
         category: 'Props',
         type: { summary: 'number' },
-        defaultValue: { summary: '0' }
-      }
+        defaultValue: { summary: '0' },
+      },
     },
     originY: {
       control: { step: 0.1, max: 1, min: 0 },
@@ -130,8 +129,8 @@ const meta: Meta<typeof Text> = {
       table: {
         category: 'Props',
         type: { summary: 'number' },
-        defaultValue: { summary: '0' }
-      }
+        defaultValue: { summary: '0' },
+      },
     },
     ...take(
       'depth',
@@ -163,9 +162,9 @@ const meta: Meta<typeof Text> = {
       'dragenter',
       'dragover',
       'dragleave',
-      'drop'
-    )
-  }
+      'drop',
+    ),
+  },
 }
 
 export const Default: Story = {
@@ -193,8 +192,8 @@ export const Default: Story = {
             :rotation="args.rotation"
             />
         </Scene>
-      </Game>`
-  })
+      </Game>`,
+  }),
 }
 
 export default meta

@@ -1,8 +1,8 @@
-import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
+import { describe, expect, it, vi } from 'vitest'
 import Game from '../Game.vue'
 
-describe('Game', () => {
+describe('game', () => {
   /**
    * @type {import('phaser').Types.Core.GameConfig}
    */
@@ -11,7 +11,7 @@ describe('Game', () => {
      * Prevent the Phaser & Phavuer banner from polluting the test logs
      */
     banner: false,
-  };
+  }
 
   it('emits the create event', () => {
     const wrapper = mount(Game, {
@@ -32,7 +32,7 @@ describe('Game', () => {
   })
 
   it('emits the ready event', async () => {
-    vi.useFakeTimers();
+    vi.useFakeTimers()
     const wrapper = mount(Game, {
       props: {
         config,

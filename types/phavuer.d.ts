@@ -1,16 +1,16 @@
-import * as Phaser from 'phaser'
-import { DefineComponent, Ref, SetupContext, ComponentObjectPropsOptions } from 'vue'
+import type * as Phaser from 'phaser'
+import type { ComponentObjectPropsOptions, DefineComponent, Ref, SetupContext } from 'vue'
 
-export function refTo<T> (value: T, key: string): Ref<T>
-export function refObj<T extends Phaser.GameObjects.GameObject> (value: T): Ref<T>
-export function refObj<T extends Phaser.GameObjects.GameObject> (): Ref<T | undefined>
-export function refScene (value: Phaser.Scene): Ref<Phaser.Scene>
-export function refScene (): Ref<Phaser.Scene | undefined>
-export function useGame (): Phaser.Game
-export function useScene (): Phaser.Scene
-export function onPreUpdate (callback: (time: number, delta: number) => any): void
-export function onPostUpdate (callback: (time: number, delta: number) => any): void
-export function initGameObject (object: Phaser.GameObjects.GameObject, props: Readonly<ComponentObjectPropsOptions>, context: SetupContext): void
+export function refTo<T>(value: T, key: string): Ref<T>
+export function refObj<T extends Phaser.GameObjects.GameObject>(value: T): Ref<T>
+export function refObj<T extends Phaser.GameObjects.GameObject>(): Ref<T | undefined>
+export function refScene(value: Phaser.Scene): Ref<Phaser.Scene>
+export function refScene(): Ref<Phaser.Scene | undefined>
+export function useGame(): Phaser.Game
+export function useScene(): Phaser.Scene
+export function onPreUpdate(callback: (time: number, delta: number) => any): void
+export function onPostUpdate(callback: (time: number, delta: number) => any): void
+export function initGameObject(object: Phaser.GameObjects.GameObject, props: Readonly<ComponentObjectPropsOptions>, context: SetupContext): void
 
 declare namespace Phavuer {
   interface TweenConfig extends Omit<Phaser.Types.Tweens.TweenBuilderConfig, 'targets'> {

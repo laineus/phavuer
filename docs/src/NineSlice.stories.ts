@@ -1,8 +1,8 @@
-import 'phaser'
-import { Game, Scene, NineSlice } from '../../'
 import type { Meta, StoryObj } from '@storybook/vue3'
-import { referPhaserVersion, take } from './utils'
+import { Game, NineSlice, Scene } from '../../'
 import messageWindow from './assets/window.png'
+import { referPhaserVersion, take } from './utils'
+import 'phaser'
 
 type Story = StoryObj<typeof NineSlice>
 
@@ -45,11 +45,11 @@ const meta: Meta<typeof NineSlice> = {
   parameters: {
     docs: {
       description: {
-        component: description
-      }
-    }
+        component: description,
+      },
+    },
   },
-  component: NineSlice,
+  component: NineSlice as any,
   tags: ['autodocs'],
   args: {
     active: true,
@@ -70,9 +70,8 @@ const meta: Meta<typeof NineSlice> = {
     originY: 0,
     depth: 0,
     alpha: 1,
-    rotation: 0
+    rotation: 0,
   },
-  // @ts-ignore
   argTypes: {
     ...take(
       'default',
@@ -81,7 +80,7 @@ const meta: Meta<typeof NineSlice> = {
       'x',
       'y',
       'width',
-      'height'
+      'height',
     ),
     leftWidth: {
       control: 'none',
@@ -89,8 +88,8 @@ const meta: Meta<typeof NineSlice> = {
       table: {
         category: 'Props',
         type: { summary: 'number' },
-        defaultValue: { summary: 10 }
-      }
+        defaultValue: { summary: 10 },
+      },
     },
     rightWidth: {
       control: 'none',
@@ -98,8 +97,8 @@ const meta: Meta<typeof NineSlice> = {
       table: {
         category: 'Props',
         type: { summary: 'number' },
-        defaultValue: { summary: 10 }
-      }
+        defaultValue: { summary: 10 },
+      },
     },
     topHeight: {
       control: 'none',
@@ -107,8 +106,8 @@ const meta: Meta<typeof NineSlice> = {
       table: {
         category: 'Props',
         type: { summary: 'number' },
-        defaultValue: { summary: 0 }
-      }
+        defaultValue: { summary: 0 },
+      },
     },
     bottomHeight: {
       control: 'none',
@@ -116,8 +115,8 @@ const meta: Meta<typeof NineSlice> = {
       table: {
         category: 'Props',
         type: { summary: 'number' },
-        defaultValue: { summary: 0 }
-      }
+        defaultValue: { summary: 0 },
+      },
     },
     ...take(
       'scale',
@@ -155,9 +154,9 @@ const meta: Meta<typeof NineSlice> = {
       'dragenter',
       'dragover',
       'dragleave',
-      'drop'
-    )
-  }
+      'drop',
+    ),
+  },
 }
 
 export const Default: Story = {
@@ -191,8 +190,8 @@ export const Default: Story = {
             :rotation="args.rotation"
             />
         </Scene>
-      </Game>`
-  })
+      </Game>`,
+  }),
 }
 
 export default meta

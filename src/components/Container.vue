@@ -1,18 +1,15 @@
-<template>
-  <slot />
-</template>
-
 <script>
-import { defineComponent, provide, inject } from 'vue'
+import { defineComponent, inject, provide } from 'vue'
+import { gameObjectEmits } from '../emits.js'
 import { initGameObject, InjectionKeys } from '../index.js'
 import { gameObjectProps } from '../props.js'
-import { gameObjectEmits } from '../emits.js'
+
 export default defineComponent({
-  emits: [...gameObjectEmits],
   props: Object.fromEntries(
-    Object.entries(gameObjectProps).filter(([k]) => !['origin', 'originX', 'originY', 'displayOriginX', 'displayOriginY'].includes(k))
+    Object.entries(gameObjectProps).filter(([k]) => !['origin', 'originX', 'originY', 'displayOriginX', 'displayOriginY'].includes(k)),
   ),
-  setup (props, context) {
+  emits: [...gameObjectEmits],
+  setup(props, context) {
     const scene = inject(InjectionKeys.Scene)
     const object = new Phaser.GameObjects.Container(scene, props.x || 0, props.y || 0)
     initGameObject(object, props, context)
@@ -20,6 +17,10 @@ export default defineComponent({
     provide(InjectionKeys.GameObject, object)
     provide(InjectionKeys.RenderTextureRenderList, undefined)
     return { object }
-  }
+  },
 })
 </script>
+
+<template>
+  <slot />
+</template>

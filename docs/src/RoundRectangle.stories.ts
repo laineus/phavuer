@@ -1,7 +1,7 @@
-import 'phaser'
-import { Game, Scene, RoundRectangle } from '../../'
 import type { Meta, StoryObj } from '@storybook/vue3'
+import { Game, RoundRectangle, Scene } from '../../'
 import { take } from './utils'
+import 'phaser'
 
 type Story = StoryObj<typeof RoundRectangle>
 
@@ -24,11 +24,11 @@ const meta: Meta<typeof RoundRectangle> = {
   parameters: {
     docs: {
       description: {
-        component: description
-      }
-    }
+        component: description,
+      },
+    },
   },
-  component: RoundRectangle,
+  component: RoundRectangle as any,
   tags: ['autodocs'],
   args: {
     active: true,
@@ -51,9 +51,8 @@ const meta: Meta<typeof RoundRectangle> = {
     originY: 0,
     depth: 0,
     alpha: 1,
-    rotation: 0
+    rotation: 0,
   },
-  // @ts-ignore
   argTypes: {
     ...take(
       'default',
@@ -103,9 +102,9 @@ const meta: Meta<typeof RoundRectangle> = {
       'dragenter',
       'dragover',
       'dragleave',
-      'drop'
-    )
-  }
+      'drop',
+    ),
+  },
 }
 
 export const Default: Story = {
@@ -137,8 +136,8 @@ export const Default: Story = {
             :rotation="args.rotation"
             />
         </Scene>
-      </Game>`
-  })
+      </Game>`,
+  }),
 }
 
 export default meta

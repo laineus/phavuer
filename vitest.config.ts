@@ -1,6 +1,6 @@
+import vue from '@vitejs/plugin-vue'
 /// <reference types="vitest" />
 import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
   plugins: [vue()],
@@ -12,11 +12,12 @@ export default defineConfig({
       name: 'chrome',
       enabled: true,
       providerOptions: {
-        logLevel: 'silent', logLevels: { webdriver: 'silent' }
+        logLevel: 'silent',
+        logLevels: { webdriver: 'silent' },
       },
     },
     setupFiles: [
-      './vitest.setup.mjs',
+      './vitest.setup.ts',
     ],
   },
 })

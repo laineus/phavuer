@@ -1,6 +1,6 @@
-import fs from 'fs'
-import path from 'path'
-import { fileURLToPath } from 'url'
+import fs from 'node:fs'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -19,8 +19,7 @@ fs.readFile(filePath, 'utf8', (err, data) => {
   fs.writeFile(filePath, updatedData, 'utf8', (writeErr) => {
     if (writeErr) {
       console.error('Error writing the updated HTML file:', writeErr)
-      return
     }
-    console.log('Title updated successfully.')
+    // Title updated successfully
   })
 })

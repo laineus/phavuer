@@ -11,28 +11,30 @@ export const GAME_OBJECT_EVENTS = [
   { attr: 'onDragenter', emit: 'dragenter', drag: true },
   { attr: 'onDragover', emit: 'dragover', drag: true },
   { attr: 'onDragleave', emit: 'dragleave', drag: true },
-  { attr: 'onDrop', emit: 'drop', drag: true }
+  { attr: 'onDrop', emit: 'drop', drag: true },
 ]
-const fixSize = object => {
+function fixSize(object) {
   if (object.updateDisplayOrigin) {
     object.updateDisplayOrigin()
   }
   if (object.input) {
     object.input.hitArea.setSize(object.width, object.height)
-  } else if (object._events && GAME_OBJECT_EVENTS.some(v => v.emit in object._events)) {
+  }
+  else if (object._events && GAME_OBJECT_EVENTS.some(v => v.emit in object._events)) {
     object.setInteractive()
   }
 }
 
-const defineVModelProperty = (gameObject, key, emit) => {
+function defineVModelProperty(gameObject, key, emit) {
   let rawValue = gameObject[key]
   Object.defineProperty(gameObject, key, {
-    get () {
+    get() {
       return rawValue
     },
-    set (v) {
-      if (rawValue !== v) emit(`update:${key}`, v)
-    }
+    set(v) {
+      if (rawValue !== v)
+        emit(`update:${key}`, v)
+    },
   })
   return v => rawValue = v
 }
@@ -45,14 +47,16 @@ export default {
   x: (object, emit) => {
     if (emit) {
       return defineVModelProperty(object, 'x', emit)
-    } else {
+    }
+    else {
       return v => object.x = v
     }
   },
   y: (object, emit) => {
     if (emit) {
       return defineVModelProperty(object, 'y', emit)
-    } else {
+    }
+    else {
       return v => object.y = v
     }
   },
@@ -70,11 +74,11 @@ export default {
   scale: object => v => object.setScale(v, v),
   scaleX: object => v => object.setScale(v, object.scaleY),
   scaleY: object => v => object.setScale(object.scaleX, v),
-  width: object => v => {
+  width: object => (v) => {
     object.setSize(v, object.height)
     fixSize(object)
   },
-  height: object => v => {
+  height: object => (v) => {
     object.setSize(object.width, v)
     fixSize(object)
   },
@@ -87,14 +91,16 @@ export default {
   displayHeight: object => v => object.setDisplaySize(object.displayWidth, v),
   displayOriginX: object => v => object.setDisplayOrigin(v, object.displayOriginY),
   displayOriginY: object => v => object.setDisplayOrigin(object.displayOriginX, v),
-  dropZone: object => v => {
-    if (!v) return
-    if (!object.input) object.setInteractive()
+  dropZone: object => (v) => {
+    if (!v)
+      return
+    if (!object.input)
+      object.setInteractive()
     object.input.dropZone = v
   },
   flipX: object => v => object.setFlipX(v),
   flipY: object => v => object.setFlipY(v),
-  depth: object => v => {
+  depth: object => (v) => {
     object.setDepth(v)
     if (object.parentContainer) {
       const i = object.parentContainer.list.findIndex(v => v.depth > (object.depth ?? 0))
@@ -115,7 +121,8 @@ export default {
   lineWidth: object => (start, end) => {
     if (object.setLineWidth) {
       object.setLineWidth(start, end)
-    } else {
+    }
+    else {
       object.setStrokeStyle(...(!start ? [] : [start, object.strokeColor, object.strokeAlpha]))
     }
   },
@@ -157,14 +164,15 @@ export default {
   collideWorldBounds: body => v => body.collideWorldBounds = v,
   // Tween
   tween: (object, emit) => {
-    return makeTweenRepository(tweenConfig => {
+    return makeTweenRepository((tweenConfig) => {
       const tween = object.scene.add.tween(Object.assign({ targets: object }, tweenConfig))
-      if (emit, emit) tween.on('complete', () => emit('update:tween', undefined))
+      if (emit)
+        tween.on('complete', () => emit('update:tween', undefined))
       return tween
     })
   },
   tweens: (object, emit) => {
-    return makeTweenRepository(tweenConfigs => {
+    return makeTweenRepository((tweenConfigs) => {
       const infinitConfigIndex = tweenConfigs.findIndex(conf => conf.repeat === -1)
       const configs = tweenConfigs.slice(0, infinitConfigIndex === -1 ? undefined : infinitConfigIndex + 1)
       const timeline = object.scene.add.timeline(configs.map((tweenConfig, i) => {
@@ -176,31 +184,34 @@ export default {
         }, 0)
         return {
           at,
-          tween: Object.assign({ targets: object }, tweenConfig)
+          tween: Object.assign({ targets: object }, tweenConfig),
         }
       })).play()
-      if (emit) timeline.on('complete', () => emit('update:tweens', undefined))
+      if (emit)
+        timeline.on('complete', () => emit('update:tweens', undefined))
       return timeline
     })
   },
   timeline: (object, emit) => {
-    return makeTweenRepository(timelineConfigs => {
-      const timeline = object.scene.add.timeline(timelineConfigs.map(timelineConfig => {
+    return makeTweenRepository((timelineConfigs) => {
+      const timeline = object.scene.add.timeline(timelineConfigs.map((timelineConfig) => {
         const copiedTimelineConfig = Object.assign({}, timelineConfig)
         if (copiedTimelineConfig.tween) {
           copiedTimelineConfig.tween = Object.assign({ targets: object }, copiedTimelineConfig.tween)
         }
         return copiedTimelineConfig
       })).play()
-      if (emit) timeline.on('complete', () => emit('update:timeline', undefined))
+      if (emit)
+        timeline.on('complete', () => emit('update:timeline', undefined))
       return timeline
     })
-  }
+  },
 }
-const makeTweenRepository = (callback) => {
-  let prevTween = undefined
+function makeTweenRepository(callback) {
+  let prevTween
   return (data) => {
-    if (prevTween) prevTween.stop()
+    if (prevTween)
+      prevTween.stop()
     prevTween = data ? callback(data) : undefined
   }
 }
