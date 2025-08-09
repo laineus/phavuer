@@ -16,7 +16,7 @@ export default defineConfig({
       },
     },
     setupFiles: [
-      './vitest.setup.mjs',
+      './vitest.setup.ts',
     ],
   },
 })
