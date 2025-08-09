@@ -1,0 +1,27 @@
+import { Meta } from '@storybook/blocks'
+
+<Meta title="Setup/CDN" />
+
+# Setup with CDN
+
+Phavuer requires Phaser 3 and Vue 3.  
+Ensure Phavuer is loaded after these libraries.
+
+```html
+<script src="https://unpkg.com/phaser@3.70.0/dist/phaser.min.js"></script>
+<script src="https://unpkg.com/vue@3.3.13/dist/vue.global.prod.js"></script>
+<script src="https://unpkg.com/phavuer/dist/phavuer.umd.js"></script>
+```
+
+```js
+const { Game, Scene } = Phavuer
+const MainScene = {
+  components: { Game, Scene },
+  template: '<Game><Scene>...</Scene></Game>',
+  setup () {
+    return {}
+  }
+}
+const app = Vue.createApp(MainScene)
+app.mount('#app')
+```

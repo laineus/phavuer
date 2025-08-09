@@ -1,0 +1,112 @@
+import { Meta } from '@storybook/blocks'
+
+<Meta title="Methods/Methods" />
+
+# Methods
+
+## useGame()
+
+Get current instance of [Phaser.Game](https://newdocs.phaser.io/docs/3.70.0/Phaser.Game)
+
+It can be used in the setup of a child component of game.
+
+```html
+<script setup>
+const game = useGame()
+</script>
+```
+
+## useScene()
+
+Get current Instance of [Phaser.Scene](https://newdocs.phaser.io/docs/3.70.0/Phaser.Scene)
+
+It can be used in the setup of a child component of scene.
+
+```html
+<script setup>
+const scene = useScene()
+</script>
+```
+
+## onPreUpdate(event)
+
+A method to register an event on pre update of the scene.
+
+It can be used in the setup of a child component of scene.
+
+```html
+<script setup>
+onPreUpdate((time: number, delta: number) => {
+  // ..
+})
+</script>
+```
+
+## onPostUpdate(event)
+
+A method to register an event on post update of the scene.
+
+It can be used in the setup of a child component of scene.
+
+```html
+<script setup>
+onPostUpdate((time: number, delta: number) => {
+  // ..
+})
+</script>
+```
+
+## refTo(value, key)
+
+**Parameters:**
+
+`value`: Initial value  
+`key`: Key string of what property of given new value should be set
+
+**Return value:**
+
+Instance of `CustomRefImpl`
+
+**Usage:**
+
+Can be used to get such as a GameObject easily.
+
+```js
+const rectangle = refTo(null, 'object')
+```
+
+```html
+<Rectangle ref="rectangle">
+```
+
+## refObj(value)
+
+A sugar function for `refTo(value, 'object')`
+
+## refScene(value)
+
+A sugar function for `refTo(value, 'scene')`
+
+# Methods (for contributers)
+
+## initGameObject(gameObject, props, context)
+
+This method endows the specified gameObject with the following features:
+
+- Reactivity to specified props, such as `x` or `y` ([full list here](https://github.com/laineus/phavuer/tree/master/src/setters.js)).
+- Automatic appending to the parent Container, if it exists.
+- If a parent Container does not exist, it is automatically appended to the Scene.
+- Automatic destruction when the component is unmounted.
+- Ability to set interactive events like `@pointerup`.
+- Ability to set an event for object creation using `@create`.
+
+Parameters:
+
+- `gameObject`: Phaser 3 GameObject instance
+- `props`: Vue 3 props
+- `context`: Vue 3 context
+
+This method is utilized to define GameObject Components. ([Example here](https://github.com/laineus/phavuer/tree/master/src/components/Sprite.js))
+
+If you simply wish to use your component within another component, this method is not necessary.  
+In such cases, you only need to relay props to the default components.
