@@ -11,13 +11,18 @@
   "exports": {
     ".": {
       "types": "./types/phavuer.d.ts",
-      "import": "./dist/phavuer.es.js",
-      "require": "./dist/phavuer.umd.js"
+      "import": "./dist/phavuer.esm.min.js",
+      "require": "./dist/phavuer.min.js"
     }
   },
-  "main": "dist/phavuer.umd.js",
-  "module": "dist/phavuer.es.js",
+  "main": "dist/phavuer.min.js",
+  "module": "dist/phavuer.esm.min.js",
   "types": "types/phavuer.d.ts",
+  "files": [
+    "dist",
+    "src",
+    "types"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -27,11 +32,6 @@
     "lint:fix": "eslint --fix",
     "test": "vitest"
   },
-  "files": [
-    "dist",
-    "src",
-    "types"
-  ],
   "dependencies": {
     "phaser": "^3.70.0",
     "vue": "^3.5.18"

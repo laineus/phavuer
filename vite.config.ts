@@ -8,7 +8,13 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, 'src/index.js'),
       name: 'Phavuer',
-      fileName: format => `phavuer.${format}.js`,
+      fileName: (format) => {
+        switch (format) {
+          case 'umd': return 'phavuer.min.js'
+          case 'es': return 'phavuer.esm.min.js'
+          default: return `phavuer.${format}.min.js`
+        }
+      },
       formats: ['umd', 'es'],
     },
     rollupOptions: {
