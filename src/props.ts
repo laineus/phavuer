@@ -1,4 +1,94 @@
-const props = {
+// TypeScript interfaces for Vue component props
+interface PropDefinition {
+  type: any
+}
+
+interface PropsObject {
+  active: PropDefinition
+  visible: PropDefinition
+  x: PropDefinition
+  y: PropDefinition
+  x1: PropDefinition
+  y1: PropDefinition
+  x2: PropDefinition
+  y2: PropDefinition
+  x3: PropDefinition
+  y3: PropDefinition
+  points: PropDefinition
+  rotation: PropDefinition
+  origin: PropDefinition
+  originX: PropDefinition
+  originY: PropDefinition
+  scale: PropDefinition
+  scaleX: PropDefinition
+  scaleY: PropDefinition
+  width: PropDefinition
+  height: PropDefinition
+  leftWidth: PropDefinition
+  rightWidth: PropDefinition
+  topHeight: PropDefinition
+  bottomHeight: PropDefinition
+  radius: PropDefinition
+  displayWidth: PropDefinition
+  displayHeight: PropDefinition
+  displayOriginX: PropDefinition
+  displayOriginY: PropDefinition
+  dropZone: PropDefinition
+  flipX: PropDefinition
+  flipY: PropDefinition
+  depth: PropDefinition
+  alpha: PropDefinition
+  blendMode: PropDefinition
+  pipeline: PropDefinition
+  intensity: PropDefinition
+  tint: PropDefinition
+  text: PropDefinition
+  texture: PropDefinition
+  frame: PropDefinition
+  color: PropDefinition
+  fillColor: PropDefinition
+  fillAlpha: PropDefinition
+  lineWidth: PropDefinition
+  strokeColor: PropDefinition
+  strokeAlpha: PropDefinition
+  style: PropDefinition
+  lineSpacing: PropDefinition
+  padding: PropDefinition
+  collision: PropDefinition
+  collisionByProperty: PropDefinition
+  play: PropDefinition
+  scrollFactor: PropDefinition
+  scrollFactorX: PropDefinition
+  scrollFactorY: PropDefinition
+  // Body
+  enable: PropDefinition
+  immovable: PropDefinition
+  moves: PropDefinition
+  bounceX: PropDefinition
+  bounceY: PropDefinition
+  drag: PropDefinition
+  dragX: PropDefinition
+  dragY: PropDefinition
+  gravityX: PropDefinition
+  gravityY: PropDefinition
+  frictionX: PropDefinition
+  frictionY: PropDefinition
+  velocityX: PropDefinition
+  velocityY: PropDefinition
+  maxVelocityX: PropDefinition
+  maxVelocityY: PropDefinition
+  accelerationX: PropDefinition
+  accelerationY: PropDefinition
+  offsetX: PropDefinition
+  offsetY: PropDefinition
+  collideWorldBounds: PropDefinition
+  // Tween
+  tween: PropDefinition
+  tweens: PropDefinition
+  timeline: PropDefinition
+}
+
+const props: PropsObject = {
   active: { type: Boolean },
   visible: { type: Boolean },
   x: { type: Number },
@@ -82,14 +172,17 @@ const props = {
   tweens: { type: Array },
   timeline: { type: Object },
 }
-const propsEntries = Object.entries(props)
-export function mapProps(...names) {
+
+const propsEntries: [string, PropDefinition][] = Object.entries(props)
+
+export function mapProps(...names: string[]): Record<string, PropDefinition> {
   const nameSet = new Set(names)
   return Object.fromEntries(
     propsEntries.filter(([name]) => nameSet.has(name)),
   )
 }
-export const gameObjectProps = mapProps(
+
+export const gameObjectProps: Record<string, PropDefinition> = mapProps(
   'tween',
   'tweens',
   'timeline',
