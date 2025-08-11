@@ -1,21 +1,19 @@
-<template>
-  <slot />
-</template>
-
 <script>
-import { defineComponent, provide, inject, onUpdated, onMounted } from 'vue'
+import { defineComponent, inject, onMounted, onUpdated, provide } from 'vue'
+import { gameObjectEmits } from '../emits.js'
 import { initGameObject, InjectionKeys } from '../index.js'
 import { gameObjectProps, mapProps } from '../props.js'
-import { gameObjectEmits } from '../emits.js'
+
 export default defineComponent({
-  emits: [...gameObjectEmits],
   props: {
     ...gameObjectProps,
     ...mapProps(
-      'width', 'height'
-    )
+      'width',
+      'height',
+    ),
   },
-  setup (props, context) {
+  emits: [...gameObjectEmits],
+  setup(props, context) {
     const scene = inject(InjectionKeys.Scene)
     const object = new Phaser.GameObjects.RenderTexture(scene, props.x || 0, props.y || 0, props.width, props.height)
     initGameObject(object, props, context)
@@ -24,7 +22,7 @@ export default defineComponent({
     provide(InjectionKeys.GameObject, object)
     const render = () => {
       object.beginDraw()
-      renderList.forEach((v) => object.batchDraw(v))
+      renderList.forEach(v => object.batchDraw(v))
       object.endDraw()
     }
     onMounted(() => {
@@ -35,6 +33,10 @@ export default defineComponent({
       render()
     })
     return { object }
-  }
+  },
 })
 </script>
+
+<template>
+  <slot />
+</template>

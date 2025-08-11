@@ -1,8 +1,8 @@
-import 'phaser'
-import { Game, Scene, Container, NineSlice, Text } from '../../'
 import type { Meta, StoryObj } from '@storybook/vue3'
-import { referPhaserVersion, take } from './utils'
+import { Container, Game, NineSlice, Scene, Text } from '../../'
 import messageWindow from './assets/window.png'
+import { referPhaserVersion, take } from './utils'
+import 'phaser'
 
 type Story = StoryObj<typeof Container>
 
@@ -39,11 +39,11 @@ const meta: Meta<typeof Container> = {
   parameters: {
     docs: {
       description: {
-        component: description
-      }
-    }
+        component: description,
+      },
+    },
   },
-  component: Container,
+  component: Container as any,
   tags: ['autodocs'],
   args: {
     active: true,
@@ -55,9 +55,8 @@ const meta: Meta<typeof Container> = {
     scaleY: 1,
     depth: 0,
     alpha: 1,
-    rotation: 0
+    rotation: 0,
   },
-  // @ts-ignore
   argTypes: {
     ...take(
       'default',
@@ -97,9 +96,9 @@ const meta: Meta<typeof Container> = {
       'dragenter',
       'dragover',
       'dragleave',
-      'drop'
-    )
-  }
+      'drop',
+    ),
+  },
 }
 
 export const Default: Story = {
@@ -142,8 +141,8 @@ export const Default: Story = {
               />
           </Container>
         </Scene>
-      </Game>`
-  })
+      </Game>`,
+  }),
 }
 
 export default meta

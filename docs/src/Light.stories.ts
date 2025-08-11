@@ -1,7 +1,7 @@
-import 'phaser'
-import { Game, Scene, Image, Light } from '../../'
 import type { Meta, StoryObj } from '@storybook/vue3'
+import { Game, Image, Light, Scene } from '../../'
 import { referPhaserVersion, take } from './utils'
+import 'phaser'
 
 type Story = StoryObj<typeof Light>
 
@@ -31,11 +31,11 @@ const meta: Meta<typeof Light> = {
   parameters: {
     docs: {
       description: {
-        component: description
-      }
-    }
+        component: description,
+      },
+    },
   },
-  component: Light,
+  component: Light as any,
   tags: ['autodocs'],
   args: {
     visible: true,
@@ -43,15 +43,14 @@ const meta: Meta<typeof Light> = {
     y: 30,
     radius: 256,
     color: '0x66AAFF' as unknown as number,
-    intensity: 10
+    intensity: 10,
   },
-  // @ts-ignore
   argTypes: {
     ...take(
       'visible',
       'x',
       'y',
-      'radius'
+      'radius',
     ),
     color: {
       control: 'text',
@@ -59,24 +58,24 @@ const meta: Meta<typeof Light> = {
       table: {
         category: 'Props',
         type: { summary: 'number' },
-        defaultValue: { summary: '0xFFFFFF' }
-      }
+        defaultValue: { summary: '0xFFFFFF' },
+      },
     },
     intensity: {
       description: 'The intensity of the light.',
       table: {
         category: 'Props',
         type: { summary: 'number' },
-        defaultValue: { summary: 1 }
-      }
+        defaultValue: { summary: 1 },
+      },
     },
     ...take(
       'tween',
       'tweens',
       'timeline',
-      'create'
-    )
-  }
+      'create',
+    ),
+  },
 }
 
 export const Default: Story = {
@@ -109,8 +108,8 @@ export const Default: Story = {
             :intensity="args.intensity"
             />
         </Scene>
-      </Game>`
-  })
+      </Game>`,
+  }),
 }
 
 export default meta

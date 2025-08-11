@@ -1,8 +1,8 @@
-import 'phaser'
-import { Game, Scene, Rectangle } from '../../'
 import type { Meta, StoryObj } from '@storybook/vue3'
-import { referPhaserVersion } from './utils'
 import { ref, watch } from 'vue'
+import { Game, Rectangle, Scene } from '../../'
+import { referPhaserVersion } from './utils'
+import 'phaser'
 
 type Story = StoryObj<typeof Rectangle>
 
@@ -112,9 +112,9 @@ const meta: Meta = {
   parameters: {
     docs: {
       description: {
-        component: description
-      }
-    }
+        component: description,
+      },
+    },
   },
   tags: ['autodocs'],
   args: {
@@ -122,28 +122,27 @@ const meta: Meta = {
     'props.x.getEnd()': 230,
     'props.y.getStart()': 30,
     'props.y.getEnd()': 100,
-    duration: 1000,
-    yoyo: true,
-    repeat: 0
+    'duration': 1000,
+    'yoyo': true,
+    'repeat': 0,
   },
-  // @ts-ignore
   argTypes: {
-  }
+  },
 }
 
 export const Tween: Story = {
   render: (args: any) => ({
     components: { Game, Scene, Rectangle },
-    setup () {
+    setup() {
       const getTween = () => {
         return {
           props: {
             x: { getStart: () => args['props.x.getStart()'], getEnd: () => args['props.x.getEnd()'] },
-            y: { getStart: () => args['props.y.getStart()'], getEnd: () => args['props.y.getEnd()'] }
+            y: { getStart: () => args['props.y.getStart()'], getEnd: () => args['props.y.getEnd()'] },
           },
           duration: args.duration,
           yoyo: args.yoyo,
-          repeat: args.repeat
+          repeat: args.repeat,
         }
       }
       const tween = ref(getTween())
@@ -168,32 +167,32 @@ export const Tween: Story = {
             />
         </Scene>
       </Game>
-      <div>tween: {{ tween }}</div>`
-  })
+      <div>tween: {{ tween }}</div>`,
+  }),
 }
 export const Tweens: Story = {
   render: (args: any) => ({
     components: { Game, Scene, Rectangle },
-    setup () {
+    setup() {
       const getTweens = () => {
         return [
           {
             props: {
               x: { getStart: () => args['props.x.getStart()'], getEnd: () => args['props.x.getEnd()'] },
-              y: { getStart: () => 30, getEnd: 30 }
+              y: { getStart: () => 30, getEnd: 30 },
             },
             duration: args.duration,
             yoyo: args.yoyo,
-            repeat: args.repeat
+            repeat: args.repeat,
           },
           {
             props: {
-              y: { getStart: () => args['props.y.getStart()'], getEnd: () => args['props.y.getEnd()'] }
+              y: { getStart: () => args['props.y.getStart()'], getEnd: () => args['props.y.getEnd()'] },
             },
             duration: args.duration,
             yoyo: args.yoyo,
-            repeat: args.repeat
-          }
+            repeat: args.repeat,
+          },
         ]
       }
       const tweens = ref(getTweens())
@@ -218,13 +217,13 @@ export const Tweens: Story = {
             />
         </Scene>
       </Game>
-      <div>tweens: {{ tweens }}</div>`
-  })
+      <div>tweens: {{ tweens }}</div>`,
+  }),
 }
 export const Timeline: Story = {
   render: (args: any) => ({
     components: { Game, Scene, Rectangle },
-    setup () {
+    setup() {
       const getTimeline = () => {
         return [
           {
@@ -232,24 +231,24 @@ export const Timeline: Story = {
             tween: {
               props: {
                 x: { getStart: () => args['props.x.getStart()'], getEnd: () => args['props.x.getEnd()'] },
-                y: { getStart: () => 30, getEnd: 30 }
+                y: { getStart: () => 30, getEnd: 30 },
               },
               duration: args.duration,
               yoyo: args.yoyo,
-              repeat: args.repeat
-            }
+              repeat: args.repeat,
+            },
           },
           {
             at: args.duration / 2,
             tween: {
               props: {
-                y: { getStart: () => args['props.y.getStart()'], getEnd: () => args['props.y.getEnd()'] }
+                y: { getStart: () => args['props.y.getStart()'], getEnd: () => args['props.y.getEnd()'] },
               },
               duration: args.duration,
               yoyo: args.yoyo,
-              repeat: args.repeat
-            }
-          }
+              repeat: args.repeat,
+            },
+          },
         ]
       }
       const timeline = ref(getTimeline())
@@ -274,8 +273,8 @@ export const Timeline: Story = {
             />
         </Scene>
       </Game>
-      <div>timeline: {{ timeline }}</div>`
-  })
+      <div>timeline: {{ timeline }}</div>`,
+  }),
 }
 
 export default meta

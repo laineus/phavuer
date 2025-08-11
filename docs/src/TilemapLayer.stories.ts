@@ -1,10 +1,10 @@
-import 'phaser'
-import { Game, Scene, TilemapLayer } from '../../'
 import type { Meta, StoryObj } from '@storybook/vue3'
-import { referPhaserVersion, take } from './utils'
-import roomImage from './assets/room.png'
-import roomJson from './assets/room.json'
 import { ref } from 'vue'
+import { Game, Scene, TilemapLayer } from '../../'
+import roomJson from './assets/room.json'
+import roomImage from './assets/room.png'
+import { referPhaserVersion, take } from './utils'
+import 'phaser'
 
 type Story = StoryObj<typeof TilemapLayer>
 
@@ -27,11 +27,11 @@ const meta: Meta<typeof TilemapLayer> = {
   parameters: {
     docs: {
       description: {
-        component: description
-      }
-    }
+        component: description,
+      },
+    },
   },
-  component: TilemapLayer,
+  component: TilemapLayer as any,
   tags: ['autodocs'],
   args: {
     active: true,
@@ -56,56 +56,55 @@ const meta: Meta<typeof TilemapLayer> = {
     originY: 0,
     depth: 0,
     alpha: 1,
-    rotation: 0
+    rotation: 0,
   },
-  // @ts-ignore
   argTypes: {
     ...take(
       'default',
       'active',
       'visible',
       'x',
-      'y'
+      'y',
     ),
     tilemap: {
       control: 'none',
       description: 'The Tilemap this layer is a part of.',
       table: {
         category: 'Props',
-        type: { summary: 'Phaser.Tilemaps.Tilemap' }
-      }
+        type: { summary: 'Phaser.Tilemaps.Tilemap' },
+      },
     },
     layerIndex: {
       control: 'none',
       description: 'The index of the LayerData associated with this layer.',
       table: {
         category: 'Props',
-        type: { summary: 'number' }
-      }
+        type: { summary: 'number' },
+      },
     },
     tileset: {
       control: 'none',
       description: 'The tileset, or an array of tilesets, used to render this layer. Can be a string or a Tileset object.',
       table: {
         category: 'Props',
-        type: { summary: 'string | string[] | Phaser.Tilemaps.Tileset | Phaser.Tilemaps.Tileset[]' }
-      }
+        type: { summary: 'string | string[] | Phaser.Tilemaps.Tileset | Phaser.Tilemaps.Tileset[]' },
+      },
     },
     collision: {
       control: 'none',
       description: 'Sets collision on the given tile or tiles within a layer by index.<br>You can pass in either a single numeric index or an array of indexes: [2, 3, 15, 20].<br>The collides parameter controls if collision will be enabled (true) or disabled (false).',
       table: {
         category: 'Props',
-        type: { summary: 'number | number[]' }
-      }
+        type: { summary: 'number | number[]' },
+      },
     },
     collisionByProperty: {
       control: 'none',
       description: `Sets collision on the tiles within a layer by checking tile properties.<br>If a tile has a property that matches the given properties object, its collision flag will be set.<br>The collides parameter controls if collision will be enabled (true) or disabled (false).<br>Passing in { collides: true } would update the collision flag on any tiles with a "collides" property that has a value of true.<br>Any tile that doesn't have "collides" set to true will be ignored.<br>You can also use an array of values, e.g. { types: ["stone", "lava", "sand" ] }.<br>If a tile has a "types" property that matches any of those values, its collision flag will be updated.`,
       table: {
         category: 'Props',
-        type: { summary: 'any' }
-      }
+        type: { summary: 'any' },
+      },
     },
     cullPadding: {
       control: 'none',
@@ -113,24 +112,24 @@ const meta: Meta<typeof TilemapLayer> = {
       table: {
         category: 'Props',
         type: { summary: 'number' },
-        defaultValue: { summary: '1' }
-      }
+        defaultValue: { summary: '1' },
+      },
     },
     cullPaddingX: {
       description: 'The amount of extra horizontal tiles to add to the cull check padding.',
       table: {
         category: 'Props',
         type: { summary: 'number' },
-        defaultValue: { summary: '1' }
-      }
+        defaultValue: { summary: '1' },
+      },
     },
     cullPaddingY: {
       description: 'The amount of extra vertical tiles to add to the cull check padding.',
       table: {
         category: 'Props',
         type: { summary: 'number' },
-        defaultValue: { summary: '1' }
-      }
+        defaultValue: { summary: '1' },
+      },
     },
     ...take(
       'width',
@@ -170,9 +169,9 @@ const meta: Meta<typeof TilemapLayer> = {
       'dragenter',
       'dragover',
       'dragleave',
-      'drop'
-    )
-  }
+      'drop',
+    ),
+  },
 }
 
 export const Default: Story = {
@@ -180,14 +179,14 @@ export const Default: Story = {
     components: { Game, Scene, TilemapLayer },
     setup() {
       const preload = (scene: Phaser.Scene) => {
-        scene.load.image('room', roomImage);
+        scene.load.image('room', roomImage)
         scene.load.tilemapTiledJSON('room', roomJson)
       }
       const tilemap = ref<Phaser.Tilemaps.Tilemap>()
       const tilesets = ref<Phaser.Tilemaps.Tileset[]>()
       const create = (scene: Phaser.Scene) => {
         tilemap.value = Phaser.Tilemaps.ParseToTilemap(scene, 'room')
-        tilesets.value = tilemap.value.tilesets.map(tileset => {
+        tilesets.value = tilemap.value.tilesets.map((tileset) => {
           return tilemap.value?.addTilesetImage(tileset.name, 'room', 32, 32) as Phaser.Tilemaps.Tileset
         })
       }
@@ -217,8 +216,8 @@ export const Default: Story = {
             :rotation="args.rotation"
             />
         </Scene>
-      </Game>`
-  })
+      </Game>`,
+  }),
 }
 
 export default meta

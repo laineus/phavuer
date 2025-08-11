@@ -1,9 +1,9 @@
-import 'phaser'
-import { Game, Scene, Image, Body } from '../../'
 import type { Meta, StoryObj } from '@storybook/vue3'
-import { referPhaserVersion } from './utils'
 import { ref, watch } from 'vue'
+import { Body, Game, Image, Scene } from '../../'
 import box from './assets/box.png'
+import { referPhaserVersion } from './utils'
+import 'phaser'
 
 type Story = StoryObj<typeof Game>
 
@@ -29,11 +29,11 @@ const meta: Meta<typeof Game> = {
   parameters: {
     docs: {
       description: {
-        component: description
-      }
-    }
+        component: description,
+      },
+    },
   },
-  component: Game,
+  component: Game as any,
   tags: ['autodocs'],
   args: {
     config: {
@@ -42,26 +42,26 @@ const meta: Meta<typeof Game> = {
       physics: {
         default: 'arcade',
         arcade: {
-          gravity: { y: 100 }
-        }
+          gravity: { x: 0, y: 100 },
+        },
       },
-    }
+    },
   },
   argTypes: {
-    // @ts-ignore
+    // @ts-expect-error - default is not a prop
     default: {
       control: 'none',
       table: {
         category: 'Slots',
-        type: { summary: 'Phaser.Scene' }
-      }
+        type: { summary: 'Phaser.Scene' },
+      },
     },
     config: {
       description: 'The configuration object for your Phaser Game instance.<br>See: [Phaser.Types.Core.GameConfig](https://newdocs.phaser.io/docs/3.70.0/Phaser.Types.Core.GameConfig)',
       table: {
         category: 'Props',
-        type: { summary: 'Phaser.Types.Core.GameConfig' }
-      }
+        type: { summary: 'Phaser.Types.Core.GameConfig' },
+      },
     },
     create: {
       name: '@create',
@@ -69,8 +69,8 @@ const meta: Meta<typeof Game> = {
       description: '**Parameters:**<br>game: `Phaser.Game`',
       table: {
         category: 'Emits',
-        type: { summary: 'function' }
-      }
+        type: { summary: 'function' },
+      },
     },
     ready: {
       name: '@ready',
@@ -78,10 +78,10 @@ const meta: Meta<typeof Game> = {
       description: '**Parameters:**<br>game: `Phaser.Game`',
       table: {
         category: 'Emits',
-        type: { summary: 'function' }
-      }
-    }
-  }
+        type: { summary: 'function' },
+      },
+    },
+  },
 }
 
 export const Default: Story = {
@@ -104,8 +104,8 @@ export const Default: Story = {
             <Body :collideWorldBounds="true" />
           </Image>
         </Scene>
-      </Game>`
-  })
+      </Game>`,
+  }),
 }
 
 export default meta
