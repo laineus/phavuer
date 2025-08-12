@@ -1,3 +1,5 @@
+import type Phaser from 'phaser'
+
 export const GAME_OBJECT_EVENTS = [
   { attr: 'onPointerdown', emit: 'pointerdown', eventIndex: 3 },
   { attr: 'onPointermove', emit: 'pointermove', eventIndex: 3 },
@@ -13,7 +15,12 @@ export const GAME_OBJECT_EVENTS = [
   { attr: 'onDragleave', emit: 'dragleave', drag: true },
   { attr: 'onDrop', emit: 'drop', drag: true },
 ]
-function fixSize(object) {
+function fixSize(
+  object: Phaser.GameObjects.GameObject
+    & Partial<Phaser.GameObjects.Components.Origin>
+    & Partial<Phaser.GameObjects.Container>
+    & { _events: any[] },
+) {
   if (object.updateDisplayOrigin) {
     object.updateDisplayOrigin()
   }
@@ -42,8 +49,8 @@ function defineVModelProperty(gameObject, key, emit) {
 export const deepProps = ['tween', 'tweens', 'timeline', 'style']
 export const vModelProps = ['x', 'y', 'tweens', 'tween', 'timeline']
 export default {
-  active: object => v => object.setActive(v),
-  visible: object => v => object.setVisible(v),
+  active: (object: Phaser.GameObjects.GameObject) => (v: boolean) => object.setActive(v),
+  visible: (object: Phaser.GameObjects.Components.Visible) => (v: boolean) => object.setVisible(v),
   x: (object, emit) => {
     if (emit) {
       return defineVModelProperty(object, 'x', emit)
@@ -163,7 +170,7 @@ export default {
   offsetY: body => v => body.setOffset(body.offset.x, v),
   collideWorldBounds: body => v => body.collideWorldBounds = v,
   // Tween
-  tween: (object, emit) => {
+  tween: (object: Phaser.GameObjects.GameObject, emit) => {
     return makeTweenRepository((tweenConfig) => {
       const tween = object.scene.add.tween(Object.assign({ targets: object }, tweenConfig))
       if (emit)
@@ -207,9 +214,13 @@ export default {
     })
   },
 }
-function makeTweenRepository(callback) {
-  let prevTween
-  return (data) => {
+// TODO: move to types.d.ts
+interface TweenConfig extends Omit<Phaser.Types.Tweens.TweenBuilderConfig, 'targets'> {
+  targets?: any
+}
+function makeTweenRepository(callback: (tweenConfig: TweenConfig) => Phaser.Tweens.Tween) {
+  let prevTween: Phaser.Tweens.Tween | undefined
+  return (data: TweenConfig) => {
     if (prevTween)
       prevTween.stop()
     prevTween = data ? callback(data) : undefined

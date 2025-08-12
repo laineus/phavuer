@@ -1,4 +1,6 @@
-const props = {
+import type { ComponentObjectPropsOptions } from 'vue'
+
+const props: ComponentObjectPropsOptions = {
   active: { type: Boolean },
   visible: { type: Boolean },
   x: { type: Number },
@@ -83,7 +85,7 @@ const props = {
   timeline: { type: Object },
 }
 const propsEntries = Object.entries(props)
-export function mapProps(...names) {
+export function mapProps(...names: string[]) {
   const nameSet = new Set(names)
   return Object.fromEntries(
     propsEntries.filter(([name]) => nameSet.has(name)),
