@@ -43,10 +43,13 @@ const onClick = () => count.value++
 
 # Examples
 
-- [Phavuer vs Phaser's plane API](https://codepen.io/laineus/pen/pobgxdE?editors=0010) - A Compilation by example UI.
-- [Phavuer Example Shooter](https://github.com/laineus/phavuer-example) - A simple shooter that written in Phavuer.
-- [Phavuer RPG Example](https://github.com/laineus/phavuer-rpg-example) - An RPG example (This is just a usage example. Not a completed Game.)
-- ["The Dream Libra had"](https://github.com/laineus/libra) - An RPG made with Phavuer (Completed project and published on Steam).
+- Usage samples
+  - [Phavuer vs Phaser's plane API](https://codepen.io/laineus/pen/pobgxdE?editors=0010) - A comparison of implementing a sample UI with and without Phavuer.
+  - [Phavuer Example Shooter](https://github.com/laineus/phavuer-example) - A simple shooter example.
+  - [Phavuer RPG Example](https://github.com/laineus/phavuer-rpg-example) - An RPG-style usage example.
+- Games
+  - ["The Dream Libra had"](https://github.com/laineus/libra) - An RPG about a girl wandering through a near-death dreamworld.
+  - ["Succubus Club"](https://github.com/thomasWajs/succubus-club) - A platform for playing "Vampire: The Eternal Struggle" card game in a web browser. (by [@thomasWajs](https://github.com/thomasWajs))
 
 # Community
 
