@@ -253,6 +253,17 @@ export const Body: DefineComponent<{
 }, {}, {}, {}, {}, {}, {}, {
   create: (game: Phaser.Physics.Arcade.Body) => void
 }>
+export const FxBlur: DefineComponent<{
+  post?: boolean
+  quality?: number
+  x?: number
+  y?: number
+  steps?: number
+  strength?: number
+  color?: number
+}, {}, {}, {}, {}, {}, {}, {
+  create: (blur: any) => void
+}>
 export const RenderTexture: DefineComponent<Phavuer.GameObjectProps & {
   width?: number
   height?: number

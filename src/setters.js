@@ -117,7 +117,11 @@ export default {
   text: object => v => object.setText(v),
   texture: object => v => object.setTexture(v, object.frame && object.frame.name),
   frame: object => v => object.setFrame(v),
-  color: object => v => object.setColor(v),
+  color: (object) => {
+    if (object.setColor)
+      return v => object.setColor(v)
+    return v => object.color = v
+  },
   fillColor: object => v => object.setFillStyle(v, object.fillAlpha),
   fillAlpha: object => v => object.setFillStyle(object.fillColor, v),
   lineWidth: object => (start, end) => {
@@ -208,6 +212,10 @@ export default {
       return timeline
     })
   },
+  // FX setters
+  quality: object => v => object.quality = v,
+  steps: object => v => object.steps = v,
+  strength: object => v => object.strength = v,
 }
 function makeTweenRepository(callback) {
   let prevTween

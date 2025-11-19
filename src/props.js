@@ -81,6 +81,11 @@ const props = {
   tween: { type: Object },
   tweens: { type: Array },
   timeline: { type: Object },
+  // FX
+  post: { type: Boolean },
+  quality: { type: Number },
+  steps: { type: Number },
+  strength: { type: Number },
 }
 const propsEntries = Object.entries(props)
 export function mapProps(...names) {

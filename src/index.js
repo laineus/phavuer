@@ -2,6 +2,7 @@ import { customRef, getCurrentInstance, inject, onBeforeUnmount, watch } from 'v
 import Body from './components/Body.vue'
 import Circle from './components/Circle.vue'
 import Container from './components/Container.vue'
+import FxBlur from './components/FxBlur.vue'
 import Game from './components/Game.vue'
 import Image from './components/Image.vue'
 import Light from './components/Light.vue'
@@ -37,10 +38,11 @@ function createPhavuerApp() {
 
 const camelize = s => s.replace(/-./g, x => x[1].toUpperCase())
 
-function initGameObject(object, props, context) {
+function initGameObject(object, props, context, options = {}) {
   const currentInstance = getCurrentInstance()
   const isBody = 'bounce' in object
   const isLight = object.constructor === Phaser.GameObjects.Light
+  const isFx = options.isFx
   const scene = inject(InjectionKeys.Scene)
   const renderList = inject(InjectionKeys.RenderTextureRenderList)
   if (isLight) {
@@ -50,6 +52,9 @@ function initGameObject(object, props, context) {
   }
   else if (isBody) {
     // _
+  }
+  else if (isFx) {
+    // FX objects don't need to be added to the scene
   }
   else if (renderList) {
     renderList.push(object)
@@ -164,6 +169,7 @@ export {
   Circle,
   Container,
   createPhavuerApp,
+  FxBlur,
   Game,
   Image,
   initGameObject,
