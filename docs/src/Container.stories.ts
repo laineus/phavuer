@@ -64,6 +64,8 @@ const meta: Meta<typeof Container> = {
       'visible',
       'x',
       'y',
+      'width',
+      'height',
       'scale',
       'scaleX',
       'scaleY',

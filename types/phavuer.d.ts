@@ -86,7 +86,10 @@ export const Scene: DefineComponent<{
   update: (scene: Phaser.Scene, time: number, delta: number) => void
   preload: (scene: Phaser.Scene) => void
 }>
-type ContainerProps = Omit<Phavuer.GameObjectProps, 'origin' | 'originX' | 'originY' | 'displayOriginX' | 'displayOriginY'>
+type ContainerProps = Omit<Phavuer.GameObjectProps, 'origin' | 'originX' | 'originY' | 'displayOriginX' | 'displayOriginY'> & {
+  width?: number
+  height?: number
+}
 export const Container: DefineComponent<ContainerProps, {}, {}, {}, {}, {}, {}, GameObjectEmits<Phaser.GameObjects.Container>>
 export const Rectangle: DefineComponent<Phavuer.GameObjectProps & {
   width?: number
@@ -127,7 +130,7 @@ export const Circle: DefineComponent<Phavuer.GameObjectProps & {
   lineWidth?: number
   strokeColor?: number
   strokeAlpha?: number
-}, {}, {}, {}, {}, {}, {}, GameObjectEmits<Phaser.GameObjects.Circle>>
+}, {}, {}, {}, {}, {}, {}, GameObjectEmits<Phaser.GameObjects.Arc>>
 export const Polygon: DefineComponent<Phavuer.GameObjectProps & {
   points?: number[] | number[][] | Phaser.Math.Vector2[] | Phaser.Types.Math.Vector2Like[]
   fillColor?: number
