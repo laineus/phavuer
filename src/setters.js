@@ -71,7 +71,11 @@ export default {
   origin: object => v => object.setOrigin(v, v),
   originX: object => v => object.setOrigin(v, object.originY),
   originY: object => v => object.setOrigin(object.originX, v),
-  scale: object => v => object.setScale(v, v),
+  scale: (object) => {
+    if (object.setScale)
+      return v => object.setScale(v, v)
+    return v => object.scale = v
+  },
   scaleX: object => v => object.setScale(v, object.scaleY),
   scaleY: object => v => object.setScale(object.scaleX, v),
   width: object => (v) => {
@@ -86,8 +90,12 @@ export default {
   rightWidth: object => v => object.setSlices(object.width, object.height, object.leftWidth, v, object.topHeight, object.bottomHeight),
   topHeight: object => v => object.setSlices(object.width, object.height, object.leftWidth, object.rightWidth, v, object.bottomHeight),
   bottomHeight: object => v => object.setSlices(object.width, object.height, object.leftWidth, object.rightWidth, object.topHeight, v),
-  radius: object => (v) => {
-    return object.setRounded ? object.setRounded(v) : object.setRadius(v)
+  radius: (object) => {
+    if (object.setRounded)
+      return v => object.setRounded(v)
+    if (object.setRounded)
+      return v => object.setRounded(v)
+    return v => object.radius = v
   },
   displayWidth: object => v => object.setDisplaySize(v, object.displayHeight),
   displayHeight: object => v => object.setDisplaySize(object.displayWidth, v),
@@ -109,13 +117,25 @@ export default {
       i === -1 ? object.parentContainer.bringToTop(object) : object.parentContainer.moveTo(object, Math.max(i - 1, 0))
     }
   },
-  alpha: object => v => object.setAlpha(v),
+  alpha: (object) => {
+    if (object.setAlpha)
+      return v => object.setAlpha(v)
+    return v => object.alpha = v
+  },
   blendMode: object => v => object.setBlendMode(v),
   pipeline: object => v => object.setPipeline(v),
-  intensity: object => v => object.setIntensity(v),
+  intensity: (object) => {
+    if (object.setIntensity)
+      return v => object.setIntensity(v)
+    return v => object.intensity = v
+  },
   tint: object => v => object.setTint(v),
   text: object => v => object.setText(v),
-  texture: object => v => object.setTexture(v, object.frame && object.frame.name),
+  texture: (object) => {
+    if (object.setTexture)
+      return v => object.setTexture(v, object.frame && object.frame.name)
+    return v => object.texture = v
+  },
   frame: object => v => object.setFrame(v),
   color: (object) => {
     if (object.setColor)
@@ -124,13 +144,12 @@ export default {
   },
   fillColor: object => v => object.setFillStyle(v, object.fillAlpha),
   fillAlpha: object => v => object.setFillStyle(object.fillColor, v),
-  lineWidth: object => (start, end) => {
-    if (object.setLineWidth) {
-      object.setLineWidth(start, end)
-    }
-    else {
-      object.setStrokeStyle(...(!start ? [] : [start, object.strokeColor, object.strokeAlpha]))
-    }
+  lineWidth: (object) => {
+    if (object.setLineWidth)
+      return (start, end) => object.setLineWidth(start, end)
+    if (object.setStrokeStyle)
+      return v => object.setStrokeStyle(...(!v ? [] : [v, object.strokeColor, object.strokeAlpha]))
+    return v => object.lineWidth = v
   },
   strokeColor: object => v => object.setStrokeStyle(object.lineWidth, v, object.strokeAlpha),
   strokeAlpha: object => v => object.setStrokeStyle(object.lineWidth, object.strokeColor, v),
@@ -165,8 +184,16 @@ export default {
   maxVelocityY: body => v => body.setMaxVelocityY(v),
   accelerationX: body => v => body.setAccelerationX(v),
   accelerationY: body => v => body.setAccelerationY(v),
-  offsetX: body => v => body.setOffset(v, body.offset.y),
-  offsetY: body => v => body.setOffset(body.offset.x, v),
+  offsetX: (object) => {
+    if (object.setOffset)
+      return v => object.setOffset(v, object.offset.x)
+    return v => object.offsetX = v
+  },
+  offsetY: (object) => {
+    if (object.setOffset)
+      return v => object.setOffset(v, object.offset.y)
+    return v => object.offsetY = v
+  },
   collideWorldBounds: body => v => body.collideWorldBounds = v,
   // Tween
   tween: (object, emit) => {
@@ -216,6 +243,50 @@ export default {
   quality: object => v => object.quality = v,
   steps: object => v => object.steps = v,
   strength: object => v => object.strength = v,
+  distance: object => v => object.distance = v,
+  outerStrength: object => v => object.outerStrength = v,
+  innerStrength: object => v => object.innerStrength = v,
+  knockout: object => v => object.knockout = v,
+  blurStrength: object => v => object.blurStrength = v,
+  decay: object => v => object.decay = v,
+  power: object => v => object.power = v,
+  samples: object => v => object.samples = v,
+  amount: object => v => object.amount = v,
+  contrast: object => v => object.contrast = v,
+  thickness: object => v => object.thickness = v,
+  backgroundColor: object => v => object.backgroundColor = v,
+  feather: object => v => object.feather = v,
+  color1: object => v => object.color1 = v,
+  color2: object => v => object.color2 = v,
+  fromX: object => v => object.fromX = v,
+  fromY: object => v => object.fromY = v,
+  toX: object => v => object.toX = v,
+  toY: object => v => object.toY = v,
+  size: object => v => object.size = v,
+  speed: object => v => object.speed = v,
+  gradient: object => v => object.gradient = v,
+  reveal: object => v => object.reveal = v,
+  wipeWidth: object => v => object.wipeWidth = v,
+  direction: object => v => object.direction = v,
+  axis: object => v => object.axis = v,
+  // ColorMatrix methods
+  brightness: object => v => v !== undefined && object.brightness(v, false),
+  saturate: object => v => v !== undefined && object.saturate(v, false),
+  desaturate: object => v => v !== undefined && object.desaturate(v, false),
+  hue: object => v => v !== undefined && object.hue(v, false),
+  grayscale: object => v => v !== undefined && object.grayscale(v, false),
+  blackWhite: object => v => v && object.blackWhite(false),
+  negative: object => v => v && object.negative(false),
+  desaturateLuminance: object => v => v && object.desaturateLuminance(false),
+  sepia: object => v => v && object.sepia(false),
+  night: object => v => v !== undefined && object.night(v, false),
+  lsd: object => v => v && object.lsd(false),
+  brown: object => v => v && object.brown(false),
+  vintagePinhole: object => v => v && object.vintagePinhole(false),
+  kodachrome: object => v => v && object.kodachrome(false),
+  technicolor: object => v => v && object.technicolor(false),
+  polaroid: object => v => v && object.polaroid(false),
+  shiftToBGR: object => v => v && object.shiftToBGR(false),
 }
 function makeTweenRepository(callback) {
   let prevTween

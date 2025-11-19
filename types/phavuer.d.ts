@@ -264,6 +264,140 @@ export const FxBlur: DefineComponent<{
 }, {}, {}, {}, {}, {}, {}, {
   create: (blur: any) => void
 }>
+export const FxGlow: DefineComponent<{
+  post?: boolean
+  color?: number
+  outerStrength?: number
+  innerStrength?: number
+  knockout?: boolean
+  quality?: number
+  distance?: number
+}, {}, {}, {}, {}, {}, {}, {
+  create: (glow: any) => void
+}>
+export const FxBloom: DefineComponent<{
+  post?: boolean
+  color?: number
+  offsetX?: number
+  offsetY?: number
+  blurStrength?: number
+  strength?: number
+  steps?: number
+}, {}, {}, {}, {}, {}, {}, {
+  create: (bloom: any) => void
+}>
+export const FxShadow: DefineComponent<{
+  post?: boolean
+  color?: number
+  x?: number
+  y?: number
+  decay?: number
+  power?: number
+  samples?: number
+  intensity?: number
+}, {}, {}, {}, {}, {}, {}, {
+  create: (shadow: any) => void
+}>
+export const FxPixelate: DefineComponent<{
+  post?: boolean
+  amount?: number
+}, {}, {}, {}, {}, {}, {}, {
+  create: (pixelate: any) => void
+}>
+export const FxVignette: DefineComponent<{
+  post?: boolean
+  x?: number
+  y?: number
+  radius?: number
+  strength?: number
+}, {}, {}, {}, {}, {}, {}, {
+  create: (vignette: any) => void
+}>
+export const FxBarrel: DefineComponent<{
+  post?: boolean
+  amount?: number
+}, {}, {}, {}, {}, {}, {}, {
+  create: (barrel: any) => void
+}>
+export const FxBokeh: DefineComponent<{
+  post?: boolean
+  radius?: number
+  amount?: number
+  contrast?: number
+}, {}, {}, {}, {}, {}, {}, {
+  create: (bokeh: any) => void
+}>
+export const FxCircle: DefineComponent<{
+  post?: boolean
+  thickness?: number
+  color?: number
+  backgroundColor?: number
+  scale?: number
+  feather?: number
+}, {}, {}, {}, {}, {}, {}, {
+  create: (circle: any) => void
+}>
+export const FxColorMatrix: DefineComponent<{
+  post?: boolean
+  brightness?: number
+  saturate?: number
+  desaturate?: number
+  hue?: number
+  grayscale?: number
+  blackWhite?: boolean
+  contrast?: number
+  negative?: boolean
+  desaturateLuminance?: boolean
+  sepia?: boolean
+  night?: number
+  lsd?: boolean
+  brown?: boolean
+  vintagePinhole?: boolean
+  kodachrome?: boolean
+  technicolor?: boolean
+  polaroid?: boolean
+  shiftToBGR?: boolean
+}, {}, {}, {}, {}, {}, {}, {
+  create: (colorMatrix: any) => void
+}>
+export const FxDisplacement: DefineComponent<{
+  post?: boolean
+  texture?: string
+  x?: number
+  y?: number
+}, {}, {}, {}, {}, {}, {}, {
+  create: (displacement: any) => void
+}>
+export const FxGradient: DefineComponent<{
+  post?: boolean
+  color1?: number
+  color2?: number
+  alpha?: number
+  fromX?: number
+  fromY?: number
+  toX?: number
+  toY?: number
+  size?: number
+}, {}, {}, {}, {}, {}, {}, {
+  create: (gradient: any) => void
+}>
+export const FxShine: DefineComponent<{
+  post?: boolean
+  speed?: number
+  lineWidth?: number
+  gradient?: number
+  reveal?: boolean
+}, {}, {}, {}, {}, {}, {}, {
+  create: (shine: any) => void
+}>
+export const FxWipe: DefineComponent<{
+  post?: boolean
+  wipeWidth?: number
+  direction?: number
+  axis?: number
+}, {}, {}, {}, {}, {}, {}, {
+  create: (wipe: any) => void
+}>
 export const RenderTexture: DefineComponent<Phavuer.GameObjectProps & {
   width?: number
   height?: number

@@ -2,7 +2,20 @@ import { customRef, getCurrentInstance, inject, onBeforeUnmount, watch } from 'v
 import Body from './components/Body.vue'
 import Circle from './components/Circle.vue'
 import Container from './components/Container.vue'
+import FxBarrel from './components/FxBarrel.vue'
+import FxBloom from './components/FxBloom.vue'
 import FxBlur from './components/FxBlur.vue'
+import FxBokeh from './components/FxBokeh.vue'
+import FxCircle from './components/FxCircle.vue'
+import FxColorMatrix from './components/FxColorMatrix.vue'
+import FxDisplacement from './components/FxDisplacement.vue'
+import FxGlow from './components/FxGlow.vue'
+import FxGradient from './components/FxGradient.vue'
+import FxPixelate from './components/FxPixelate.vue'
+import FxShadow from './components/FxShadow.vue'
+import FxShine from './components/FxShine.vue'
+import FxVignette from './components/FxVignette.vue'
+import FxWipe from './components/FxWipe.vue'
 import Game from './components/Game.vue'
 import Image from './components/Image.vue'
 import Light from './components/Light.vue'
@@ -169,7 +182,20 @@ export {
   Circle,
   Container,
   createPhavuerApp,
+  FxBarrel,
+  FxBloom,
   FxBlur,
+  FxBokeh,
+  FxCircle,
+  FxColorMatrix,
+  FxDisplacement,
+  FxGlow,
+  FxGradient,
+  FxPixelate,
+  FxShadow,
+  FxShine,
+  FxVignette,
+  FxWipe,
   Game,
   Image,
   initGameObject,
