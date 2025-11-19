@@ -5,7 +5,7 @@ const preview: Preview = {
   parameters: {
     options: {
       storySort: {
-        order: ['Home', 'Setup', 'Core', 'GameObjects', 'Physics', 'Tilemaps', 'Tween', 'Methods'],
+        order: ['Home', 'Setup', 'Core', 'GameObjects', 'Physics', 'FX', 'Tilemaps', 'Tween', 'Methods'],
       },
     },
     controls: {
