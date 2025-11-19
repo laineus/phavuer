@@ -2,12 +2,18 @@
 import { defineComponent, inject, provide } from 'vue'
 import { gameObjectEmits } from '../emits.js'
 import { initGameObject, InjectionKeys } from '../index.js'
-import { gameObjectProps } from '../props.js'
+import { gameObjectProps, mapProps } from '../props.js'
 
 export default defineComponent({
-  props: Object.fromEntries(
-    Object.entries(gameObjectProps).filter(([k]) => !['origin', 'originX', 'originY', 'displayOriginX', 'displayOriginY'].includes(k)),
-  ),
+  props: {
+    ...Object.fromEntries(
+      Object.entries(gameObjectProps).filter(([k]) => !['origin', 'originX', 'originY', 'displayOriginX', 'displayOriginY'].includes(k)),
+    ),
+    ...mapProps(
+      'width',
+      'height',
+    ),
+  },
   emits: [...gameObjectEmits],
   setup(props, context) {
     const scene = inject(InjectionKeys.Scene)
