@@ -94,6 +94,7 @@ export const Container: DefineComponent<ContainerProps, {}, {}, {}, {}, {}, {}, 
 export const Rectangle: DefineComponent<Phavuer.GameObjectProps & {
   width?: number
   height?: number
+  radius?: number
   fillColor?: number
   fillAlpha?: number
   lineWidth?: number

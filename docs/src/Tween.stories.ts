@@ -104,7 +104,7 @@ const timeline = ref([
 \`\`\`
 
 See also: [Phaser.Types.Tweens.TweenDataConfig](https://newdocs.phaser.io/docs/${referPhaserVersion}/Phaser.Types.Tweens.TweenDataConfig)  
-See also: [Phaser.Time.Timeline](https://newdocs.phaser.io/docs/3.70.0/Phaser.Time.Timeline)
+See also: [Phaser.Time.Timeline](https://newdocs.phaser.io/docs/3.90.0/Phaser.Time.Timeline)
 `
 
 const meta: Meta = {

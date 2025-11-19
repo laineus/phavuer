@@ -57,7 +57,7 @@ const meta: Meta<typeof Game> = {
       },
     },
     config: {
-      description: 'The configuration object for your Phaser Game instance.<br>See: [Phaser.Types.Core.GameConfig](https://newdocs.phaser.io/docs/3.70.0/Phaser.Types.Core.GameConfig)',
+      description: 'The configuration object for your Phaser Game instance.<br>See: [Phaser.Types.Core.GameConfig](https://newdocs.phaser.io/docs/3.90.0/Phaser.Types.Core.GameConfig)',
       table: {
         category: 'Props',
         type: { summary: 'Phaser.Types.Core.GameConfig' },

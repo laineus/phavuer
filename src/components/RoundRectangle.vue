@@ -20,6 +20,7 @@ export default defineComponent({
   },
   emits: [...gameObjectEmits],
   setup(props, context) {
+    console.warn('RoundRectangle component is deprecated. Use Rectangle component with radius prop instead.')
     const scene = inject(InjectionKeys.Scene)
     class RoundRectangle extends Phaser.GameObjects.Graphics {
       constructor(scene, x, y, width, height, radius) {

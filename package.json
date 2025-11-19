@@ -33,8 +33,8 @@
     "test": "vitest"
   },
   "dependencies": {
-    "phaser": "^3.70.0",
-    "vue": "^3.5.18"
+    "phaser": "^3.90.0",
+    "vue": "^3.5.24"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^5.2.0",

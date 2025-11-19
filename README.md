@@ -39,7 +39,7 @@ const onClick = () => count.value++
 # Documentation
 
 - Phavuer https://phavuer.laineus.com
-- Phaser3 https://newdocs.phaser.io/docs/3.70.0
+- Phaser3 https://newdocs.phaser.io/docs/3.90.0
 
 # Examples
 

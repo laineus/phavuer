@@ -86,7 +86,9 @@ export default {
   rightWidth: object => v => object.setSlices(object.width, object.height, object.leftWidth, v, object.topHeight, object.bottomHeight),
   topHeight: object => v => object.setSlices(object.width, object.height, object.leftWidth, object.rightWidth, v, object.bottomHeight),
   bottomHeight: object => v => object.setSlices(object.width, object.height, object.leftWidth, object.rightWidth, object.topHeight, v),
-  radius: object => v => object.setRadius(v),
+  radius: object => (v) => {
+    return object.setRounded ? object.setRounded(v) : object.setRadius(v)
+  },
   displayWidth: object => v => object.setDisplaySize(v, object.displayHeight),
   displayHeight: object => v => object.setDisplaySize(object.displayWidth, v),
   displayOriginX: object => v => object.setDisplayOrigin(v, object.displayOriginY),

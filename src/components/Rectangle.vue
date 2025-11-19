@@ -15,6 +15,7 @@ export default defineComponent({
       'lineWidth',
       'strokeColor',
       'strokeAlpha',
+      'radius',
     ),
   },
   emits: [...gameObjectEmits],

@@ -1,4 +1,4 @@
-export const referPhaserVersion = '3.70.0'
+export const referPhaserVersion = '3.90.0'
 export const argTypes = {
   default: {
     control: 'none',

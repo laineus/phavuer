@@ -43,6 +43,7 @@ const meta: Meta<typeof Rectangle> = {
     y: 30,
     width: 100,
     height: 100,
+    radius: 5,
     fillColor: '0x42B883' as unknown as number,
     fillAlpha: 1,
     lineWidth: 2,
@@ -67,6 +68,7 @@ const meta: Meta<typeof Rectangle> = {
       'y',
       'width',
       'height',
+      'radius',
       'fillColor',
       'fillAlpha',
       'lineWidth',
@@ -127,6 +129,7 @@ export const Default: Story = {
             :y="args.y"
             :width="args.width"
             :height="args.height"
+            :radius="args.radius"
             :fillColor="Number(args.fillColor)"
             :fillAlpha="args.fillAlpha"
             :lineWidth="args.lineWidth"
