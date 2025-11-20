@@ -7,25 +7,19 @@ import { Meta } from '@storybook/blocks'
 ## 1. Setup [Vite](https://github.com/vitejs/vite)
 
 ```bash
-$ yarn create vite
+npm create vite@latest
 ```
 
 Choose `Vue` in the 'Select a framework' section.  
 Choose `TypeScript` (recommended) or `JavaScript` in the 'Select a variant' section.
 
-## 2. Add Phaser and Phavuer
+## 2. Add Phavuer
 
 ```bash
-$ yarn add phavuer phaser
+npm install phavuer
 ```
 
-Add the following import statement at the beginning of `index.ts` or `index.js`.
-
-```js
-import 'phaser'
-```
-
-## 3. App.vue
+## 3. Implement App.vue
 
 ```html
 <template>
@@ -45,5 +39,5 @@ const gameConfig = { width: 960, height: 540 }
 ## 4. Run
 
 ```bash
-$ yarn run dev
+npm run dev
 ```

@@ -33,6 +33,7 @@ import TilemapLayer from './components/TilemapLayer.vue'
 import Triangle from './components/Triangle.vue'
 import Zone from './components/Zone.vue'
 import setters, { deepProps, GAME_OBJECT_EVENTS, vModelProps } from './setters.js'
+import 'phaser'
 
 // TODO: should be Symbol
 const InjectionKeys = {
