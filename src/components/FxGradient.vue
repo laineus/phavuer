@@ -33,7 +33,10 @@ export default defineComponent({
     }
     const gradient = fxController.addGradient(props.color1, props.color2, props.alpha, props.fromX, props.fromY, props.toX, props.toY, props.size)
     initGameObject(gradient, props, context, { isFx: true })
-    onUnmounted(() => fxController.remove(gradient))
+    onUnmounted(() => {
+      if (fxController.gameObject)
+        fxController.remove(gradient)
+    })
   },
 })
 </script>

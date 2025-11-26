@@ -29,7 +29,10 @@ export default defineComponent({
     }
     const bloom = fxController.addBloom(props.color, props.offsetX, props.offsetY, props.blurStrength, props.strength, props.steps)
     initGameObject(bloom, props, context, { isFx: true })
-    onUnmounted(() => fxController.remove(bloom))
+    onUnmounted(() => {
+      if (fxController.gameObject)
+        fxController.remove(bloom)
+    })
   },
 })
 </script>

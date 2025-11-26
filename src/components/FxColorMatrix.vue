@@ -39,7 +39,10 @@ export default defineComponent({
     }
     const colorMatrix = fxController.addColorMatrix()
     initGameObject(colorMatrix, props, context, { isFx: true })
-    onUnmounted(() => fxController.remove(colorMatrix))
+    onUnmounted(() => {
+      if (fxController.gameObject)
+        fxController.remove(colorMatrix)
+    })
   },
 })
 </script>

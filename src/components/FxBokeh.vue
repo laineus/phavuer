@@ -24,7 +24,10 @@ export default defineComponent({
     }
     const bokeh = fxController.addBokeh(props.radius, props.amount, props.contrast)
     initGameObject(bokeh, props, context, { isFx: true })
-    onUnmounted(() => fxController.remove(bokeh))
+    onUnmounted(() => {
+      if (fxController.gameObject)
+        fxController.remove(bokeh)
+    })
   },
 })
 </script>

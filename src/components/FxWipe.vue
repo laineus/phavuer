@@ -24,7 +24,10 @@ export default defineComponent({
     }
     const wipe = fxController.addWipe(props.wipeWidth, props.direction, props.axis)
     initGameObject(wipe, props, context, { isFx: true })
-    onUnmounted(() => fxController.remove(wipe))
+    onUnmounted(() => {
+      if (fxController.gameObject)
+        fxController.remove(wipe)
+    })
   },
 })
 </script>

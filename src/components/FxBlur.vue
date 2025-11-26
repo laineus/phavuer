@@ -29,7 +29,10 @@ export default defineComponent({
     }
     const blur = fxController.addBlur(props.quality, props.x, props.y, props.strength, props.color, props.steps)
     initGameObject(blur, props, context, { isFx: true })
-    onUnmounted(() => fxController.remove(blur))
+    onUnmounted(() => {
+      if (fxController.gameObject)
+        fxController.remove(blur)
+    })
   },
 })
 </script>

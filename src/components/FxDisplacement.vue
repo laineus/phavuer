@@ -26,7 +26,10 @@ export default defineComponent({
     }
     const displacement = fxController.addDisplacement(props.texture, props.x, props.y)
     initGameObject(displacement, props, context, { isFx: true })
-    onUnmounted(() => fxController.remove(displacement))
+    onUnmounted(() => {
+      if (fxController.gameObject)
+        fxController.remove(displacement)
+    })
   },
 })
 </script>

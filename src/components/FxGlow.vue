@@ -29,7 +29,10 @@ export default defineComponent({
     }
     const glow = fxController.addGlow(props.color, props.outerStrength, props.innerStrength, props.knockout, props.quality, props.distance)
     initGameObject(glow, props, context, { isFx: true })
-    onUnmounted(() => fxController.remove(glow))
+    onUnmounted(() => {
+      if (fxController.gameObject)
+        fxController.remove(glow)
+    })
   },
 })
 </script>

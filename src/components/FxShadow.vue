@@ -30,7 +30,10 @@ export default defineComponent({
     }
     const shadow = fxController.addShadow(props.x, props.y, props.decay, props.power, props.color, props.samples, props.intensity)
     initGameObject(shadow, props, context, { isFx: true })
-    onUnmounted(() => fxController.remove(shadow))
+    onUnmounted(() => {
+      if (fxController.gameObject)
+        fxController.remove(shadow)
+    })
   },
 })
 </script>

@@ -27,7 +27,10 @@ export default defineComponent({
     }
     const shine = fxController.addShine(props.speed, props.lineWidth, props.gradient, props.reveal)
     initGameObject(shine, props, context, { isFx: true })
-    onUnmounted(() => fxController.remove(shine))
+    onUnmounted(() => {
+      if (fxController.gameObject)
+        fxController.remove(shine)
+    })
   },
 })
 </script>

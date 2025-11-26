@@ -30,7 +30,10 @@ export default defineComponent({
     }
     const circle = fxController.addCircle(props.thickness, props.color, props.backgroundColor, props.scale, props.feather)
     initGameObject(circle, props, context, { isFx: true })
-    onUnmounted(() => fxController.remove(circle))
+    onUnmounted(() => {
+      if (fxController.gameObject)
+        fxController.remove(circle)
+    })
   },
 })
 </script>

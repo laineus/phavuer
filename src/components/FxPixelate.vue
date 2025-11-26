@@ -22,7 +22,10 @@ export default defineComponent({
     }
     const pixelate = fxController.addPixelate(props.amount)
     initGameObject(pixelate, props, context, { isFx: true })
-    onUnmounted(() => fxController.remove(pixelate))
+    onUnmounted(() => {
+      if (fxController.gameObject)
+        fxController.remove(pixelate)
+    })
   },
 })
 </script>

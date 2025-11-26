@@ -22,7 +22,10 @@ export default defineComponent({
     }
     const barrel = fxController.addBarrel(props.amount)
     initGameObject(barrel, props, context, { isFx: true })
-    onUnmounted(() => fxController.remove(barrel))
+    onUnmounted(() => {
+      if (fxController.gameObject)
+        fxController.remove(barrel)
+    })
   },
 })
 </script>

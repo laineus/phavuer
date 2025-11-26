@@ -25,7 +25,10 @@ export default defineComponent({
     }
     const vignette = fxController.addVignette(props.x, props.y, props.radius, props.strength)
     initGameObject(vignette, props, context, { isFx: true })
-    onUnmounted(() => fxController.remove(vignette))
+    onUnmounted(() => {
+      if (fxController.gameObject)
+        fxController.remove(vignette)
+    })
   },
 })
 </script>
