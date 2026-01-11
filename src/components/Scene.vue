@@ -15,10 +15,14 @@ export default defineComponent({
     const Scene = class extends Phaser.Scene {
       init(data) {
         context.emit('init', this, data)
+        show.value = true
+      }
+
+      preload() {
+        context.emit('preload', this)
       }
 
       create(data) {
-        show.value = true
         context.emit('create', this, data)
       }
 
@@ -26,10 +30,6 @@ export default defineComponent({
         preUpdateEvents.forEach(e => e(time, delta))
         context.emit('update', this, time, delta)
         postUpdateEvents.forEach(e => e(time, delta))
-      }
-
-      preload() {
-        context.emit('preload', this)
       }
     }
     const game = inject(InjectionKeys.Game)
