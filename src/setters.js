@@ -186,12 +186,12 @@ export default {
   accelerationY: body => v => body.setAccelerationY(v),
   offsetX: (object) => {
     if (object.setOffset)
-      return v => object.setOffset(v, object.offset.x)
+      return v => object.setOffset(v, object.offset.y)
     return v => object.offsetX = v
   },
   offsetY: (object) => {
     if (object.setOffset)
-      return v => object.setOffset(v, object.offset.y)
+      return v => object.setOffset(object.offset.x, v)
     return v => object.offsetY = v
   },
   collideWorldBounds: body => v => body.collideWorldBounds = v,
