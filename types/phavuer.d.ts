@@ -12,9 +12,13 @@ export function onPreUpdate(callback: (time: number, delta: number) => any): voi
 export function onPostUpdate(callback: (time: number, delta: number) => any): void
 export function initGameObject(object: Phaser.GameObjects.GameObject, props: Readonly<ComponentObjectPropsOptions>, context: SetupContext): void
 
+type WithoutIndexSignature<T> = {
+  [K in keyof T as string extends K ? never : number extends K ? never : K]: T[K]
+}
+
 declare namespace Phavuer {
-  interface TweenConfig extends Omit<Phaser.Types.Tweens.TweenBuilderConfig, 'targets'> {
-    targets?: any
+  interface TweenConfig extends Omit<WithoutIndexSignature<Phaser.Types.Tweens.TweenBuilderConfig>, 'targets'> {
+    [key: string]: any
   }
   interface TimelineConfig extends Omit<Phaser.Types.Time.TimelineEventConfig, 'tween'> {
     tween?: Phavuer.TweenConfig | Phaser.Types.Tweens.TweenChainBuilderConfig | Phaser.Tweens.Tween | Phaser.Tweens.TweenChain
