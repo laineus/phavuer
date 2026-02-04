@@ -1,5 +1,6 @@
 <script>
 import { defineComponent, inject } from 'vue'
+import { bodyEmits } from '../emits.js'
 import { initGameObject, InjectionKeys } from '../index.js'
 import { mapProps } from '../props.js'
 
@@ -31,7 +32,7 @@ export default defineComponent({
       'collideWorldBounds',
     ),
   },
-  emits: ['create'],
+  emits: [...bodyEmits],
   setup(props, context) {
     const scene = inject(InjectionKeys.Scene)
     if (!scene.physics)

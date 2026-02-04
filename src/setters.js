@@ -25,9 +25,10 @@ function fixSize(object) {
   }
 }
 
-function defineVModelProperty(gameObject, key, emit) {
-  let rawValue = gameObject[key]
-  Object.defineProperty(gameObject, key, {
+function defineVModelProperty(target, key, emit, property) {
+  property = property ?? key
+  let rawValue = target[property]
+  Object.defineProperty(target, property, {
     get() {
       return rawValue
     },
@@ -40,7 +41,9 @@ function defineVModelProperty(gameObject, key, emit) {
 }
 
 export const deepProps = ['tween', 'tweens', 'timeline', 'style']
-export const vModelProps = ['x', 'y', 'tweens', 'tween', 'timeline']
+export const vModelPropsGameObject = ['x', 'y', 'tweens', 'tween', 'timeline']
+export const vModelPropsBody = ['velocityX', 'velocityY']
+export const vModelProps = [...vModelPropsGameObject, ...vModelPropsBody]
 export default {
   active: object => v => object.setActive(v),
   visible: object => v => object.setVisible(v),
@@ -178,8 +181,22 @@ export default {
   gravityY: body => v => body.setGravityY(v),
   frictionX: body => v => body.setFrictionX(v),
   frictionY: body => v => body.setFrictionY(v),
-  velocityX: body => v => body.setVelocityX(v),
-  velocityY: body => v => body.setVelocityY(v),
+  velocityX: (body, emit) => {
+    if (emit) {
+      return defineVModelProperty(body.velocity, 'velocityX', emit, 'x')
+    }
+    else {
+      return v => body.setVelocityX(v)
+    }
+  },
+  velocityY: (body, emit) => {
+    if (emit) {
+      return defineVModelProperty(body.velocity, 'velocityY', emit, 'y')
+    }
+    else {
+      return v => body.setVelocityY(v)
+    }
+  },
   maxVelocityX: body => v => body.setMaxVelocityX(v),
   maxVelocityY: body => v => body.setMaxVelocityY(v),
   accelerationX: body => v => body.setAccelerationX(v),
