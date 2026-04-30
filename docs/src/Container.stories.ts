@@ -115,7 +115,7 @@ export const Default: Story = {
     },
     template: `
       <Game :config="{ width: 400, height: 225 }">
-      <Scene name="Scene" @preload="preload">
+        <Scene name="Scene" @preload="preload">
           <Container
             :visible="args.visible"
             :x="args.x"

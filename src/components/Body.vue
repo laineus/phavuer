@@ -1,4 +1,5 @@
 <script>
+import * as Phaser from 'phaser'
 import { defineComponent, inject } from 'vue'
 import { bodyEmits } from '../emits.js'
 import { initGameObject, InjectionKeys } from '../index.js'

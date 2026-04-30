@@ -1,4 +1,5 @@
 <script>
+import * as Phaser from 'phaser'
 import { defineComponent } from 'vue'
 import { initGameObject } from '../index.js'
 import { mapProps } from '../props.js'

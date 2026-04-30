@@ -1,4 +1,5 @@
 <script>
+import * as Phaser from 'phaser'
 import { defineComponent, inject, provide, ref } from 'vue'
 import { InjectionKeys } from '../index'
 
