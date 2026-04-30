@@ -20,7 +20,7 @@ export default defineComponent({
   },
   emits: ['create'],
   setup(props, context) {
-    const object = new Phaser.GameObjects.Light(props.x || 0, props.y || 0)
+    const object = new Phaser.GameObjects.Light(props.x || 0, props.y || 0, props.radius)
     initGameObject(object, props, context)
     return { object }
   },

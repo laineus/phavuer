@@ -126,7 +126,14 @@ export default {
     return v => object.alpha = v
   },
   blendMode: object => v => object.setBlendMode(v),
-  pipeline: object => v => object.setPipeline(v),
+  pipeline: object => (v) => {
+    // Fallback for Phaser3
+    if (v === 'Light2D' && object.setLighting) {
+      return object.setLighting(true)
+    }
+    return object.setPipeline(v)
+  },
+  lighting: object => v => object.setLighting(v),
   intensity: (object) => {
     if (object.setIntensity)
       return v => object.setIntensity(v)

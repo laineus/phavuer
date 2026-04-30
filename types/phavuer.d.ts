@@ -52,6 +52,7 @@ declare namespace Phavuer {
     alpha?: number
     blendMode?: Phaser.BlendModes | string | number
     pipeline?: Phaser.Renderer.WebGL.WebGLPipeline
+    lighting?: boolean
     scrollFactor?: number
     scrollFactorX?: number
     scrollFactorY?: number

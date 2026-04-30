@@ -97,7 +97,7 @@ export const Default: Story = {
             :scale="0.6"
             :originX="0"
             :originY="0"
-            :pipeline="'Light2D'"
+            :lighting="true"
             />
           <Light
             :visible="args.visible"
