@@ -121,38 +121,35 @@ const props = {
   polaroid: { type: Boolean },
   shiftToBGR: { type: Boolean },
 }
-const propsEntries = Object.entries(props)
-export function mapProps(...names: string[]) {
-  const nameSet = new Set(names)
-  return Object.fromEntries(
-    propsEntries.filter(([name]) => nameSet.has(name)),
-  )
-}
-export const gameObjectProps = mapProps(
-  'tween',
-  'tweens',
-  'timeline',
-  'active',
-  'visible',
-  'x',
-  'y',
-  'rotation',
-  'origin',
-  'originX',
-  'originY',
-  'displayOriginX',
-  'displayOriginY',
-  'scale',
-  'scaleX',
-  'scaleY',
-  'displayWidth',
-  'displayHeight',
-  'scrollFactor',
-  'scrollFactorX',
-  'scrollFactorY',
-  'dropZone',
-  'depth',
-  'alpha',
-  'blendMode',
-  'lighting',
-)
+export default props
+export const gameObjectProps = {
+  tween: props.tween,
+  tweens: props.tweens,
+  timeline: props.timeline,
+  active: props.active,
+  visible: props.visible,
+  x: props.x,
+  y: props.y,
+  rotation: props.rotation,
+  origin: props.origin,
+  originX: props.originX,
+  originY: props.originY,
+  displayOriginX: props.displayOriginX,
+  displayOriginY: props.displayOriginY,
+  scale: props.scale,
+  scaleX: props.scaleX,
+  scaleY: props.scaleY,
+  displayWidth: props.displayWidth,
+  displayHeight: props.displayHeight,
+  scrollFactor: props.scrollFactor,
+  scrollFactorX: props.scrollFactorX,
+  scrollFactorY: props.scrollFactorY,
+  dropZone: props.dropZone,
+  depth: props.depth,
+  alpha: props.alpha,
+  blendMode: props.blendMode,
+  lighting: props.lighting,
+} as const
+
+// TODO: remove later
+export const mapProps = () => null

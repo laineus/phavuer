@@ -1,4 +1,5 @@
-import type { InjectionKey } from 'vue'
+import type { InjectionKey, SetupContext } from 'vue'
+import type { UpdateEventHandler } from './components/Scene.vue'
 import * as Phaser from 'phaser'
 import { customRef, getCurrentInstance, inject, onBeforeUnmount, watch } from 'vue'
 import Body from './components/Body.vue'
@@ -34,15 +35,14 @@ import Text from './components/Text.vue'
 import TilemapLayer from './components/TilemapLayer.vue'
 import Triangle from './components/Triangle.vue'
 import Zone from './components/Zone.vue'
-import setters, { deepProps, GAME_OBJECT_EVENTS, vModelProps } from './setters.js'
-
-type UpdateEventHandler = (time: number, delta: number) => void
+import setters, { deepProps, GAME_OBJECT_EVENTS, vModelProps } from './setters'
 
 const InjectionKeys = {
   Game: Symbol('phavuer_game') as InjectionKey<Phaser.Game>,
   Scene: Symbol('phavuer_scene') as InjectionKey<Phaser.Scene | undefined>,
   GameObject: Symbol('phavuer_gameObject') as InjectionKey<Phaser.GameObjects.GameObject | undefined>,
   Container: Symbol('phavuer_container') as InjectionKey<Phaser.GameObjects.Container | undefined>,
+  // TODO: private
   RenderTextureRenderList: Symbol('phavuer_renderTextureRenderList') as InjectionKey<Phaser.GameObjects.GameObject[] | undefined>,
   PreUpdateEvents: Symbol('phavuer_preUpdateEvents') as InjectionKey<UpdateEventHandler[]>,
   PostUpdateEvents: Symbol('phavuer_postUpdateEvents') as InjectionKey<UpdateEventHandler[]>,
@@ -52,13 +52,29 @@ function createPhavuerApp() {
   console.error('Phavuer::createPhavuerApp() has been removed. Please use `<Game>` component instead. See: https://github.com/laineus/phavuer')
 }
 
-const camelize = s => s.replace(/-./g, x => x[1].toUpperCase())
+const camelize = (s: string) => s.replace(/-./g, x => x[1].toUpperCase())
 
-function initGameObject(object, props, context, options = {}) {
-  const currentInstance = getCurrentInstance()
-  const isBody = 'bounce' in object
-  const isLight = object.constructor === Phaser.GameObjects.Light
-  const isFx = options.isFx
+function checkIsBody(object: any): object is Phaser.Physics.Arcade.Body | Phaser.Physics.Arcade.StaticBody {
+  return object && 'bounce' in object
+}
+function checkIsFx(object: any, isFx: boolean): object is Phaser.Filters.Controller {
+  return isFx
+}
+function checkIsLight(object: any): object is Phaser.GameObjects.Light {
+  return object.constructor === Phaser.GameObjects.Light
+}
+
+function initGameObject(
+  object: Phaser.GameObjects.GameObject | Phaser.Physics.Arcade.Body | Phaser.Physics.Arcade.StaticBody | Phaser.Filters.Controller | Phaser.GameObjects.Light,
+  props: Readonly<Record<string, unknown>>,
+  emit: SetupContext['emit'],
+  options: { isFx?: boolean } = {},
+) {
+  const currentInstance = getCurrentInstance()!
+  const isLight = checkIsLight(object)
+  const isFx = checkIsFx(object, !!options.isFx)
+  const isBody = checkIsBody(object)
+  const isGameObject = !isLight && !isFx && !isBody
   const scene = inject(InjectionKeys.Scene)!
   const renderList = inject(InjectionKeys.RenderTextureRenderList)
   if (isLight) {
@@ -84,7 +100,9 @@ function initGameObject(object, props, context, options = {}) {
     // Append to parent container
     const container = inject(InjectionKeys.Container)
     if (container) {
-      const i = container.list.findIndex(v => v.depth > (props.depth ?? 0))
+      const i = container.list.findIndex((v) => {
+        return ('depth' in v ? (v as Phaser.GameObjects.GameObject & Phaser.GameObjects.Components.Depth).depth : 0) > ((props.depth as number) ?? 0)
+      })
       i === -1 ? container.add(object) : container.addAt(object, i)
     }
   }
@@ -93,19 +111,21 @@ function initGameObject(object, props, context, options = {}) {
     Object.entries(currentInstance.vnode.props ?? {}).map(([key, value]) => [camelize(key), value]),
   )
   const vModelKeys = Object.keys(definedProps).filter(key => key.startsWith('onUpdate:')).map(key => key.split(':')[1]).filter(key => vModelProps.includes(key))
+  // @ts-expect-error ts(7053)
   const normalProps = Object.entries(definedProps).filter(([key]) => setters[key])
   const watchStoppers = normalProps.map(([key, value]) => {
-    const setter = setters[key](object, vModelKeys.includes(key) ? context.emit : undefined)
+    // @ts-expect-error ts(7053)
+    const setter = setters[key](object, vModelKeys.includes(key) ? emit : undefined)
     setter(value)
     // TODO: Don't watch non dynamicProps
     return watch(() => props[key], setter, { deep: deepProps.includes(key) })
   }).filter(Boolean)
   // Set event
   if (definedProps.onCreate)
-    context.emit('create', object)
+    emit('create', object)
   // Set interactive events
   const events = GAME_OBJECT_EVENTS.filter(v => v.attr in definedProps)
-  if (events.length) {
+  if (isGameObject && events.length) {
     if (!object.input) {
       object.setInteractive()
     }
@@ -113,18 +133,16 @@ function initGameObject(object, props, context, options = {}) {
       scene.input.setDraggable(object)
     }
     events.forEach((v) => {
-      object.on(v.emit, (...args) => {
+      object.on(v.emit, (...args: any) => {
         if ('eventIndex' in v) {
-          args[0].stopPropagation = args[v.eventIndex].stopPropagation
+          args[0].stopPropagation = args[v.eventIndex as number].stopPropagation
         }
-        context.emit(v.emit, ...args)
+        emit(v.emit, ...args)
       })
     })
   }
   // Destroy when unmounted
   onBeforeUnmount(() => {
-    if (object.tween)
-      object.tween.stop()
     watchStoppers.forEach(stop => stop())
   })
   if (isLight) {
@@ -136,11 +154,11 @@ function initGameObject(object, props, context, options = {}) {
   return object
 }
 
-function useInject(key) {
+function useInject<T>(key: InjectionKey<T>) {
   return () => {
     const obj = inject(key)
     if (!obj)
-      throw new Error(`${key} is not provided`)
+      throw new Error(`${String(key)} is not provided`)
     return obj
   }
 }
@@ -148,8 +166,8 @@ function useInject(key) {
 const useGame = useInject(InjectionKeys.Game)
 const useScene = useInject(InjectionKeys.Scene)
 
-function refTo(value, key) {
-  return customRef((track, trigger) => {
+function refTo<T>(value: T, key: string) {
+  return customRef<T>((track, trigger) => {
     return {
       get() {
         track()
@@ -158,18 +176,19 @@ function refTo(value, key) {
       set(newValue) {
         if (value && newValue)
           return
+        // @ts-expect-error ts(7053)
         value = newValue ? newValue[key] : null
         trigger()
       },
     }
   })
 }
-const refObj = value => refTo(value, 'object')
-const refScene = value => refTo(value, 'scene')
+const refObj = <T extends Phaser.GameObjects.GameObject>(value: T) => refTo(value, 'object')
+const refScene = (value: Phaser.Scene) => refTo(value, 'scene')
 
-function getRegisterUpdateEvent(symbol) {
-  return (e) => {
-    const eventList = inject(symbol)
+function getRegisterUpdateEvent(symbol: InjectionKey<UpdateEventHandler[]>) {
+  return (e: UpdateEventHandler) => {
+    const eventList = inject(symbol)!
     eventList.push(e)
     onBeforeUnmount(() => {
       const i = eventList.findIndex(v => v === e)
@@ -180,6 +199,8 @@ function getRegisterUpdateEvent(symbol) {
 const onPreUpdate = getRegisterUpdateEvent(InjectionKeys.PreUpdateEvents)
 const onPostUpdate = getRegisterUpdateEvent(InjectionKeys.PostUpdateEvents)
 
+export type { TimelineConfig, TweenConfig } from './types'
+export * as Phavuer from './types'
 export {
   Body,
   Circle,

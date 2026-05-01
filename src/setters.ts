@@ -1,3 +1,5 @@
+import type { TimelineConfig, TweenConfig } from './types.js'
+
 type GameObject = Phaser.GameObjects.GameObject
 export const GAME_OBJECT_EVENTS = [
   { attr: 'onPointerdown', emit: 'pointerdown', eventIndex: 3 },
@@ -220,7 +222,7 @@ export default {
   collideWorldBounds: (body: Phaser.Physics.Arcade.Body) => (v: boolean) => body.collideWorldBounds = v,
   // Tween
   tween: (object: GameObject, emit?: (event: string, value: undefined) => void) => {
-    return makeTweenRepository((tweenConfig: Phavuer.TweenConfig) => {
+    return makeTweenRepository((tweenConfig: TweenConfig) => {
       const tween = object.scene.add.tween(Object.assign({ targets: object }, tweenConfig))
       if (emit)
         tween.on('complete', () => emit('update:tween', undefined))
@@ -228,7 +230,7 @@ export default {
     })
   },
   tweens: (object: GameObject, emit?: (event: string, value: undefined) => void) => {
-    return makeTweenRepository((tweenConfigs: Phavuer.TweenConfig[]) => {
+    return makeTweenRepository((tweenConfigs: TweenConfig[]) => {
       const infinitConfigIndex = tweenConfigs.findIndex(conf => conf.repeat === -1)
       const configs = tweenConfigs.slice(0, infinitConfigIndex === -1 ? undefined : infinitConfigIndex + 1)
       const timeline = object.scene.add.timeline(configs.map((tweenConfig, i) => {
@@ -249,9 +251,9 @@ export default {
     })
   },
   timeline: (object: GameObject, emit?: (event: string, value: undefined) => void) => {
-    return makeTweenRepository((timelineConfigs: Phavuer.TimelineConfig[]) => {
+    return makeTweenRepository((timelineConfigs: TimelineConfig[]) => {
       const timeline = object.scene.add.timeline(timelineConfigs.map((timelineConfig) => {
-        const copiedTimelineConfig = Object.assign({}, timelineConfig)
+        const copiedTimelineConfig = Object.assign({}, timelineConfig) as Phaser.Types.Time.TimelineEventConfig
         if (copiedTimelineConfig.tween) {
           copiedTimelineConfig.tween = Object.assign({ targets: object }, copiedTimelineConfig.tween)
         }
@@ -304,9 +306,9 @@ export default {
   polaroid: (object: Phaser.Filters.ColorMatrix) => (v: boolean) => v && object.colorMatrix.polaroid(false),
   shiftToBGR: (object: Phaser.Filters.ColorMatrix) => (v: boolean) => v && object.colorMatrix.shiftToBGR(false),
 }
-function makeTweenRepository(callback) {
-  let prevTween
-  return (data) => {
+function makeTweenRepository<T>(callback: (data: T) => Phaser.Tweens.Tween | Phaser.Time.Timeline) {
+  let prevTween: Phaser.Tweens.Tween | Phaser.Time.Timeline | undefined
+  return (data: T | undefined) => {
     if (prevTween)
       prevTween.stop()
     prevTween = data ? callback(data) : undefined
