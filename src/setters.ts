@@ -156,7 +156,11 @@ export default {
     return (v: string) => (object as any).texture = v
   },
   frame: (object: Phaser.GameObjects.Components.Texture) => (v: string | number) => object.setFrame(v),
-  color: (object: Phaser.GameObjects.Light | Phaser.Filters.Vignette) => (v: number) => object.setColor(v),
+  color: (object: Phaser.GameObjects.Light | Phaser.Filters.Vignette | Phaser.Filters.Shadow) => {
+    if ('setColor' in object)
+      return (v: number) => object.setColor(v)
+    return (v: number) => object.color = v
+  },
   fillColor: (object: Phaser.GameObjects.Shape) => (v: number) => object.setFillStyle(v, object.fillAlpha),
   fillAlpha: (object: Phaser.GameObjects.Shape) => (v: number) => object.setFillStyle(object.fillColor, v),
   lineWidth: (object: Phaser.GameObjects.Shape | Phaser.GameObjects.Line) => {

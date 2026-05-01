@@ -153,6 +153,3 @@ export const gameObjectProps = {
   blendMode: props.blendMode,
   lighting: props.lighting,
 } as const
-
-// TODO: remove later
-export const mapProps = () => null
