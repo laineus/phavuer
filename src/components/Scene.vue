@@ -11,6 +11,7 @@ export default defineComponent({
   emits: ['init', 'create', 'update', 'preload'],
   setup(props, context) {
     const show = ref(false)
+    const created = ref(false)
     const preUpdateEvents = []
     const postUpdateEvents = []
     const Scene = class extends Phaser.Scene {
@@ -24,6 +25,7 @@ export default defineComponent({
       }
 
       create(data) {
+        created.value = true
         context.emit('create', this, data)
       }
 
@@ -35,15 +37,18 @@ export default defineComponent({
     }
     const game = inject(InjectionKeys.Game)
     const scene = game.scene.add(props.name, Scene, props.autoStart)
-    scene.events.on('shutdown', () => show.value = false)
+    scene.events.on('shutdown', () => {
+      show.value = false
+      created.value = false
+    })
     provide(InjectionKeys.Scene, scene)
     provide(InjectionKeys.PreUpdateEvents, preUpdateEvents)
     provide(InjectionKeys.PostUpdateEvents, postUpdateEvents)
-    return { scene, show }
+    return { scene, show, created }
   },
 })
 </script>
 
 <template>
-  <slot v-if="show" />
+  <slot v-if="show" :created="created" :scene="scene" />
 </template>

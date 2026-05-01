@@ -89,24 +89,26 @@ export const Default: Story = {
     },
     template: `
       <Game :config="{ width: 400, height: 225 }">
-        <Scene name="Scene" @preload="preload">
-          <Image
-            :texture="'logo'"
-            :x="30"
-            :y="30"
-            :scale="0.6"
-            :originX="0"
-            :originY="0"
-            :lighting="true"
-            />
-          <Light
-            :visible="args.visible"
-            :x="args.x"
-            :y="args.y"
-            :radius="args.radius"
-            :color="Number(args.color)"
-            :intensity="args.intensity"
-            />
+        <Scene name="Scene" @preload="preload" v-slot="{ created }">
+          <template v-if="created">
+            <Image
+              :texture="'logo'"
+              :x="30"
+              :y="30"
+              :scale="0.6"
+              :originX="0"
+              :originY="0"
+              :lighting="true"
+              />
+            <Light
+              :visible="args.visible"
+              :x="args.x"
+              :y="args.y"
+              :radius="args.radius"
+              :color="Number(args.color)"
+              :intensity="args.intensity"
+              />
+          </template>
         </Scene>
       </Game>`,
   }),

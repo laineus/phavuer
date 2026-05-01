@@ -170,8 +170,9 @@ export const Default: Story = {
     },
     template: `
       <Game :config="{ width: 400, height: 225 }">
-        <Scene name="Scene" @preload="preload">
+        <Scene name="Scene" @preload="preload" v-slot="{ created }">
           <NineSlice
+            v-if="created"
             :texture="'window'"
             :visible="args.visible"
             :x="args.x"

@@ -116,41 +116,43 @@ export const Default: Story = {
     },
     template: `
     <Game :config="{ width: 400, height: 225, physics: { default: 'arcade', arcade: { debug: true } } }">
-      <Scene name="Scene" @preload="preload">
-        <Rectangle
-          :x="args.x"
-          :y="args.y"
-          :width="args.width"
-          :height="args.height"
-          :originX="args.originX"
-          :originY="args.originY"
-          :strokeColor="dropped ? 0x42B883 : 0xFF0000"
-          />
-        <Text
-          :text="dropped ? 'Dropped' : 'Drop here'"
-          :style="{ fontFamily: 'Helvetica, Arial', color: dropped ? '#42B883' : '#F00', fontSize: '20px' }"
-          :x="args.x + args.width / 2"
-          :y="args.y + args.height / 2"
-          :origin="0.5"
-          />
-        <Zone
-          :x="args.x"
-          :y="args.y"
-          :width="args.width"
-          :height="args.height"
-          :originX="args.originX"
-          :originY="args.originY"
-          :dropZone="true"
-          />
-        <Image
-          :x="boxPosition.x"
-          :y="boxPosition.y"
-          :origin="0"
-          :texture="'box'"
-          @drag="drag"
-          @drop="drop"
-          >
-        </Image>
+      <Scene name="Scene" @preload="preload" v-slot="{ created }">
+        <template v-if="created">
+          <Rectangle
+            :x="args.x"
+            :y="args.y"
+            :width="args.width"
+            :height="args.height"
+            :originX="args.originX"
+            :originY="args.originY"
+            :strokeColor="dropped ? 0x42B883 : 0xFF0000"
+            />
+          <Text
+            :text="dropped ? 'Dropped' : 'Drop here'"
+            :style="{ fontFamily: 'Helvetica, Arial', color: dropped ? '#42B883' : '#F00', fontSize: '20px' }"
+            :x="args.x + args.width / 2"
+            :y="args.y + args.height / 2"
+            :origin="0.5"
+            />
+          <Zone
+            :x="args.x"
+            :y="args.y"
+            :width="args.width"
+            :height="args.height"
+            :originX="args.originX"
+            :originY="args.originY"
+            :dropZone="true"
+            />
+          <Image
+            :x="boxPosition.x"
+            :y="boxPosition.y"
+            :origin="0"
+            :texture="'box'"
+            @drag="drag"
+            @drop="drop"
+            >
+          </Image>
+        </template>
       </Scene>
     </Game>`,
   }),

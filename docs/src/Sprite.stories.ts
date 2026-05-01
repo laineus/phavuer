@@ -149,8 +149,9 @@ export const Default: Story = {
     },
     template: `
       <Game :config="{ width: 400, height: 225 }">
-        <Scene name="Scene" @preload="preload" @create="create">
+        <Scene name="Scene" @preload="preload" @create="create" v-slot="{ created }">
           <Sprite
+            v-if="created"
             :play="'player'"
             :visible="args.visible"
             :x="args.x"

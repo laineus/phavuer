@@ -99,8 +99,8 @@ export const Default: Story = {
     },
     template: `
       <Game :config="args.config" :key="version">
-        <Scene name="SceneName" @preload="preload">
-          <Image :x="200" :y="40" texture="box">
+        <Scene name="SceneName" @preload="preload" v-slot="{ created }">
+          <Image v-if="created" :x="200" :y="40" texture="box">
             <Body :collideWorldBounds="true" />
           </Image>
         </Scene>
