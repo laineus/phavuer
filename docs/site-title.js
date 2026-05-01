@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-const SITE_TITLE = 'Phavuer - A wrapper library txhat integrates Phaser 3 with Vue 3'
+const SITE_TITLE = 'Phavuer - A wrapper library that integrates Phaser 4 with Vue 3'
 
 const filePath = path.join(__dirname, 'storybook-static/index.html')
 

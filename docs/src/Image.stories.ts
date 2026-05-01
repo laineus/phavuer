@@ -76,6 +76,7 @@ const meta: Meta<typeof Image> = {
       'alpha',
       'rotation',
       'blendMode',
+      'lighting',
       'scrollFactor',
       'scrollFactorX',
       'scrollFactorY',

@@ -73,6 +73,7 @@ const meta: Meta<typeof Container> = {
       'alpha',
       'rotation',
       'blendMode',
+      'lighting',
       'scrollFactor',
       'scrollFactorX',
       'scrollFactorY',

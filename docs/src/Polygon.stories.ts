@@ -86,6 +86,7 @@ const meta: Meta<typeof Polygon> = {
       'alpha',
       'rotation',
       'blendMode',
+      'lighting',
       'scrollFactor',
       'scrollFactorX',
       'scrollFactorY',

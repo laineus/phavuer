@@ -137,6 +137,7 @@ const meta: Meta<typeof Triangle> = {
       'alpha',
       'rotation',
       'blendMode',
+      'lighting',
       'scrollFactor',
       'scrollFactorX',
       'scrollFactorY',

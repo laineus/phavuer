@@ -93,6 +93,7 @@ const meta: Meta<typeof Sprite> = {
       'alpha',
       'rotation',
       'blendMode',
+      'lighting',
       'scrollFactor',
       'scrollFactorX',
       'scrollFactorY',

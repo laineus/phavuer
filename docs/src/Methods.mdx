@@ -6,7 +6,7 @@ import { Meta } from '@storybook/blocks'
 
 ## useGame()
 
-Get current instance of [Phaser.Game](https://newdocs.phaser.io/docs/3.90.0/Phaser.Game)
+Get current instance of [Phaser.Game](https://newdocs.phaser.io/docs/4.1.0/Phaser.Game)
 
 It can be used in the setup of a child component of game.
 
@@ -18,7 +18,7 @@ const game = useGame()
 
 ## useScene()
 
-Get current Instance of [Phaser.Scene](https://newdocs.phaser.io/docs/3.90.0/Phaser.Scene)
+Get current Instance of [Phaser.Scene](https://newdocs.phaser.io/docs/4.1.0/Phaser.Scene)
 
 It can be used in the setup of a child component of scene.
 
@@ -87,26 +87,29 @@ A sugar function for `refTo(value, 'object')`
 
 A sugar function for `refTo(value, 'scene')`
 
-# Methods (for contributers)
+# Methods (for contributors)
 
-## initGameObject(gameObject, props, context)
+## initGameObject(object, props, emit, options?)
 
-This method endows the specified gameObject with the following features:
+This method endows the specified object with the following features:
 
-- Reactivity to specified props, such as `x` or `y` ([full list here](https://github.com/laineus/phavuer/tree/master/src/setters.js)).
+- Reactivity to specified props, such as `x` or `y` ([full list here](https://github.com/laineus/phavuer/tree/master/src/setters.ts)).
 - Automatic appending to the parent Container, if it exists.
-- If a parent Container does not exist, it is automatically appended to the Scene.
+- If a parent Container does not exist, it is automatically appended to the Scene (except for FX objects and physics bodies).
+- If inside a RenderTexture context, it is appended to the RenderTexture render list.
+- For Light objects, it is registered to `scene.lights` (and enables the Light system if needed).
 - Automatic destruction when the component is unmounted.
 - Ability to set interactive events like `@pointerup`.
 - Ability to set an event for object creation using `@create`.
 
 Parameters:
 
-- `gameObject`: Phaser 3 GameObject instance
+- `object`: Phaser 4 GameObject / Arcade Body / FX Controller / Light instance
 - `props`: Vue 3 props
-- `context`: Vue 3 context
+- `emit`: Vue 3 `emit` function
+- `options`: Optional config (`{ isFx?: boolean }`)
 
-This method is utilized to define GameObject Components. ([Example here](https://github.com/laineus/phavuer/tree/master/src/components/Sprite.js))
+This method is utilized to define GameObject Components. ([Example here](https://github.com/laineus/phavuer/tree/master/src/components/Sprite.vue))
 
 If you simply wish to use your component within another component, this method is not necessary.  
 In such cases, you only need to relay props to the default components.

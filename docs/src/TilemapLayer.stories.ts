@@ -144,6 +144,7 @@ const meta: Meta<typeof TilemapLayer> = {
       'alpha',
       'rotation',
       'blendMode',
+      'lighting',
       'scrollFactor',
       'scrollFactorX',
       'scrollFactorY',

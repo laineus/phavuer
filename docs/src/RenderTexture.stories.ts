@@ -79,6 +79,7 @@ const meta: Meta<typeof RenderTexture> = {
       'alpha',
       'rotation',
       'blendMode',
+      'lighting',
       'scrollFactor',
       'scrollFactorX',
       'scrollFactorY',

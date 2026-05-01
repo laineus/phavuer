@@ -117,6 +117,7 @@ const meta: Meta<typeof Line> = {
       'alpha',
       'rotation',
       'blendMode',
+      'lighting',
       'scrollFactor',
       'scrollFactorX',
       'scrollFactorY',

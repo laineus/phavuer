@@ -129,6 +129,7 @@ const meta: Meta<typeof NineSlice> = {
       'alpha',
       'rotation',
       'blendMode',
+      'lighting',
       'scrollFactor',
       'scrollFactorX',
       'scrollFactorY',

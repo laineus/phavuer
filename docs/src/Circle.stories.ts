@@ -78,6 +78,7 @@ const meta: Meta<typeof Circle> = {
       'alpha',
       'rotation',
       'blendMode',
+      'lighting',
       'scrollFactor',
       'scrollFactorX',
       'scrollFactorY',

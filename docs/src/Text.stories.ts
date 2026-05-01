@@ -137,6 +137,7 @@ const meta: Meta<typeof Text> = {
       'alpha',
       'rotation',
       'blendMode',
+      'lighting',
       'scrollFactor',
       'scrollFactorX',
       'scrollFactorY',

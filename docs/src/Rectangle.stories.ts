@@ -84,6 +84,7 @@ const meta: Meta<typeof Rectangle> = {
       'alpha',
       'rotation',
       'blendMode',
+      'lighting',
       'scrollFactor',
       'scrollFactorX',
       'scrollFactorY',

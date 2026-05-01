@@ -1,4 +1,4 @@
-export const referPhaserVersion = '3.90.0'
+export const referPhaserVersion = '4.1.0'
 export const argTypes = {
   default: {
     control: 'none',
@@ -240,6 +240,15 @@ export const argTypes = {
       category: 'Props',
       type: { summary: 'string | number | Phaser.BlendModes' },
       defaultValue: { summary: 'Phaser.BlendModes.NORMAL' },
+    },
+  },
+  lighting: {
+    control: 'boolean',
+    description: 'Enable Phaser lighting for this Game Object. A compatible object with a normal map will react to Light objects in the scene.',
+    table: {
+      category: 'Props',
+      type: { summary: 'boolean' },
+      defaultValue: { summary: false },
     },
   },
   scrollFactor: {
