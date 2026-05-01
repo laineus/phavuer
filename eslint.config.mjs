@@ -8,5 +8,6 @@ export default antfu({
   },
   rules: {
     'ts/no-empty-object-type': 'off',
+    'unicorn/number-literal-case': 'off',
   },
 })

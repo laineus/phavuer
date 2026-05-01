@@ -1,29 +1,24 @@
-<script>
-import * as Phaser from 'phaser'
-import { defineComponent, inject } from 'vue'
-import { initGameObject, InjectionKeys } from '../index.js'
-import { mapProps } from '../props.js'
+<script lang="ts" setup>
+import type * as Phaser from 'phaser'
+import { inject } from 'vue'
+import { initGameObject, InjectionKeys } from '../index'
+import commonProps from '../props'
 
-export default defineComponent({
-  props: {
-    ...mapProps(
-      'width',
-      'height',
-      'offsetX',
-      'offsetY',
-      'enable',
-    ),
-  },
-  emits: ['create'],
-  setup(props, context) {
-    const scene = inject(InjectionKeys.Scene)
-    if (!scene.physics)
-      throw new Error('Physics is not available. Add physics setting to your game config. e.g. `physics: { default: \'arcade\' }`')
-    const gameObject = inject(InjectionKeys.GameObject)
-    const body = scene.physics.add.existing(gameObject, Phaser.Physics.Arcade.STATIC_BODY).body
-    initGameObject(body, props, context)
-  },
+const props = defineProps({
+  width: commonProps.width,
+  height: commonProps.height,
+  offsetX: commonProps.offsetX,
+  offsetY: commonProps.offsetY,
+  enable: commonProps.enable,
 })
+const emit = defineEmits(['create'] as string[])
+
+const scene = inject(InjectionKeys.Scene)!
+if (!scene.physics)
+  throw new Error('Physics is not available. Add physics setting to your game config. e.g. `physics: { default: \'arcade\' }`')
+const gameObject = inject(InjectionKeys.GameObject)!
+const body = scene.physics.add.existing(gameObject, true).body as Phaser.Physics.Arcade.StaticBody
+initGameObject(body, props, emit)
 </script>
 
 <template>

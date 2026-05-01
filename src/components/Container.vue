@@ -1,31 +1,27 @@
-<script>
+<script lang="ts">
 import * as Phaser from 'phaser'
-import { defineComponent, inject, provide } from 'vue'
-import { gameObjectEmits } from '../emits.js'
-import { initGameObject, InjectionKeys } from '../index.js'
-import { gameObjectProps, mapProps } from '../props.js'
+import { inject, provide } from 'vue'
+import { gameObjectEmits } from '../emits'
+import { initGameObject, InjectionKeys } from '../index'
+import commonProps, { gameObjectProps } from '../props'
 
-export default defineComponent({
-  props: {
-    ...Object.fromEntries(
-      Object.entries(gameObjectProps).filter(([k]) => !['origin', 'originX', 'originY', 'displayOriginX', 'displayOriginY'].includes(k)),
-    ),
-    ...mapProps(
-      'width',
-      'height',
-    ),
-  },
-  emits: [...gameObjectEmits],
-  setup(props, context) {
-    const scene = inject(InjectionKeys.Scene)
-    const object = new Phaser.GameObjects.Container(scene, props.x || 0, props.y || 0)
-    initGameObject(object, props, context)
-    provide(InjectionKeys.Container, object)
-    provide(InjectionKeys.GameObject, object)
-    provide(InjectionKeys.RenderTextureRenderList, undefined)
-    return { object }
-  },
+const { origin, originX, originY, displayOriginX, displayOriginY, ...containerGameObjectProps } = gameObjectProps
+</script>
+
+<script lang="ts" setup>
+const props = defineProps({
+  ...containerGameObjectProps,
+  width: commonProps.width,
+  height: commonProps.height,
 })
+const emit = defineEmits(gameObjectEmits)
+
+const scene = inject(InjectionKeys.Scene)!
+const object = new Phaser.GameObjects.Container(scene, props.x || 0, props.y || 0)
+initGameObject(object, props, emit)
+provide(InjectionKeys.Container, object)
+provide(InjectionKeys.GameObject, object)
+provide(InjectionKeys.RenderTextureRenderList, undefined)
 </script>
 
 <template>

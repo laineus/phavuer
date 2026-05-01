@@ -1,3 +1,6 @@
+import type { PropType } from 'vue'
+import * as Phaser from 'phaser'
+
 const props = {
   active: { type: Boolean },
   visible: { type: Boolean },
@@ -35,10 +38,10 @@ const props = {
   alpha: { type: Number },
   blendMode: { type: [Number, String] },
   lighting: { type: Boolean },
-  intensity: { type: Number },
+  intensity: { type: Number, default: 1 },
   tint: { type: Number },
-  text: { type: [String, Number] },
-  texture: { type: String },
+  text: { type: [String, Array, Number] as PropType<string | string[] | number>, required: true as const },
+  texture: { type: [String, Phaser.Textures.Texture], required: true as const },
   frame: { type: [Number, String] },
   color: { type: Number },
   fillColor: { type: Number },
@@ -46,7 +49,7 @@ const props = {
   lineWidth: { type: Number },
   strokeColor: { type: Number },
   strokeAlpha: { type: Number },
-  style: { type: Object },
+  style: { type: Object as PropType<Phaser.Types.GameObjects.Text.TextStyle> },
   lineSpacing: { type: Number },
   padding: { type: [Number, Object] },
   collision: { type: [Number, Array] },

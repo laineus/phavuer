@@ -168,7 +168,7 @@ export default {
   },
   strokeColor: (object: Phaser.GameObjects.Shape) => (v: number) => object.setStrokeStyle(object.lineWidth, v, object.strokeAlpha),
   strokeAlpha: (object: Phaser.GameObjects.Shape) => (v: number) => object.setStrokeStyle(object.lineWidth, object.strokeColor, v),
-  style: (object: Phaser.GameObjects.Text) => (v: object) => object.setStyle(v),
+  style: (object: Phaser.GameObjects.Text) => (v: Phaser.Types.GameObjects.Text.TextStyle) => object.setStyle(v),
   lineSpacing: (object: Phaser.GameObjects.Text) => (v: number) => object.setLineSpacing(v),
   padding: (object: Phaser.GameObjects.Text) => (v: number | Phaser.Types.GameObjects.Text.TextPadding) => object.setPadding(v),
   collision: (object: Phaser.Tilemaps.TilemapLayer) => (v: number | any[]) => object.setCollision(v),

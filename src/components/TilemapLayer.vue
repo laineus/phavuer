@@ -1,28 +1,28 @@
-<script>
+<script lang="ts" setup>
+import type { PropType } from 'vue'
 import * as Phaser from 'phaser'
-import { defineComponent, inject } from 'vue'
+import { inject } from 'vue'
 import { initGameObject, InjectionKeys } from '../index.js'
-import { gameObjectProps, mapProps } from '../props.js'
+import commonProps, { gameObjectProps } from '../props'
 
-export default defineComponent({
-  props: {
-    ...gameObjectProps,
-    ...mapProps('width', 'height', 'collision', 'collisionByProperty'),
-    tilemap: { type: Object },
-    layerIndex: { type: Number },
-    tileset: { type: [Array, String] },
-    cullPadding: { type: Number },
-    cullPaddingX: { type: Number },
-    cullPaddingY: { type: Number },
-  },
-  emits: ['create'],
-  setup(props, context) {
-    const scene = inject(InjectionKeys.Scene)
-    const object = new Phaser.Tilemaps.TilemapLayer(scene, props.tilemap, props.layerIndex, props.tileset, props.x || 0, props.y || 0)
-    initGameObject(object, props, context)
-    return { object }
-  },
+const props = defineProps({
+  ...gameObjectProps,
+  width: commonProps.width,
+  height: commonProps.height,
+  collision: commonProps.collision,
+  collisionByProperty: commonProps.collisionByProperty,
+  tilemap: { type: Object as PropType<Phaser.Tilemaps.Tilemap>, required: true },
+  layerIndex: { type: Number, required: true },
+  tileset: { type: [String, Array] as PropType<string | string[] | Phaser.Tilemaps.Tileset | Phaser.Tilemaps.Tileset[]>, required: true },
+  cullPadding: { type: Number },
+  cullPaddingX: { type: Number },
+  cullPaddingY: { type: Number },
 })
+const emit = defineEmits(['create'] as string[])
+
+const scene = inject(InjectionKeys.Scene)!
+const object = new Phaser.Tilemaps.TilemapLayer(scene, props.tilemap, props.layerIndex, props.tileset, props.x || 0, props.y || 0)
+initGameObject(object, props, emit)
 </script>
 
 <template>

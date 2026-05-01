@@ -1,28 +1,23 @@
-<script>
+<script lang="ts" setup>
 import * as Phaser from 'phaser'
-import { defineComponent, inject } from 'vue'
-import { gameObjectEmits } from '../emits.js'
-import { initGameObject, InjectionKeys } from '../index.js'
-import { gameObjectProps, mapProps } from '../props.js'
+import { inject } from 'vue'
+import { gameObjectEmits } from '../emits'
+import { initGameObject, InjectionKeys } from '../index'
+import commonProps, { gameObjectProps } from '../props'
 
-export default defineComponent({
-  props: {
-    ...gameObjectProps,
-    ...mapProps(
-      'text',
-      'style',
-      'lineSpacing',
-      'padding',
-    ),
-  },
-  emits: [...gameObjectEmits],
-  setup(props, context) {
-    const scene = inject(InjectionKeys.Scene)
-    const object = new Phaser.GameObjects.Text(scene, props.x || 0, props.y || 0, props.text)
-    initGameObject(object, props, context)
-    return { object }
-  },
+const props = defineProps({
+  ...gameObjectProps,
+  text: commonProps.text,
+  style: commonProps.style,
+  lineSpacing: commonProps.lineSpacing,
+  padding: commonProps.padding,
 })
+const emit = defineEmits(gameObjectEmits)
+
+const scene = inject(InjectionKeys.Scene)!
+const text = typeof props.text === 'number' ? String(props.text) : props.text
+const object = new Phaser.GameObjects.Text(scene, props.x || 0, props.y || 0, text, props.style ?? {})
+initGameObject(object, props, emit)
 </script>
 
 <template>
