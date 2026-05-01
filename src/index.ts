@@ -1,3 +1,4 @@
+import type { InjectionKey } from 'vue'
 import * as Phaser from 'phaser'
 import { customRef, getCurrentInstance, inject, onBeforeUnmount, watch } from 'vue'
 import Body from './components/Body.vue'
@@ -35,15 +36,16 @@ import Triangle from './components/Triangle.vue'
 import Zone from './components/Zone.vue'
 import setters, { deepProps, GAME_OBJECT_EVENTS, vModelProps } from './setters.js'
 
-// TODO: should be Symbol
+type UpdateEventHandler = (time: number, delta: number) => void
+
 const InjectionKeys = {
-  Game: 'phavuer_game',
-  Scene: 'phavuer_scene',
-  GameObject: 'phavuer_gameObject',
-  Container: 'phavuer_container',
-  RenderTextureRenderList: 'phavuer_renderTextureRenderList',
-  PreUpdateEvents: 'phavuer_preUpdateEvents',
-  PostUpdateEvents: 'phavuer_postUpdateEvents',
+  Game: Symbol('phavuer_game') as InjectionKey<Phaser.Game>,
+  Scene: Symbol('phavuer_scene') as InjectionKey<Phaser.Scene | undefined>,
+  GameObject: Symbol('phavuer_gameObject') as InjectionKey<Phaser.GameObjects.GameObject | undefined>,
+  Container: Symbol('phavuer_container') as InjectionKey<Phaser.GameObjects.Container | undefined>,
+  RenderTextureRenderList: Symbol('phavuer_renderTextureRenderList') as InjectionKey<Phaser.GameObjects.GameObject[] | undefined>,
+  PreUpdateEvents: Symbol('phavuer_preUpdateEvents') as InjectionKey<UpdateEventHandler[]>,
+  PostUpdateEvents: Symbol('phavuer_postUpdateEvents') as InjectionKey<UpdateEventHandler[]>,
 }
 
 function createPhavuerApp() {
@@ -57,7 +59,7 @@ function initGameObject(object, props, context, options = {}) {
   const isBody = 'bounce' in object
   const isLight = object.constructor === Phaser.GameObjects.Light
   const isFx = options.isFx
-  const scene = inject(InjectionKeys.Scene)
+  const scene = inject(InjectionKeys.Scene)!
   const renderList = inject(InjectionKeys.RenderTextureRenderList)
   if (isLight) {
     if (!scene.lights.active)
