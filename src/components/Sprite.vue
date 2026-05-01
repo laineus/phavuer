@@ -2,8 +2,9 @@
 import * as Phaser from 'phaser'
 import { getCurrentInstance, inject, provide } from 'vue'
 import { gameObjectEmits } from '../emits'
-import { initGameObject, InjectionKeys } from '../index'
+import { initGameObject } from '../index'
 import commonProps, { gameObjectProps } from '../props'
+import { InjectionKeys } from '../provider'
 
 const SPRITE_EMITS = [
   { attr: 'onAnimationstart', emit: 'animationstart' },

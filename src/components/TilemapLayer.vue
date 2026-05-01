@@ -2,8 +2,9 @@
 import type { PropType } from 'vue'
 import * as Phaser from 'phaser'
 import { inject } from 'vue'
-import { initGameObject, InjectionKeys } from '../index.js'
+import { initGameObject } from '../index'
 import commonProps, { gameObjectProps } from '../props'
+import { InjectionKeys } from '../provider'
 
 const props = defineProps({
   ...gameObjectProps,

@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 import { inject, onUnmounted } from 'vue'
-import { initGameObject, InjectionKeys } from '../index'
+import { initGameObject } from '../index'
 import commonProps from '../props'
+import { InjectionKeys } from '../provider'
 
 const props = defineProps({
   external: {

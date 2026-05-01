@@ -35,18 +35,8 @@ import Text from './components/Text.vue'
 import TilemapLayer from './components/TilemapLayer.vue'
 import Triangle from './components/Triangle.vue'
 import Zone from './components/Zone.vue'
+import { InjectionKeys, PrivateInjectionKeys } from './provider'
 import setters, { deepProps, GAME_OBJECT_EVENTS, vModelProps } from './setters'
-
-const InjectionKeys = {
-  Game: Symbol('phavuer_game') as InjectionKey<Phaser.Game>,
-  Scene: Symbol('phavuer_scene') as InjectionKey<Phaser.Scene | undefined>,
-  GameObject: Symbol('phavuer_gameObject') as InjectionKey<Phaser.GameObjects.GameObject | undefined>,
-  Container: Symbol('phavuer_container') as InjectionKey<Phaser.GameObjects.Container | undefined>,
-  // TODO: private
-  RenderTextureRenderList: Symbol('phavuer_renderTextureRenderList') as InjectionKey<Phaser.GameObjects.GameObject[] | undefined>,
-  PreUpdateEvents: Symbol('phavuer_preUpdateEvents') as InjectionKey<UpdateEventHandler[]>,
-  PostUpdateEvents: Symbol('phavuer_postUpdateEvents') as InjectionKey<UpdateEventHandler[]>,
-}
 
 function createPhavuerApp() {
   console.error('Phavuer::createPhavuerApp() has been removed. Please use `<Game>` component instead. See: https://github.com/laineus/phavuer')
@@ -76,7 +66,7 @@ function initGameObject(
   const isBody = checkIsBody(object)
   const isGameObject = !isLight && !isFx && !isBody
   const scene = inject(InjectionKeys.Scene)!
-  const renderList = inject(InjectionKeys.RenderTextureRenderList)
+  const renderList = inject(PrivateInjectionKeys.RenderTextureRenderList)
   if (isLight) {
     if (!scene.lights.active)
       scene.lights.enable()
@@ -196,8 +186,8 @@ function getRegisterUpdateEvent(symbol: InjectionKey<UpdateEventHandler[]>) {
     })
   }
 }
-const onPreUpdate = getRegisterUpdateEvent(InjectionKeys.PreUpdateEvents)
-const onPostUpdate = getRegisterUpdateEvent(InjectionKeys.PostUpdateEvents)
+const onPreUpdate = getRegisterUpdateEvent(PrivateInjectionKeys.PreUpdateEvents)
+const onPostUpdate = getRegisterUpdateEvent(PrivateInjectionKeys.PostUpdateEvents)
 
 export type { TimelineConfig, TweenConfig } from './types'
 export * as Phavuer from './types'
