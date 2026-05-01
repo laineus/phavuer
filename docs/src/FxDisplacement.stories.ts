@@ -35,17 +35,16 @@ const meta: Meta<typeof FxDisplacement> = {
   component: FxDisplacement,
   tags: ['autodocs'],
   args: {
-    texture: 'logo',
-    x: 0.005,
-    y: 0.005,
+    x: 0.05,
+    y: 0.05,
   },
   argTypes: {
-    post: {
-      description: 'Use postFX (true) or preFX (false).',
+    external: {
+      description: 'Use external filter list (true) or internal filter list (false).',
       table: {
         category: 'Props',
         type: { summary: 'boolean' },
-        defaultValue: { summary: 'true' },
+        defaultValue: { summary: 'false' },
       },
     },
     texture: {
@@ -101,8 +100,9 @@ export const Default: Story = {
         type: 2,
         backgroundColor: 0x2c3e50
       }">
-        <Scene name="Scene" @preload="preload">
+        <Scene name="Scene" @preload="preload" v-slot="{ created }">
           <Image
+            v-if="created"
             :x="200"
             :y="112"
             :texture="'logo'"
@@ -111,8 +111,7 @@ export const Default: Story = {
             :scale="0.6"
           >
             <FxDisplacement
-              :post="true"
-              :texture="args.texture"
+              :texture="'logo'"
               :x="args.x"
               :y="args.y"
             />

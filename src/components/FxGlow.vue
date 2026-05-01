@@ -5,32 +5,36 @@ import { mapProps } from '../props.js'
 
 export default defineComponent({
   props: {
-    post: {
+    external: {
       type: Boolean,
-      default: true,
+      default: false,
     },
     color: {
+      type: Number,
+    },
+    distance: {
       type: Number,
     },
     ...mapProps(
       'outerStrength',
       'innerStrength',
+      'scale',
       'knockout',
       'quality',
-      'distance',
     ),
   },
   emits: ['create'],
   setup(props, context) {
     const gameObject = inject(InjectionKeys.GameObject)
-    const fxController = props.post ? gameObject.postFX : gameObject.preFX
+    gameObject.enableFilters()
+    const fxController = props.external ? gameObject.filters?.external : gameObject.filters?.internal
     if (!fxController) {
-      throw new Error(`${props.post ? 'post' : 'pre'}FX is not available. Make sure the game object supports FX and WebGL renderer is enabled.`)
+      throw new Error(`filters.${props.external ? 'external' : 'internal'} is not available. Make sure the game object supports filters and WebGL renderer is enabled.`)
     }
-    const glow = fxController.addGlow(props.color, props.outerStrength, props.innerStrength, props.knockout, props.quality, props.distance)
+    const glow = fxController.addGlow(props.color, props.outerStrength, props.innerStrength, props.scale, props.knockout, props.quality, props.distance)
     initGameObject(glow, props, context, { isFx: true })
     onUnmounted(() => {
-      if (fxController.gameObject)
+      if (gameObject.filters)
         fxController.remove(glow)
     })
   },

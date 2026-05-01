@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
+import * as Phaser from 'phaser'
 import { ref } from 'vue'
 import { Game, Scene, TilemapLayer } from '../../'
 import roomJson from './assets/room.json'
 import roomImage from './assets/room.png'
 import { referPhaserVersion, take } from './utils'
-import 'phaser'
 
 type Story = StoryObj<typeof TilemapLayer>
 
@@ -194,27 +194,29 @@ export const Default: Story = {
     },
     template: `
       <Game :config="{ width: 32 * 13, height: 32 * 8 }">
-        <Scene name="Scene" @preload="preload" @create="create">
-          <TilemapLayer
-            v-for="layer, i in tilemap.layers"
-            :key="i"
-            :tilemap="tilemap"
-            :layerIndex="i"
-            :tileset="tilesets"
-            :cullPaddingX="args.cullPaddingX"
-            :cullPaddingY="args.cullPaddingY"
-            :visible="args.visible"
-            :x="args.x"
-            :y="args.y"
-            :width="args.width"
-            :height="args.height"
-            :scaleX="args.scaleX"
-            :scaleY="args.scaleY"
-            :originX="args.originX"
-            :originY="args.originY"
-            :alpha="args.alpha"
-            :rotation="args.rotation"
-            />
+        <Scene name="Scene" @preload="preload" @create="create" v-slot="{ created }">
+          <template v-if="created">
+            <TilemapLayer
+              v-for="(layer, i) in tilemap.layers"
+              :key="i"
+              :tilemap="tilemap"
+              :layerIndex="i"
+              :tileset="tilesets"
+              :cullPaddingX="args.cullPaddingX"
+              :cullPaddingY="args.cullPaddingY"
+              :visible="args.visible"
+              :x="args.x"
+              :y="args.y"
+              :width="args.width"
+              :height="args.height"
+              :scaleX="args.scaleX"
+              :scaleY="args.scaleY"
+              :originX="args.originX"
+              :originY="args.originY"
+              :alpha="args.alpha"
+              :rotation="args.rotation"
+              />
+          </template>
         </Scene>
       </Game>`,
   }),

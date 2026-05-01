@@ -38,12 +38,12 @@ const meta: Meta<typeof FxPixelate> = {
     amount: 4,
   },
   argTypes: {
-    post: {
-      description: 'Use postFX (true) or preFX (false).',
+    external: {
+      description: 'Use external filter list (true) or internal filter list (false).',
       table: {
         category: 'Props',
         type: { summary: 'boolean' },
-        defaultValue: { summary: 'true' },
+        defaultValue: { summary: 'false' },
       },
     },
     amount: {
@@ -83,8 +83,9 @@ export const Default: Story = {
         type: 2,
         backgroundColor: 0x2c3e50
       }">
-        <Scene name="Scene" @preload="preload">
+        <Scene name="Scene" @preload="preload" v-slot="{ created }">
           <Image
+            v-if="created"
             :x="200"
             :y="112"
             :texture="'logo'"
@@ -93,7 +94,6 @@ export const Default: Story = {
             :scale="0.6"
           >
             <FxPixelate
-              :post="true"
               :amount="args.amount"
             />
           </Image>

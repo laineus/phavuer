@@ -91,30 +91,15 @@ const props = {
   outerStrength: { type: Number },
   innerStrength: { type: Number },
   knockout: { type: Boolean },
-  blurStrength: { type: Number },
   decay: { type: Number },
   power: { type: Number },
   samples: { type: Number },
   amount: { type: Number },
   // Bokeh
   contrast: { type: Number },
-  // Circle
-  thickness: { type: Number },
-  backgroundColor: { type: Number },
-  feather: { type: Number },
-  // Gradient
-  color1: { type: Number },
-  color2: { type: Number },
-  fromX: { type: Number },
-  fromY: { type: Number },
-  toX: { type: Number },
-  toY: { type: Number },
-  size: { type: Number },
-  // Shine
-  speed: { type: Number },
-  gradient: { type: Number },
-  reveal: { type: Boolean },
   // Wipe
+  reveal: { type: Number },
+  progress: { type: Number },
   wipeWidth: { type: Number },
   direction: { type: Number },
   axis: { type: Number },

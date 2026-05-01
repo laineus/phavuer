@@ -38,17 +38,18 @@ const meta: Meta<typeof FxGlow> = {
     color: 0x00FFFF,
     outerStrength: 4,
     innerStrength: 0,
+    scale: 1,
     knockout: false,
-    quality: 0.1,
+    quality: 10,
     distance: 10,
   },
   argTypes: {
-    post: {
-      description: 'Use postFX (true) or preFX (false).',
+    external: {
+      description: 'Use external filter list (true) or internal filter list (false).',
       table: {
         category: 'Props',
         type: { summary: 'boolean' },
-        defaultValue: { summary: 'true' },
+        defaultValue: { summary: 'false' },
       },
     },
     color: {
@@ -75,6 +76,14 @@ const meta: Meta<typeof FxGlow> = {
         defaultValue: { summary: '0' },
       },
     },
+    scale: {
+      description: 'Scale of the glow effect. Multiplies the fixed distance.',
+      table: {
+        category: 'Props',
+        type: { summary: 'number' },
+        defaultValue: { summary: '1' },
+      },
+    },
     knockout: {
       description: 'If true, only glow is drawn, not texture.',
       table: {
@@ -84,15 +93,15 @@ const meta: Meta<typeof FxGlow> = {
       },
     },
     quality: {
-      description: 'Quality of glow effect (PostFX only).',
+      description: 'Quality of glow effect. **Read-only after creation** — only takes effect at mount time.',
       table: {
         category: 'Props',
         type: { summary: 'number' },
-        defaultValue: { summary: '0.1' },
+        defaultValue: { summary: '10' },
       },
     },
     distance: {
-      description: 'Distance of glow effect (PostFX only).',
+      description: 'Distance of glow effect. **Read-only after creation** — only takes effect at mount time.',
       table: {
         category: 'Props',
         type: { summary: 'number' },
@@ -128,8 +137,9 @@ export const Default: Story = {
         type: 2,
         backgroundColor: 0x1a1a1a
       }">
-        <Scene name="Scene" @preload="preload">
+        <Scene name="Scene" @preload="preload" v-slot="{ created }">
           <Image
+            v-if="created"
             :x="200"
             :y="112"
             :texture="'logo'"
@@ -138,10 +148,11 @@ export const Default: Story = {
             :scale="0.6"
           >
             <FxGlow
-              :post="true"
+              :key="args.quality + '-' + args.distance"
               :color="args.color"
               :outerStrength="args.outerStrength"
               :innerStrength="args.innerStrength"
+              :scale="args.scale"
               :knockout="args.knockout"
               :quality="args.quality"
               :distance="args.distance"

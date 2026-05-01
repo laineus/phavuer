@@ -5,9 +5,9 @@ import { mapProps } from '../props.js'
 
 export default defineComponent({
   props: {
-    post: {
+    external: {
       type: Boolean,
-      default: true,
+      default: false,
     },
     texture: {
       type: String,
@@ -20,14 +20,15 @@ export default defineComponent({
   emits: ['create'],
   setup(props, context) {
     const gameObject = inject(InjectionKeys.GameObject)
-    const fxController = props.post ? gameObject.postFX : gameObject.preFX
+    gameObject.enableFilters()
+    const fxController = props.external ? gameObject.filters?.external : gameObject.filters?.internal
     if (!fxController) {
-      throw new Error(`${props.post ? 'post' : 'pre'}FX is not available. Make sure the game object supports FX and WebGL renderer is enabled.`)
+      throw new Error(`filters.${props.external ? 'external' : 'internal'} is not available. Make sure the game object supports filters and WebGL renderer is enabled.`)
     }
     const displacement = fxController.addDisplacement(props.texture, props.x, props.y)
     initGameObject(displacement, props, context, { isFx: true })
     onUnmounted(() => {
-      if (fxController.gameObject)
+      if (gameObject.filters)
         fxController.remove(displacement)
     })
   },

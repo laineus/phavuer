@@ -40,12 +40,12 @@ const meta: Meta<typeof FxBokeh> = {
     contrast: 0.2,
   },
   argTypes: {
-    post: {
-      description: 'Use postFX (true) or preFX (false).',
+    external: {
+      description: 'Use external filter list (true) or internal filter list (false).',
       table: {
         category: 'Props',
         type: { summary: 'boolean' },
-        defaultValue: { summary: 'true' },
+        defaultValue: { summary: 'false' },
       },
     },
     radius: {
@@ -101,8 +101,9 @@ export const Default: Story = {
         type: 2,
         backgroundColor: 0x34495e
       }">
-        <Scene name="Scene" @preload="preload">
+        <Scene name="Scene" @preload="preload" v-slot="{ created }">
           <Image
+            v-if="created"
             :x="200"
             :y="112"
             :texture="'logo'"
@@ -111,7 +112,6 @@ export const Default: Story = {
             :scale="0.6"
           >
             <FxBokeh
-              :post="true"
               :radius="args.radius"
               :amount="args.amount"
               :contrast="args.contrast"

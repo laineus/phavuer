@@ -13,6 +13,13 @@ export const GAME_OBJECT_EVENTS = [
   { attr: 'onDragleave', emit: 'dragleave', drag: true },
   { attr: 'onDrop', emit: 'drop', drag: true },
 ]
+function isWritable(obj, key) {
+  const proto = Object.getPrototypeOf(obj)
+  if (!proto)
+    return true
+  const desc = Object.getOwnPropertyDescriptor(proto, key)
+  return desc ? !!desc.set : isWritable(proto, key)
+}
 function fixSize(object) {
   if (object.updateDisplayOrigin) {
     object.updateDisplayOrigin()
@@ -125,7 +132,7 @@ export default {
       return v => object.setAlpha(v)
     return v => object.alpha = v
   },
-  blendMode: object => v => object.setBlendMode(v),
+  blendMode: object => v => object.setBlendMode ? object.setBlendMode(v) : (object.blendMode = v),
   pipeline: object => (v) => {
     // Fallback for Phaser3
     if (v === 'Light2D' && object.setLighting) {
@@ -264,53 +271,40 @@ export default {
     })
   },
   // FX setters
-  quality: object => v => object.quality = v,
+  quality: object => v => isWritable(object, 'quality') && (object.quality = v),
   steps: object => v => object.steps = v,
   strength: object => v => object.strength = v,
-  distance: object => v => object.distance = v,
   outerStrength: object => v => object.outerStrength = v,
   innerStrength: object => v => object.innerStrength = v,
   knockout: object => v => object.knockout = v,
-  blurStrength: object => v => object.blurStrength = v,
   decay: object => v => object.decay = v,
   power: object => v => object.power = v,
   samples: object => v => object.samples = v,
   amount: object => v => object.amount = v,
   contrast: object => v => object.contrast = v,
-  thickness: object => v => object.thickness = v,
-  backgroundColor: object => v => object.backgroundColor = v,
-  feather: object => v => object.feather = v,
-  color1: object => v => object.color1 = v,
-  color2: object => v => object.color2 = v,
-  fromX: object => v => object.fromX = v,
-  fromY: object => v => object.fromY = v,
-  toX: object => v => object.toX = v,
-  toY: object => v => object.toY = v,
-  size: object => v => object.size = v,
-  speed: object => v => object.speed = v,
-  gradient: object => v => object.gradient = v,
+  progress: object => v => object.progress = v,
   reveal: object => v => object.reveal = v,
   wipeWidth: object => v => object.wipeWidth = v,
   direction: object => v => object.direction = v,
   axis: object => v => object.axis = v,
   // ColorMatrix methods
-  brightness: object => v => v !== undefined && object.brightness(v, false),
-  saturate: object => v => v !== undefined && object.saturate(v, false),
-  desaturate: object => v => v !== undefined && object.desaturate(v, false),
-  hue: object => v => v !== undefined && object.hue(v, false),
-  grayscale: object => v => v !== undefined && object.grayscale(v, false),
-  blackWhite: object => v => v && object.blackWhite(false),
-  negative: object => v => v && object.negative(false),
-  desaturateLuminance: object => v => v && object.desaturateLuminance(false),
-  sepia: object => v => v && object.sepia(false),
-  night: object => v => v !== undefined && object.night(v, false),
-  lsd: object => v => v && object.lsd(false),
-  brown: object => v => v && object.brown(false),
-  vintagePinhole: object => v => v && object.vintagePinhole(false),
-  kodachrome: object => v => v && object.kodachrome(false),
-  technicolor: object => v => v && object.technicolor(false),
-  polaroid: object => v => v && object.polaroid(false),
-  shiftToBGR: object => v => v && object.shiftToBGR(false),
+  brightness: object => v => v !== undefined && object.colorMatrix.brightness(v, false),
+  saturate: object => v => v !== undefined && object.colorMatrix.saturate(v, false),
+  desaturate: object => v => v !== undefined && object.colorMatrix.desaturate(v, false),
+  hue: object => v => v !== undefined && object.colorMatrix.hue(v, false),
+  grayscale: object => v => v !== undefined && object.colorMatrix.grayscale(v, false),
+  blackWhite: object => v => v && object.colorMatrix.blackWhite(false),
+  negative: object => v => v && object.colorMatrix.negative(false),
+  desaturateLuminance: object => v => v && object.colorMatrix.desaturateLuminance(false),
+  sepia: object => v => v && object.colorMatrix.sepia(false),
+  night: object => v => v !== undefined && object.colorMatrix.night(v, false),
+  lsd: object => v => v && object.colorMatrix.lsd(false),
+  brown: object => v => v && object.colorMatrix.brown(false),
+  vintagePinhole: object => v => v && object.colorMatrix.vintagePinhole(false),
+  kodachrome: object => v => v && object.colorMatrix.kodachrome(false),
+  technicolor: object => v => v && object.colorMatrix.technicolor(false),
+  polaroid: object => v => v && object.colorMatrix.polaroid(false),
+  shiftToBGR: object => v => v && object.colorMatrix.shiftToBGR(false),
 }
 function makeTweenRepository(callback) {
   let prevTween

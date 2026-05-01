@@ -5,9 +5,9 @@ import { mapProps } from '../props.js'
 
 export default defineComponent({
   props: {
-    post: {
+    external: {
       type: Boolean,
-      default: true,
+      default: false,
     },
     color: {
       type: Number,
@@ -23,14 +23,15 @@ export default defineComponent({
   emits: ['create'],
   setup(props, context) {
     const gameObject = inject(InjectionKeys.GameObject)
-    const fxController = props.post ? gameObject.postFX : gameObject.preFX
+    gameObject.enableFilters()
+    const fxController = props.external ? gameObject.filters?.external : gameObject.filters?.internal
     if (!fxController) {
-      throw new Error(`${props.post ? 'post' : 'pre'}FX is not available. Make sure the game object supports FX and WebGL renderer is enabled.`)
+      throw new Error(`filters.${props.external ? 'external' : 'internal'} is not available. Make sure the game object supports filters and WebGL renderer is enabled.`)
     }
     const blur = fxController.addBlur(props.quality, props.x, props.y, props.strength, props.color, props.steps)
     initGameObject(blur, props, context, { isFx: true })
     onUnmounted(() => {
-      if (fxController.gameObject)
+      if (gameObject.filters)
         fxController.remove(blur)
     })
   },

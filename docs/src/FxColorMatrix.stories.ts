@@ -58,12 +58,12 @@ const meta: Meta<typeof FxColorMatrix> = {
     shiftToBGR: false,
   },
   argTypes: {
-    post: {
-      description: 'Use postFX (true) or preFX (false).',
+    external: {
+      description: 'Use external filter list (true) or internal filter list (false).',
       table: {
         category: 'Props',
         type: { summary: 'boolean' },
-        defaultValue: { summary: 'true' },
+        defaultValue: { summary: 'false' },
       },
     },
     brightness: {
@@ -217,8 +217,9 @@ export const Default: Story = {
         type: 2,
         backgroundColor: 0x2c3e50
       }">
-        <Scene name="Scene" @preload="preload">
+        <Scene name="Scene" @preload="preload" v-slot="{ created }">
           <Image
+            v-if="created"
             :x="200"
             :y="112"
             :texture="'logo'"
@@ -229,92 +230,74 @@ export const Default: Story = {
             <!-- Multiple FxColorMatrix components for layered effects -->
             <FxColorMatrix
               v-if="args.brightness"
-              :post="true"
               :brightness="args.brightness"
             />
             <FxColorMatrix
               v-if="args.saturate"
-              :post="true"
               :saturate="args.saturate"
             />
             <FxColorMatrix
               v-if="args.desaturate"
-              :post="true"
               :desaturate="args.desaturate"
             />
             <FxColorMatrix
               v-if="args.hue"
-              :post="true"
               :hue="args.hue"
             />
             <FxColorMatrix
               v-if="args.grayscale"
-              :post="true"
               :grayscale="args.grayscale"
             />
             <FxColorMatrix
               v-if="args.blackWhite"
-              :post="true"
               :blackWhite="true"
             />
             <FxColorMatrix
               v-if="args.contrast"
-              :post="true"
               :contrast="args.contrast"
             />
             <FxColorMatrix
               v-if="args.negative"
-              :post="true"
               :negative="true"
             />
             <FxColorMatrix
               v-if="args.desaturateLuminance"
-              :post="true"
               :desaturateLuminance="true"
             />
             <FxColorMatrix
               v-if="args.sepia"
-              :post="true"
               :sepia="true"
             />
             <FxColorMatrix
               v-if="args.night"
-              :post="true"
               :night="args.night"
             />
             <FxColorMatrix
               v-if="args.lsd"
-              :post="true"
               :lsd="true"
             />
             <FxColorMatrix
               v-if="args.brown"
-              :post="true"
               :brown="true"
             />
             <FxColorMatrix
               v-if="args.vintagePinhole"
-              :post="true"
               :vintagePinhole="true"
             />
             <FxColorMatrix
               v-if="args.kodachrome"
-              :post="true"
               :kodachrome="true"
             />
             <FxColorMatrix
               v-if="args.technicolor"
-              :post="true"
               :technicolor="true"
             />
             <FxColorMatrix
               v-if="args.polaroid"
-              :post="true"
               :polaroid="true"
             />
             <FxColorMatrix
               v-if="args.shiftToBGR"
-              :post="true"
               :shiftToBGR="true"
             />
           </Image>
