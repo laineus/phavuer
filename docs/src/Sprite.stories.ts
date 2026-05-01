@@ -101,7 +101,6 @@ const meta: Meta<typeof Sprite> = {
       'displayOriginX',
       'displayOriginY',
       'dropZone',
-      'pipeline',
       'tween',
       'tweens',
       'timeline',

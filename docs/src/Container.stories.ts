@@ -81,7 +81,6 @@ const meta: Meta<typeof Container> = {
       'displayOriginX',
       'displayOriginY',
       'dropZone',
-      'pipeline',
       'tween',
       'tweens',
       'timeline',

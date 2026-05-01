@@ -145,7 +145,6 @@ const meta: Meta<typeof Triangle> = {
       'displayOriginX',
       'displayOriginY',
       'dropZone',
-      'pipeline',
       'tween',
       'tweens',
       'timeline',

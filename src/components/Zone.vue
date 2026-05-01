@@ -8,7 +8,7 @@ import { gameObjectProps, mapProps } from '../props.js'
 export default defineComponent({
   props: {
     ...Object.fromEntries(
-      Object.entries(gameObjectProps).filter(([k]) => !['alpha', 'blendMode', 'pipeline'].includes(k)),
+      Object.entries(gameObjectProps).filter(([k]) => !['alpha', 'blendMode'].includes(k)),
     ),
     ...mapProps('width', 'height'),
   },

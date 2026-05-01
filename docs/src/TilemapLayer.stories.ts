@@ -152,7 +152,6 @@ const meta: Meta<typeof TilemapLayer> = {
       'displayOriginX',
       'displayOriginY',
       'dropZone',
-      'pipeline',
       'tween',
       'tweens',
       'timeline',

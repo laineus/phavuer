@@ -137,7 +137,6 @@ const meta: Meta<typeof NineSlice> = {
       'displayOriginX',
       'displayOriginY',
       'dropZone',
-      'pipeline',
       'tween',
       'tweens',
       'timeline',

@@ -84,7 +84,6 @@ const meta: Meta<typeof Image> = {
       'displayOriginX',
       'displayOriginY',
       'dropZone',
-      'pipeline',
       'tween',
       'tweens',
       'timeline',

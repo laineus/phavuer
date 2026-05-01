@@ -310,14 +310,6 @@ export const argTypes = {
       defaultValue: { summary: false },
     },
   },
-  pipeline: {
-    control: 'none',
-    description: 'The main WebGL Pipeline of this Game Object.',
-    table: {
-      category: 'Props',
-      type: { summary: 'string | Phaser.Renderer.WebGL.WebGLPipeline' },
-    },
-  },
   tween: {
     control: 'none',
     description: 'The tween to be applied on this Game Object.<br>`v-model:tween` unset the value after the tween is complete.',

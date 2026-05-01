@@ -10,14 +10,14 @@ A 2D point light.
 
 These are typically created by a Phaser.GameObjects.LightsManager, available from within a scene via this.lights.
 
-Any Game Objects using the Light2D pipeline will then be affected by these Lights as long as they have a normal map.
+Any Game Objects using the lighting property will then be affected by these Lights as long as they have a normal map.
 
 They can also simply be used to represent a point light for your own purposes.
 
 \`\`\`html
 <Game>
   <Scene name="SceneName">
-    <GameObject :pipeline="'Light2D'" />
+    <GameObject :lighting="true" />
     <Light :radius="200" :color="0xFFFF00" :intensity="10" />
   </Scene>
 </Game>

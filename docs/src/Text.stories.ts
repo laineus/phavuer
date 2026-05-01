@@ -145,7 +145,6 @@ const meta: Meta<typeof Text> = {
       'displayOriginX',
       'displayOriginY',
       'dropZone',
-      'pipeline',
       'tween',
       'tweens',
       'timeline',

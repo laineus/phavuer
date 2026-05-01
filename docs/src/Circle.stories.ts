@@ -86,7 +86,6 @@ const meta: Meta<typeof Circle> = {
       'displayOriginX',
       'displayOriginY',
       'dropZone',
-      'pipeline',
       'tween',
       'tweens',
       'timeline',

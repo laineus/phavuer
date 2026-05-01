@@ -51,7 +51,6 @@ declare namespace Phavuer {
     depth?: number
     alpha?: number
     blendMode?: Phaser.BlendModes | string | number
-    pipeline?: Phaser.Renderer.WebGL.WebGLPipeline
     lighting?: boolean
     scrollFactor?: number
     scrollFactorX?: number
@@ -207,7 +206,7 @@ export const TilemapLayer: DefineComponent<Phavuer.GameObjectProps & {
 }, {}, {}, {}, {}, {}, {}, {
   create: (game: Phaser.Tilemaps.TilemapLayer) => void
 }>
-type ZoneProps = Omit<Phavuer.GameObjectProps, 'alpha' | 'blendMode' | 'pipeline'> & {
+type ZoneProps = Omit<Phavuer.GameObjectProps, 'alpha' | 'blendMode'> & {
   width?: number
   height?: number
 }

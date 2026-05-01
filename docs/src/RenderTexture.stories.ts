@@ -87,7 +87,6 @@ const meta: Meta<typeof RenderTexture> = {
       'displayOriginX',
       'displayOriginY',
       'dropZone',
-      'pipeline',
       'tween',
       'tweens',
       'timeline',

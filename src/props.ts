@@ -34,7 +34,6 @@ const props = {
   depth: { type: Number },
   alpha: { type: Number },
   blendMode: { type: [Number, String] },
-  pipeline: { type: [String, Object] },
   lighting: { type: Boolean },
   intensity: { type: Number },
   tint: { type: Number },
@@ -123,7 +122,7 @@ const props = {
   shiftToBGR: { type: Boolean },
 }
 const propsEntries = Object.entries(props)
-export function mapProps(...names) {
+export function mapProps(...names: string[]) {
   const nameSet = new Set(names)
   return Object.fromEntries(
     propsEntries.filter(([name]) => nameSet.has(name)),
@@ -155,6 +154,5 @@ export const gameObjectProps = mapProps(
   'depth',
   'alpha',
   'blendMode',
-  'pipeline',
   'lighting',
 )

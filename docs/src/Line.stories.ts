@@ -125,7 +125,6 @@ const meta: Meta<typeof Line> = {
       'displayOriginX',
       'displayOriginY',
       'dropZone',
-      'pipeline',
       'tween',
       'tweens',
       'timeline',

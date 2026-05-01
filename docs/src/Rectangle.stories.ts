@@ -92,7 +92,6 @@ const meta: Meta<typeof Rectangle> = {
       'displayOriginX',
       'displayOriginY',
       'dropZone',
-      'pipeline',
       'tween',
       'tweens',
       'timeline',

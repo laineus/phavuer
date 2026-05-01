@@ -94,7 +94,6 @@ const meta: Meta<typeof Polygon> = {
       'displayOriginX',
       'displayOriginY',
       'dropZone',
-      'pipeline',
       'tween',
       'tweens',
       'timeline',
