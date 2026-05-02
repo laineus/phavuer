@@ -3,7 +3,7 @@
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Overview
-Phavuer is a wrapper library that integrates Phaser 3 with Vue 3, enabling declarative game development. It allows developers to control Phaser game objects through Vue components instead of using Phaser's imperative API.
+Phavuer is a wrapper library that integrates Phaser 4 with Vue 3, enabling declarative game development. It allows developers to control Phaser game objects through Vue components instead of using Phaser's imperative API.
 
 ## Essential Commands
 
