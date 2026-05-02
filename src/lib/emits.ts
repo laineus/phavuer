@@ -1,5 +1,5 @@
 import type * as Phaser from 'phaser'
-import type { TimelineConfig, TweenConfig } from './types'
+import type { TimelineConfig, TweenConfig } from '../types'
 import { GAME_OBJECT_EVENTS, vModelPropsBody, vModelPropsGameObject } from './setters'
 
 const emits = GAME_OBJECT_EVENTS.map(v => v.emit)

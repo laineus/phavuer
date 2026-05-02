@@ -34,7 +34,7 @@ import Text from './components/Text.vue'
 import TilemapLayer from './components/TilemapLayer.vue'
 import Triangle from './components/Triangle.vue'
 import Zone from './components/Zone.vue'
-import { InjectionKeys, PrivateInjectionKeys } from './provider'
+import { InjectionKeys, PrivateInjectionKeys } from './lib/provider'
 
 function useInject<T>(key: InjectionKey<T>) {
   return () => {

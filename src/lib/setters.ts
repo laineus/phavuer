@@ -1,4 +1,4 @@
-import type { TimelineConfig, TweenConfig } from './types'
+import type { TimelineConfig, TweenConfig } from '../types'
 
 type GameObject = Phaser.GameObjects.GameObject
 export const GAME_OBJECT_EVENTS = [

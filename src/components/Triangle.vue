@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import type { GameObjectEmits } from '../emits'
+import type { GameObjectEmits } from '../lib/emits'
 import * as Phaser from 'phaser'
 import { inject, provide } from 'vue'
 import initGameObject from '../lib/initGameObject'
-import commonProps, { gameObjectProps } from '../props'
-import { InjectionKeys } from '../provider'
+import commonProps, { gameObjectProps } from '../lib/props'
+import { InjectionKeys } from '../lib/provider'
 
 const props = defineProps({
   ...gameObjectProps,

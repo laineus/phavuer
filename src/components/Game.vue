@@ -2,7 +2,7 @@
 import * as Phaser from 'phaser'
 import { onMounted, provide, ref } from 'vue'
 import packageJson from '../../package.json'
-import { InjectionKeys, PrivateInjectionKeys } from '../provider'
+import { InjectionKeys, PrivateInjectionKeys } from '../lib/provider'
 
 const props = defineProps({
   config: { type: Object },

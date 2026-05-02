@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import type * as Phaser from 'phaser'
-import type { BodyEmits } from '../emits'
+import type { BodyEmits } from '../lib/emits'
 import { inject } from 'vue'
 import initGameObject from '../lib/initGameObject'
-import commonProps from '../props'
-import { InjectionKeys } from '../provider'
+import commonProps from '../lib/props'
+import { InjectionKeys } from '../lib/provider'
 
 const props = defineProps({
   width: commonProps.width,

@@ -1,10 +1,10 @@
 <script lang="ts">
-import type { SpriteEmits } from '../emits'
+import type { SpriteEmits } from '../lib/emits'
 import * as Phaser from 'phaser'
 import { getCurrentInstance, inject, provide } from 'vue'
 import initGameObject from '../lib/initGameObject'
-import commonProps, { gameObjectProps } from '../props'
-import { InjectionKeys } from '../provider'
+import commonProps, { gameObjectProps } from '../lib/props'
+import { InjectionKeys } from '../lib/provider'
 
 const SPRITE_EMITS = [
   { attr: 'onAnimationstart', emit: 'animationstart' },

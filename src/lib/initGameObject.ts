@@ -1,7 +1,7 @@
 import * as Phaser from 'phaser'
 import { getCurrentInstance, inject, onBeforeUnmount, watch } from 'vue'
-import { InjectionKeys, PrivateInjectionKeys } from '../provider'
-import setters, { deepProps, GAME_OBJECT_EVENTS, vModelProps } from '../setters'
+import { InjectionKeys, PrivateInjectionKeys } from '../lib/provider'
+import setters, { deepProps, GAME_OBJECT_EVENTS, vModelProps } from './setters'
 
 const camelize = (s: string) => s.replace(/-./g, x => x[1].toUpperCase())
 

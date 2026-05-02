@@ -1,7 +1,7 @@
 <script lang="ts">
 import * as Phaser from 'phaser'
 import { inject, provide, ref } from 'vue'
-import { InjectionKeys, PrivateInjectionKeys } from '../provider'
+import { InjectionKeys, PrivateInjectionKeys } from '../lib/provider'
 
 export type UpdateEventHandler = (time: number, delta: number) => void
 </script>
