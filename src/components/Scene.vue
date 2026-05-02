@@ -1,7 +1,7 @@
 <script lang="ts">
 import * as Phaser from 'phaser'
 import { inject, provide, ref } from 'vue'
-import { InjectionKeys, PrivateInjectionKeys } from '../lib/provider'
+import { InjectionKeys } from '../lib/provider'
 
 export type UpdateEventHandler = (time: number, delta: number) => void
 </script>
@@ -45,8 +45,8 @@ scene.events.on('shutdown', () => {
   created.value = false
 })
 provide(InjectionKeys.Scene, scene)
-provide(PrivateInjectionKeys.PreUpdateEvents, preUpdateEvents)
-provide(PrivateInjectionKeys.PostUpdateEvents, postUpdateEvents)
+provide(InjectionKeys.PreUpdateEvents, preUpdateEvents)
+provide(InjectionKeys.PostUpdateEvents, postUpdateEvents)
 </script>
 
 <template>

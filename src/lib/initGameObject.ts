@@ -1,6 +1,6 @@
 import * as Phaser from 'phaser'
 import { getCurrentInstance, inject, onBeforeUnmount, watch } from 'vue'
-import { InjectionKeys, PrivateInjectionKeys } from '../lib/provider'
+import { InjectionKeys } from '../lib/provider'
 import setters, { deepProps, GAME_OBJECT_EVENTS, vModelProps } from './setters'
 
 const camelize = (s: string) => s.replace(/-./g, x => x[1].toUpperCase())
@@ -29,7 +29,7 @@ function initGameObject(
   const isBody = checkIsBody(object)
   const isGameObject = !isLight && !isFx && !isBody
   const scene = inject(InjectionKeys.Scene)!
-  const renderList = inject(PrivateInjectionKeys.RenderTextureRenderList)
+  const renderList = inject(InjectionKeys.RenderTextureRenderList)
   if (isLight) {
     if (!scene.lights.active)
       scene.lights.enable()

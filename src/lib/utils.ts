@@ -1,7 +1,7 @@
 import type { InjectionKey } from 'vue'
 import type { UpdateEventHandler } from '../components/Scene.vue'
 import { customRef, inject, onBeforeUnmount } from 'vue'
-import { InjectionKeys, PrivateInjectionKeys } from './provider'
+import { InjectionKeys } from './provider'
 
 function useInject<T>(key: InjectionKey<T>) {
   return () => {
@@ -44,8 +44,8 @@ function getRegisterUpdateEvent(symbol: InjectionKey<UpdateEventHandler[]>) {
     })
   }
 }
-const onPreUpdate = getRegisterUpdateEvent(PrivateInjectionKeys.PreUpdateEvents)
-const onPostUpdate = getRegisterUpdateEvent(PrivateInjectionKeys.PostUpdateEvents)
+const onPreUpdate = getRegisterUpdateEvent(InjectionKeys.PreUpdateEvents)
+const onPostUpdate = getRegisterUpdateEvent(InjectionKeys.PostUpdateEvents)
 
 export {
   onPostUpdate,

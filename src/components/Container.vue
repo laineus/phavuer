@@ -4,7 +4,7 @@ import * as Phaser from 'phaser'
 import { inject, provide } from 'vue'
 import initGameObject from '../lib/initGameObject'
 import commonProps, { gameObjectProps } from '../lib/props'
-import { InjectionKeys, PrivateInjectionKeys } from '../lib/provider'
+import { InjectionKeys } from '../lib/provider'
 
 const { origin, originX, originY, displayOriginX, displayOriginY, ...containerGameObjectProps } = gameObjectProps
 </script>
@@ -22,7 +22,7 @@ const object = new Phaser.GameObjects.Container(scene, props.x || 0, props.y || 
 initGameObject(object, props)
 provide(InjectionKeys.Container, object)
 provide(InjectionKeys.GameObject, object)
-provide(PrivateInjectionKeys.RenderTextureRenderList, undefined)
+provide(InjectionKeys.RenderTextureRenderList, undefined)
 defineExpose({ phaserInstance: object })
 </script>
 

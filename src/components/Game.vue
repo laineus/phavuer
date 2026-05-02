@@ -2,7 +2,7 @@
 import * as Phaser from 'phaser'
 import { onMounted, provide, ref } from 'vue'
 import packageJson from '../../package.json'
-import { InjectionKeys, PrivateInjectionKeys } from '../lib/provider'
+import { InjectionKeys } from '../lib/provider'
 
 const props = defineProps({
   config: { type: Object },
@@ -25,7 +25,7 @@ const game = new Phaser.Game(Object.assign({ parent: tmpParent }, props.config))
 provide(InjectionKeys.Game, game)
 provide(InjectionKeys.Scene, undefined)
 provide(InjectionKeys.Container, undefined)
-provide(PrivateInjectionKeys.RenderTextureRenderList, undefined)
+provide(InjectionKeys.RenderTextureRenderList, undefined)
 game.events.addListener('ready', () => {
   show.value = true
   emit('ready', game)
