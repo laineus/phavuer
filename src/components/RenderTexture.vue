@@ -30,6 +30,7 @@ onUpdated(() => {
   object.clear()
   render()
 })
+defineExpose({ phaserInstance: object })
 </script>
 
 <template>

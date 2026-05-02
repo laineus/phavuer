@@ -32,6 +32,7 @@ onUnmounted(() => {
   if (gameObject.filters)
     fxController.remove(glow)
 })
+defineExpose({ phaserInstance: glow })
 </script>
 
 <template>

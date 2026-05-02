@@ -21,6 +21,7 @@ if (!scene.physics)
 const gameObject = inject(InjectionKeys.GameObject)!
 const body = scene.physics.add.existing(gameObject, true).body as Phaser.Physics.Arcade.StaticBody
 initGameObject(body, props)
+defineExpose({ phaserInstance: body })
 </script>
 
 <template>

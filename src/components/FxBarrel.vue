@@ -26,6 +26,7 @@ onUnmounted(() => {
   if (gameObject.filters)
     fxController.remove(barrel)
 })
+defineExpose({ phaserInstance: barrel })
 </script>
 
 <template>

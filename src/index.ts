@@ -173,8 +173,7 @@ function refTo<T>(value: T, key: string) {
     }
   })
 }
-const refObj = <T extends Phaser.GameObjects.GameObject>(value: T) => refTo(value, 'object')
-const refScene = (value: Phaser.Scene) => refTo(value, 'scene')
+const refPhaserInstance = <T>(value: T | null) => refTo(value, 'phaserInstance')
 
 function getRegisterUpdateEvent(symbol: InjectionKey<UpdateEventHandler[]>) {
   return (e: UpdateEventHandler) => {
@@ -221,8 +220,7 @@ export {
   onPreUpdate,
   Polygon,
   Rectangle,
-  refObj,
-  refScene,
+  refPhaserInstance,
   refTo,
   RenderTexture,
   RoundRectangle,

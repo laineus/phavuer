@@ -31,6 +31,7 @@ onUnmounted(() => {
   if (gameObject.filters)
     fxController.remove(blur)
 })
+defineExpose({ phaserInstance: blur })
 </script>
 
 <template>

@@ -39,6 +39,7 @@ defineEmits<GameObjectEmits<Phaser.GameObjects.Zone>>()
 const scene = inject(InjectionKeys.Scene)!
 const object = new Phaser.GameObjects.Zone(scene, props.x || 0, props.y || 0, props.width, props.height)
 initGameObject(object, props)
+defineExpose({ phaserInstance: object })
 </script>
 
 <template>

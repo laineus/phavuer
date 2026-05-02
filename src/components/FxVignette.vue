@@ -33,6 +33,7 @@ onUnmounted(() => {
   if (gameObject.filters)
     fxController.remove(vignette)
 })
+defineExpose({ phaserInstance: vignette })
 </script>
 
 <template>

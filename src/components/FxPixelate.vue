@@ -26,6 +26,7 @@ onUnmounted(() => {
   if (gameObject.filters)
     fxController.remove(pixelate)
 })
+defineExpose({ phaserInstance: pixelate })
 </script>
 
 <template>

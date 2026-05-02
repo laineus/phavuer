@@ -24,6 +24,7 @@ const scene = inject(InjectionKeys.Scene)!
 const object = new Phaser.GameObjects.NineSlice(scene, props.x || 0, props.y || 0, props.texture!, props.frame, props.width, props.height, props.leftWidth, props.rightWidth, props.topHeight, props.bottomHeight)
 initGameObject(object, props)
 provide(InjectionKeys.GameObject, object)
+defineExpose({ phaserInstance: object })
 </script>
 
 <template>

@@ -23,6 +23,7 @@ initGameObject(object, props)
 provide(InjectionKeys.Container, object)
 provide(InjectionKeys.GameObject, object)
 provide(PrivateInjectionKeys.RenderTextureRenderList, undefined)
+defineExpose({ phaserInstance: object })
 </script>
 
 <template>

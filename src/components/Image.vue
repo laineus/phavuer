@@ -20,6 +20,7 @@ const scene = inject(InjectionKeys.Scene)!
 const object = new Phaser.GameObjects.Image(scene, props.x || 0, props.y || 0, props.texture)
 initGameObject(object, props)
 provide(InjectionKeys.GameObject, object)
+defineExpose({ phaserInstance: object })
 </script>
 
 <template>

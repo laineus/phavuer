@@ -25,6 +25,7 @@ defineEmits<CreateOnlyEmits<Phaser.Tilemaps.TilemapLayer>>()
 const scene = inject(InjectionKeys.Scene)!
 const object = new Phaser.Tilemaps.TilemapLayer(scene, props.tilemap, props.layerIndex, props.tileset, props.x || 0, props.y || 0)
 initGameObject(object, props)
+defineExpose({ phaserInstance: object })
 </script>
 
 <template>

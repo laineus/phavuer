@@ -21,6 +21,7 @@ const scene = inject(InjectionKeys.Scene)!
 const object = new Phaser.GameObjects.Arc(scene, props.x || 0, props.y || 0, props.radius)
 initGameObject(object, props)
 provide(InjectionKeys.GameObject, object)
+defineExpose({ phaserInstance: object })
 </script>
 
 <template>

@@ -21,6 +21,7 @@ const { r, g, b } = Phaser.Display.Color.IntegerToRGB(props.color ?? 0xffffff)
 
 const object = new Phaser.GameObjects.Light(props.x || 0, props.y || 0, props.radius ?? 0, r, g, b, props.intensity)
 initGameObject(object, props)
+defineExpose({ phaserInstance: object })
 </script>
 
 <template>

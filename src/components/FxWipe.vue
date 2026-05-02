@@ -30,6 +30,7 @@ onUnmounted(() => {
   if (gameObject.filters)
     fxController.remove(wipe)
 })
+defineExpose({ phaserInstance: wipe })
 </script>
 
 <template>

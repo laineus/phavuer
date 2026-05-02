@@ -28,6 +28,7 @@ onUnmounted(() => {
   if (gameObject.filters)
     fxController.remove(bokeh)
 })
+defineExpose({ phaserInstance: bokeh })
 </script>
 
 <template>

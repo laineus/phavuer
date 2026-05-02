@@ -43,6 +43,7 @@ onUnmounted(() => {
   if (gameObject.filters)
     fxController.remove(colorMatrix)
 })
+defineExpose({ phaserInstance: colorMatrix })
 </script>
 
 <template>

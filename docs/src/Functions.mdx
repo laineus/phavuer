@@ -56,36 +56,29 @@ onPostUpdate((time: number, delta: number) => {
 </script>
 ```
 
-## refTo(value, key)
+## refPhaserInstance\<T\>(value)
+
+A typed ref that holds a Phaser instance exposed from a Phavuer component via `defineExpose`.
 
 **Parameters:**
 
-`value`: Initial value  
-`key`: Key string of what property of given new value should be set
+`value`: Initial value (typically `null`)
 
 **Return value:**
 
-Instance of `CustomRefImpl`
+A Vue `Ref` whose value is set to the component's `phaserInstance` when the component is mounted.
 
 **Usage:**
 
-Can be used to get such as a GameObject easily.
-
 ```js
-const rectangle = refTo(null, 'object')
+const rectangle = refPhaserInstance<Phaser.GameObjects.Rectangle>(null)
 ```
 
 ```html
-<Rectangle ref="rectangle">
+<Rectangle ref="rectangle" />
 ```
 
-## refObj(value)
-
-A sugar function for `refTo(value, 'object')`
-
-## refScene(value)
-
-A sugar function for `refTo(value, 'scene')`
+After mount, `rectangle.value` holds the underlying `Phaser.GameObjects.Rectangle` instance.
 
 # Functions (for contributors)
 

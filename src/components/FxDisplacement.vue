@@ -30,6 +30,7 @@ onUnmounted(() => {
   if (gameObject.filters)
     fxController.remove(displacement)
 })
+defineExpose({ phaserInstance: displacement })
 </script>
 
 <template>

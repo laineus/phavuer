@@ -38,6 +38,7 @@ SPRITE_EMITS.filter(v => v.attr in definedProps).forEach((v) => {
 })
 initGameObject(object, props)
 provide(InjectionKeys.GameObject, object)
+defineExpose({ phaserInstance: object })
 </script>
 
 <template>
