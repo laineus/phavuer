@@ -1,4 +1,4 @@
-import { GAME_OBJECT_EVENTS, vModelPropsBody, vModelPropsGameObject } from './setters.js'
+import { GAME_OBJECT_EVENTS, vModelPropsBody, vModelPropsGameObject } from './setters'
 
 const emits = GAME_OBJECT_EVENTS.map(v => v.emit)
 const vModelEmits = vModelPropsGameObject.map(key => `update:${key}`)

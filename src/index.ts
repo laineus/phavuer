@@ -47,7 +47,7 @@ const camelize = (s: string) => s.replace(/-./g, x => x[1].toUpperCase())
 function checkIsBody(object: any): object is Phaser.Physics.Arcade.Body | Phaser.Physics.Arcade.StaticBody {
   return object && 'bounce' in object
 }
-function checkIsFx(object: any, isFx: boolean): object is Phaser.Filters.Controller {
+function checkIsFx(_object: any, isFx: boolean): _object is Phaser.Filters.Controller {
   return isFx
 }
 function checkIsLight(object: any): object is Phaser.GameObjects.Light {
