@@ -1,125 +1,37 @@
-import type { InjectionKey } from 'vue'
-import type { UpdateEventHandler } from './components/Scene.vue'
-import { customRef, inject, onBeforeUnmount } from 'vue'
-import Body from './components/Body.vue'
-import Circle from './components/Circle.vue'
-import Container from './components/Container.vue'
-import FxBarrel from './components/FxBarrel.vue'
-import FxBloom from './components/FxBloom.vue'
-import FxBlur from './components/FxBlur.vue'
-import FxBokeh from './components/FxBokeh.vue'
-import FxCircle from './components/FxCircle.vue'
-import FxColorMatrix from './components/FxColorMatrix.vue'
-import FxDisplacement from './components/FxDisplacement.vue'
-import FxGlow from './components/FxGlow.vue'
-import FxGradient from './components/FxGradient.vue'
-import FxPixelate from './components/FxPixelate.vue'
-import FxShadow from './components/FxShadow.vue'
-import FxShine from './components/FxShine.vue'
-import FxVignette from './components/FxVignette.vue'
-import FxWipe from './components/FxWipe.vue'
-import Game from './components/Game.vue'
-import Image from './components/Image.vue'
-import Light from './components/Light.vue'
-import Line from './components/Line.vue'
-import NineSlice from './components/NineSlice.vue'
-import Polygon from './components/Polygon.vue'
-import Rectangle from './components/Rectangle.vue'
-import RenderTexture from './components/RenderTexture.vue'
-import RoundRectangle from './components/RoundRectangle.vue'
-import Scene from './components/Scene.vue'
-import Sprite from './components/Sprite.vue'
-import StaticBody from './components/StaticBody.vue'
-import Text from './components/Text.vue'
-import TilemapLayer from './components/TilemapLayer.vue'
-import Triangle from './components/Triangle.vue'
-import Zone from './components/Zone.vue'
-import { InjectionKeys, PrivateInjectionKeys } from './lib/provider'
-
-function useInject<T>(key: InjectionKey<T>) {
-  return () => {
-    const obj = inject(key)
-    if (!obj)
-      throw new Error(`${String(key)} is not provided`)
-    return obj
-  }
-}
-
-const useGame = useInject(InjectionKeys.Game)
-const useScene = useInject(InjectionKeys.Scene)
-
-function refTo<T>(value: T, key: string) {
-  return customRef<T>((track, trigger) => {
-    return {
-      get() {
-        track()
-        return value
-      },
-      set(newValue) {
-        if (value && newValue)
-          return
-        // @ts-expect-error ts(7053)
-        value = newValue ? newValue[key] : null
-        trigger()
-      },
-    }
-  })
-}
-const refPhaserInstance = <T>(value: T | null) => refTo(value, 'phaserInstance')
-
-function getRegisterUpdateEvent(symbol: InjectionKey<UpdateEventHandler[]>) {
-  return (e: UpdateEventHandler) => {
-    const eventList = inject(symbol)!
-    eventList.push(e)
-    onBeforeUnmount(() => {
-      const i = eventList.findIndex(v => v === e)
-      eventList.splice(i, 1)
-    })
-  }
-}
-const onPreUpdate = getRegisterUpdateEvent(PrivateInjectionKeys.PreUpdateEvents)
-const onPostUpdate = getRegisterUpdateEvent(PrivateInjectionKeys.PostUpdateEvents)
-
+export { default as Body } from './components/Body.vue'
+export { default as Circle } from './components/Circle.vue'
+export { default as Container } from './components/Container.vue'
+export { default as FxBarrel } from './components/FxBarrel.vue'
+export { default as FxBloom } from './components/FxBloom.vue'
+export { default as FxBlur } from './components/FxBlur.vue'
+export { default as FxBokeh } from './components/FxBokeh.vue'
+export { default as FxCircle } from './components/FxCircle.vue'
+export { default as FxColorMatrix } from './components/FxColorMatrix.vue'
+export { default as FxDisplacement } from './components/FxDisplacement.vue'
+export { default as FxGlow } from './components/FxGlow.vue'
+export { default as FxGradient } from './components/FxGradient.vue'
+export { default as FxPixelate } from './components/FxPixelate.vue'
+export { default as FxShadow } from './components/FxShadow.vue'
+export { default as FxShine } from './components/FxShine.vue'
+export { default as FxVignette } from './components/FxVignette.vue'
+export { default as FxWipe } from './components/FxWipe.vue'
+export { default as Game } from './components/Game.vue'
+export { default as Image } from './components/Image.vue'
+export { default as Light } from './components/Light.vue'
+export { default as Line } from './components/Line.vue'
+export { default as NineSlice } from './components/NineSlice.vue'
+export { default as Polygon } from './components/Polygon.vue'
+export { default as Rectangle } from './components/Rectangle.vue'
+export { default as RenderTexture } from './components/RenderTexture.vue'
+export { default as RoundRectangle } from './components/RoundRectangle.vue'
+export { default as Scene } from './components/Scene.vue'
+export { default as Sprite } from './components/Sprite.vue'
+export { default as StaticBody } from './components/StaticBody.vue'
+export { default as Text } from './components/Text.vue'
+export { default as TilemapLayer } from './components/TilemapLayer.vue'
+export { default as Triangle } from './components/Triangle.vue'
+export { default as Zone } from './components/Zone.vue'
+export { InjectionKeys } from './lib/provider'
+export { onPostUpdate, onPreUpdate, refPhaserInstance, useGame, useScene } from './lib/utils'
 export type { TimelineConfig, TweenConfig } from './types'
 export * as Phavuer from './types'
-export {
-  Body,
-  Circle,
-  Container,
-  FxBarrel,
-  FxBloom,
-  FxBlur,
-  FxBokeh,
-  FxCircle,
-  FxColorMatrix,
-  FxDisplacement,
-  FxGlow,
-  FxGradient,
-  FxPixelate,
-  FxShadow,
-  FxShine,
-  FxVignette,
-  FxWipe,
-  Game,
-  Image,
-  InjectionKeys,
-  Light,
-  Line,
-  NineSlice,
-  onPostUpdate,
-  onPreUpdate,
-  Polygon,
-  Rectangle,
-  refPhaserInstance,
-  RenderTexture,
-  RoundRectangle,
-  Scene,
-  Sprite,
-  StaticBody,
-  Text,
-  TilemapLayer,
-  Triangle,
-  useGame,
-  useScene,
-  Zone,
-}
