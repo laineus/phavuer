@@ -1,4 +1,4 @@
-import type { InjectionKey, SetupContext } from 'vue'
+import type { InjectionKey } from 'vue'
 import type { UpdateEventHandler } from './components/Scene.vue'
 import * as Phaser from 'phaser'
 import { customRef, getCurrentInstance, inject, onBeforeUnmount, watch } from 'vue'
@@ -57,10 +57,10 @@ function checkIsLight(object: any): object is Phaser.GameObjects.Light {
 function initGameObject(
   object: Phaser.GameObjects.GameObject | Phaser.Physics.Arcade.Body | Phaser.Physics.Arcade.StaticBody | Phaser.Filters.Controller | Phaser.GameObjects.Light,
   props: Readonly<Record<string, unknown>>,
-  emit: SetupContext['emit'],
   options: { isFx?: boolean } = {},
 ) {
   const currentInstance = getCurrentInstance()!
+  const emit = currentInstance.emit.bind(currentInstance)
   const isLight = checkIsLight(object)
   const isFx = checkIsFx(object, !!options.isFx)
   const isBody = checkIsBody(object)

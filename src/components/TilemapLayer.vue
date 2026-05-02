@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import type { PropType } from 'vue'
+import type { CreateOnlyEmits } from '../emits'
 import * as Phaser from 'phaser'
 import { inject } from 'vue'
 import { initGameObject } from '../index'
@@ -19,11 +20,11 @@ const props = defineProps({
   cullPaddingX: { type: Number },
   cullPaddingY: { type: Number },
 })
-const emit = defineEmits(['create'] as string[])
+defineEmits<CreateOnlyEmits<Phaser.Tilemaps.TilemapLayer>>()
 
 const scene = inject(InjectionKeys.Scene)!
 const object = new Phaser.Tilemaps.TilemapLayer(scene, props.tilemap, props.layerIndex, props.tileset, props.x || 0, props.y || 0)
-initGameObject(object, props, emit)
+initGameObject(object, props)
 </script>
 
 <template>

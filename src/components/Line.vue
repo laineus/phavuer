@@ -1,7 +1,7 @@
 <script lang="ts" setup>
+import type { GameObjectEmits } from '../emits'
 import * as Phaser from 'phaser'
 import { inject, provide } from 'vue'
-import { gameObjectEmits } from '../emits'
 import { initGameObject } from '../index'
 import commonProps, { gameObjectProps } from '../props'
 import { InjectionKeys } from '../provider'
@@ -16,11 +16,11 @@ const props = defineProps({
   strokeColor: commonProps.strokeColor,
   strokeAlpha: commonProps.strokeAlpha,
 })
-const emit = defineEmits(gameObjectEmits)
+defineEmits<GameObjectEmits<Phaser.GameObjects.Line>>()
 
 const scene = inject(InjectionKeys.Scene)!
 const object = new Phaser.GameObjects.Line(scene, props.x || 0, props.y || 0, props.x1 ?? 0, props.y1 ?? 0, props.x2 ?? 0, props.y2 ?? 0)
-initGameObject(object, props, emit)
+initGameObject(object, props)
 provide(InjectionKeys.GameObject, object)
 </script>
 

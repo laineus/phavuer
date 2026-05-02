@@ -1,8 +1,8 @@
 import { Meta } from '@storybook/blocks'
 
-<Meta title="Methods/Methods" />
+<Meta title="Functions/Functions" />
 
-# Methods
+# Functions
 
 ## useGame()
 
@@ -87,9 +87,9 @@ A sugar function for `refTo(value, 'object')`
 
 A sugar function for `refTo(value, 'scene')`
 
-# Methods (for contributors)
+# Functions (for contributors)
 
-## initGameObject(object, props, emit, options?)
+## initGameObject(object, props, options?)
 
 This method endows the specified object with the following features:
 
@@ -106,7 +106,6 @@ Parameters:
 
 - `object`: Phaser 4 GameObject / Arcade Body / FX Controller / Light instance
 - `props`: Vue 3 props
-- `emit`: Vue 3 `emit` function
 - `options`: Optional config (`{ isFx?: boolean }`)
 
 This method is utilized to define GameObject Components. ([Example here](https://github.com/laineus/phavuer/tree/master/src/components/Sprite.vue))

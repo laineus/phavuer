@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import type * as Phaser from 'phaser'
+import type { BodyEmits } from '../emits'
 import { inject } from 'vue'
 import { initGameObject } from '../index'
 import commonProps from '../props'
@@ -12,14 +13,14 @@ const props = defineProps({
   offsetY: commonProps.offsetY,
   enable: commonProps.enable,
 })
-const emit = defineEmits(['create'] as string[])
+defineEmits<BodyEmits<Phaser.Physics.Arcade.StaticBody>>()
 
 const scene = inject(InjectionKeys.Scene)!
 if (!scene.physics)
   throw new Error('Physics is not available. Add physics setting to your game config. e.g. `physics: { default: \'arcade\' }`')
 const gameObject = inject(InjectionKeys.GameObject)!
 const body = scene.physics.add.existing(gameObject, true).body as Phaser.Physics.Arcade.StaticBody
-initGameObject(body, props, emit)
+initGameObject(body, props)
 </script>
 
 <template>

@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import type { FxEmits } from '../emits'
 import { inject, onUnmounted } from 'vue'
 import { initGameObject } from '../index'
 import commonProps from '../props'
@@ -17,7 +18,7 @@ const props = defineProps({
   knockout: commonProps.knockout,
   quality: commonProps.quality,
 })
-const emit = defineEmits(['create'] as string[])
+defineEmits<FxEmits>()
 
 const gameObject = inject(InjectionKeys.GameObject)!
 gameObject.enableFilters()
@@ -26,7 +27,7 @@ if (!fxController) {
   throw new Error(`filters.${props.external ? 'external' : 'internal'} is not available. Make sure the game object supports filters and WebGL renderer is enabled.`)
 }
 const glow = fxController.addGlow(props.color, props.outerStrength, props.innerStrength, props.scale, props.knockout, props.quality, props.distance)
-initGameObject(glow, props, emit, { isFx: true })
+initGameObject(glow, props, { isFx: true })
 onUnmounted(() => {
   if (gameObject.filters)
     fxController.remove(glow)

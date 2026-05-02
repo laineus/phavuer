@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import type { CreateOnlyEmits } from '../emits'
 import * as Phaser from 'phaser'
 import { initGameObject } from '../index'
 import commonProps from '../props'
@@ -14,12 +15,12 @@ const props = defineProps({
   color: commonProps.color,
   intensity: commonProps.intensity,
 })
-const emit = defineEmits(['create'] as string[])
+defineEmits<CreateOnlyEmits<Phaser.GameObjects.Light>>()
 
 const { r, g, b } = Phaser.Display.Color.IntegerToRGB(props.color ?? 0xffffff)
 
 const object = new Phaser.GameObjects.Light(props.x || 0, props.y || 0, props.radius ?? 0, r, g, b, props.intensity)
-initGameObject(object, props, emit)
+initGameObject(object, props)
 </script>
 
 <template>

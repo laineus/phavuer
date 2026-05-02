@@ -1,7 +1,7 @@
 <script lang="ts" setup>
+import type { GameObjectEmits } from '../emits'
 import * as Phaser from 'phaser'
 import { inject } from 'vue'
-import { gameObjectEmits } from '../emits'
 import { initGameObject } from '../index'
 import commonProps, { gameObjectProps } from '../props'
 import { InjectionKeys } from '../provider'
@@ -34,11 +34,11 @@ const props = defineProps({
   width: commonProps.width,
   height: commonProps.height,
 })
-const emit = defineEmits(gameObjectEmits)
+defineEmits<GameObjectEmits<Phaser.GameObjects.Zone>>()
 
 const scene = inject(InjectionKeys.Scene)!
 const object = new Phaser.GameObjects.Zone(scene, props.x || 0, props.y || 0, props.width, props.height)
-initGameObject(object, props, emit)
+initGameObject(object, props)
 </script>
 
 <template>

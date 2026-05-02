@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import type { FxEmits } from '../emits'
 import { inject, onUnmounted } from 'vue'
 import { initGameObject } from '../index'
 import commonProps from '../props'
@@ -17,7 +18,7 @@ const props = defineProps({
   samples: commonProps.samples,
   intensity: commonProps.intensity,
 })
-const emit = defineEmits(['create'] as string[])
+defineEmits<FxEmits>()
 
 const gameObject = inject(InjectionKeys.GameObject)!
 gameObject.enableFilters()
@@ -26,7 +27,7 @@ if (!fxController) {
   throw new Error(`filters.${props.external ? 'external' : 'internal'} is not available. Make sure the game object supports filters and WebGL renderer is enabled.`)
 }
 const shadow = fxController.addShadow(props.x, props.y, props.decay, props.power, props.color, props.samples, props.intensity)
-initGameObject(shadow, props, emit, { isFx: true })
+initGameObject(shadow, props, { isFx: true })
 onUnmounted(() => {
   if (gameObject.filters)
     fxController.remove(shadow)

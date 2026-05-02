@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import type { FxEmits } from '../emits'
 import { inject, onUnmounted } from 'vue'
 import { initGameObject } from '../index'
 import commonProps from '../props'
@@ -18,7 +19,7 @@ const props = defineProps({
     type: Number,
   },
 })
-const emit = defineEmits(['create'] as string[])
+defineEmits<FxEmits>()
 
 const gameObject = inject(InjectionKeys.GameObject)!
 gameObject.enableFilters()
@@ -27,7 +28,7 @@ if (!fxController) {
   throw new Error(`filters.${props.external ? 'external' : 'internal'} is not available. Make sure the game object supports filters and WebGL renderer is enabled.`)
 }
 const vignette = fxController.addVignette(props.x, props.y, props.radius, props.strength, props.color, props.blendMode)
-initGameObject(vignette, props, emit, { isFx: true })
+initGameObject(vignette, props, { isFx: true })
 onUnmounted(() => {
   if (gameObject.filters)
     fxController.remove(vignette)
