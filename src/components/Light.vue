@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { CreateOnlyEmits } from '../emits'
 import * as Phaser from 'phaser'
-import { initGameObject } from '../index'
+import initGameObject from '../lib/initGameObject'
 import commonProps from '../props'
 
 const props = defineProps({

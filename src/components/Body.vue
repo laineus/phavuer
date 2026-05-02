@@ -2,7 +2,7 @@
 import type * as Phaser from 'phaser'
 import type { BodyEmits } from '../emits'
 import { inject } from 'vue'
-import { initGameObject } from '../index'
+import initGameObject from '../lib/initGameObject'
 import commonProps from '../props'
 import { InjectionKeys } from '../provider'
 

@@ -3,7 +3,7 @@ import type { PropType } from 'vue'
 import type { CreateOnlyEmits } from '../emits'
 import * as Phaser from 'phaser'
 import { inject } from 'vue'
-import { initGameObject } from '../index'
+import initGameObject from '../lib/initGameObject'
 import commonProps, { gameObjectProps } from '../props'
 import { InjectionKeys } from '../provider'
 

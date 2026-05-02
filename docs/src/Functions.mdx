@@ -79,29 +79,3 @@ const rectangle = refPhaserInstance<Phaser.GameObjects.Rectangle>(null)
 ```
 
 After mount, `rectangle.value` holds the underlying `Phaser.GameObjects.Rectangle` instance.
-
-# Functions (for contributors)
-
-## initGameObject(object, props, options?)
-
-This method endows the specified object with the following features:
-
-- Reactivity to specified props, such as `x` or `y` ([full list here](https://github.com/laineus/phavuer/tree/master/src/setters.ts)).
-- Automatic appending to the parent Container, if it exists.
-- If a parent Container does not exist, it is automatically appended to the Scene (except for FX objects and physics bodies).
-- If inside a RenderTexture context, it is appended to the RenderTexture render list.
-- For Light objects, it is registered to `scene.lights` (and enables the Light system if needed).
-- Automatic destruction when the component is unmounted.
-- Ability to set interactive events like `@pointerup`.
-- Ability to set an event for object creation using `@create`.
-
-Parameters:
-
-- `object`: Phaser 4 GameObject / Arcade Body / FX Controller / Light instance
-- `props`: Vue 3 props
-- `options`: Optional config (`{ isFx?: boolean }`)
-
-This method is utilized to define GameObject Components. ([Example here](https://github.com/laineus/phavuer/tree/master/src/components/Sprite.vue))
-
-If you simply wish to use your component within another component, this method is not necessary.  
-In such cases, you only need to relay props to the default components.

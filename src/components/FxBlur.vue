@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { FxEmits } from '../emits'
 import { inject, onUnmounted } from 'vue'
-import { initGameObject } from '../index'
+import initGameObject from '../lib/initGameObject'
 import commonProps from '../props'
 import { InjectionKeys } from '../provider'
 

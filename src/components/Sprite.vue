@@ -2,7 +2,7 @@
 import type { SpriteEmits } from '../emits'
 import * as Phaser from 'phaser'
 import { getCurrentInstance, inject, provide } from 'vue'
-import { initGameObject } from '../index'
+import initGameObject from '../lib/initGameObject'
 import commonProps, { gameObjectProps } from '../props'
 import { InjectionKeys } from '../provider'
 
