@@ -2,7 +2,7 @@
 import type * as Phaser from 'phaser'
 import type { BodyEmits } from '../lib/emits'
 import { inject } from 'vue'
-import initGameObject from '../lib/initGameObject'
+import { initBody } from '../lib/initComponent'
 import commonProps from '../lib/props'
 import { InjectionKeys } from '../lib/provider'
 
@@ -20,7 +20,7 @@ if (!scene.physics)
   throw new Error('Physics is not available. Add physics setting to your game config. e.g. `physics: { default: \'arcade\' }`')
 const gameObject = inject(InjectionKeys.GameObject)!
 const body = scene.physics.add.existing(gameObject, true).body as Phaser.Physics.Arcade.StaticBody
-initGameObject(body, props)
+initBody(body, props)
 defineExpose({ phaserInstance: body })
 </script>
 
