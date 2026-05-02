@@ -41,6 +41,7 @@ onMounted(() => {
     game.scale.refresh()
   }
 })
+defineExpose({ phaserInstance: game })
 </script>
 
 <template>

@@ -47,6 +47,7 @@ scene.events.on('shutdown', () => {
 provide(InjectionKeys.Scene, scene)
 provide(InjectionKeys.PreUpdateEvents, preUpdateEvents)
 provide(InjectionKeys.PostUpdateEvents, postUpdateEvents)
+defineExpose({ phaserInstance: scene })
 </script>
 
 <template>

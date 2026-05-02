@@ -12,7 +12,9 @@ function useInject<T>(key: InjectionKey<T>) {
   }
 }
 
+/** Returns the Phaser.Game instance injected from the parent Game component. Must be called inside a component setup context under `<Game>`. */
 const useGame = useInject(InjectionKeys.Game)
+/** Returns the Phaser.Scene instance injected from the parent Scene component. Must be called inside a component setup context under `<Scene>`. */
 const useScene = useInject(InjectionKeys.Scene)
 
 function refTo<T>(value: T, key: string) {
@@ -32,6 +34,7 @@ function refTo<T>(value: T, key: string) {
     }
   })
 }
+/** Returns a typed ref for accessing the underlying Phaser instance of a Phavuer component. Assign it to a component's `ref` attribute; after mount, `.value` holds the Phaser game object. */
 const refPhaserInstance = <T>(value: T | null) => refTo(value, 'phaserInstance')
 
 function getRegisterUpdateEvent(symbol: InjectionKey<UpdateEventHandler[]>) {
@@ -44,7 +47,9 @@ function getRegisterUpdateEvent(symbol: InjectionKey<UpdateEventHandler[]>) {
     })
   }
 }
+/** Registers a handler to be called on each Scene `preupdate` event. The handler is automatically removed when the calling component is unmounted. */
 const onPreUpdate = getRegisterUpdateEvent(InjectionKeys.PreUpdateEvents)
+/** Registers a handler to be called on each Scene `postupdate` event. The handler is automatically removed when the calling component is unmounted. */
 const onPostUpdate = getRegisterUpdateEvent(InjectionKeys.PostUpdateEvents)
 
 export {
