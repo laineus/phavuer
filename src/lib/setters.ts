@@ -64,9 +64,7 @@ function defineVModelProperty<T>(target: any, key: string, property?: string) {
 }
 
 export const deepProps = ['tween', 'tweens', 'timeline', 'style']
-export const vModelPropsGameObject = ['x', 'y', 'tweens', 'tween', 'timeline']
-export const vModelPropsBody = ['velocityX', 'velocityY']
-export const vModelProps = [...vModelPropsGameObject, ...vModelPropsBody]
+export { defineVModelProperty }
 export default {
   active: (object: GameObject) => (v: boolean) => object.setActive(v),
   visible: (object: Phaser.GameObjects.Components.Visible) => (v: boolean) => object.setVisible(v),
@@ -87,11 +85,7 @@ export default {
   origin: (object: Phaser.GameObjects.Components.Origin) => (v: number) => object.setOrigin(v, v),
   originX: (object: Phaser.GameObjects.Components.Origin) => (v: number) => object.setOrigin(v, object.originY),
   originY: (object: Phaser.GameObjects.Components.Origin) => (v: number) => object.setOrigin(object.originX, v),
-  scale: (object: Phaser.GameObjects.Components.Transform) => {
-    if (object.setScale)
-      return (v: number) => object.setScale(v, v)
-    return (v: number) => object.scale = v
-  },
+  scale: (object: Phaser.GameObjects.Components.Transform) => (v: number) => object.setScale(v, v),
   scaleX: (object: Phaser.GameObjects.Components.Transform) => (v: number) => object.setScale(v, object.scaleY),
   scaleY: (object: Phaser.GameObjects.Components.Transform) => (v: number) => object.setScale(object.scaleX, v),
   width: (object: GameObject & HasSize) => (v: number) => {
@@ -116,9 +110,7 @@ export default {
   displayOriginX: (object: Phaser.GameObjects.Components.Origin) => (v: number) => object.setDisplayOrigin(v, object.displayOriginY),
   displayOriginY: (object: Phaser.GameObjects.Components.Origin) => (v: number) => object.setDisplayOrigin(object.displayOriginX, v),
   dropZone: (object: GameObject) => (v: boolean) => {
-    if (!v)
-      return
-    if (!object.input)
+    if (v && !object.input)
       object.setInteractive()
     object.input!.dropZone = v
   },
@@ -146,9 +138,7 @@ export default {
   tint: (object: Phaser.GameObjects.Components.Tint | Phaser.GameObjects.NineSlice) => (v?: number) => object.setTint(v),
   text: (object: Phaser.GameObjects.Text | Phaser.GameObjects.BitmapText) => (v: string | string[]) => object.setText(v),
   texture: (object: Phaser.GameObjects.Components.Texture) => {
-    if (object.setTexture)
-      return (v: string | Phaser.Textures.Texture) => object.setTexture(v, object.frame && (object.frame as Phaser.Textures.Frame).name)
-    return (v: string | Phaser.Textures.Texture) => (object as any).texture = v
+    return (v: string | Phaser.Textures.Texture) => object.setTexture(v, object.frame && (object.frame as Phaser.Textures.Frame).name)
   },
   frame: (object: Phaser.GameObjects.Components.Texture) => (v: string | number) => object.setFrame(v),
   color: (object: Phaser.GameObjects.Light) => (v: number) => object.setColor(v),
@@ -166,45 +156,10 @@ export default {
   style: (object: Phaser.GameObjects.Text) => (v: Phaser.Types.GameObjects.Text.TextStyle) => object.setStyle(v),
   lineSpacing: (object: Phaser.GameObjects.Text) => (v: number) => object.setLineSpacing(v),
   padding: (object: Phaser.GameObjects.Text) => (v: number | Phaser.Types.GameObjects.Text.TextPadding) => object.setPadding(v),
-  collision: (object: Phaser.Tilemaps.TilemapLayer) => (v: number | any[]) => object.setCollision(v),
-  collisionByProperty: (object: Phaser.Tilemaps.TilemapLayer) => (v: object) => object.setCollisionByProperty(v),
   play: (object: Phaser.GameObjects.Sprite) => (v: string | Phaser.Animations.Animation | Phaser.Types.Animations.PlayAnimationConfig) => v ? object.play(v) : object.stop(),
   scrollFactor: (object: Phaser.GameObjects.Components.ScrollFactor) => (v: number) => object.setScrollFactor(v),
   scrollFactorX: (object: Phaser.GameObjects.Components.ScrollFactor) => (v: number) => object.setScrollFactor(v, object.scrollFactorY),
   scrollFactorY: (object: Phaser.GameObjects.Components.ScrollFactor) => (v: number) => object.setScrollFactor(object.scrollFactorX, v),
-  cullPadding: (object: Phaser.Tilemaps.TilemapLayer) => (v: number) => object.setCullPadding(v, v),
-  cullPaddingX: (object: Phaser.Tilemaps.TilemapLayer) => (v: number) => object.setCullPadding(v, object.cullPaddingY),
-  cullPaddingY: (object: Phaser.Tilemaps.TilemapLayer) => (v: number) => object.setCullPadding(object.cullPaddingX, v),
-  // Body
-  enable: (body: Phaser.Physics.Arcade.Body | Phaser.Physics.Arcade.StaticBody) => (v: boolean) => body.enable = v,
-  immovable: (body: Phaser.Physics.Arcade.Body) => (v: boolean) => body.setImmovable(v),
-  moves: (body: Phaser.Physics.Arcade.Body) => (v: boolean) => body.moves = v,
-  bounceX: (body: Phaser.Physics.Arcade.Body) => (v: number) => body.setBounceX(v),
-  bounceY: (body: Phaser.Physics.Arcade.Body) => (v: number) => body.setBounceY(v),
-  drag: (body: Phaser.Physics.Arcade.Body) => (v: number) => body.setDrag(v),
-  dragX: (body: Phaser.Physics.Arcade.Body) => (v: number) => body.setDragX(v),
-  dragY: (body: Phaser.Physics.Arcade.Body) => (v: number) => body.setDragY(v),
-  gravityX: (body: Phaser.Physics.Arcade.Body) => (v: number) => body.setGravityX(v),
-  gravityY: (body: Phaser.Physics.Arcade.Body) => (v: number) => body.setGravityY(v),
-  frictionX: (body: Phaser.Physics.Arcade.Body) => (v: number) => body.setFrictionX(v),
-  frictionY: (body: Phaser.Physics.Arcade.Body) => (v: number) => body.setFrictionY(v),
-  velocityX: (body: Phaser.Physics.Arcade.Body) => {
-    return defineVModelProperty(body.velocity, 'velocityX', 'x') ?? ((v: number) => body.setVelocityX(v))
-  },
-  velocityY: (body: Phaser.Physics.Arcade.Body) => {
-    return defineVModelProperty(body.velocity, 'velocityY', 'y') ?? ((v: number) => body.setVelocityY(v))
-  },
-  maxVelocityX: (body: Phaser.Physics.Arcade.Body) => (v: number) => body.setMaxVelocityX(v),
-  maxVelocityY: (body: Phaser.Physics.Arcade.Body) => (v: number) => body.setMaxVelocityY(v),
-  accelerationX: (body: Phaser.Physics.Arcade.Body) => (v: number) => body.setAccelerationX(v),
-  accelerationY: (body: Phaser.Physics.Arcade.Body) => (v: number) => body.setAccelerationY(v),
-  offsetX: (object: Phaser.Physics.Arcade.Body | Phaser.Physics.Arcade.StaticBody) => {
-    return (v: number) => object.setOffset(v, object.offset.y)
-  },
-  offsetY: (object: Phaser.Physics.Arcade.Body | Phaser.Physics.Arcade.StaticBody) => {
-    return (v: number) => object.setOffset(object.offset.x, v)
-  },
-  collideWorldBounds: (body: Phaser.Physics.Arcade.Body) => (v: boolean) => body.collideWorldBounds = v,
   // Tween
   tween: (object: GameObject, emit?: (event: string, value: undefined) => void) => {
     return makeTweenRepository((tweenConfig: TweenConfig) => {

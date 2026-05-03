@@ -6,13 +6,8 @@ import commonProps from '../../lib/props'
 import { InjectionKeys } from '../../lib/provider'
 
 const props = defineProps({
-  external: {
-    type: Boolean,
-    default: false,
-  },
-  texture: {
-    type: String,
-  },
+  external: { type: Boolean, default: false },
+  texture: { type: String },
   x: commonProps.x,
   y: commonProps.y,
 })

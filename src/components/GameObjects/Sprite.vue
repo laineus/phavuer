@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { PropType } from 'vue'
-import type { SpriteEmits } from '../../lib/emits'
+import type { GameObjectEmits } from '../../lib/emits'
 import * as Phaser from 'phaser'
 import { getCurrentInstance, inject } from 'vue'
 import { defineGameObject, makeGameObjectReactive, makeReactive } from '../../lib/componentBuilder'
@@ -28,7 +28,16 @@ const props = defineProps({
   flipY: commonProps.flipY,
   play: { type: [String, Object] as PropType<string | Phaser.Animations.Animation | Phaser.Types.Animations.PlayAnimationConfig> },
 })
-const emit = defineEmits<SpriteEmits<Phaser.GameObjects.Sprite>>()
+
+const emit = defineEmits<GameObjectEmits<Phaser.GameObjects.Sprite> & {
+  animationstart: [animation: Phaser.Animations.Animation, frame: Phaser.Animations.AnimationFrame, gameObject: Phaser.GameObjects.Sprite, frameKey: string]
+  animationupdate: [animation: Phaser.Animations.Animation, frame: Phaser.Animations.AnimationFrame, gameObject: Phaser.GameObjects.Sprite, frameKey: string]
+  animationrepeat: [animation: Phaser.Animations.Animation, frame: Phaser.Animations.AnimationFrame, gameObject: Phaser.GameObjects.Sprite, frameKey: string]
+  animationcomplete: [animation: Phaser.Animations.Animation, frame: Phaser.Animations.AnimationFrame, gameObject: Phaser.GameObjects.Sprite, frameKey: string]
+  animationstop: [animation: Phaser.Animations.Animation, frame: Phaser.Animations.AnimationFrame, gameObject: Phaser.GameObjects.Sprite, frameKey: string]
+  animationrestart: [animation: Phaser.Animations.Animation, frame: Phaser.Animations.AnimationFrame, gameObject: Phaser.GameObjects.Sprite, frameKey: string]
+}>()
+
 const scene = inject(InjectionKeys.Scene)!
 const object = new Phaser.GameObjects.Sprite(scene, props.x || 0, props.y || 0, props.texture!)
 

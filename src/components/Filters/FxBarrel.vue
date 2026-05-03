@@ -2,15 +2,11 @@
 import type { FxEmits } from '../../lib/emits'
 import { inject, onBeforeUnmount, onUnmounted } from 'vue'
 import { makeReactive } from '../../lib/componentBuilder'
-import commonProps from '../../lib/props'
 import { InjectionKeys } from '../../lib/provider'
 
 const props = defineProps({
-  external: {
-    type: Boolean,
-    default: false,
-  },
-  amount: commonProps.amount,
+  external: { type: Boolean, default: false },
+  amount: { type: Number },
 })
 const emit = defineEmits<FxEmits>()
 

@@ -1,23 +1,18 @@
 <script lang="ts" setup>
+import type { PropType } from 'vue'
 import type { FxEmits } from '../../lib/emits'
 import { inject, onBeforeUnmount, onUnmounted } from 'vue'
 import { makeReactive } from '../../lib/componentBuilder'
-import commonProps from '../../lib/props'
 import { InjectionKeys } from '../../lib/provider'
 
 const props = defineProps({
-  external: {
-    type: Boolean,
-    default: false,
-  },
-  x: commonProps.x,
-  y: commonProps.y,
-  radius: commonProps.radius,
-  strength: commonProps.strength,
-  color: commonProps.color,
-  blendMode: {
-    type: Number,
-  },
+  external: { type: Boolean, default: false },
+  x: { type: Number },
+  y: { type: Number },
+  radius: { type: Number },
+  strength: { type: Number },
+  color: { type: Number },
+  blendMode: { type: Number as PropType<Phaser.BlendModes> },
 })
 const emit = defineEmits<FxEmits>()
 

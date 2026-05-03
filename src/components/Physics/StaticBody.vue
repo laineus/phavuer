@@ -1,20 +1,18 @@
 <script lang="ts" setup>
 import type * as Phaser from 'phaser'
-import type { BodyEmits } from '../../lib/emits'
+import type { CreateOnlyEmits } from '../../lib/emits'
 import { inject, onBeforeUnmount } from 'vue'
 import { makeReactive } from '../../lib/componentBuilder'
-import commonProps from '../../lib/props'
 import { InjectionKeys } from '../../lib/provider'
-import setters from '../../lib/setters'
 
 const props = defineProps({
-  width: commonProps.width,
-  height: commonProps.height,
-  offsetX: commonProps.offsetX,
-  offsetY: commonProps.offsetY,
-  enable: commonProps.enable,
+  enable: { type: Boolean },
+  width: { type: Number },
+  height: { type: Number },
+  offsetX: { type: Number },
+  offsetY: { type: Number },
 })
-const emit = defineEmits<BodyEmits<Phaser.Physics.Arcade.StaticBody>>()
+const emit = defineEmits<CreateOnlyEmits<Phaser.Physics.Arcade.StaticBody>>()
 
 const scene = inject(InjectionKeys.Scene)!
 if (!scene.physics)
@@ -25,9 +23,9 @@ const body = scene.physics.add.existing(gameObject, true).body as Phaser.Physics
 makeReactive(row => [
   row('width', () => props.width!, v => body.setSize(v, body.height)),
   row('height', () => props.height!, v => body.setSize(body.width, v)),
-  row('offsetX', () => props.offsetX!, setters.offsetX(body)),
-  row('offsetY', () => props.offsetY!, setters.offsetY(body)),
-  row('enable', () => props.enable!, setters.enable(body)),
+  row('offsetX', () => props.offsetX!, v => body.setOffset(v, body.offset.y)),
+  row('offsetY', () => props.offsetY!, v => body.setOffset(body.offset.x, v)),
+  row('enable', () => props.enable!, v => body.enable = v),
 ])
 
 emit('create', body)

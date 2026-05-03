@@ -2,19 +2,15 @@
 import type { FxEmits } from '../../lib/emits'
 import { inject, onBeforeUnmount, onUnmounted } from 'vue'
 import { makeReactive } from '../../lib/componentBuilder'
-import commonProps from '../../lib/props'
 import { InjectionKeys } from '../../lib/provider'
 
 const props = defineProps({
-  external: {
-    type: Boolean,
-    default: false,
-  },
-  progress: commonProps.progress,
-  wipeWidth: commonProps.wipeWidth,
-  direction: commonProps.direction,
-  axis: commonProps.axis,
-  reveal: commonProps.reveal,
+  external: { type: Boolean, default: false },
+  reveal: { type: Number },
+  progress: { type: Number },
+  wipeWidth: { type: Number },
+  direction: { type: Number },
+  axis: { type: Number },
 })
 const emit = defineEmits<FxEmits>()
 

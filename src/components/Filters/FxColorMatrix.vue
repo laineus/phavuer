@@ -2,32 +2,28 @@
 import type { FxEmits } from '../../lib/emits'
 import { inject, onBeforeUnmount, onUnmounted } from 'vue'
 import { makeReactive } from '../../lib/componentBuilder'
-import commonProps from '../../lib/props'
 import { InjectionKeys } from '../../lib/provider'
 
 const props = defineProps({
-  external: {
-    type: Boolean,
-    default: false,
-  },
-  brightness: commonProps.brightness,
-  saturate: commonProps.saturate,
-  desaturate: commonProps.desaturate,
-  hue: commonProps.hue,
-  grayscale: commonProps.grayscale,
-  blackWhite: commonProps.blackWhite,
-  contrast: commonProps.contrast,
-  negative: commonProps.negative,
-  desaturateLuminance: commonProps.desaturateLuminance,
-  sepia: commonProps.sepia,
-  night: commonProps.night,
-  lsd: commonProps.lsd,
-  brown: commonProps.brown,
-  vintagePinhole: commonProps.vintagePinhole,
-  kodachrome: commonProps.kodachrome,
-  technicolor: commonProps.technicolor,
-  polaroid: commonProps.polaroid,
-  shiftToBGR: commonProps.shiftToBGR,
+  external: { type: Boolean, default: false },
+  brightness: { type: Number },
+  saturate: { type: Number },
+  desaturate: { type: Boolean },
+  hue: { type: Number },
+  grayscale: { type: Number },
+  blackWhite: { type: Boolean },
+  contrast: { type: Number },
+  negative: { type: Boolean },
+  desaturateLuminance: { type: Boolean },
+  sepia: { type: Boolean },
+  night: { type: Number },
+  lsd: { type: Boolean },
+  brown: { type: Boolean },
+  vintagePinhole: { type: Boolean },
+  kodachrome: { type: Boolean },
+  technicolor: { type: Boolean },
+  polaroid: { type: Boolean },
+  shiftToBGR: { type: Boolean },
 })
 const emit = defineEmits<FxEmits>()
 

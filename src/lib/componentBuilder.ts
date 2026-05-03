@@ -4,7 +4,7 @@ import type { gameObjectProps } from './props'
 import type { HasAlpha, HasDisplaySize } from './setters'
 import { getCurrentInstance, inject, onBeforeUnmount, provide, watch } from 'vue'
 import { InjectionKeys } from './provider'
-import setters, { GAME_OBJECT_EVENTS } from './setters'
+import setters, { deepProps, GAME_OBJECT_EVENTS } from './setters'
 
 type GameObjectProps = ExtractPropTypes<typeof gameObjectProps>
 
@@ -20,8 +20,8 @@ type RowBuilder = <T>(key: string, getter: () => T, setter: (v: T) => void) => R
 function makeReactive(build: (row: RowBuilder) => ReactiveConfigRow<any>[]) {
   const list = build((key, getter, setter) => [key, getter, setter])
   const definedkeys = getDefinedPropKeys()
-  const watchStoppers = list.filter(([key]) => definedkeys.includes(key)).map(([, getter, setter]) => {
-    return watch(getter, setter, { immediate: true })
+  const watchStoppers = list.filter(([key]) => definedkeys.includes(key)).map(([key, getter, setter]) => {
+    return watch(getter, setter, { immediate: true, deep: deepProps.includes(key) })
   })
   onBeforeUnmount(() => {
     watchStoppers.forEach(stop => stop())
@@ -119,10 +119,10 @@ function makeGameObjectReactive(
     ...(checkIfOrigin(object)
       ? [
           row('origin', () => props.origin!, setters.origin(object)),
-          row('originX', () => props.originX!, setters.origin(object)),
-          row('originY', () => props.originY!, setters.origin(object)),
-          row('displayOriginX', () => props.displayOriginX!, setters.origin(object)),
-          row('displayOriginY', () => props.displayOriginY!, setters.origin(object)),
+          row('originX', () => props.originX!, setters.originX(object)),
+          row('originY', () => props.originY!, setters.originY(object)),
+          row('displayOriginX', () => props.displayOriginX!, setters.displayOriginX(object)),
+          row('displayOriginY', () => props.displayOriginY!, setters.displayOriginY(object)),
         ]
       : []),
     row('scale', () => props.scale!, setters.scale(object)),
