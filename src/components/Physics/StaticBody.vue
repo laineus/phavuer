@@ -23,8 +23,8 @@ const gameObject = inject(InjectionKeys.GameObject)!
 const body = scene.physics.add.existing(gameObject, true).body as Phaser.Physics.Arcade.StaticBody
 
 makeReactive(row => [
-  row('width', () => props.width!, v => body.setSize(v, body.y)),
-  row('height', () => props.height!, v => body.setSize(body.x, v)),
+  row('width', () => props.width!, v => body.setSize(v, body.height)),
+  row('height', () => props.height!, v => body.setSize(body.width, v)),
   row('offsetX', () => props.offsetX!, setters.offsetX(body)),
   row('offsetY', () => props.offsetY!, setters.offsetY(body)),
   row('enable', () => props.enable!, setters.enable(body)),
