@@ -1,13 +1,17 @@
 <script lang="ts" setup>
+import type { PropType } from 'vue'
 import * as Phaser from 'phaser'
 import { onMounted, provide, ref } from 'vue'
 import packageJson from '../../package.json'
 import { InjectionKeys } from '../lib/provider'
 
 const props = defineProps({
-  config: { type: Object },
+  config: { type: Object as PropType<Phaser.Types.Core.GameConfig> },
 })
-const emit = defineEmits(['create', 'ready'])
+const emit = defineEmits<{
+  create: [scene: Phaser.Game]
+  ready: [scene: Phaser.Game]
+}>()
 
 if (props.config?.banner !== false) {
   // eslint-disable-next-line no-console

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { FxEmits } from '../lib/emits'
-import { inject, onUnmounted } from 'vue'
-import { initFilter } from '../lib/initComponent'
+import { inject, onBeforeUnmount, onUnmounted } from 'vue'
+import { makeReactive } from '../lib/componentBuilder'
 import commonProps from '../lib/props'
 import { InjectionKeys } from '../lib/provider'
 
@@ -11,14 +11,15 @@ const props = defineProps({
     default: false,
   },
   color: commonProps.color,
-  distance: commonProps.distance,
   outerStrength: commonProps.outerStrength,
   innerStrength: commonProps.innerStrength,
   scale: commonProps.scale,
   knockout: commonProps.knockout,
+  // Static props
+  distance: commonProps.distance,
   quality: commonProps.quality,
 })
-defineEmits<FxEmits>()
+const emit = defineEmits<FxEmits>()
 
 const gameObject = inject(InjectionKeys.GameObject)!
 gameObject.enableFilters()
@@ -26,13 +27,24 @@ const fxController = props.external ? gameObject.filters?.external : gameObject.
 if (!fxController) {
   throw new Error(`filters.${props.external ? 'external' : 'internal'} is not available. Make sure the game object supports filters and WebGL renderer is enabled.`)
 }
-const glow = fxController.addGlow(props.color, props.outerStrength, props.innerStrength, props.scale, props.knockout, props.quality, props.distance)
-initFilter(glow, props)
+const filter = fxController.addGlow(props.color, props.outerStrength, props.innerStrength, props.scale, props.knockout, props.quality, props.distance)
+
+makeReactive(row => [
+  row('color', () => props.color!, (v: number) => filter.color = v),
+  row('outerStrength', () => props.outerStrength!, (v: number) => filter.outerStrength = v),
+  row('innerStrength', () => props.innerStrength!, (v: number) => filter.innerStrength = v),
+  row('scale', () => props.scale!, (v: number) => filter.scale = v),
+  row('knockout', () => props.knockout!, (v: boolean) => filter.knockout = v),
+])
+
+emit('create', filter)
+onBeforeUnmount(() => filter.destroy())
 onUnmounted(() => {
   if (gameObject.filters)
-    fxController.remove(glow)
+    fxController.remove(filter)
 })
-defineExpose({ phaserInstance: glow })
+
+defineExpose({ phaserInstance: filter })
 </script>
 
 <template>

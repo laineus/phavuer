@@ -1,4 +1,5 @@
 import type { PropType } from 'vue'
+import type { TimelineConfig, TweenConfig } from '../types'
 import * as Phaser from 'phaser'
 
 const props = {
@@ -12,7 +13,7 @@ const props = {
   y2: { type: Number },
   x3: { type: Number },
   y3: { type: Number },
-  points: { type: Array },
+  points: { type: Array as PropType<Phaser.Types.Math.Vector2Like[]> },
   rotation: { type: Number },
   origin: { type: Number },
   originX: { type: Number },
@@ -41,7 +42,7 @@ const props = {
   intensity: { type: Number, default: 1 },
   tint: { type: Number },
   text: { type: [String, Array, Number] as PropType<string | string[] | number>, required: true as const },
-  texture: { type: [String, Phaser.Textures.Texture], required: true as const },
+  texture: { type: [String, Phaser.Textures.Texture] },
   frame: { type: [Number, String] },
   color: { type: Number },
   fillColor: { type: Number },
@@ -81,9 +82,9 @@ const props = {
   offsetY: { type: Number },
   collideWorldBounds: { type: Boolean },
   // Tween
-  tween: { type: Object },
-  tweens: { type: Array },
-  timeline: { type: Object },
+  tween: { type: Object as PropType<TweenConfig> },
+  tweens: { type: Array as PropType<TweenConfig[]> },
+  timeline: { type: Array as PropType<TimelineConfig[]> },
   // FX
   post: { type: Boolean },
   quality: { type: Number },
@@ -108,7 +109,7 @@ const props = {
   // ColorMatrix
   brightness: { type: Number },
   saturate: { type: Number },
-  desaturate: { type: Number },
+  desaturate: { type: Boolean },
   hue: { type: Number },
   grayscale: { type: Number },
   blackWhite: { type: Boolean },

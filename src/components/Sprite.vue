@@ -1,10 +1,12 @@
 <script lang="ts">
+import type { PropType } from 'vue'
 import type { SpriteEmits } from '../lib/emits'
 import * as Phaser from 'phaser'
-import { getCurrentInstance, inject, provide } from 'vue'
-import { initGameObject } from '../lib/initComponent'
+import { getCurrentInstance, inject } from 'vue'
+import { defineGameObject, makeGameObjectReactive, makeReactive } from '../lib/componentBuilder'
 import commonProps, { gameObjectProps } from '../lib/props'
 import { InjectionKeys } from '../lib/provider'
+import setters from '../lib/setters'
 
 const SPRITE_EMITS = [
   { attr: 'onAnimationstart', emit: 'animationstart' },
@@ -24,11 +26,12 @@ const props = defineProps({
   tint: commonProps.tint,
   flipX: commonProps.flipX,
   flipY: commonProps.flipY,
-  play: { type: [String, Object] },
+  play: { type: [String, Object] as PropType<string | Phaser.Animations.Animation | Phaser.Types.Animations.PlayAnimationConfig> },
 })
 const emit = defineEmits<SpriteEmits<Phaser.GameObjects.Sprite>>()
 const scene = inject(InjectionKeys.Scene)!
-const object = new Phaser.GameObjects.Sprite(scene, props.x || 0, props.y || 0, props.texture)
+const object = new Phaser.GameObjects.Sprite(scene, props.x || 0, props.y || 0, props.texture!)
+
 const currentInstance = getCurrentInstance()
 const definedProps = currentInstance!.vnode.props || []
 SPRITE_EMITS.filter(v => v.attr in definedProps).forEach((v) => {
@@ -36,8 +39,19 @@ SPRITE_EMITS.filter(v => v.attr in definedProps).forEach((v) => {
     ;(emit as (event: string, ...args: unknown[]) => void)(v.emit, ...args)
   })
 })
-initGameObject(object, props)
-provide(InjectionKeys.GameObject, object)
+
+makeGameObjectReactive(props, object)
+makeReactive(row => [
+  row('texture', () => props.texture!, setters.texture(object)),
+  row('frame', () => props.frame!, setters.frame(object)),
+  row('tint', () => props.tint!, setters.tint(object)),
+  row('flipX', () => props.flipX!, setters.flipX(object)),
+  row('flipY', () => props.flipY!, setters.flipY(object)),
+  row('play', () => props.play!, setters.play(object)),
+])
+
+defineGameObject(object, props)
+
 defineExpose({ phaserInstance: object })
 </script>
 

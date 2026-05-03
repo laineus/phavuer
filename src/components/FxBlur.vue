@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { FxEmits } from '../lib/emits'
-import { inject, onUnmounted } from 'vue'
-import { initFilter } from '../lib/initComponent'
+import { inject, onBeforeUnmount, onUnmounted } from 'vue'
+import { makeReactive } from '../lib/componentBuilder'
 import commonProps from '../lib/props'
 import { InjectionKeys } from '../lib/provider'
 
@@ -17,7 +17,7 @@ const props = defineProps({
   steps: commonProps.steps,
   strength: commonProps.strength,
 })
-defineEmits<FxEmits>()
+const emit = defineEmits<FxEmits>()
 
 const gameObject = inject(InjectionKeys.GameObject)!
 gameObject.enableFilters()
@@ -25,13 +25,25 @@ const fxController = props.external ? gameObject.filters?.external : gameObject.
 if (!fxController) {
   throw new Error(`filters.${props.external ? 'external' : 'internal'} is not available. Make sure the game object supports filters and WebGL renderer is enabled.`)
 }
-const blur = fxController.addBlur(props.quality, props.x, props.y, props.strength, props.color, props.steps)
-initFilter(blur, props)
+const filter = fxController.addBlur(props.quality, props.x, props.y, props.strength, props.color, props.steps)
+
+makeReactive(row => [
+  row('quality', () => props.quality!, (v: number) => filter.quality = v),
+  row('x', () => props.x!, (v: number) => filter.x = v),
+  row('y', () => props.y!, (v: number) => filter.y = v),
+  row('steps', () => props.steps!, (v: number) => filter.steps = v),
+  row('strength', () => props.strength!, (v: number) => filter.strength = v),
+  row('color', () => props.color!, (v: number) => filter.color = v),
+])
+
+emit('create', filter)
+onBeforeUnmount(() => filter.destroy())
 onUnmounted(() => {
   if (gameObject.filters)
-    fxController.remove(blur)
+    fxController.remove(filter)
 })
-defineExpose({ phaserInstance: blur })
+
+defineExpose({ phaserInstance: filter })
 </script>
 
 <template>

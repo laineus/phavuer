@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 import type { GameObjectEmits } from '../lib/emits'
 import * as Phaser from 'phaser'
-import { inject, provide } from 'vue'
-import { initGameObject } from '../lib/initComponent'
+import { inject } from 'vue'
+import { defineGameObject, makeGameObjectReactive, makeReactive } from '../lib/componentBuilder'
 import commonProps, { gameObjectProps } from '../lib/props'
 import { InjectionKeys } from '../lib/provider'
+import setters from '../lib/setters'
 
 const props = defineProps({
   ...gameObjectProps,
@@ -19,8 +20,19 @@ defineEmits<GameObjectEmits<Phaser.GameObjects.Polygon>>()
 
 const scene = inject(InjectionKeys.Scene)!
 const object = new Phaser.GameObjects.Polygon(scene, props.x || 0, props.y || 0, props.points)
-initGameObject(object, props)
-provide(InjectionKeys.GameObject, object)
+
+makeGameObjectReactive(props, object)
+makeReactive(row => [
+  row('points', () => props.points!, setters.points(object)),
+  row('fillColor', () => props.fillColor!, setters.fillColor(object)),
+  row('fillAlpha', () => props.fillAlpha!, setters.fillAlpha(object)),
+  row('lineWidth', () => props.lineWidth!, setters.lineWidth(object)),
+  row('strokeColor', () => props.strokeColor!, setters.strokeColor(object)),
+  row('strokeAlpha', () => props.strokeAlpha!, setters.strokeAlpha(object)),
+])
+
+defineGameObject(object, props)
+
 defineExpose({ phaserInstance: object })
 </script>
 

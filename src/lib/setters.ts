@@ -1,6 +1,12 @@
 import type { TimelineConfig, TweenConfig } from '../types'
+import { getCurrentInstance } from 'vue'
+import { getDefinedPropKeys } from './componentBuilder'
 
 type GameObject = Phaser.GameObjects.GameObject
+export type HasSize = Phaser.GameObjects.Components.Size | Phaser.GameObjects.Components.ComputedSize | Phaser.GameObjects.Rectangle
+export type HasDisplaySize = Phaser.GameObjects.Components.Size | Phaser.GameObjects.Components.ComputedSize | Phaser.GameObjects.Line | Phaser.GameObjects.Triangle | Phaser.GameObjects.Polygon | Phaser.GameObjects.Arc
+export type HasAlpha = Phaser.GameObjects.Rectangle | Phaser.GameObjects.Components.Alpha | Phaser.GameObjects.Line | Phaser.GameObjects.Triangle | Phaser.GameObjects.Polygon | Phaser.GameObjects.NineSlice | Phaser.GameObjects.Arc | Phaser.GameObjects.Container
+
 export const GAME_OBJECT_EVENTS = [
   { attr: 'onPointerdown', emit: 'pointerdown', eventIndex: 3 },
   { attr: 'onPointermove', emit: 'pointermove', eventIndex: 3 },
@@ -16,13 +22,6 @@ export const GAME_OBJECT_EVENTS = [
   { attr: 'onDragleave', emit: 'dragleave', drag: true },
   { attr: 'onDrop', emit: 'drop', drag: true },
 ]
-function isWritable(obj: object, key: string): boolean {
-  const proto = Object.getPrototypeOf(obj)
-  if (!proto)
-    return true
-  const desc = Object.getOwnPropertyDescriptor(proto, key)
-  return desc ? !!desc.set : isWritable(proto, key)
-}
 function fixSize(object: (GameObject & Phaser.GameObjects.Components.Size) | (GameObject | Phaser.GameObjects.Components.Origin)) {
   if ('updateDisplayOrigin' in object) {
     object.updateDisplayOrigin()
@@ -36,9 +35,21 @@ function fixSize(object: (GameObject & Phaser.GameObjects.Components.Size) | (Ga
   }
 }
 
-function defineVModelProperty<T>(target: Phaser.GameObjects.GameObject | Phaser.Math.Vector2, key: string, emit: (event: string, value: T) => void, property?: string) {
+function getVmodelEmit(key: string) {
+  const definedPropKeys = getDefinedPropKeys()
+  const vModelKeys = definedPropKeys.filter(key => key.startsWith('onUpdate:')).map(key => key.split(':')[1])
+  if (!vModelKeys.includes(key))
+    return undefined
+  const currentInstance = getCurrentInstance()!
+  const emit = currentInstance.emit.bind(currentInstance)
+  return emit
+}
+
+function defineVModelProperty<T>(target: any, key: string, property?: string) {
+  const emit = getVmodelEmit(key)
+  if (!emit)
+    return undefined
   property = property ?? key
-  // @ts-expect-error Define a getter and setter to emit update event when the property is changed outside
   let rawValue = target[property]
   Object.defineProperty(target, property, {
     get() {
@@ -59,21 +70,11 @@ export const vModelProps = [...vModelPropsGameObject, ...vModelPropsBody]
 export default {
   active: (object: GameObject) => (v: boolean) => object.setActive(v),
   visible: (object: Phaser.GameObjects.Components.Visible) => (v: boolean) => object.setVisible(v),
-  x: (object: GameObject & Phaser.GameObjects.Components.Transform, emit?: (event: string, value: number) => void) => {
-    if (emit) {
-      return defineVModelProperty(object, 'x', emit)
-    }
-    else {
-      return (v: number) => object.x = v
-    }
+  x: (object: Phaser.GameObjects.Components.Transform | Phaser.GameObjects.Light) => {
+    return defineVModelProperty(object, 'x') ?? ((v: number) => object.x = v)
   },
-  y: (object: GameObject & Phaser.GameObjects.Components.Transform, emit?: (event: string, value: number) => void) => {
-    if (emit) {
-      return defineVModelProperty(object, 'y', emit)
-    }
-    else {
-      return (v: number) => object.y = v
-    }
+  y: (object: Phaser.GameObjects.Components.Transform | Phaser.GameObjects.Light) => {
+    return defineVModelProperty(object, 'y') ?? ((v: number) => object.y = v)
   },
   x1: (object: Phaser.GameObjects.Line | Phaser.GameObjects.Triangle) => (v: number) => object.geom.x1 = v,
   y1: (object: Phaser.GameObjects.Line | Phaser.GameObjects.Triangle) => (v: number) => object.geom.y1 = v,
@@ -93,11 +94,11 @@ export default {
   },
   scaleX: (object: Phaser.GameObjects.Components.Transform) => (v: number) => object.setScale(v, object.scaleY),
   scaleY: (object: Phaser.GameObjects.Components.Transform) => (v: number) => object.setScale(object.scaleX, v),
-  width: (object: GameObject & Phaser.GameObjects.Components.Size) => (v: number) => {
+  width: (object: GameObject & HasSize) => (v: number) => {
     object.setSize(v, object.height)
     fixSize(object)
   },
-  height: (object: GameObject & Phaser.GameObjects.Components.Size) => (v: number) => {
+  height: (object: GameObject & HasSize) => (v: number) => {
     object.setSize(object.width, v)
     fixSize(object)
   },
@@ -105,13 +106,13 @@ export default {
   rightWidth: (object: Phaser.GameObjects.NineSlice) => (v: number) => object.setSlices(object.width, object.height, object.leftWidth, v, object.topHeight, object.bottomHeight),
   topHeight: (object: Phaser.GameObjects.NineSlice) => (v: number) => object.setSlices(object.width, object.height, object.leftWidth, object.rightWidth, v, object.bottomHeight),
   bottomHeight: (object: Phaser.GameObjects.NineSlice) => (v: number) => object.setSlices(object.width, object.height, object.leftWidth, object.rightWidth, object.topHeight, v),
-  radius: (object: Phaser.GameObjects.Rectangle | Phaser.GameObjects.Arc) => {
+  radius: (object: Phaser.GameObjects.Rectangle | Phaser.GameObjects.Arc | Phaser.GameObjects.Light) => {
     if ('setRounded' in object)
       return (v: number) => (object as Phaser.GameObjects.Rectangle).setRounded(v)
     return (v: number) => (object as Phaser.GameObjects.Arc).radius = v
   },
-  displayWidth: (object: Phaser.GameObjects.Components.Size) => (v: number) => object.setDisplaySize(v, object.displayHeight),
-  displayHeight: (object: Phaser.GameObjects.Components.Size) => (v: number) => object.setDisplaySize(object.displayWidth, v),
+  displayWidth: (object: HasDisplaySize) => (v: number) => object.setDisplaySize(v, object.displayHeight),
+  displayHeight: (object: HasDisplaySize) => (v: number) => object.setDisplaySize(object.displayWidth, v),
   displayOriginX: (object: Phaser.GameObjects.Components.Origin) => (v: number) => object.setDisplayOrigin(v, object.displayOriginY),
   displayOriginY: (object: Phaser.GameObjects.Components.Origin) => (v: number) => object.setDisplayOrigin(object.displayOriginX, v),
   dropZone: (object: GameObject) => (v: boolean) => {
@@ -132,40 +133,30 @@ export default {
       i === -1 ? object.parentContainer.bringToTop(object) : object.parentContainer.moveTo(object, Math.max(i - 1, 0))
     }
   },
-  alpha: (object: Phaser.GameObjects.Components.Alpha) => {
+  alpha: (object: HasAlpha) => {
     if (object.setAlpha)
       return (v: number) => object.setAlpha(v)
     return (v: number) => object.alpha = v
   },
-  blendMode: (object: (Phaser.GameObjects.Components.BlendMode) | Phaser.Filters.Vignette) => {
-    if ('setBlendMode' in object)
-      return (v: number) => object.setBlendMode(v)
-    return (v: number) => object.blendMode = v
+  blendMode: (object: Phaser.GameObjects.Components.BlendMode) => {
+    return (v: number | string) => object.setBlendMode(v)
   },
   lighting: (object: Phaser.GameObjects.Components.Lighting) => (v: boolean) => object.setLighting(v),
-  intensity: (object: Phaser.GameObjects.Light | Phaser.Filters.Shadow) => {
-    if ('setIntensity' in object)
-      return (v: number) => object.setIntensity(v)
-    return (v: number) => object.intensity = v
-  },
-  tint: (object: Phaser.GameObjects.Components.Tint) => (v: number) => object.setTint(v),
+  intensity: (object: Phaser.GameObjects.Light) => (v: number) => object.setIntensity(v),
+  tint: (object: Phaser.GameObjects.Components.Tint | Phaser.GameObjects.NineSlice) => (v?: number) => object.setTint(v),
   text: (object: Phaser.GameObjects.Text | Phaser.GameObjects.BitmapText) => (v: string | string[]) => object.setText(v),
   texture: (object: Phaser.GameObjects.Components.Texture) => {
     if (object.setTexture)
-      return (v: string) => object.setTexture(v, object.frame && (object.frame as Phaser.Textures.Frame).name)
-    return (v: string) => (object as any).texture = v
+      return (v: string | Phaser.Textures.Texture) => object.setTexture(v, object.frame && (object.frame as Phaser.Textures.Frame).name)
+    return (v: string | Phaser.Textures.Texture) => (object as any).texture = v
   },
   frame: (object: Phaser.GameObjects.Components.Texture) => (v: string | number) => object.setFrame(v),
-  color: (object: Phaser.GameObjects.Light | Phaser.Filters.Vignette | Phaser.Filters.Shadow) => {
-    if ('setColor' in object)
-      return (v: number) => object.setColor(v)
-    return (v: number) => object.color = v
-  },
+  color: (object: Phaser.GameObjects.Light) => (v: number) => object.setColor(v),
   fillColor: (object: Phaser.GameObjects.Shape) => (v: number) => object.setFillStyle(v, object.fillAlpha),
   fillAlpha: (object: Phaser.GameObjects.Shape) => (v: number) => object.setFillStyle(object.fillColor, v),
   lineWidth: (object: Phaser.GameObjects.Shape | Phaser.GameObjects.Line) => {
     if ('setLineWidth' in object)
-      return (start: number, end: number) => object.setLineWidth(start, end)
+      return (v: number) => object.setLineWidth(v)
     if (object.setStrokeStyle)
       return (v: number) => object.setStrokeStyle(...(!v ? [] : [v, object.strokeColor, object.strokeAlpha]))
     return (v: number) => object.lineWidth = v
@@ -177,7 +168,7 @@ export default {
   padding: (object: Phaser.GameObjects.Text) => (v: number | Phaser.Types.GameObjects.Text.TextPadding) => object.setPadding(v),
   collision: (object: Phaser.Tilemaps.TilemapLayer) => (v: number | any[]) => object.setCollision(v),
   collisionByProperty: (object: Phaser.Tilemaps.TilemapLayer) => (v: object) => object.setCollisionByProperty(v),
-  play: (object: Phaser.GameObjects.Sprite) => (v: string) => v ? object.play(v) : object.stop(),
+  play: (object: Phaser.GameObjects.Sprite) => (v: string | Phaser.Animations.Animation | Phaser.Types.Animations.PlayAnimationConfig) => v ? object.play(v) : object.stop(),
   scrollFactor: (object: Phaser.GameObjects.Components.ScrollFactor) => (v: number) => object.setScrollFactor(v),
   scrollFactorX: (object: Phaser.GameObjects.Components.ScrollFactor) => (v: number) => object.setScrollFactor(v, object.scrollFactorY),
   scrollFactorY: (object: Phaser.GameObjects.Components.ScrollFactor) => (v: number) => object.setScrollFactor(object.scrollFactorX, v),
@@ -197,21 +188,11 @@ export default {
   gravityY: (body: Phaser.Physics.Arcade.Body) => (v: number) => body.setGravityY(v),
   frictionX: (body: Phaser.Physics.Arcade.Body) => (v: number) => body.setFrictionX(v),
   frictionY: (body: Phaser.Physics.Arcade.Body) => (v: number) => body.setFrictionY(v),
-  velocityX: (body: Phaser.Physics.Arcade.Body, emit?: (event: string, value: number) => void) => {
-    if (emit) {
-      return defineVModelProperty(body.velocity, 'velocityX', emit, 'x')
-    }
-    else {
-      return (v: number) => body.setVelocityX(v)
-    }
+  velocityX: (body: Phaser.Physics.Arcade.Body) => {
+    return defineVModelProperty(body.velocity, 'velocityX', 'x') ?? ((v: number) => body.setVelocityX(v))
   },
-  velocityY: (body: Phaser.Physics.Arcade.Body, emit?: (event: string, value: number) => void) => {
-    if (emit) {
-      return defineVModelProperty(body.velocity, 'velocityY', emit, 'y')
-    }
-    else {
-      return (v: number) => body.setVelocityY(v)
-    }
+  velocityY: (body: Phaser.Physics.Arcade.Body) => {
+    return defineVModelProperty(body.velocity, 'velocityY', 'y') ?? ((v: number) => body.setVelocityY(v))
   },
   maxVelocityX: (body: Phaser.Physics.Arcade.Body) => (v: number) => body.setMaxVelocityX(v),
   maxVelocityY: (body: Phaser.Physics.Arcade.Body) => (v: number) => body.setMaxVelocityY(v),
@@ -268,47 +249,6 @@ export default {
       return timeline
     })
   },
-  // FX setters
-  quality: (filter: Phaser.Filters.Blur | Phaser.Filters.Glow) => (v: number) => {
-    isWritable(filter, 'quality') && ((filter as Phaser.Filters.Blur).quality = v)
-  },
-  steps: (filter: Phaser.Filters.Blur) => (v: number) => filter.steps = v,
-  strength: (filter: Phaser.Filters.Blur | Phaser.Filters.Vignette) => (v: number) => filter.strength = v,
-  outerStrength: (filter: Phaser.Filters.Glow) => (v: number) => filter.outerStrength = v,
-  innerStrength: (filter: Phaser.Filters.Glow) => (v: number) => filter.innerStrength = v,
-  knockout: (filter: Phaser.Filters.Glow) => (v: boolean) => filter.knockout = v,
-  decay: (filter: Phaser.Filters.Shadow) => (v: number) => filter.decay = v,
-  power: (filter: Phaser.Filters.Shadow) => (v: number) => filter.power = v,
-  samples: (filter: Phaser.Filters.Shadow) => (v: number) => filter.samples = v,
-  amount: (filter: Phaser.Filters.Barrel | Phaser.Filters.Bokeh | Phaser.Filters.Pixelate) => (v: number) => filter.amount = v,
-  contrast: (filter: Phaser.Filters.Bokeh | Phaser.Filters.ColorMatrix) => {
-    if ('colorMatrix' in filter)
-      return (v: number) => filter.colorMatrix.contrast(v)
-    return (v: number) => filter.contrast = v
-  },
-  progress: (filter: Phaser.Filters.Wipe) => (v: number) => filter.progress = v,
-  reveal: (filter: Phaser.Filters.Wipe) => (v: number) => filter.reveal = v,
-  wipeWidth: (filter: Phaser.Filters.Wipe) => (v: number) => filter.wipeWidth = v,
-  direction: (filter: Phaser.Filters.Wipe) => (v: number) => filter.direction = v,
-  axis: (filter: Phaser.Filters.Wipe) => (v: number) => filter.axis = v,
-  // ColorMatrix methods
-  brightness: (object: Phaser.Filters.ColorMatrix) => (v: number) => v !== undefined && object.colorMatrix.brightness(v, false),
-  saturate: (object: Phaser.Filters.ColorMatrix) => (v: number) => v !== undefined && object.colorMatrix.saturate(v, false),
-  desaturate: (object: Phaser.Filters.ColorMatrix) => (v: boolean) => v && object.colorMatrix.desaturate(false),
-  hue: (object: Phaser.Filters.ColorMatrix) => (v: number) => v !== undefined && object.colorMatrix.hue(v, false),
-  grayscale: (object: Phaser.Filters.ColorMatrix) => (v: number) => v !== undefined && object.colorMatrix.grayscale(v, false),
-  blackWhite: (object: Phaser.Filters.ColorMatrix) => (v: boolean) => v && object.colorMatrix.blackWhite(false),
-  negative: (object: Phaser.Filters.ColorMatrix) => (v: boolean) => v && object.colorMatrix.negative(false),
-  desaturateLuminance: (object: Phaser.Filters.ColorMatrix) => (v: boolean) => v && object.colorMatrix.desaturateLuminance(false),
-  sepia: (object: Phaser.Filters.ColorMatrix) => (v: boolean) => v && object.colorMatrix.sepia(false),
-  night: (object: Phaser.Filters.ColorMatrix) => (v: number) => v !== undefined && object.colorMatrix.night(v, false),
-  lsd: (object: Phaser.Filters.ColorMatrix) => (v: boolean) => v && object.colorMatrix.lsd(false),
-  brown: (object: Phaser.Filters.ColorMatrix) => (v: boolean) => v && object.colorMatrix.brown(false),
-  vintagePinhole: (object: Phaser.Filters.ColorMatrix) => (v: boolean) => v && object.colorMatrix.vintagePinhole(false),
-  kodachrome: (object: Phaser.Filters.ColorMatrix) => (v: boolean) => v && object.colorMatrix.kodachrome(false),
-  technicolor: (object: Phaser.Filters.ColorMatrix) => (v: boolean) => v && object.colorMatrix.technicolor(false),
-  polaroid: (object: Phaser.Filters.ColorMatrix) => (v: boolean) => v && object.colorMatrix.polaroid(false),
-  shiftToBGR: (object: Phaser.Filters.ColorMatrix) => (v: boolean) => v && object.colorMatrix.shiftToBGR(false),
 }
 function makeTweenRepository<T>(callback: (data: T) => Phaser.Tweens.Tween | Phaser.Time.Timeline) {
   let prevTween: Phaser.Tweens.Tween | Phaser.Time.Timeline | undefined

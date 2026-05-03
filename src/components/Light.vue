@@ -1,13 +1,13 @@
 <script lang="ts" setup>
 import type { CreateOnlyEmits } from '../lib/emits'
 import * as Phaser from 'phaser'
-import { initLight } from '../lib/initComponent'
+import { inject, onBeforeUnmount } from 'vue'
+import { makeReactive } from '../lib/componentBuilder'
 import commonProps from '../lib/props'
+import { InjectionKeys } from '../lib/provider'
+import setters from '../lib/setters'
 
 const props = defineProps({
-  tween: commonProps.tween,
-  tweens: commonProps.tweens,
-  timeline: commonProps.timeline,
   visible: commonProps.visible,
   x: commonProps.x,
   y: commonProps.y,
@@ -15,13 +15,30 @@ const props = defineProps({
   color: commonProps.color,
   intensity: commonProps.intensity,
 })
-defineEmits<CreateOnlyEmits<Phaser.GameObjects.Light>>()
+const emit = defineEmits<CreateOnlyEmits<Phaser.GameObjects.Light>>()
 
 const { r, g, b } = Phaser.Display.Color.IntegerToRGB(props.color ?? 0xffffff)
 
-const object = new Phaser.GameObjects.Light(props.x || 0, props.y || 0, props.radius ?? 0, r, g, b, props.intensity)
-initLight(object, props)
-defineExpose({ phaserInstance: object })
+const light = new Phaser.GameObjects.Light(props.x || 0, props.y || 0, props.radius ?? 0, r, g, b, props.intensity)
+
+const scene = inject(InjectionKeys.Scene)!
+if (!scene.lights.active)
+  scene.lights.enable()
+scene.lights.lights.push(light)
+
+makeReactive(row => [
+  row('visible', () => props.visible!, setters.visible(light)),
+  row('x', () => props.x!, setters.x(light)),
+  row('y', () => props.y!, setters.y(light)),
+  row('radius', () => props.radius!, setters.radius(light)),
+  row('color', () => props.color!, setters.color(light)),
+  row('intensity', () => props.intensity!, setters.intensity(light)),
+])
+
+emit('create', light)
+onBeforeUnmount(() => scene.lights.removeLight(light))
+
+defineExpose({ phaserInstance: light })
 </script>
 
 <template>

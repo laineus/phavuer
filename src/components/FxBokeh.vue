@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { FxEmits } from '../lib/emits'
-import { inject, onUnmounted } from 'vue'
-import { initFilter } from '../lib/initComponent'
+import { inject, onBeforeUnmount, onUnmounted } from 'vue'
+import { makeReactive } from '../lib/componentBuilder'
 import commonProps from '../lib/props'
 import { InjectionKeys } from '../lib/provider'
 
@@ -14,7 +14,7 @@ const props = defineProps({
   amount: commonProps.amount,
   contrast: commonProps.contrast,
 })
-defineEmits<FxEmits>()
+const emit = defineEmits<FxEmits>()
 
 const gameObject = inject(InjectionKeys.GameObject)!
 gameObject.enableFilters()
@@ -22,13 +22,22 @@ const fxController = props.external ? gameObject.filters?.external : gameObject.
 if (!fxController) {
   throw new Error(`filters.${props.external ? 'external' : 'internal'} is not available. Make sure the game object supports filters and WebGL renderer is enabled.`)
 }
-const bokeh = fxController.addBokeh(props.radius, props.amount, props.contrast)
-initFilter(bokeh, props)
+const filter = fxController.addBokeh(props.radius, props.amount, props.contrast)
+
+makeReactive(row => [
+  row('radius', () => props.radius!, (v: number) => filter.radius = v),
+  row('amount', () => props.amount!, (v: number) => filter.amount = v),
+  row('contrast', () => props.contrast!, (v: number) => filter.contrast = v),
+])
+
+emit('create', filter)
+onBeforeUnmount(() => filter.destroy())
 onUnmounted(() => {
   if (gameObject.filters)
-    fxController.remove(bokeh)
+    fxController.remove(filter)
 })
-defineExpose({ phaserInstance: bokeh })
+
+defineExpose({ phaserInstance: filter })
 </script>
 
 <template>

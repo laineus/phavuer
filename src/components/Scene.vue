@@ -11,7 +11,12 @@ const props = defineProps({
   name: { type: String, required: true },
   autoStart: { type: Boolean, default: true },
 })
-const emit = defineEmits(['init', 'create', 'update', 'preload'])
+const emit = defineEmits<{
+  init: [scene: Phaser.Scene, data: object]
+  create: [scene: Phaser.Scene, data: object]
+  update: [scene: Phaser.Scene, time: number, delta: number]
+  preload: [scene: Phaser.Scene]
+}>()
 
 const show = ref(false)
 const created = ref(false)
