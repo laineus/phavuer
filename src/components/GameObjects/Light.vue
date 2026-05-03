@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import type { CreateOnlyEmits } from '../lib/emits'
+import type { CreateOnlyEmits } from '../../lib/emits'
 import * as Phaser from 'phaser'
 import { inject, onBeforeUnmount } from 'vue'
-import { makeReactive } from '../lib/componentBuilder'
-import commonProps from '../lib/props'
-import { InjectionKeys } from '../lib/provider'
-import setters from '../lib/setters'
+import { makeReactive } from '../../lib/componentBuilder'
+import commonProps from '../../lib/props'
+import { InjectionKeys } from '../../lib/provider'
+import setters from '../../lib/setters'
 
 const props = defineProps({
   visible: commonProps.visible,

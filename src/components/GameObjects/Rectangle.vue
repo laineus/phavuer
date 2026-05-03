@@ -1,34 +1,38 @@
 <script lang="ts" setup>
-import type { GameObjectEmits } from '../lib/emits'
+import type { GameObjectEmits } from '../../lib/emits'
 import * as Phaser from 'phaser'
 import { inject } from 'vue'
-import { defineGameObject, makeGameObjectReactive, makeReactive } from '../lib/componentBuilder'
-import commonProps, { gameObjectProps } from '../lib/props'
-import { InjectionKeys } from '../lib/provider'
-import setters from '../lib/setters'
+import { defineGameObject, makeGameObjectReactive, makeReactive } from '../../lib/componentBuilder'
+import commonProps, { gameObjectProps } from '../../lib/props'
+import { InjectionKeys } from '../../lib/provider'
+import setters from '../../lib/setters'
 
 const props = defineProps({
   ...gameObjectProps,
-  radius: commonProps.radius,
+  width: commonProps.width,
+  height: commonProps.height,
   fillColor: commonProps.fillColor,
   fillAlpha: commonProps.fillAlpha,
   lineWidth: commonProps.lineWidth,
   strokeColor: commonProps.strokeColor,
   strokeAlpha: commonProps.strokeAlpha,
+  radius: commonProps.radius,
 })
-defineEmits<GameObjectEmits<Phaser.GameObjects.Arc>>()
+defineEmits<GameObjectEmits<Phaser.GameObjects.Rectangle>>()
 
 const scene = inject(InjectionKeys.Scene)!
-const object = new Phaser.GameObjects.Arc(scene, props.x || 0, props.y || 0, props.radius)
+const object = new Phaser.GameObjects.Rectangle(scene, props.x || 0, props.y || 0, props.width, props.height)
 
 makeGameObjectReactive(props, object)
 makeReactive(row => [
-  row('radius', () => props.radius!, setters.radius(object)),
+  row('width', () => props.width!, setters.width(object)),
+  row('height', () => props.height!, setters.height(object)),
   row('fillColor', () => props.fillColor!, setters.fillColor(object)),
   row('fillAlpha', () => props.fillAlpha!, setters.fillAlpha(object)),
   row('lineWidth', () => props.lineWidth!, setters.lineWidth(object)),
   row('strokeColor', () => props.strokeColor!, setters.strokeColor(object)),
   row('strokeAlpha', () => props.strokeAlpha!, setters.strokeAlpha(object)),
+  row('radius', () => props.radius!, setters.radius(object)),
 ])
 
 defineGameObject(object, props)

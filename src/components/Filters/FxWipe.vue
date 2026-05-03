@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import type { FxEmits } from '../lib/emits'
+import type { FxEmits } from '../../lib/emits'
 import { inject, onBeforeUnmount, onUnmounted } from 'vue'
-import { makeReactive } from '../lib/componentBuilder'
-import commonProps from '../lib/props'
-import { InjectionKeys } from '../lib/provider'
+import { makeReactive } from '../../lib/componentBuilder'
+import commonProps from '../../lib/props'
+import { InjectionKeys } from '../../lib/provider'
 
 const props = defineProps({
   external: {

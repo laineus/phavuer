@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import type { FxEmits } from '../lib/emits'
+import type { FxEmits } from '../../lib/emits'
 import { inject, onBeforeUnmount, onUnmounted } from 'vue'
-import { makeReactive } from '../lib/componentBuilder'
-import commonProps from '../lib/props'
-import { InjectionKeys } from '../lib/provider'
+import { makeReactive } from '../../lib/componentBuilder'
+import commonProps from '../../lib/props'
+import { InjectionKeys } from '../../lib/provider'
 
 const props = defineProps({
   external: {
@@ -20,7 +20,7 @@ const fxController = props.external ? gameObject.filters?.external : gameObject.
 if (!fxController) {
   throw new Error(`filters.${props.external ? 'external' : 'internal'} is not available. Make sure the game object supports filters and WebGL renderer is enabled.`)
 }
-const filter = fxController.addBarrel(props.amount)
+const filter = fxController.addPixelate(props.amount)
 
 makeReactive(row => [
   row('amount', () => props.amount!, (v: number) => filter.amount = v),
@@ -28,7 +28,6 @@ makeReactive(row => [
 
 emit('create', filter)
 onBeforeUnmount(() => filter.destroy())
-
 onUnmounted(() => {
   if (gameObject.filters)
     fxController.remove(filter)

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import Rectangle from './Rectangle.vue'
+import Rectangle from '../GameObjects/Rectangle.vue'
 
 defineOptions({ inheritAttrs: false })
 

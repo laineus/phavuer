@@ -1,20 +1,22 @@
 <script lang="ts" setup>
-import type { FxEmits } from '../lib/emits'
+import type { FxEmits } from '../../lib/emits'
 import { inject, onBeforeUnmount, onUnmounted } from 'vue'
-import { makeReactive } from '../lib/componentBuilder'
-import commonProps from '../lib/props'
-import { InjectionKeys } from '../lib/provider'
+import { makeReactive } from '../../lib/componentBuilder'
+import commonProps from '../../lib/props'
+import { InjectionKeys } from '../../lib/provider'
 
 const props = defineProps({
   external: {
     type: Boolean,
     default: false,
   },
-  texture: {
-    type: String,
-  },
+  color: commonProps.color,
   x: commonProps.x,
   y: commonProps.y,
+  decay: commonProps.decay,
+  power: commonProps.power,
+  samples: commonProps.samples,
+  intensity: commonProps.intensity,
 })
 const emit = defineEmits<FxEmits>()
 
@@ -24,12 +26,16 @@ const fxController = props.external ? gameObject.filters?.external : gameObject.
 if (!fxController) {
   throw new Error(`filters.${props.external ? 'external' : 'internal'} is not available. Make sure the game object supports filters and WebGL renderer is enabled.`)
 }
-const filter = fxController.addDisplacement(props.texture, props.x, props.y)
+const filter = fxController.addShadow(props.x, props.y, props.decay, props.power, props.color, props.samples, props.intensity)
 
 makeReactive(row => [
-  row('texture', () => props.texture!, (v: string) => filter.setTexture(v)),
+  row('color', () => props.color!, (v: number) => filter.color = v),
   row('x', () => props.x!, (v: number) => filter.x = v),
   row('y', () => props.y!, (v: number) => filter.y = v),
+  row('decay', () => props.decay!, (v: number) => filter.decay = v),
+  row('power', () => props.power!, (v: number) => filter.power = v),
+  row('samples', () => props.samples!, (v: number) => filter.samples = v),
+  row('intensity', () => props.intensity!, (v: number) => filter.intensity = v),
 ])
 
 emit('create', filter)

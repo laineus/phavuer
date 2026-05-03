@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import type { FxEmits } from '../lib/emits'
+import type { FxEmits } from '../../lib/emits'
 import { inject, onBeforeUnmount, onUnmounted } from 'vue'
-import { makeReactive } from '../lib/componentBuilder'
-import commonProps from '../lib/props'
-import { InjectionKeys } from '../lib/provider'
+import { makeReactive } from '../../lib/componentBuilder'
+import commonProps from '../../lib/props'
+import { InjectionKeys } from '../../lib/provider'
 
 const props = defineProps({
   external: {
@@ -11,11 +11,13 @@ const props = defineProps({
     default: false,
   },
   color: commonProps.color,
+  outerStrength: commonProps.outerStrength,
+  innerStrength: commonProps.innerStrength,
+  scale: commonProps.scale,
+  knockout: commonProps.knockout,
+  // Static props
+  distance: commonProps.distance,
   quality: commonProps.quality,
-  x: commonProps.x,
-  y: commonProps.y,
-  steps: commonProps.steps,
-  strength: commonProps.strength,
 })
 const emit = defineEmits<FxEmits>()
 
@@ -25,15 +27,14 @@ const fxController = props.external ? gameObject.filters?.external : gameObject.
 if (!fxController) {
   throw new Error(`filters.${props.external ? 'external' : 'internal'} is not available. Make sure the game object supports filters and WebGL renderer is enabled.`)
 }
-const filter = fxController.addBlur(props.quality, props.x, props.y, props.strength, props.color, props.steps)
+const filter = fxController.addGlow(props.color, props.outerStrength, props.innerStrength, props.scale, props.knockout, props.quality, props.distance)
 
 makeReactive(row => [
-  row('quality', () => props.quality!, (v: number) => filter.quality = v),
-  row('x', () => props.x!, (v: number) => filter.x = v),
-  row('y', () => props.y!, (v: number) => filter.y = v),
-  row('steps', () => props.steps!, (v: number) => filter.steps = v),
-  row('strength', () => props.strength!, (v: number) => filter.strength = v),
   row('color', () => props.color!, (v: number) => filter.color = v),
+  row('outerStrength', () => props.outerStrength!, (v: number) => filter.outerStrength = v),
+  row('innerStrength', () => props.innerStrength!, (v: number) => filter.innerStrength = v),
+  row('scale', () => props.scale!, (v: number) => filter.scale = v),
+  row('knockout', () => props.knockout!, (v: boolean) => filter.knockout = v),
 ])
 
 emit('create', filter)
