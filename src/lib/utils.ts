@@ -14,6 +14,7 @@ function useInject<T>(key: InjectionKey<T>) {
 
 /** Returns the Phaser.Game instance injected from the parent Game component. Must be called inside a component setup context under `<Game>`. */
 const useGame = useInject(InjectionKeys.Game)
+
 /** Returns the Phaser.Scene instance injected from the parent Scene component. Must be called inside a component setup context under `<Scene>`. */
 const useScene = useInject(InjectionKeys.Scene)
 
@@ -34,8 +35,21 @@ function refTo<T>(value: T, key: string) {
     }
   })
 }
+
 /** Returns a typed ref for accessing the underlying Phaser instance of a Phavuer component. Assign it to a component's `ref` attribute; after mount, `.value` holds the Phaser game object. */
 const refPhaserInstance = <T>(value: T | null) => refTo(value, 'phaserInstance')
+
+/** [Deprecated] Use refPhaserInstance instead. */
+function refObj<T extends Phaser.GameObjects.GameObject>(value: T | null) {
+  console.warn('refObj is deprecated. Use refPhaserInstance instead.')
+  return refPhaserInstance<T>(value)
+}
+
+/** [Deprecated] Use refPhaserInstance instead. */
+function refScene(value: Phaser.Scene | null) {
+  console.warn('refScene is deprecated. Use refPhaserInstance instead.')
+  return refPhaserInstance(value)
+}
 
 function getRegisterUpdateEvent(symbol: InjectionKey<UpdateEventHandler[]>) {
   return (e: UpdateEventHandler) => {
@@ -55,7 +69,9 @@ const onPostUpdate = getRegisterUpdateEvent(InjectionKeys.PostUpdateEvents)
 export {
   onPostUpdate,
   onPreUpdate,
+  refObj,
   refPhaserInstance,
+  refScene,
   useGame,
   useScene,
 }
