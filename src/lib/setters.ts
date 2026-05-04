@@ -161,7 +161,8 @@ export default {
   scrollFactorX: (object: Phaser.GameObjects.Components.ScrollFactor) => (v: number) => object.setScrollFactor(v, object.scrollFactorY),
   scrollFactorY: (object: Phaser.GameObjects.Components.ScrollFactor) => (v: number) => object.setScrollFactor(object.scrollFactorX, v),
   // Tween
-  tween: (object: GameObject, emit?: (event: string, value: undefined) => void) => {
+  tween: (object: GameObject) => {
+    const emit = getVmodelEmit('tween')
     return makeTweenRepository((tweenConfig: TweenConfig) => {
       const tween = object.scene.add.tween(Object.assign({ targets: object }, tweenConfig))
       if (emit)
@@ -169,7 +170,8 @@ export default {
       return tween
     })
   },
-  tweens: (object: GameObject, emit?: (event: string, value: undefined) => void) => {
+  tweens: (object: GameObject) => {
+    const emit = getVmodelEmit('tweens')
     return makeTweenRepository((tweenConfigs: TweenConfig[]) => {
       const infinitConfigIndex = tweenConfigs.findIndex(conf => conf.repeat === -1)
       const configs = tweenConfigs.slice(0, infinitConfigIndex === -1 ? undefined : infinitConfigIndex + 1)
@@ -190,7 +192,8 @@ export default {
       return timeline
     })
   },
-  timeline: (object: GameObject, emit?: (event: string, value: undefined) => void) => {
+  timeline: (object: GameObject) => {
+    const emit = getVmodelEmit('timeline')
     return makeTweenRepository((timelineConfigs: TimelineConfig[]) => {
       const timeline = object.scene.add.timeline(timelineConfigs.map((timelineConfig) => {
         const copiedTimelineConfig = Object.assign({}, timelineConfig) as Phaser.Types.Time.TimelineEventConfig
