@@ -106,7 +106,7 @@ const meta: Meta<typeof Text> = {
       'scaleY',
     ),
     origin: {
-      control: 'none',
+      control: false,
       description: 'The origin of this Game Object.',
       table: {
         category: 'Props',
@@ -137,6 +137,7 @@ const meta: Meta<typeof Text> = {
       'alpha',
       'rotation',
       'blendMode',
+      'lighting',
       'scrollFactor',
       'scrollFactorX',
       'scrollFactorY',
@@ -145,7 +146,6 @@ const meta: Meta<typeof Text> = {
       'displayOriginX',
       'displayOriginY',
       'dropZone',
-      'pipeline',
       'tween',
       'tweens',
       'timeline',
@@ -183,7 +183,7 @@ export const Default: Story = {
             :text="args.text"
             :style="args.style"
             :lineSpacing="args.lineSpacing"
-            :padding:="args.padding"
+            :padding="args.padding"
             :scaleX="args.scaleX"
             :scaleY="args.scaleY"
             :originX="args.originX"

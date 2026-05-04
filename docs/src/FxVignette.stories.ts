@@ -39,14 +39,16 @@ const meta: Meta<typeof FxVignette> = {
     y: 0.5,
     radius: 0.5,
     strength: 0.5,
+    color: 0xFF0000,
+    blendMode: 1,
   },
   argTypes: {
-    post: {
-      description: 'Use postFX (true) or preFX (false).',
+    external: {
+      description: 'Use external filter list (true) or internal filter list (false).',
       table: {
         category: 'Props',
         type: { summary: 'boolean' },
-        defaultValue: { summary: 'true' },
+        defaultValue: { summary: 'false' },
       },
     },
     x: {
@@ -81,10 +83,28 @@ const meta: Meta<typeof FxVignette> = {
         defaultValue: { summary: '0.5' },
       },
     },
+    color: {
+      description: 'Color of the vignette overlay as a hex number (e.g. 0x000000).',
+      table: {
+        category: 'Props',
+        type: { summary: 'number' },
+        defaultValue: { summary: '0x000000' },
+      },
+    },
+    blendMode: {
+      description: 'Blend mode for the vignette. Supported: 0=NORMAL, 1=ADD, 2=MULTIPLY, 3=SCREEN.',
+      control: { type: 'select' },
+      options: [0, 1, 2, 3],
+      table: {
+        category: 'Props',
+        type: { summary: 'number' },
+        defaultValue: { summary: '0' },
+      },
+    },
     // @ts-expect-error - create is not a prop
     create: {
       name: '@create',
-      control: 'none',
+      control: false,
       description: '**Parameters:**<br>vignette: `Phaser.FX.Vignette`',
       table: {
         category: 'Emits',
@@ -110,8 +130,9 @@ export const Default: Story = {
         type: 2,
         backgroundColor: 0x87CEEB
       }">
-        <Scene name="Scene" @preload="preload">
+        <Scene name="Scene" @preload="preload" v-slot="{ preloaded }">
           <Image
+            v-if="preloaded"
             :x="200"
             :y="112"
             :texture="'logo'"
@@ -120,11 +141,12 @@ export const Default: Story = {
             :scale="0.6"
           >
             <FxVignette
-              :post="true"
               :x="args.x"
               :y="args.y"
               :radius="args.radius"
               :strength="args.strength"
+              :color="args.color"
+              :blendMode="args.blendMode"
             />
           </Image>
         </Scene>

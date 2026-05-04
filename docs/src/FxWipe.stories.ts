@@ -44,17 +44,27 @@ const meta: Meta<typeof FxWipe> = {
   component: FxWipe,
   tags: ['autodocs'],
   args: {
+    progress: 0.5,
     wipeWidth: 0.1,
     direction: 0,
     axis: 0,
+    reveal: 0,
   },
   argTypes: {
-    post: {
-      description: 'Use postFX (true) or preFX (false).',
+    external: {
+      description: 'Use external filter list (true) or internal filter list (false).',
       table: {
         category: 'Props',
         type: { summary: 'boolean' },
-        defaultValue: { summary: 'true' },
+        defaultValue: { summary: 'false' },
+      },
+    },
+    progress: {
+      description: 'The progress of the wipe effect. This value is normalized in the range 0 to 1. Adjust this value (e.g. via a Tween) to animate the wipe.',
+      table: {
+        category: 'Props',
+        type: { summary: 'number' },
+        defaultValue: { summary: '0' },
       },
     },
     wipeWidth: {
@@ -81,10 +91,18 @@ const meta: Meta<typeof FxWipe> = {
         defaultValue: { summary: '0' },
       },
     },
+    reveal: {
+      description: 'Is this a reveal (1) or a wipe (0) effect? Reveal shows the input in wiped areas; wipe shows the input in unwiped areas.',
+      table: {
+        category: 'Props',
+        type: { summary: 'number' },
+        defaultValue: { summary: '0' },
+      },
+    },
     // @ts-expect-error - create is not a prop
     create: {
       name: '@create',
-      control: 'none',
+      control: false,
       description: '**Parameters:**<br>wipe: `Phaser.FX.Wipe`<br><br>Note: You need to set the progress value manually via tweens to animate the wipe effect.',
       table: {
         category: 'Emits',
@@ -110,8 +128,9 @@ export const Default: Story = {
         type: 2,
         backgroundColor: 0x2c3e50
       }">
-        <Scene name="Scene" @preload="preload">
+        <Scene name="Scene" @preload="preload" v-slot="{ preloaded }">
           <Image
+            v-if="preloaded"
             :x="200"
             :y="112"
             :texture="'logo'"
@@ -120,10 +139,11 @@ export const Default: Story = {
             :scale="0.6"
           >
             <FxWipe
-              :post="true"
+              :progress="args.progress"
               :wipeWidth="args.wipeWidth"
               :direction="args.direction"
               :axis="args.axis"
+              :reveal="args.reveal"
             />
           </Image>
         </Scene>

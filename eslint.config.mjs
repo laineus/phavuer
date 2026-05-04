@@ -1,6 +1,14 @@
 import antfu from '@antfu/eslint-config'
 
 export default antfu({
+  ignores: [
+    '**/*.md',
+    '.claude/**',
+    'dist/**',
+    'docs/**',
+    'public/**',
+  ],
+}, {
   languageOptions: {
     globals: {
       Phaser: 'readonly',
@@ -8,5 +16,6 @@ export default antfu({
   },
   rules: {
     'ts/no-empty-object-type': 'off',
+    'unicorn/number-literal-case': 'off',
   },
 })

@@ -79,6 +79,7 @@ const meta: Meta<typeof RenderTexture> = {
       'alpha',
       'rotation',
       'blendMode',
+      'lighting',
       'scrollFactor',
       'scrollFactorX',
       'scrollFactorY',
@@ -87,7 +88,6 @@ const meta: Meta<typeof RenderTexture> = {
       'displayOriginX',
       'displayOriginY',
       'dropZone',
-      'pipeline',
       'tween',
       'tweens',
       'timeline',
@@ -121,8 +121,9 @@ export const Default: Story = {
     },
     template: `
       <Game :config="{ width: 400, height: 225 }">
-        <Scene name="Scene" @preload="preload">
+        <Scene name="Scene" @preload="preload" v-slot="{ preloaded }">
           <RenderTexture
+            v-if="preloaded"
             :visible="args.visible"
             :x="args.x"
             :y="args.y"

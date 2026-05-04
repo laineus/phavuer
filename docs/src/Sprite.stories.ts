@@ -72,7 +72,7 @@ const meta: Meta<typeof Sprite> = {
       'frame',
     ),
     play: {
-      control: 'none',
+      control: false,
       description: 'Start playing the given animation key on this Sprite.',
       table: {
         category: 'Props',
@@ -93,6 +93,7 @@ const meta: Meta<typeof Sprite> = {
       'alpha',
       'rotation',
       'blendMode',
+      'lighting',
       'scrollFactor',
       'scrollFactorX',
       'scrollFactorY',
@@ -101,7 +102,6 @@ const meta: Meta<typeof Sprite> = {
       'displayOriginX',
       'displayOriginY',
       'dropZone',
-      'pipeline',
       'tween',
       'tweens',
       'timeline',
@@ -149,8 +149,9 @@ export const Default: Story = {
     },
     template: `
       <Game :config="{ width: 400, height: 225 }">
-        <Scene name="Scene" @preload="preload" @create="create">
+        <Scene name="Scene" @preload="preload" @create="create" v-slot="{ preloaded }">
           <Sprite
+            v-if="preloaded"
             :play="'player'"
             :visible="args.visible"
             :x="args.x"

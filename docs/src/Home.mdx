@@ -2,11 +2,11 @@ import { Meta } from '@storybook/blocks'
 
 <Meta title="Home" />
 
-<div class="Cover">
+<div className="Cover">
   <img src="/logo.png" alt="Phavuer" />
 
   [![GitHub](https://img.shields.io/badge/GitHub-Phavuer-green.svg?style=for-the-badge)](https://github.com/laineus/phavuer)
-  [![Phaser 3.x](https://img.shields.io/badge/Phaser-3.x-green.svg?style=for-the-badge)](https://github.com/photonstorm/phaser)
+  [![Phaser 4.x](https://img.shields.io/badge/Phaser-4.x-green.svg?style=for-the-badge)](https://github.com/photonstorm/phaser)
   [![Vue 3.x](https://img.shields.io/badge/Vue-3.x-green.svg?style=for-the-badge)](https://github.com/vuejs/vue-next)
   [![npm](https://img.shields.io/npm/v/phavuer.svg?style=for-the-badge)](https://www.npmjs.com/package/phavuer)
   [![license](https://img.shields.io/github/license/laineus/phavuer.svg?style=for-the-badge&color=blue)](https://github.com/laineus/phavuer/blob/master/LICENSE)
@@ -16,7 +16,7 @@ import { Meta } from '@storybook/blocks'
 
 # Phavuer
 
-Phavuer is a wrapper library that integrates [Phaser 3](https://github.com/photonstorm/phaser) with [Vue 3](https://github.com/vuejs/vue-next).  
+Phavuer is a wrapper library that integrates [Phaser 4](https://github.com/photonstorm/phaser) with [Vue 3](https://github.com/vuejs/vue-next).  
 
 It allows you to control Phaser, a JavaScript game engine, through Vue, and enables game development through declarative rendering.
 
@@ -44,13 +44,13 @@ const onClick = () => count.value++
 </script>
 ```
 
-Phaser3's GameObjects and their properties are used as components and props, respectively.  
+Phaser 4's GameObjects and their properties are used as components and props, respectively.  
 
 \*\*\* **Attention** \*\*\*
 
-- Currently, it supports basic Phaser functionalities and major GameObjects, but not all.
-- While performance is not guaranteed, it will not be faster than using Phaser alone.
-- Using Phavuer significantly alters the source code from standard Phaser. Please note that switching between the two is not straightforward.
+- Currently, it supports basic Phaser functionality and major GameObjects, but not all of them.
+- Note that performance is not guaranteed, and it will not be faster than using Phaser alone.
+- Using Phavuer significantly changes your code structure compared to standard Phaser. Please note that switching between the two is not straightforward.
 
 # Examples
 
@@ -60,6 +60,7 @@ Phaser3's GameObjects and their properties are used as components and props, res
   - [Phavuer RPG Example](https://github.com/laineus/phavuer-rpg-example) - An RPG-style usage example.
 - Games
   - ["The Dream Libra had"](https://github.com/laineus/libra) - An RPG about a girl wandering through a near-death dreamworld.
+  - ["Letter to Neml"](https://github.com/laineus/letter-to-neml) - A short ADV where AI reads the player's letter and branches the story.
   - ["Succubus Club"](https://github.com/thomasWajs/succubus-club) - A platform for playing "Vampire: The Eternal Struggle" card game in a web browser. (by [@thomasWajs](https://github.com/thomasWajs))
 
 # Community

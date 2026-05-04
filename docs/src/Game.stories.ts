@@ -47,17 +47,16 @@ const meta: Meta<typeof Game> = {
       },
     },
   },
-  argTypes: {
-    // @ts-expect-error - default is not a prop
+  argTypes: ({
     default: {
-      control: 'none',
+      control: false,
       table: {
         category: 'Slots',
         type: { summary: 'Phaser.Scene' },
       },
     },
     config: {
-      description: 'The configuration object for your Phaser Game instance.<br>See: [Phaser.Types.Core.GameConfig](https://newdocs.phaser.io/docs/3.90.0/Phaser.Types.Core.GameConfig)',
+      description: `The configuration object for your Phaser Game instance.<br>See: [Phaser.Types.Core.GameConfig](https://newdocs.phaser.io/docs/${referPhaserVersion}/Phaser.Types.Core.GameConfig)`,
       table: {
         category: 'Props',
         type: { summary: 'Phaser.Types.Core.GameConfig' },
@@ -65,7 +64,7 @@ const meta: Meta<typeof Game> = {
     },
     create: {
       name: '@create',
-      control: 'none',
+      control: false,
       description: '**Parameters:**<br>game: `Phaser.Game`',
       table: {
         category: 'Emits',
@@ -74,14 +73,14 @@ const meta: Meta<typeof Game> = {
     },
     ready: {
       name: '@ready',
-      control: 'none',
+      control: false,
       description: '**Parameters:**<br>game: `Phaser.Game`',
       table: {
         category: 'Emits',
         type: { summary: 'function' },
       },
     },
-  },
+  }) as Meta<typeof Game>['argTypes'],
 }
 
 export const Default: Story = {
@@ -99,8 +98,8 @@ export const Default: Story = {
     },
     template: `
       <Game :config="args.config" :key="version">
-        <Scene name="SceneName" @preload="preload">
-          <Image :x="200" :y="40" texture="box">
+        <Scene name="SceneName" @preload="preload" v-slot="{ preloaded }">
+          <Image v-if="preloaded" :x="200" :y="40" texture="box">
             <Body :collideWorldBounds="true" />
           </Image>
         </Scene>

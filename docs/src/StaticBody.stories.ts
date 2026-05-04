@@ -90,7 +90,7 @@ const meta: Meta<typeof StaticBody> = {
     // @ts-expect-error - create is not a prop
     create: {
       name: '@create',
-      control: 'none',
+      control: false,
       description: '**Parameters:**<br>pointer: `Phaser.Physics.Arcade.StaticBody`',
       table: {
         category: 'Emits',
@@ -115,8 +115,9 @@ export const Default: Story = {
     },
     template: `
     <Game :config="{ width: 400, height: 225, physics: { default: 'arcade', arcade: { debug: true } } }">
-      <Scene name="Scene" @preload="preload">
+      <Scene name="Scene" @preload="preload" v-slot="{ preloaded }">
         <Image
+          v-if="preloaded"
           :x="30"
           :y="30"
           :origin="0"

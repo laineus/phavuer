@@ -1,4 +1,4 @@
-export const referPhaserVersion = '3.90.0'
+export const referPhaserVersion = '4.1.0'
 export const argTypes = {
   default: {
     control: 'none',
@@ -242,6 +242,15 @@ export const argTypes = {
       defaultValue: { summary: 'Phaser.BlendModes.NORMAL' },
     },
   },
+  lighting: {
+    control: 'boolean',
+    description: 'Enable Phaser lighting for this Game Object. A compatible object with a normal map will react to Light objects in the scene.',
+    table: {
+      category: 'Props',
+      type: { summary: 'boolean' },
+      defaultValue: { summary: false },
+    },
+  },
   scrollFactor: {
     control: 'none',
     description: 'The scroll factor of this Game Object.<br>The scroll factor controls the influence of the movement of a Camera upon this Game Object.',
@@ -308,14 +317,6 @@ export const argTypes = {
       category: 'Props',
       type: { summary: 'boolean' },
       defaultValue: { summary: false },
-    },
-  },
-  pipeline: {
-    control: 'none',
-    description: 'The main WebGL Pipeline of this Game Object.',
-    table: {
-      category: 'Props',
-      type: { summary: 'string | Phaser.Renderer.WebGL.WebGLPipeline' },
     },
   },
   tween: {

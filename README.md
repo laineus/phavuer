@@ -1,13 +1,13 @@
 # Phavuer
 
-[![Phaser 3.x](https://img.shields.io/badge/Phaser-3.x-green.svg?style=for-the-badge)](https://github.com/photonstorm/phaser)
+[![Phaser 4.x](https://img.shields.io/badge/Phaser-4.x-green.svg?style=for-the-badge)](https://github.com/photonstorm/phaser)
 [![Vue 3.x](https://img.shields.io/badge/Vue-3.x-green.svg?style=for-the-badge)](https://github.com/vuejs/vue-next)
 [![npm](https://img.shields.io/npm/v/phavuer.svg?style=for-the-badge)](https://www.npmjs.com/package/phavuer)
 [![license](https://img.shields.io/github/license/laineus/phavuer.svg?style=for-the-badge&color=blue)](https://github.com/laineus/phavuer/blob/master/LICENSE)
 
 ![Phavuer](logo.png)
 
-Phavuer is a wrapper library that integrates [Phaser 3](https://github.com/photonstorm/phaser) with [Vue 3](https://github.com/vuejs/vue-next).
+Phavuer is a wrapper library that integrates [Phaser 4](https://github.com/photonstorm/phaser) with [Vue 3](https://github.com/vuejs/vue-next).
 
 It allows you to control Phaser, a JavaScript game engine, through Vue, and enables game development through declarative rendering.
 
@@ -39,7 +39,7 @@ const onClick = () => count.value++
 # Documentation
 
 - Phavuer https://phavuer.laineus.com
-- Phaser3 https://newdocs.phaser.io/docs/3.90.0
+- Phaser4 https://docs.phaser.io
 
 # Examples
 
@@ -49,6 +49,7 @@ const onClick = () => count.value++
   - [Phavuer RPG Example](https://github.com/laineus/phavuer-rpg-example) - An RPG-style usage example.
 - Games
   - ["The Dream Libra had"](https://github.com/laineus/libra) - An RPG about a girl wandering through a near-death dreamworld.
+  - ["Letter to Neml"](https://github.com/laineus/letter-to-neml) - A short ADV where AI reads the player's letter and branches the story.
   - ["Succubus Club"](https://github.com/thomasWajs/succubus-club) - A platform for playing "Vampire: The Eternal Struggle" card game in a web browser. (by [@thomasWajs](https://github.com/thomasWajs))
 
 # Community

@@ -43,12 +43,12 @@ const meta: Meta<typeof FxBlur> = {
     steps: 4,
   },
   argTypes: {
-    post: {
-      description: 'Use postFX (true) or preFX (false).',
+    external: {
+      description: 'Use external filter list (true) or internal filter list (false).',
       table: {
         category: 'Props',
         type: { summary: 'boolean' },
-        defaultValue: { summary: 'true' },
+        defaultValue: { summary: 'false' },
       },
     },
     quality: {
@@ -102,7 +102,7 @@ const meta: Meta<typeof FxBlur> = {
     // @ts-expect-error - create is not a prop
     create: {
       name: '@create',
-      control: 'none',
+      control: false,
       description: '**Parameters:**<br>blur: `Phaser.FX.Blur`',
       table: {
         category: 'Emits',
@@ -128,8 +128,9 @@ export const Default: Story = {
         type: 2,
         backgroundColor: 0x2c3e50
       }">
-        <Scene name="Scene" @preload="preload">
+        <Scene name="Scene" @preload="preload" v-slot="{ preloaded }">
           <Image
+            v-if="preloaded"
             :x="200"
             :y="112"
             :texture="'logo'"
@@ -138,7 +139,6 @@ export const Default: Story = {
             :scale="0.6"
           >
             <FxBlur
-              :post="true"
               :quality="args.quality"
               :x="args.x"
               :y="args.y"

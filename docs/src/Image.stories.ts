@@ -76,6 +76,7 @@ const meta: Meta<typeof Image> = {
       'alpha',
       'rotation',
       'blendMode',
+      'lighting',
       'scrollFactor',
       'scrollFactorX',
       'scrollFactorY',
@@ -84,7 +85,6 @@ const meta: Meta<typeof Image> = {
       'displayOriginX',
       'displayOriginY',
       'dropZone',
-      'pipeline',
       'tween',
       'tweens',
       'timeline',
@@ -117,8 +117,9 @@ export const Default: Story = {
     },
     template: `
       <Game :config="{ width: 400, height: 225 }">
-        <Scene name="Scene" @preload="preload">
+        <Scene name="Scene" @preload="preload" v-slot="{ preloaded }">
           <Image
+            v-if="preloaded"
             :texture="'logo'"
             :visible="args.visible"
             :x="args.x"

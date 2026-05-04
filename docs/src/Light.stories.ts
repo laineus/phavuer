@@ -10,14 +10,14 @@ A 2D point light.
 
 These are typically created by a Phaser.GameObjects.LightsManager, available from within a scene via this.lights.
 
-Any Game Objects using the Light2D pipeline will then be affected by these Lights as long as they have a normal map.
+Any Game Objects using the lighting property will then be affected by these Lights as long as they have a normal map.
 
 They can also simply be used to represent a point light for your own purposes.
 
 \`\`\`html
 <Game>
   <Scene name="SceneName">
-    <GameObject :pipeline="'Light2D'" />
+    <GameObject :lighting="true" />
     <Light :radius="200" :color="0xFFFF00" :intensity="10" />
   </Scene>
 </Game>
@@ -44,6 +44,7 @@ const meta: Meta<typeof Light> = {
     radius: 256,
     color: '0x66AAFF' as unknown as number,
     intensity: 10,
+    z: 10,
   },
   argTypes: {
     ...take(
@@ -66,7 +67,14 @@ const meta: Meta<typeof Light> = {
       table: {
         category: 'Props',
         type: { summary: 'number' },
-        defaultValue: { summary: 1 },
+        defaultValue: { summary: '1' },
+      },
+    },
+    z: {
+      description: 'The z position of the light. Affects the angle of the shading effect. Defaults to radius * 0.1.',
+      table: {
+        category: 'Props',
+        type: { summary: 'number' },
       },
     },
     ...take(
@@ -89,24 +97,27 @@ export const Default: Story = {
     },
     template: `
       <Game :config="{ width: 400, height: 225 }">
-        <Scene name="Scene" @preload="preload">
-          <Image
-            :texture="'logo'"
-            :x="30"
-            :y="30"
-            :scale="0.6"
-            :originX="0"
-            :originY="0"
-            :pipeline="'Light2D'"
-            />
-          <Light
-            :visible="args.visible"
-            :x="args.x"
-            :y="args.y"
-            :radius="args.radius"
-            :color="Number(args.color)"
-            :intensity="args.intensity"
-            />
+        <Scene name="Scene" @preload="preload" v-slot="{ preloaded }">
+          <template v-if="preloaded">
+            <Image
+              :texture="'logo'"
+              :x="30"
+              :y="30"
+              :scale="0.6"
+              :originX="0"
+              :originY="0"
+              :lighting="true"
+              />
+            <Light
+              :visible="args.visible"
+              :x="args.x"
+              :y="args.y"
+              :radius="args.radius"
+              :color="Number(args.color)"
+              :intensity="args.intensity"
+              :z="args.z"
+              />
+          </template>
         </Scene>
       </Game>`,
   }),

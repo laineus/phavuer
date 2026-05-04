@@ -104,7 +104,7 @@ const timeline = ref([
 \`\`\`
 
 See also: [Phaser.Types.Tweens.TweenDataConfig](https://newdocs.phaser.io/docs/${referPhaserVersion}/Phaser.Types.Tweens.TweenDataConfig)  
-See also: [Phaser.Time.Timeline](https://newdocs.phaser.io/docs/3.90.0/Phaser.Time.Timeline)
+See also: [Phaser.Time.Timeline](https://newdocs.phaser.io/docs/${referPhaserVersion}/Phaser.Time.Timeline)
 `
 
 const meta: Meta = {
@@ -231,7 +231,6 @@ export const Timeline: Story = {
             tween: {
               props: {
                 x: { getStart: () => args['props.x.getStart()'], getEnd: () => args['props.x.getEnd()'] },
-                y: { getStart: () => 30, getEnd: 30 },
               },
               duration: args.duration,
               yoyo: args.yoyo,
@@ -258,7 +257,7 @@ export const Timeline: Story = {
       return { args, timeline }
     },
     template: `
-      <Game :config="{ width: 400, height: 225 }">
+      <Game :config="{ width: 400, height: 225, fps: { target: 60, limit: 60 } }">
         <Scene name="Scene">
           <Rectangle
             :x="30"
