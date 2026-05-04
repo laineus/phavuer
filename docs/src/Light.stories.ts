@@ -44,6 +44,7 @@ const meta: Meta<typeof Light> = {
     radius: 256,
     color: '0x66AAFF' as unknown as number,
     intensity: 10,
+    z: 10,
   },
   argTypes: {
     ...take(
@@ -67,6 +68,13 @@ const meta: Meta<typeof Light> = {
         category: 'Props',
         type: { summary: 'number' },
         defaultValue: { summary: 1 },
+      },
+    },
+    z: {
+      description: 'The z position of the light. Affects the angle of the shading effect. Defaults to radius * 0.1.',
+      table: {
+        category: 'Props',
+        type: { summary: 'number' },
       },
     },
     ...take(
@@ -107,6 +115,7 @@ export const Default: Story = {
               :radius="args.radius"
               :color="Number(args.color)"
               :intensity="args.intensity"
+              :z="args.z"
               />
           </template>
         </Scene>
