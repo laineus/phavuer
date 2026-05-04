@@ -180,7 +180,9 @@ export default {
           const duration = config.duration ?? 1000
           const yoyo = config.yoyo ?? false
           const count = (config.repeat ?? 0) + 1
-          return sum + duration * (yoyo ? 2 : 1) * count
+          const hold = config.hold ?? 0
+          const delay = typeof config.delay === 'number' ? config.delay : 0
+          return sum + duration * (yoyo ? 2 : 1) * count + hold + (delay ?? 0)
         }, 0)
         return {
           at,
