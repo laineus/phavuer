@@ -72,7 +72,7 @@ const meta: Meta<typeof Sprite> = {
       'frame',
     ),
     play: {
-      control: 'none',
+      control: false,
       description: 'Start playing the given animation key on this Sprite.',
       table: {
         category: 'Props',

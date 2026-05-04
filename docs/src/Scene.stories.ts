@@ -40,18 +40,16 @@ const meta: Meta<typeof Scene> = {
   tags: ['autodocs'],
   args: {
   },
-  argTypes: {
-    // @ts-expect-error - default is not a prop
+  argTypes: ({
     default: {
-      control: 'none',
+      control: false,
       table: {
         category: 'Slots',
         type: { summary: 'Phaser.GameObjects.GameObject' },
       },
     },
-    // @ts-expect-error - preloaded is a slot prop, not a prop
     preloaded: {
-      control: 'none',
+      control: false,
       description: 'Slot prop that becomes `true` after `preload()` completes (i.e. when `create()` is called). Use `v-if="preloaded"` to guard game objects that depend on assets loaded in `preload()`, such as textures used by `<Image>` or `<Sprite>`.',
       table: {
         category: 'Slot Props',
@@ -59,7 +57,7 @@ const meta: Meta<typeof Scene> = {
       },
     },
     name: {
-      control: 'none',
+      control: false,
       description: 'The unique key of this Scene. Must be unique within the entire Game instance.',
       table: {
         category: 'Props',
@@ -67,7 +65,7 @@ const meta: Meta<typeof Scene> = {
       },
     },
     autoStart: {
-      control: 'none',
+      control: false,
       description: 'Whether to start this scene automatically.',
       table: {
         category: 'Props',
@@ -76,7 +74,7 @@ const meta: Meta<typeof Scene> = {
     },
     init: {
       name: '@init',
-      control: 'none',
+      control: false,
       description: 'Event of [Phaser.Types.Scenes.SceneInitCallback](Phaser.Types.Scenes.SceneInitCallback)<br>**Parameters:**<br>data: object',
       table: {
         category: 'Emits',
@@ -85,7 +83,7 @@ const meta: Meta<typeof Scene> = {
     },
     preload: {
       name: '@preload',
-      control: 'none',
+      control: false,
       description: 'Event of [Phaser.Types.Scenes.ScenePreloadCallback](Phaser.Types.Scenes.ScenePreloadCallback)<br>**Parameters:**<br>none',
       table: {
         category: 'Emits',
@@ -94,7 +92,7 @@ const meta: Meta<typeof Scene> = {
     },
     create: {
       name: '@create',
-      control: 'none',
+      control: false,
       description: 'Event of [Phaser.Types.Scenes.SceneCreateCallback](Phaser.Types.Scenes.SceneCreateCallback)<br>**Parameters:**<br>data: object',
       table: {
         category: 'Emits',
@@ -103,14 +101,14 @@ const meta: Meta<typeof Scene> = {
     },
     update: {
       name: '@update',
-      control: 'none',
+      control: false,
       description: 'Event of [Phaser.Types.Scenes.SceneUpdateCallback](Phaser.Types.Scenes.SceneUpdateCallback)<br>**Parameters:**<br>time: Phaser.Game<br>delta: number',
       table: {
         category: 'Emits',
         type: { summary: 'function' },
       },
     },
-  },
+  }) as Meta<typeof Scene>['argTypes'],
 }
 
 export const Default: Story = {

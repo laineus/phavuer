@@ -67,7 +67,7 @@ const meta: Meta<typeof Light> = {
       table: {
         category: 'Props',
         type: { summary: 'number' },
-        defaultValue: { summary: 1 },
+        defaultValue: { summary: '1' },
       },
     },
     z: {

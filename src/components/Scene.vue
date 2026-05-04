@@ -17,6 +17,9 @@ const emit = defineEmits<{
   update: [scene: Phaser.Scene, time: number, delta: number]
   preload: [scene: Phaser.Scene]
 }>()
+defineSlots<{
+  default: (props: { preloaded: boolean }) => any
+}>()
 
 const show = ref(false)
 const preloaded = ref(false)
@@ -56,5 +59,5 @@ defineExpose({ phaserInstance: scene })
 </script>
 
 <template>
-  <slot v-if="show" :preloaded="preloaded" :scene="scene" />
+  <slot v-if="show" :preloaded="preloaded" />
 </template>

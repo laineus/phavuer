@@ -102,7 +102,7 @@ const meta: Meta<typeof FxWipe> = {
     // @ts-expect-error - create is not a prop
     create: {
       name: '@create',
-      control: 'none',
+      control: false,
       description: '**Parameters:**<br>wipe: `Phaser.FX.Wipe`<br><br>Note: You need to set the progress value manually via tweens to animate the wipe effect.',
       table: {
         category: 'Emits',

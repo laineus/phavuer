@@ -102,7 +102,7 @@ const meta: Meta<typeof FxBlur> = {
     // @ts-expect-error - create is not a prop
     create: {
       name: '@create',
-      control: 'none',
+      control: false,
       description: '**Parameters:**<br>blur: `Phaser.FX.Blur`',
       table: {
         category: 'Emits',

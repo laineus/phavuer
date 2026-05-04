@@ -106,7 +106,7 @@ const meta: Meta<typeof Text> = {
       'scaleY',
     ),
     origin: {
-      control: 'none',
+      control: false,
       description: 'The origin of this Game Object.',
       table: {
         category: 'Props',

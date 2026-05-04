@@ -67,7 +67,7 @@ const meta: Meta<typeof TilemapLayer> = {
       'y',
     ),
     tilemap: {
-      control: 'none',
+      control: false,
       description: 'The Tilemap this layer is a part of.',
       table: {
         category: 'Props',
@@ -75,7 +75,7 @@ const meta: Meta<typeof TilemapLayer> = {
       },
     },
     layerIndex: {
-      control: 'none',
+      control: false,
       description: 'The index of the LayerData associated with this layer.',
       table: {
         category: 'Props',
@@ -83,7 +83,7 @@ const meta: Meta<typeof TilemapLayer> = {
       },
     },
     tileset: {
-      control: 'none',
+      control: false,
       description: 'The tileset, or an array of tilesets, used to render this layer. Can be a string or a Tileset object.',
       table: {
         category: 'Props',
@@ -91,7 +91,7 @@ const meta: Meta<typeof TilemapLayer> = {
       },
     },
     collision: {
-      control: 'none',
+      control: false,
       description: 'Sets collision on the given tile or tiles within a layer by index.<br>You can pass in either a single numeric index or an array of indexes: [2, 3, 15, 20].<br>The collides parameter controls if collision will be enabled (true) or disabled (false).',
       table: {
         category: 'Props',
@@ -99,7 +99,7 @@ const meta: Meta<typeof TilemapLayer> = {
       },
     },
     collisionByProperty: {
-      control: 'none',
+      control: false,
       description: `Sets collision on the tiles within a layer by checking tile properties.<br>If a tile has a property that matches the given properties object, its collision flag will be set.<br>The collides parameter controls if collision will be enabled (true) or disabled (false).<br>Passing in { collides: true } would update the collision flag on any tiles with a "collides" property that has a value of true.<br>Any tile that doesn't have "collides" set to true will be ignored.<br>You can also use an array of values, e.g. { types: ["stone", "lava", "sand" ] }.<br>If a tile has a "types" property that matches any of those values, its collision flag will be updated.`,
       table: {
         category: 'Props',
@@ -107,7 +107,7 @@ const meta: Meta<typeof TilemapLayer> = {
       },
     },
     cullPadding: {
-      control: 'none',
+      control: false,
       description: 'The amount of extra tiles to add to the cull check padding.',
       table: {
         category: 'Props',

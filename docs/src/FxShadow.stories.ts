@@ -111,7 +111,7 @@ const meta: Meta<typeof FxShadow> = {
     // @ts-expect-error - create is not a prop
     create: {
       name: '@create',
-      control: 'none',
+      control: false,
       description: '**Parameters:**<br>shadow: `Phaser.FX.Shadow`',
       table: {
         category: 'Emits',

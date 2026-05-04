@@ -111,7 +111,7 @@ const meta: Meta<typeof FxGlow> = {
     // @ts-expect-error - create is not a prop
     create: {
       name: '@create',
-      control: 'none',
+      control: false,
       description: '**Parameters:**<br>glow: `Phaser.FX.Glow`',
       table: {
         category: 'Emits',

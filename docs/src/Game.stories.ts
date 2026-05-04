@@ -47,10 +47,9 @@ const meta: Meta<typeof Game> = {
       },
     },
   },
-  argTypes: {
-    // @ts-expect-error - default is not a prop
+  argTypes: ({
     default: {
-      control: 'none',
+      control: false,
       table: {
         category: 'Slots',
         type: { summary: 'Phaser.Scene' },
@@ -65,7 +64,7 @@ const meta: Meta<typeof Game> = {
     },
     create: {
       name: '@create',
-      control: 'none',
+      control: false,
       description: '**Parameters:**<br>game: `Phaser.Game`',
       table: {
         category: 'Emits',
@@ -74,14 +73,14 @@ const meta: Meta<typeof Game> = {
     },
     ready: {
       name: '@ready',
-      control: 'none',
+      control: false,
       description: '**Parameters:**<br>game: `Phaser.Game`',
       table: {
         category: 'Emits',
         type: { summary: 'function' },
       },
     },
-  },
+  }) as Meta<typeof Game>['argTypes'],
 }
 
 export const Default: Story = {

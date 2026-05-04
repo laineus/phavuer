@@ -57,7 +57,7 @@ const meta: Meta<typeof FxBarrel> = {
     // @ts-expect-error - create is not a prop
     create: {
       name: '@create',
-      control: 'none',
+      control: false,
       description: '**Parameters:**<br>barrel: `Phaser.FX.Barrel`',
       table: {
         category: 'Emits',

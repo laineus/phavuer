@@ -83,7 +83,7 @@ const meta: Meta<typeof NineSlice> = {
       'height',
     ),
     leftWidth: {
-      control: 'none',
+      control: false,
       description: 'The size of the left vertical column.',
       table: {
         category: 'Props',
@@ -92,7 +92,7 @@ const meta: Meta<typeof NineSlice> = {
       },
     },
     rightWidth: {
-      control: 'none',
+      control: false,
       description: 'The size of the right vertical column.',
       table: {
         category: 'Props',
@@ -101,7 +101,7 @@ const meta: Meta<typeof NineSlice> = {
       },
     },
     topHeight: {
-      control: 'none',
+      control: false,
       description: 'The size of the top horiztonal column.',
       table: {
         category: 'Props',
@@ -110,7 +110,7 @@ const meta: Meta<typeof NineSlice> = {
       },
     },
     bottomHeight: {
-      control: 'none',
+      control: false,
       description: 'The size of the bottom horiztonal column.',
       table: {
         category: 'Props',

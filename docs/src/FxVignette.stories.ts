@@ -104,7 +104,7 @@ const meta: Meta<typeof FxVignette> = {
     // @ts-expect-error - create is not a prop
     create: {
       name: '@create',
-      control: 'none',
+      control: false,
       description: '**Parameters:**<br>vignette: `Phaser.FX.Vignette`',
       table: {
         category: 'Emits',

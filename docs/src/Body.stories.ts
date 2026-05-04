@@ -234,7 +234,7 @@ const meta: Meta<typeof Body> = {
     // @ts-expect-error - create is not a prop
     create: {
       name: '@create',
-      control: 'none',
+      control: false,
       description: '**Parameters:**<br>pointer: `Phaser.Physics.Arcade.Body`',
       table: {
         category: 'Emits',

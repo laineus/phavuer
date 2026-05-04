@@ -75,7 +75,7 @@ const meta: Meta<typeof FxBokeh> = {
     // @ts-expect-error - create is not a prop
     create: {
       name: '@create',
-      control: 'none',
+      control: false,
       description: '**Parameters:**<br>bokeh: `Phaser.FX.Bokeh`',
       table: {
         category: 'Emits',
