@@ -175,23 +175,9 @@ export default {
     return makeTweenRepository((tweenConfigs: TweenConfig[]) => {
       const infinitConfigIndex = tweenConfigs.findIndex(conf => conf.repeat === -1)
       const configs = tweenConfigs.slice(0, infinitConfigIndex === -1 ? undefined : infinitConfigIndex + 1)
-      const timeline = object.scene.add.timeline(configs.map((tweenConfig, i) => {
-        const at = configs.slice(0, i).reduce((sum, config) => {
-          const duration = config.duration ?? 1000
-          const yoyo = config.yoyo ?? false
-          const count = (config.repeat ?? 0) + 1
-          const hold = config.hold ?? 0
-          const delay = typeof config.delay === 'number' ? config.delay : 0
-          return sum + duration * (yoyo ? 2 : 1) * count + hold + (delay ?? 0)
-        }, 0)
-        return {
-          at,
-          tween: Object.assign({ targets: object }, tweenConfig),
-        }
-      })).play()
-      if (emit)
-        timeline.on('complete', () => emit('update:tweens', undefined))
-      return timeline
+      const tweens = configs.map(tweenConfig => Object.assign({ targets: object }, tweenConfig))
+      const onComplete = emit ? () => emit('update:tweens', undefined) : undefined
+      return object.scene.tweens.chain({ tweens, onComplete })
     })
   },
   timeline: (object: GameObject) => {
@@ -210,8 +196,8 @@ export default {
     })
   },
 }
-function makeTweenRepository<T>(callback: (data: T) => Phaser.Tweens.Tween | Phaser.Time.Timeline) {
-  let prevTween: Phaser.Tweens.Tween | Phaser.Time.Timeline | undefined
+function makeTweenRepository<T>(callback: (data: T) => Phaser.Tweens.Tween | Phaser.Tweens.TweenChain | Phaser.Time.Timeline) {
+  let prevTween: Phaser.Tweens.Tween | Phaser.Tweens.TweenChain | Phaser.Time.Timeline | undefined
   return (data: T | undefined) => {
     if (prevTween)
       prevTween.stop()
