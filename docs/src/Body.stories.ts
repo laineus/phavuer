@@ -259,9 +259,9 @@ export const Default: Story = {
     },
     template: `
     <Game :config="{ width: 400, height: 225, physics: { default: 'arcade', arcade: { debug: true } } }">
-      <Scene name="Scene" @preload="preload" v-slot="{ created }">
+      <Scene name="Scene" @preload="preload" v-slot="{ preloaded }">
         <Image
-          v-if="created"
+          v-if="preloaded"
           :x="30"
           :y="30"
           :origin="0"

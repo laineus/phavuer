@@ -12,13 +12,14 @@ You can also define the optional methods init(), preload(), and create().
 
 \`\`\`html
 <Game>
+  <!-- No assets needed — no guard required -->
   <Scene name="SceneName1" :autoStart="true">
-    <GameObject />
-    <GameObject />
+    <Rectangle :x="100" :y="100" :width="50" :height="50" />
   </Scene>
-  <Scene name="SceneName2" :autoStart="false">
-    <GameObject />
-    <GameObject />
+
+  <!-- Uses a texture loaded in preload — guard with preloaded -->
+  <Scene name="SceneName2" :autoStart="false" v-slot="{ preloaded }" @preload="preload">
+    <Image v-if="preloaded" texture="logo" />
   </Scene>
 </Game>
 \`\`\`
@@ -46,6 +47,15 @@ const meta: Meta<typeof Scene> = {
       table: {
         category: 'Slots',
         type: { summary: 'Phaser.GameObjects.GameObject' },
+      },
+    },
+    // @ts-expect-error - preloaded is a slot prop, not a prop
+    preloaded: {
+      control: 'none',
+      description: 'Slot prop that becomes `true` after `preload()` completes (i.e. when `create()` is called). Use `v-if="preloaded"` to guard game objects that depend on assets loaded in `preload()`, such as textures used by `<Image>` or `<Sprite>`.',
+      table: {
+        category: 'Slot Props',
+        type: { summary: 'boolean' },
       },
     },
     name: {

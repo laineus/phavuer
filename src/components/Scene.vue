@@ -19,7 +19,7 @@ const emit = defineEmits<{
 }>()
 
 const show = ref(false)
-const created = ref(false)
+const preloaded = ref(false)
 const preUpdateEvents: UpdateEventHandler[] = []
 const postUpdateEvents: UpdateEventHandler[] = []
 const Scene = class extends Phaser.Scene {
@@ -33,7 +33,7 @@ const Scene = class extends Phaser.Scene {
   }
 
   create(data: object) {
-    created.value = true
+    preloaded.value = true
     emit('create', this, data)
   }
 
@@ -47,7 +47,7 @@ const game = inject(InjectionKeys.Game)!
 const scene = game.scene.add(props.name, Scene, props.autoStart)!
 scene.events.on('shutdown', () => {
   show.value = false
-  created.value = false
+  preloaded.value = false
 })
 provide(InjectionKeys.Scene, scene)
 provide(InjectionKeys.PreUpdateEvents, preUpdateEvents)
@@ -56,5 +56,5 @@ defineExpose({ phaserInstance: scene })
 </script>
 
 <template>
-  <slot v-if="show" :created="created" :scene="scene" />
+  <slot v-if="show" :preloaded="preloaded" :scene="scene" />
 </template>

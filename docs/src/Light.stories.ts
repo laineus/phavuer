@@ -97,8 +97,8 @@ export const Default: Story = {
     },
     template: `
       <Game :config="{ width: 400, height: 225 }">
-        <Scene name="Scene" @preload="preload" v-slot="{ created }">
-          <template v-if="created">
+        <Scene name="Scene" @preload="preload" v-slot="{ preloaded }">
+          <template v-if="preloaded">
             <Image
               :texture="'logo'"
               :x="30"

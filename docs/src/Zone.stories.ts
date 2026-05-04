@@ -116,8 +116,8 @@ export const Default: Story = {
     },
     template: `
     <Game :config="{ width: 400, height: 225, physics: { default: 'arcade', arcade: { debug: true } } }">
-      <Scene name="Scene" @preload="preload" v-slot="{ created }">
-        <template v-if="created">
+      <Scene name="Scene" @preload="preload" v-slot="{ preloaded }">
+        <template v-if="preloaded">
           <Rectangle
             :x="args.x"
             :y="args.y"

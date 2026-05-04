@@ -194,8 +194,8 @@ export const Default: Story = {
     },
     template: `
       <Game :config="{ width: 32 * 13, height: 32 * 8 }">
-        <Scene name="Scene" @preload="preload" @create="create" v-slot="{ created }">
-          <template v-if="created">
+        <Scene name="Scene" @preload="preload" @create="create" v-slot="{ preloaded }">
+          <template v-if="preloaded">
             <TilemapLayer
               v-for="(layer, i) in tilemap.layers"
               :key="i"

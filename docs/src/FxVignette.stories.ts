@@ -130,9 +130,9 @@ export const Default: Story = {
         type: 2,
         backgroundColor: 0x87CEEB
       }">
-        <Scene name="Scene" @preload="preload" v-slot="{ created }">
+        <Scene name="Scene" @preload="preload" v-slot="{ preloaded }">
           <Image
-            v-if="created"
+            v-if="preloaded"
             :x="200"
             :y="112"
             :texture="'logo'"
