@@ -39,7 +39,7 @@ const onClick = () => count.value++
 # Documentation
 
 - Phavuer https://phavuer.laineus.com
-- Phaser4 https://docs.phaser.io/api-documentation/api-documentation
+- Phaser4 https://docs.phaser.io
 
 # Examples
 
@@ -49,6 +49,7 @@ const onClick = () => count.value++
   - [Phavuer RPG Example](https://github.com/laineus/phavuer-rpg-example) - An RPG-style usage example.
 - Games
   - ["The Dream Libra had"](https://github.com/laineus/libra) - An RPG about a girl wandering through a near-death dreamworld.
+  - ["Letter to Neml"](https://github.com/laineus/letter-to-neml) - A short ADV where AI reads the player's letter and branches the story.
   - ["Succubus Club"](https://github.com/thomasWajs/succubus-club) - A platform for playing "Vampire: The Eternal Struggle" card game in a web browser. (by [@thomasWajs](https://github.com/thomasWajs))
 
 # Community
