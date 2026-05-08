@@ -54,6 +54,12 @@ function defineGameObject(
       })
       i === -1 ? container.add(object) : container.addAt(object, i)
     }
+    else {
+      const layer = inject(InjectionKeys.Layer)
+      if (layer) {
+        layer.add(object)
+      }
+    }
   }
   // Set interactive events
   const definedProps = getDefinedPropKeys()

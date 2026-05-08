@@ -29,6 +29,8 @@ const game = new Phaser.Game(Object.assign({ parent: tmpParent }, props.config))
 provide(InjectionKeys.Game, game)
 provide(InjectionKeys.Scene, undefined)
 provide(InjectionKeys.Container, undefined)
+provide(InjectionKeys.GameObject, undefined)
+provide(InjectionKeys.Layer, undefined)
 provide(InjectionKeys.RenderTextureRenderList, undefined)
 game.events.addListener('ready', () => {
   show.value = true

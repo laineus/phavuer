@@ -5,7 +5,7 @@ import { getDefinedPropKeys } from './componentBuilder'
 type GameObject = Phaser.GameObjects.GameObject
 export type HasSize = Phaser.GameObjects.Components.Size | Phaser.GameObjects.Components.ComputedSize | Phaser.GameObjects.Rectangle
 export type HasDisplaySize = Phaser.GameObjects.Components.Size | Phaser.GameObjects.Components.ComputedSize | Phaser.GameObjects.Line | Phaser.GameObjects.Triangle | Phaser.GameObjects.Polygon | Phaser.GameObjects.Arc
-export type HasAlpha = Phaser.GameObjects.Rectangle | Phaser.GameObjects.Components.Alpha | Phaser.GameObjects.Line | Phaser.GameObjects.Triangle | Phaser.GameObjects.Polygon | Phaser.GameObjects.NineSlice | Phaser.GameObjects.Arc | Phaser.GameObjects.Container
+export type HasAlpha = Phaser.GameObjects.Rectangle | Phaser.GameObjects.Components.Alpha | Phaser.GameObjects.Line | Phaser.GameObjects.Triangle | Phaser.GameObjects.Polygon | Phaser.GameObjects.NineSlice | Phaser.GameObjects.Arc | Phaser.GameObjects.Container | Phaser.GameObjects.Layer
 
 export const GAME_OBJECT_EVENTS = [
   { attr: 'onPointerdown', emit: 'pointerdown', eventIndex: 3 },
