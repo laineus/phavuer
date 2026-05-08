@@ -20,7 +20,7 @@ The displacement effect is a visual technique that alters the position of pixels
 </Game>
 \`\`\`
 
-See also: [Phaser.FX.Displacement](https://newdocs.phaser.io/docs/${referPhaserVersion}/Phaser.FX.Displacement)
+See also: [Phaser.Filters.Displacement](https://docs.phaser.io/api-documentation/class/filters-displacement)
 `
 
 const meta: Meta<typeof FxDisplacement> = {

@@ -20,7 +20,7 @@ A Gaussian blur is the result of blurring an image by a Gaussian function. It is
 </Game>
 \`\`\`
 
-See also: [Phaser.FX.Blur](https://newdocs.phaser.io/docs/${referPhaserVersion}/Phaser.FX.Blur)
+See also: [Phaser.Filters.Blur](https://docs.phaser.io/api-documentation/class/filters-blur)
 `
 
 const meta: Meta<typeof FxBlur> = {

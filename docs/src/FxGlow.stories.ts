@@ -20,7 +20,7 @@ The glow effect is a visual technique that creates a soft, luminous halo around 
 </Game>
 \`\`\`
 
-See also: [Phaser.FX.Glow](https://newdocs.phaser.io/docs/${referPhaserVersion}/Phaser.FX.Glow)
+See also: [Phaser.Filters.Glow](https://docs.phaser.io/api-documentation/class/filters-glow)
 `
 
 const meta: Meta<typeof FxGlow> = {

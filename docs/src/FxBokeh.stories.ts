@@ -20,7 +20,7 @@ Bokeh refers to a visual effect that mimics the photographic technique of creati
 </Game>
 \`\`\`
 
-See also: [Phaser.FX.Bokeh](https://newdocs.phaser.io/docs/${referPhaserVersion}/Phaser.FX.Bokeh)
+See also: [Phaser.Filters.Bokeh](https://docs.phaser.io/api-documentation/class/filters-bokeh)
 `
 
 const meta: Meta<typeof FxBokeh> = {

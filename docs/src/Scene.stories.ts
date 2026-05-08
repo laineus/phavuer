@@ -24,7 +24,7 @@ You can also define the optional methods init(), preload(), and create().
 </Game>
 \`\`\`
 
-See also: [Phaser.Scene](https://newdocs.phaser.io/docs/${referPhaserVersion}/Phaser.Scene)
+See also: [Phaser.Scene](https://docs.phaser.io/api-documentation/class/scene)
 `
 
 const meta: Meta<typeof Scene> = {

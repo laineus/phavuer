@@ -27,7 +27,7 @@ Be aware that as with all Game Objects the default origin is 0.5. If you need to
 </Game>
 \`\`\`
 
-See also: [Phaser.GameObjects.Line](https://newdocs.phaser.io/docs/${referPhaserVersion}/Phaser.GameObjects.Line)
+See also: [Phaser.GameObjects.Line](https://docs.phaser.io/api-documentation/class/gameobjects-line)
 `
 
 const meta: Meta<typeof Line> = {

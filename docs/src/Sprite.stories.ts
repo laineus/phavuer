@@ -26,7 +26,7 @@ If you do not require animation then you can safely use Images to replace Sprite
 </Game>
 \`\`\`
 
-See also: [Phaser.GameObjects.Sprite](https://newdocs.phaser.io/docs/${referPhaserVersion}/Phaser.GameObjects.Sprite)
+See also: [Phaser.GameObjects.Sprite](https://docs.phaser.io/api-documentation/class/gameobjects-sprite)
 `
 
 const meta: Meta<typeof Sprite> = {

@@ -23,7 +23,7 @@ They can also simply be used to represent a point light for your own purposes.
 </Game>
 \`\`\`
 
-See also: [Phaser.GameObjects.Light](https://newdocs.phaser.io/docs/${referPhaserVersion}/Phaser.GameObjects.Light)
+See also: [Phaser.GameObjects.Light](https://docs.phaser.io/api-documentation/class/gameobjects-light)
 `
 
 const meta: Meta<typeof Light> = {

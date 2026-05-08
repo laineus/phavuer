@@ -20,7 +20,7 @@ The shadow effect is a visual technique used to create the illusion of depth and
 </Game>
 \`\`\`
 
-See also: [Phaser.FX.Shadow](https://newdocs.phaser.io/docs/${referPhaserVersion}/Phaser.FX.Shadow)
+See also: [Phaser.Filters.Shadow](https://docs.phaser.io/api-documentation/class/filters-shadow)
 `
 
 const meta: Meta<typeof FxShadow> = {

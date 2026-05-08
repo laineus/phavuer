@@ -21,7 +21,7 @@ You should generally avoid accessing any of the systems created by Game, and ins
 </Game>
 \`\`\`
 
-See also: [Phaser.Game](https://newdocs.phaser.io/docs/${referPhaserVersion}/Phaser.Game)
+See also: [Phaser.Game](https://docs.phaser.io/api-documentation/class/game)
 `
 
 const meta: Meta<typeof Game> = {
@@ -56,7 +56,7 @@ const meta: Meta<typeof Game> = {
       },
     },
     config: {
-      description: `The configuration object for your Phaser Game instance.<br>See: [Phaser.Types.Core.GameConfig](https://newdocs.phaser.io/docs/${referPhaserVersion}/Phaser.Types.Core.GameConfig)`,
+      description: `The configuration object for your Phaser Game instance.<br>See: [Phaser.Types.Core.GameConfig](https://docs.phaser.io/api-documentation/typedef/types-core)`,
       table: {
         category: 'Props',
         type: { summary: 'Phaser.Types.Core.GameConfig' },

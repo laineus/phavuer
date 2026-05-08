@@ -20,7 +20,7 @@ The main difference between an Image and a Sprite is that you cannot animate an 
 </Game>
 \`\`\`
 
-See also: [Phaser.GameObjects.Image](https://newdocs.phaser.io/docs/${referPhaserVersion}/Phaser.GameObjects.Image)
+See also: [Phaser.GameObjects.Image](https://docs.phaser.io/api-documentation/class/gameobjects-image)
 `
 
 const meta: Meta<typeof Image> = {

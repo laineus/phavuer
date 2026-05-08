@@ -19,7 +19,7 @@ A Tilemap Layer is a Game Object that renders LayerData from a Tilemap when used
 </Game>
 \`\`\`
 
-See also: [Phaser.Tilemaps.TilemapLayer](https://newdocs.phaser.io/docs/${referPhaserVersion}/Phaser.Tilemaps.TilemapLayer)
+See also: [Phaser.Tilemaps.TilemapLayer](https://docs.phaser.io/api-documentation/class/tilemaps-tilemaplayer)
 `
 
 const meta: Meta<typeof TilemapLayer> = {

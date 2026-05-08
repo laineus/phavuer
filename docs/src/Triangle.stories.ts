@@ -25,7 +25,7 @@ If you require that, consider using a Polygon instead.
 </Game>
 \`\`\`
 
-See also: [Phaser.GameObjects.Triangle](https://newdocs.phaser.io/docs/${referPhaserVersion}/Phaser.GameObjects.Triangle)
+See also: [Phaser.GameObjects.Triangle](https://docs.phaser.io/api-documentation/class/gameobjects-triangle)
 `
 
 const meta: Meta<typeof Triangle> = {

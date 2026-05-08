@@ -20,7 +20,7 @@ The vignette effect is a visual technique where the edges of the screen, or a Ga
 </Game>
 \`\`\`
 
-See also: [Phaser.FX.Vignette](https://newdocs.phaser.io/docs/${referPhaserVersion}/Phaser.FX.Vignette)
+See also: [Phaser.Filters.Vignette](https://docs.phaser.io/api-documentation/class/filters-vignette)
 `
 
 const meta: Meta<typeof FxVignette> = {

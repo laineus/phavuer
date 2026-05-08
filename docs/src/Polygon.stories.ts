@@ -20,7 +20,7 @@ This shape supports both fill and stroke colors.
 </Game>
 \`\`\`
 
-See also: [Phaser.GameObjects.Polygon](https://newdocs.phaser.io/docs/${referPhaserVersion}/Phaser.GameObjects.Polygon)
+See also: [Phaser.GameObjects.Polygon](https://docs.phaser.io/api-documentation/class/gameobjects-polygon)
 `
 
 const meta: Meta<typeof Polygon> = {

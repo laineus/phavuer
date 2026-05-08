@@ -27,7 +27,7 @@ If you use \`v-model:x\` or \`v-model:y\`, the values will be updated by the cha
 
 Physics must be enabled in gameConfig.
 
-See also: [Phaser.Physics.Arcade.Body](https://newdocs.phaser.io/docs/${referPhaserVersion}/Phaser.Physics.Arcade.Body)
+See also: [Phaser.Physics.Arcade.Body](https://docs.phaser.io/api-documentation/class/physics-arcade-body)
 `
 
 const meta: Meta<typeof Body> = {

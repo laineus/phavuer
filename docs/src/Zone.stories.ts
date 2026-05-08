@@ -25,7 +25,7 @@ The default origin is 0.5, the center of the Zone, the same as with Game Objects
 </Game>
 \`\`\`
 
-See also: [Phaser.GameObjects.Zone](https://newdocs.phaser.io/docs/${referPhaserVersion}/Phaser.GameObjects.Zone)
+See also: [Phaser.GameObjects.Zone](https://docs.phaser.io/api-documentation/class/gameobjects-zone)
 `
 
 const meta: Meta<typeof Zone> = {

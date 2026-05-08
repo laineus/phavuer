@@ -103,8 +103,8 @@ const timeline = ref([
 </Game>
 \`\`\`
 
-See also: [Phaser.Types.Tweens.TweenDataConfig](https://newdocs.phaser.io/docs/${referPhaserVersion}/Phaser.Types.Tweens.TweenDataConfig)  
-See also: [Phaser.Time.Timeline](https://newdocs.phaser.io/docs/${referPhaserVersion}/Phaser.Time.Timeline)
+See also: [Phaser.Types.Tweens.TweenDataConfig](https://docs.phaser.io/api-documentation/typedef/types-tweens)  
+See also: [Phaser.Time.Timeline](https://docs.phaser.io/api-documentation/class/time-timeline)
 `
 
 const meta: Meta = {

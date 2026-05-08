@@ -20,7 +20,7 @@ A barrel effect allows you to apply either a 'pinch' or 'expand' distortion to a
 </Game>
 \`\`\`
 
-See also: [Phaser.FX.Barrel](https://newdocs.phaser.io/docs/${referPhaserVersion}/Phaser.FX.Barrel)
+See also: [Phaser.Filters.Barrel](https://docs.phaser.io/api-documentation/class/filters-barrel)
 `
 
 const meta: Meta<typeof FxBarrel> = {

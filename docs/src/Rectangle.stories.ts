@@ -22,7 +22,7 @@ You can change the size of the rectangle by changing the width and height proper
 </Game>
 \`\`\`
 
-See also: [Phaser.GameObjects.Rectangle](https://newdocs.phaser.io/docs/${referPhaserVersion}/Phaser.GameObjects.Rectangle)
+See also: [Phaser.GameObjects.Rectangle](https://docs.phaser.io/api-documentation/class/gameobjects-rectangle)
 `
 
 const meta: Meta<typeof Rectangle> = {

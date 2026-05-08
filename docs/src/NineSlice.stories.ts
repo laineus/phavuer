@@ -37,7 +37,7 @@ You can also create a 3 slice Game Object.
 </Game>
 \`\`\`
 
-See also: [Phaser.GameObjects.NineSlice](https://newdocs.phaser.io/docs/${referPhaserVersion}/Phaser.GameObjects.NineSlice)
+See also: [Phaser.GameObjects.NineSlice](https://docs.phaser.io/api-documentation/class/gameobjects-nineslice)
 `
 
 const meta: Meta<typeof NineSlice> = {

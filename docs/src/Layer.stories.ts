@@ -27,7 +27,7 @@ If you need those kind of features then you should use a Container instead.
 </Game>
 \`\`\`
 
-See also: [Phaser.GameObjects.Layer](https://newdocs.phaser.io/docs/${referPhaserVersion}/Phaser.GameObjects.Layer)
+See also: [Phaser.GameObjects.Layer](https://docs.phaser.io/api-documentation/class/gameobjects-layer)
 `
 
 const meta: Meta<typeof Layer> = {

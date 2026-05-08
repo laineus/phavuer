@@ -31,7 +31,7 @@ You can also use custom fonts loaded externally, such as Google or TypeKit Web f
 </Game>
 \`\`\`
 
-See also: [Phaser.GameObjects.Text](https://newdocs.phaser.io/docs/${referPhaserVersion}/Phaser.GameObjects.Text)
+See also: [Phaser.GameObjects.Text](https://docs.phaser.io/api-documentation/class/gameobjects-text)
 `
 
 const meta: Meta<typeof Text> = {

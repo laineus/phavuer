@@ -20,7 +20,7 @@ The pixelate effect is a visual technique that deliberately reduces the resoluti
 </Game>
 \`\`\`
 
-See also: [Phaser.FX.Pixelate](https://newdocs.phaser.io/docs/${referPhaserVersion}/Phaser.FX.Pixelate)
+See also: [Phaser.Filters.Pixelate](https://docs.phaser.io/api-documentation/class/filters-pixelate)
 `
 
 const meta: Meta<typeof FxPixelate> = {

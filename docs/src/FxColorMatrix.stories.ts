@@ -23,7 +23,7 @@ The color matrix effect is a visual technique that involves manipulating the col
 </Game>
 \`\`\`
 
-See also: [Phaser.FX.ColorMatrix](https://newdocs.phaser.io/docs/${referPhaserVersion}/Phaser.FX.ColorMatrix)
+See also: [Phaser.Filters.ColorMatrix](https://docs.phaser.io/api-documentation/class/filters-colormatrix)
 `
 
 const meta: Meta<typeof FxColorMatrix> = {

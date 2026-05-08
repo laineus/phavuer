@@ -20,7 +20,7 @@ This shape supports both fill and stroke colors.
 </Game>
 \`\`\`
 
-See also: [Phaser.Geom.Circle](https://newdocs.phaser.io/docs/${referPhaserVersion}/Phaser.Geom.Circle)
+See also: [Phaser.Geom.Circle](https://docs.phaser.io/api-documentation/class/geom-circle)
 `
 
 const meta: Meta<typeof Circle> = {

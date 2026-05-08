@@ -29,7 +29,7 @@ It is up to you to set the \`progress\` value yourself, i.e. via a Tween, in ord
 </Game>
 \`\`\`
 
-See also: [Phaser.FX.Wipe](https://newdocs.phaser.io/docs/${referPhaserVersion}/Phaser.FX.Wipe)
+See also: [Phaser.Filters.Wipe](https://docs.phaser.io/api-documentation/class/filters-wipe)
 `
 
 const meta: Meta<typeof FxWipe> = {

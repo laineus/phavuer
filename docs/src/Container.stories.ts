@@ -31,7 +31,7 @@ If you modify a transform property of the Container, such as Container.x or Cont
 </Game>
 \`\`\`
 
-See also: [Phaser.GameObjects.Container](https://newdocs.phaser.io/docs/${referPhaserVersion}/Phaser.GameObjects.Container)
+See also: [Phaser.GameObjects.Container](https://docs.phaser.io/api-documentation/class/gameobjects-container)
 `
 
 const meta: Meta<typeof Container> = {

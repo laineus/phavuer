@@ -28,7 +28,7 @@ Physics is enabled by mounting it as a child of GameObject.
 
 Physics must be enabled in gameConfig.
 
-See also: [Phaser.Physics.Arcade.StaticBody](https://newdocs.phaser.io/docs/${referPhaserVersion}/Phaser.Physics.Arcade.StaticBody)
+See also: [Phaser.Physics.Arcade.StaticBody](https://docs.phaser.io/api-documentation/class/physics-arcade-staticbody)
 `
 
 const meta: Meta<typeof StaticBody> = {
