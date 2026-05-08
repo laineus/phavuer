@@ -346,7 +346,7 @@ export const argTypes = {
   create: {
     name: '@create',
     control: 'none',
-    description: '**Parameters:**<br>pointer: `Phaser.GameObjects.GameObject`',
+    description: '**Parameters:**<br>gameObject: `Phaser.GameObjects.GameObject`',
     table: {
       category: 'Emits',
       type: { summary: 'function' },
