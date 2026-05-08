@@ -1,6 +1,6 @@
 {
   "name": "phavuer",
-  "version": "0.20.0",
+  "version": "0.21.0",
   "description": "A wrapper library that integrates Phaser 4 with Vue 3.",
   "author": "Laineus",
   "license": "MIT",
