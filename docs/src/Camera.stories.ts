@@ -78,6 +78,12 @@ const meta: Meta<typeof Camera> = {
         type: { summary: 'Phaser.GameObjects.GameObject' },
       },
     },
+    bounds: {
+      table: {
+        category: 'Props',
+        type: { summary: 'Phaser.Geom.Rectangle' },
+      },
+    },
     create: {
       name: '@create',
       control: false,
@@ -220,6 +226,74 @@ export const FollowPlayer: Story = {
             <Rectangle :x="10" :y="10" :width="200" :height="50" :fillColor="0x000000" :fillAlpha="0.6" :radius="8" />
             <Text :text="'WASD to move player'" :x="20" :y="22" :style="hudStyle" />
             <Text :text="'Camera follows with lerp'" :x="20" :y="42" :style="{ ...hudStyle, fontSize: '12px', color: '#888' }" />
+          </Camera>
+        </Scene>
+      </Game>
+    `,
+    mounted() {
+      window.addEventListener('keydown', this.onKeyDown)
+      window.addEventListener('keyup', this.onKeyUp)
+    },
+    beforeUnmount() {
+      window.removeEventListener('keydown', this.onKeyDown)
+      window.removeEventListener('keyup', this.onKeyUp)
+    },
+  }),
+}
+
+export const BoundedCamera: Story = {
+  render: () => ({
+    components: { Game, Scene, Camera, Rectangle, Circle, Text },
+    setup() {
+      const playerRef = ref<any>(null)
+      const playerX = ref(400)
+      const playerY = ref(300)
+      const moveSpeed = 200
+
+      const worldBounds = { x: 0, y: 0, width: 1600, height: 1200 }
+
+      const update = (_scene: Phaser.Scene, _time: number, delta: number) => {
+        const dt = delta / 1000
+        if (keys.value['ArrowLeft'] || keys.value['a']) playerX.value -= moveSpeed * dt
+        if (keys.value['ArrowRight'] || keys.value['d']) playerX.value += moveSpeed * dt
+        if (keys.value['ArrowUp'] || keys.value['w']) playerY.value -= moveSpeed * dt
+        if (keys.value['ArrowDown'] || keys.value['s']) playerY.value += moveSpeed * dt
+      }
+
+      const keys = ref<Record<string, boolean>>({})
+      const onKeyDown = (e: KeyboardEvent) => { keys.value[e.key] = true }
+      const onKeyUp = (e: KeyboardEvent) => { keys.value[e.key] = false }
+
+      const onPlayerCreate = (obj: any) => { playerRef.value = obj }
+
+      return { playerRef, playerX, playerY, worldBounds, update, onKeyDown, onKeyUp, onPlayerCreate, textStyle, hudStyle }
+    },
+    template: `
+      <Game :config="{ width: 800, height: 500 }">
+        <Scene name="Main" @update="update">
+          <Camera :main="true" :follow="playerRef" :followLerp="0.1" :bounds="worldBounds">
+            <!-- World bounds outline -->
+            <Rectangle :x="worldBounds.width / 2" :y="worldBounds.height / 2" :width="worldBounds.width" :height="worldBounds.height" :fillColor="0x1a1a2e" />
+            <Rectangle :x="worldBounds.width / 2" :y="0" :width="4" :height="worldBounds.height" :fillColor="0xFF6B6B" />
+            <Rectangle :x="worldBounds.width / 2" :y="worldBounds.height" :width="4" :height="worldBounds.height" :fillColor="0xFF6B6B" />
+            <Rectangle :x="0" :y="worldBounds.height / 2" :width="worldBounds.width" :height="4" :fillColor="0xFF6B6B" />
+            <Rectangle :x="worldBounds.width" :y="worldBounds.height / 2" :width="worldBounds.width" :height="4" :fillColor="0xFF6B6B" />
+
+            <!-- World content inside bounds -->
+            <Rectangle v-for="i in 12" :key="'t'+i" :x="i * 140" :y="100 + Math.sin(i) * 80" :width="40" :height="40" :fillColor="0x2D5F2D" />
+            <Rectangle v-for="i in 8" :key="'b'+i" :x="i * 200 + 100" :y="800 + Math.cos(i) * 60" :width="60" :height="60" :fillColor="0x4A7C59" />
+            <Circle v-for="i in 8" :key="'c'+i" :x="i * 200 + 50" :y="500 + Math.sin(i * 2) * 100" :radius="25" :fillColor="0x8FBC8F" />
+
+            <!-- Player -->
+            <Rectangle :x="playerX" :y="playerY" :width="32" :height="32" :fillColor="0xFFFFFF" @create="onPlayerCreate" />
+          </Camera>
+
+          <!-- HUD -->
+          <Camera>
+            <Rectangle :x="10" :y="10" :width="280" :height="70" :fillColor="0x000000" :fillAlpha="0.6" :radius="8" />
+            <Text :text="'Bounded Camera Demo'" :x="20" :y="18" :style="{ ...hudStyle, fontSize: '16px', fontStyle: 'bold' }" />
+            <Text :text="'WASD to move player'" :x="20" :y="40" :style="hudStyle" />
+            <Text :text="'Camera stops at red bounds (1600x1200)'" :x="20" :y="60" :style="{ ...hudStyle, fontSize: '12px', color: '#888' }" />
           </Camera>
         </Scene>
       </Game>
