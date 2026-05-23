@@ -159,14 +159,14 @@ export const WorldAndHUD: Story = {
             <Text :text="'WASD/Arrows to scroll'" :x="20" :y="108" :style="{ ...hudStyle, fontSize: '12px', color: '#888' }" />
 
             <!-- HUD buttons -->
-            <Rectangle :x="680" :y="10" :width="50" :height="30" :fillColor="0x42B883" :radius="4" @pointerdown="zoomIn" />
-            <Text text="+" :x="705" :y="25" :style="{ ...textStyle, fontSize: '20px' }" :origin="0.5" />
+            <Rectangle :x="750" :y="16" :width="32" :height="32" :fillColor="0x42B883" :origin="0" @pointerdown="zoomIn" />
+            <Text text="+" :x="760" :y="22" :style="{ ...textStyle, fontSize: '20px' }" :origin="0" />
 
-            <Rectangle :x="740" :y="10" :width="50" :height="30" :fillColor="0xFF6B6B" :radius="4" @pointerdown="zoomOut" />
-            <Text text="-" :x="765" :y="25" :style="{ ...textStyle, fontSize: '20px' }" :origin="0.5" />
+            <Rectangle :x="750" :y="80" :width="32" :height="32" :fillColor="0x42B883" :origin="0" @pointerdown="zoomOut" />
+            <Text text="-" :x="760" :y="84" :style="{ ...textStyle, fontSize: '20px' }" :origin="0" />
 
-            <Rectangle :x="680" :y="50" :width="110" :height="30" :fillColor="0x333" :radius="4" @pointerdown="resetCamera" />
-            <Text text="Reset" :x="735" :y="65" :style="textStyle" :origin="0.5" />
+            <Rectangle :x="750 + 32" :y="64" :width="88" :height="32" :fillColor="0xFF6B6B" :origin-x="1" :radius="0" @pointerdown="resetCamera" />
+            <Text text="Reset" :x="716" :y="64 - 8" :style="textStyle" :origin="0.0" />
           </Camera>
         </Scene>
       </Game>
