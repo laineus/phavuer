@@ -38,8 +38,10 @@ const camera = props.main
   ? scene.cameras.main
   : scene.cameras.add(0, 0, scene.scale.width, scene.scale.height)
 
-camera.scrollX = props.x
-camera.scrollY = props.y
+if (!props.follow) {
+  camera.scrollX = props.x
+  camera.scrollY = props.y
+}
 camera.zoom = props.zoom
 camera.setRotation(props.rotation)
 
@@ -62,8 +64,10 @@ allCameraContexts.push(context)
 
 const preUpdateEvents = inject(InjectionKeys.PreUpdateEvents)!
 const updateHandler: UpdateEventHandler = () => {
-  camera.scrollX = props.x
-  camera.scrollY = props.y
+  if (!props.follow) {
+    camera.scrollX = props.x
+    camera.scrollY = props.y
+  }
   camera.zoom = props.zoom
   camera.setRotation(props.rotation)
 
