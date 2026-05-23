@@ -23,7 +23,6 @@ const props = defineProps({
   follow: { type: Object as () => Phaser.GameObjects.GameObject | null },
   followLerp: { type: Number, default: 1 },
   bounds: { type: Object as () => Phaser.Geom.Rectangle | null },
-  clearBeforeRender: { type: Boolean, default: true },
 })
 const emit = defineEmits<{
   create: [camera: Phaser.Cameras.Scene2D.Camera]
@@ -39,11 +38,10 @@ const camera = props.main
   ? scene.cameras.main
   : scene.cameras.add(0, 0, scene.scale.width, scene.scale.height)
 
-camera.clearBeforeRender = props.clearBeforeRender
 camera.scrollX = props.x
 camera.scrollY = props.y
 camera.zoom = props.zoom
-camera.rotation = props.rotation
+camera.setRotation(props.rotation)
 
 if (props.bounds) {
   camera.setBounds(props.bounds.x, props.bounds.y, props.bounds.width, props.bounds.height)
@@ -67,7 +65,7 @@ const updateHandler: UpdateEventHandler = () => {
   camera.scrollX = props.x
   camera.scrollY = props.y
   camera.zoom = props.zoom
-  camera.rotation = props.rotation
+  camera.setRotation(props.rotation)
 
   const otherObjects = new Set<Phaser.GameObjects.GameObject>()
   for (const ctx of allCameraContexts) {

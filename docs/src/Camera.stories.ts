@@ -15,7 +15,7 @@ The Camera component automatically isolates objects between cameras using \`came
   <!-- World objects (affected by zoom/scroll) -->
   <Rectangle :x="500" :y="300" :width="100" :height="100" />
 </Camera>
-<Camera :clearBeforeRender="false">
+<Camera>
   <!-- HUD objects (always 1:1, unaffected by world camera) -->
   <Text text="Score: 100" :x="10" :y="10" />
 </Camera>
@@ -76,12 +76,6 @@ const meta: Meta<typeof Camera> = {
       table: {
         category: 'Props',
         type: { summary: 'Phaser.GameObjects.GameObject' },
-      },
-    },
-    clearBeforeRender: {
-      table: {
-        category: 'Props',
-        type: { summary: 'boolean' },
       },
     },
     create: {
@@ -149,7 +143,7 @@ export const WorldAndHUD: Story = {
           </Camera>
 
           <!-- HUD camera: fixed, no zoom, renders on top -->
-          <Camera :clearBeforeRender="false">
+          <Camera>
             <!-- HUD background -->
             <Rectangle :x="10" :y="10" :width="220" :height="120" :fillColor="0x000000" :fillAlpha="0.6" :radius="8" />
             <Text :text="'Camera HUD'" :x="20" :y="18" :style="{ ...hudStyle, fontSize: '18px', fontStyle: 'bold' }" />
@@ -222,7 +216,7 @@ export const FollowPlayer: Story = {
           </Camera>
 
           <!-- HUD -->
-          <Camera :clearBeforeRender="false">
+          <Camera>
             <Rectangle :x="10" :y="10" :width="200" :height="50" :fillColor="0x000000" :fillAlpha="0.6" :radius="8" />
             <Text :text="'WASD to move player'" :x="20" :y="22" :style="hudStyle" />
             <Text :text="'Camera follows with lerp'" :x="20" :y="42" :style="{ ...hudStyle, fontSize: '12px', color: '#888' }" />
