@@ -1,4 +1,5 @@
 import type { InjectionKey } from 'vue'
+import type { CameraContext } from '../components/Camera.vue'
 import type { UpdateEventHandler } from '../components/Scene.vue'
 
 export const InjectionKeys = {
@@ -10,4 +11,7 @@ export const InjectionKeys = {
   RenderTextureRenderList: Symbol('phavuer_renderTextureRenderList') as InjectionKey<Phaser.GameObjects.GameObject[] | undefined>,
   PreUpdateEvents: Symbol('phavuer_preUpdateEvents') as InjectionKey<UpdateEventHandler[]>,
   PostUpdateEvents: Symbol('phavuer_postUpdateEvents') as InjectionKey<UpdateEventHandler[]>,
+  Camera: Symbol('phavuer_camera') as InjectionKey<Phaser.Cameras.Scene2D.Camera | undefined>,
+  CameraContext: Symbol('phavuer_cameraContext') as InjectionKey<CameraContext | undefined>,
+  CameraContexts: Symbol('phavuer_cameraContexts') as InjectionKey<CameraContext[]>,
 }

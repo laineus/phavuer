@@ -1,4 +1,5 @@
 <script lang="ts">
+import type { CameraContext } from './Camera.vue'
 import * as Phaser from 'phaser'
 import { inject, provide, ref } from 'vue'
 import { InjectionKeys } from '../lib/provider'
@@ -25,6 +26,7 @@ const show = ref(false)
 const preloaded = ref(false)
 const preUpdateEvents: UpdateEventHandler[] = []
 const postUpdateEvents: UpdateEventHandler[] = []
+const cameraContexts: CameraContext[] = []
 const Scene = class extends Phaser.Scene {
   init(data: object) {
     emit('init', this, data)
@@ -55,6 +57,7 @@ scene.events.on('shutdown', () => {
 provide(InjectionKeys.Scene, scene)
 provide(InjectionKeys.PreUpdateEvents, preUpdateEvents)
 provide(InjectionKeys.PostUpdateEvents, postUpdateEvents)
+provide(InjectionKeys.CameraContexts, cameraContexts)
 defineExpose({ phaserInstance: scene })
 </script>
 

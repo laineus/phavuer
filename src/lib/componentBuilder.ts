@@ -36,6 +36,13 @@ function defineGameObject(
   const emit = currentInstance.emit.bind(currentInstance)
   // Add to scene
   const scene = inject(InjectionKeys.Scene)!
+  const cameraContext = inject(InjectionKeys.CameraContext)
+  if (cameraContext) {
+    cameraContext.registerObject(object)
+    onBeforeUnmount(() => {
+      cameraContext.unregisterObject(object)
+    })
+  }
   const renderList = inject(InjectionKeys.RenderTextureRenderList)
   if (renderList) {
     renderList.push(object)
