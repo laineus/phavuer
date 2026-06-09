@@ -505,6 +505,84 @@ export const argTypes = {
       type: { summary: 'function' },
     },
   },
+  bands: {
+    control: 'none',
+    description: 'The color bands for the gradient\'s `ColorRamp`. Defined at creation time. **Cannot be changed reactively** — use `:key` to remount when this changes.',
+    table: {
+      category: 'Props',
+      type: { summary: 'Phaser.Types.Display.ColorBandConfig | Phaser.Display.ColorBand | (Phaser.Types.Display.ColorBandConfig | Phaser.Display.ColorBand)[]' },
+    },
+  },
+  length: {
+    control: 'none',
+    description: 'The length of the gradient. Used if `shape` is not defined. **Cannot be changed reactively.**',
+    table: {
+      category: 'Props',
+      type: { summary: 'number' },
+    },
+  },
+  direction: {
+    control: 'none',
+    description: 'The direction of the gradient in radians. Used if `shape` is not defined. **Cannot be changed reactively.**',
+    table: {
+      category: 'Props',
+      type: { summary: 'number' },
+    },
+  },
+  offset: {
+    control: { step: 0.05, max: 1, min: -1 },
+    description: 'Move the start of the gradient. Animate from -1 to 1 to create effects.',
+    table: {
+      category: 'Props',
+      type: { summary: 'number' },
+      defaultValue: { summary: 0 },
+    },
+  },
+  repeatMode: {
+    control: { type: 'select' },
+    options: [0, 1, 2, 3],
+    description: 'The repeat mode of the gradient.<br>0: EXTEND, 1: TRUNCATE, 2: SAWTOOTH, 3: TRIANGULAR',
+    table: {
+      category: 'Props',
+      type: { summary: 'number' },
+      defaultValue: { summary: 0 },
+    },
+  },
+  shapeMode: {
+    control: { type: 'select' },
+    options: [0, 1, 2, 3, 4],
+    description: 'The shape mode of the gradient.<br>0: LINEAR, 1: BILINEAR, 2: RADIAL, 3: CONIC_SYMMETRIC, 4: CONIC_ASYMMETRIC',
+    table: {
+      category: 'Props',
+      type: { summary: 'number' },
+      defaultValue: { summary: 0 },
+    },
+  },
+  dither: {
+    control: 'boolean',
+    description: 'Whether to dither the gradient to eliminate banding.',
+    table: {
+      category: 'Props',
+      type: { summary: 'boolean' },
+      defaultValue: { summary: false },
+    },
+  },
+  start: {
+    control: 'none',
+    description: 'The start location of the gradient within its quad (Vector2Like). The gradient emanates from this point.',
+    table: {
+      category: 'Props',
+      type: { summary: 'Phaser.Types.Math.Vector2Like' },
+    },
+  },
+  shape: {
+    control: 'none',
+    description: 'The shape vector of the gradient within its quad (Vector2Like). Points from the start in the direction the gradient flows.',
+    table: {
+      category: 'Props',
+      type: { summary: 'Phaser.Types.Math.Vector2Like' },
+    },
+  },
   animationstop: {
     name: '@animationstop',
     control: 'none',

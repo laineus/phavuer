@@ -63,7 +63,7 @@ function defineVModelProperty<T>(target: any, key: string, property?: string) {
   return (v: T) => rawValue = v
 }
 
-export const deepProps = ['tween', 'tweens', 'timeline', 'style']
+export const deepProps = ['tween', 'tweens', 'timeline', 'style', 'start', 'shape']
 export { defineVModelProperty }
 export default {
   active: (object: GameObject) => (v: boolean) => object.setActive(v),
